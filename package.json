@@ -1,0 +1,23 @@
+{
+  "name": "com.sosxr.seashark",
+  "version": "1.0.0",
+  "displayName": "SOSXR SeaShark",
+  "description": "Our C# extensions library",
+  "documentationUrl": "https://youtu.be/xvFZjo5PgG0?si=F3cJFXtwofUAeAq2",
+  "unity": "6000",
+  "dependencies": {
+  },
+  "samples": [
+    {
+      "displayName": "Samples",
+      "description": "Contains samples of this package",
+      "path": "Samples~/Samples"
+    }
+  ],
+  "author": {
+    "name": "SOSXR",
+    "email": "sosxr@fsw.leidenuniv.nl",
+    "url": "https://youtu.be/xvFZjo5PgG0?si=F3cJFXtwofUAeAq2"
+  },
+  "changelogUrl": "https://github.com/solo-fsw/sosxr-unity-seashark/blob/main/CHANGELOG.md"
+}
