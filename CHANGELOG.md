@@ -12,6 +12,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - [Additional Unity Events v2.0.1](https://github.com/solo-fsw/sosxr-unity-additionalunityevents)
 - [Extension Methods v2.0.1](https://github.com/solo-fsw/sosxr-unity-extensionmethods)
 - [SimpleHelpers v2.0.1](https://github.com/solo-fsw/sosxr-unity-simplehelpers)
+- [Device Dependent Helper v2.0.0](https://github.com/solo-fsw/sosxr-unity-devicedependenthelpers)
 
 
 ### Fixed
