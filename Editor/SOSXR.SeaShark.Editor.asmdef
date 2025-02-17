@@ -1,0 +1,18 @@
+{
+    "name": "SOSXR.SeaShark.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3d2c2e10f47a24e279eb7163f3b379e7"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

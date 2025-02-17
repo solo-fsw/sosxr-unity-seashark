@@ -1,8 +1,6 @@
 using System;
 using UnityEngine;
-#if SOSXR_EDITORTOOLS_INSTALLED
-using SOSXR.EditorTools;
-#endif
+
 
 
 namespace SOSXR.SimpleHelpers
@@ -18,9 +16,7 @@ namespace SOSXR.SimpleHelpers
     {
         [SerializeField] private bool m_autoRemoveOnAwake = true;
         [Tooltip("Drag a component of the type you want to control.")]
-        #if SOSXR_EDITORTOOLS_INSTALLED
-        [Required]
-        #endif
+      
         [SerializeField] private MonoBehaviour m_allowedComponent;
 
         [SerializeField] private RemovalAction m_removalAction = RemovalAction.Disable;

@@ -1,17 +1,12 @@
 using System.Linq;
 using UnityEngine;
-#if SOSXR_EDITORTOOLS_INSTALLED
-using SOSXR.EditorTools;
-#endif
 
 
 namespace SOSXR.SimpleHelpers
 {
     public class FindGameObjectsWithTag : MonoBehaviour
     {
-        #if SOSXR_EDITORTOOLS_INSTALLED
-        [TagSelector]
-        #endif
+ 
         [SerializeField] private string m_tagToSearchFor = "MainCamera";
 
         [SerializeField] private bool m_searchEveryFrameIfNull = true;

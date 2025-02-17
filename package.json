@@ -6,6 +6,7 @@
   "documentationUrl": "https://youtu.be/xvFZjo5PgG0?si=F3cJFXtwofUAeAq2",
   "unity": "6000",
   "dependencies": {
+    "com.unity.inputsystem": "1.12.0"
   },
   "samples": [
     {

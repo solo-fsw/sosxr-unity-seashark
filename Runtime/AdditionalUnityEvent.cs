@@ -4,9 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-#if SOSXR_EDITORTOOLS_INSTALLED
-using SOSXR.EditorTools;
-#endif
+
 
 
 namespace SOSXR.SimpleHelpers
@@ -17,9 +15,7 @@ namespace SOSXR.SimpleHelpers
         [SerializeField] private UnityEventTrigger m_triggerEventOn = UnityEventTrigger.Awake;
         [SerializeField] [Range(0f, 60f)] private float m_secondsToWaitAfterCalling = 0f;
         [Tooltip("Tags to check against when using Trigger or Collision events. Leave empty to fire on any tag.")]
-        #if SOSXR_EDITORTOOLS_INSTALLED
-        [TagSelector]
-        #endif
+      
         [SerializeField] private string[] m_tagsToCheckAgainst = { };
 
         [SerializeField] private InputActionProperty m_inputAction;
@@ -28,9 +24,6 @@ namespace SOSXR.SimpleHelpers
         [SerializeField] [Range(0f, 60f)] private float m_initialFireInterval = 1.3f;
         [SerializeField] [Range(0f, 60f)] private float m_perIntervalChange = 0.02f;
 
-        #if SOSXR_EDITORTOOLS_INSTALLED
-        [BoxRange(0f, 60f)]
-        #endif
         [SerializeField] private Vector2 m_minMax = new(0.5f, 2f);
 
         [Header("Not for editing")]
