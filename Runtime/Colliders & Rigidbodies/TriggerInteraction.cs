@@ -1,46 +1,49 @@
 using UnityEngine;
 
 
-public class TriggerInteraction : ColliderInteractionBase
+namespace SOSXR.SeaShark.Colliders___Rigidbodies
 {
-    protected override bool ValidateColliders()
+    public class TriggerInteraction : ColliderInteractionBase
     {
-        if (!FindOtherCollider())
+        protected override bool ValidateColliders()
         {
-            return false;
-        }
+            if (!FindOtherCollider())
+            {
+                return false;
+            }
 
-        if (m_thisCollider.isTrigger)
-        {
-            return true;
-        }
-
-        foreach (var targetCollider in m_targetColliders)
-        {
-            if (targetCollider.isTrigger)
+            if (m_thisCollider.isTrigger)
             {
                 return true;
             }
+
+            foreach (var targetCollider in m_targetColliders)
+            {
+                if (targetCollider.isTrigger)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
-        return false;
-    }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            Enter(other);
+        }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Enter(other);
-    }
+        private void OnTriggerStay(Collider other)
+        {
+            Stay(other);
+        }
 
 
-    private void OnTriggerStay(Collider other)
-    {
-        Stay(other);
-    }
-
-
-    private void OnTriggerExit(Collider other)
-    {
-        Exit(other);
+        private void OnTriggerExit(Collider other)
+        {
+            Exit(other);
+        }
     }
 }

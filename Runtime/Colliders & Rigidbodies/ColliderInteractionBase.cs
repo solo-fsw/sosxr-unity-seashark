@@ -3,97 +3,100 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-[RequireComponent(typeof(Collider))]
-public abstract class ColliderInteractionBase : MonoBehaviour, ITargetsReceiver
+namespace SOSXR.SeaShark.Colliders___Rigidbodies
 {
-    public UnityEvent<Collider> OnEnter;
-    public UnityEvent<Collider> OnStay;
-    public UnityEvent<Collider> OnExit;
-
-    [SerializeField] protected Collider m_thisCollider;
-
-    [SerializeField] protected Collider[] m_targetColliders;
-
-    private bool _initialized;
-
-
-    public GameObject[] Targets { get; set; }
-
-
-    protected virtual void OnValidate()
+    [RequireComponent(typeof(Collider))]
+    public abstract class ColliderInteractionBase : MonoBehaviour, ITargetsReceiver
     {
-        Initialize();
-    }
+        public UnityEvent<Collider> OnEnter;
+        public UnityEvent<Collider> OnStay;
+        public UnityEvent<Collider> OnExit;
+
+        [SerializeField] protected Collider m_thisCollider;
+
+        [SerializeField] protected Collider[] m_targetColliders;
+
+        private bool _initialized;
 
 
-    private void Awake()
-    {
-        Initialize();
-    }
+        public GameObject[] Targets { get; set; }
 
 
-    private void Initialize()
-    {
-        if (_initialized)
+        protected virtual void OnValidate()
         {
-            return;
+            Initialize();
         }
 
-        m_thisCollider ??= GetComponent<Collider>();
 
-        if (ValidateColliders())
+        private void Awake()
         {
-            _initialized = true;
-        }
-    }
-
-
-    protected abstract bool ValidateColliders();
-
-
-    protected bool FindOtherCollider()
-    {
-        if (m_targetColliders == null && Targets != null)
-        {
-            m_targetColliders = Targets
-                                .Where(go => go != null)
-                                .SelectMany(go => go.GetComponents<Collider>())
-                                .ToArray();
+            Initialize();
         }
 
-        return m_thisCollider != null && m_targetColliders?.Length > 0;
-    }
 
-
-    protected void Enter(Collider other)
-    {
-        if (!m_targetColliders.Contains(other))
+        private void Initialize()
         {
-            return;
+            if (_initialized)
+            {
+                return;
+            }
+
+            m_thisCollider ??= GetComponent<Collider>();
+
+            if (ValidateColliders())
+            {
+                _initialized = true;
+            }
         }
 
-        OnEnter?.Invoke(other);
-    }
+
+        protected abstract bool ValidateColliders();
 
 
-    protected void Stay(Collider other)
-    {
-        if (!m_targetColliders.Contains(other))
+        protected bool FindOtherCollider()
         {
-            return;
+            if (m_targetColliders == null && Targets != null)
+            {
+                m_targetColliders = Targets
+                                    .Where(go => go != null)
+                                    .SelectMany(go => go.GetComponents<Collider>())
+                                    .ToArray();
+            }
+
+            return m_thisCollider != null && m_targetColliders?.Length > 0;
         }
 
-        OnStay?.Invoke(other);
-    }
 
-
-    protected void Exit(Collider other)
-    {
-        if (!m_targetColliders.Contains(other))
+        protected void Enter(Collider other)
         {
-            return;
+            if (!m_targetColliders.Contains(other))
+            {
+                return;
+            }
+
+            OnEnter?.Invoke(other);
         }
 
-        OnExit?.Invoke(other);
+
+        protected void Stay(Collider other)
+        {
+            if (!m_targetColliders.Contains(other))
+            {
+                return;
+            }
+
+            OnStay?.Invoke(other);
+        }
+
+
+        protected void Exit(Collider other)
+        {
+            if (!m_targetColliders.Contains(other))
+            {
+                return;
+            }
+
+            OnExit?.Invoke(other);
+        }
     }
 }

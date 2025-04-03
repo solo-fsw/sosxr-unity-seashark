@@ -1,18 +1,29 @@
 {
   "name": "com.sosxr.seashark",
-  "version": "1.0.0",
+  "version": "0.2.2",
   "displayName": "SOSXR SeaShark",
   "description": "Our C# extensions library",
   "documentationUrl": "https://youtu.be/xvFZjo5PgG0?si=F3cJFXtwofUAeAq2",
-  "unity": "6000",
+  "unity": "2022.3",
   "dependencies": {
-    "com.unity.inputsystem": "1.12.0"
+    "com.unity.inputsystem": "1.12.0",
+    "com.unity.textmeshpro": "3.0.1"
   },
   "samples": [
     {
       "displayName": "Samples",
       "description": "Contains samples of this package",
       "path": "Samples~/Samples"
+    },
+    {
+      "displayName": "Object Cue",
+      "description": "Contains Object Cue",
+      "path": "Samples~/ObjectCue"
+    },
+    {
+      "displayName": "ConfigData",
+      "description": "Contains config data samples of this package",
+      "path": "Samples~/ConfigData"
     }
   ],
   "author": {

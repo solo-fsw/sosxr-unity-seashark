@@ -1,36 +1,39 @@
 using UnityEngine;
 
 
-[RequireComponent(typeof(FindCollidersInScene))]
-public class DeleteColliders : MonoBehaviour
+namespace SOSXR.SeaShark.Colliders___Rigidbodies
 {
-    [SerializeField] [HideInInspector] private FindCollidersInScene _findColliders;
-
-
-    private void OnValidate()
+    [RequireComponent(typeof(FindCollidersInScene))]
+    public class DeleteColliders : MonoBehaviour
     {
-        if (_findColliders == null)
-        {
-            _findColliders = GetComponent<FindCollidersInScene>();
-        }
-    }
+        [SerializeField] [HideInInspector] private FindCollidersInScene _findColliders;
 
 
-    [ContextMenu(nameof(DeleteAllColliders))]
-    private void DeleteAllColliders()
-    {
-        foreach (var coll in _findColliders.FilteredColliders)
+        private void OnValidate()
         {
-            if (Application.isPlaying)
+            if (_findColliders == null)
             {
-                Destroy(coll);
-            }
-            else
-            {
-                DestroyImmediate(coll);
+                _findColliders = GetComponent<FindCollidersInScene>();
             }
         }
 
-        _findColliders.FilteredColliders = null;
+
+        [ContextMenu(nameof(DeleteAllColliders))]
+        private void DeleteAllColliders()
+        {
+            foreach (var coll in _findColliders.FilteredColliders)
+            {
+                if (Application.isPlaying)
+                {
+                    Destroy(coll);
+                }
+                else
+                {
+                    DestroyImmediate(coll);
+                }
+            }
+
+            _findColliders.FilteredColliders = null;
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 
 
-namespace SOSXR.DeviceDependent
+namespace SOSXR.SeaShark.DeviceDependentHelpers
 {
     public class QualityLevel : MonoBehaviour
     {

@@ -2,20 +2,23 @@ using System;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "SOSXR/CurrentDevice", fileName = "CurrentDevice")]
-public class CurrentDevice : ScriptableObject
+namespace SOSXR.SeaShark.DeviceDependentHelpers
 {
-    public Device Current;
+    [CreateAssetMenu(menuName = "SOSXR/CurrentDevice", fileName = "CurrentDevice")]
+    public class CurrentDevice : ScriptableObject
+    {
+        public Device Current;
 
-    public string DeviceName { get; set; }
-}
+        public string DeviceName { get; set; }
+    }
 
 
-[Serializable]
-public enum Device
-{
-    None,
-    HMD,
-    Tablet,
-    Editor
+    [Serializable]
+    public enum Device
+    {
+        None,
+        HMD,
+        Tablet,
+        Editor
+    }
 }

@@ -1,44 +1,47 @@
 using UnityEngine;
 
 
-/// <summary>
-///     Limits the speed of a Rigidbody by clamping its velocity.
-/// </summary>
-public class RigidbodySpeedLimiter : MonoBehaviour
+namespace SOSXR.SeaShark.Colliders___Rigidbodies
 {
-    [SerializeField] private Rigidbody m_rigidbody;
-    [SerializeField] private bool m_limitSpeed = true;
-    [SerializeField] private float m_maxSpeed = 1f;
-
-    private float _timer;
-
-
-    private void OnValidate()
+    /// <summary>
+    ///     Limits the speed of a Rigidbody by clamping its velocity.
+    /// </summary>
+    public class RigidbodySpeedLimiter : MonoBehaviour
     {
-        if (m_rigidbody == null)
+        [SerializeField] private Rigidbody m_rigidbody;
+        [SerializeField] private bool m_limitSpeed = true;
+        [SerializeField] private float m_maxSpeed = 1f;
+
+        private float _timer;
+
+
+        private void OnValidate()
         {
-            m_rigidbody = GetComponent<Rigidbody>();
-        }
-    }
-
-
-    private void FixedUpdate()
-    {
-        if (m_rigidbody == null || !m_limitSpeed)
-        {
-            return;
-        }
-
-        var velocity = m_rigidbody.linearVelocity;
-
-        if (velocity.magnitude > m_maxSpeed)
-        {
-            _timer = Mathf.Min(_timer + Time.fixedDeltaTime, 1f); // Clamping timer to prevent infinite growth
-            m_rigidbody.linearVelocity = Vector3.Lerp(velocity, Vector3.zero, _timer);
-
-            return;
+            if (m_rigidbody == null)
+            {
+                m_rigidbody = GetComponent<Rigidbody>();
+            }
         }
 
-        _timer = 0f;
+
+        private void FixedUpdate()
+        {
+            if (m_rigidbody == null || !m_limitSpeed)
+            {
+                return;
+            }
+
+            var velocity = m_rigidbody.linearVelocity;
+
+            if (velocity.magnitude > m_maxSpeed)
+            {
+                _timer = Mathf.Min(_timer + Time.fixedDeltaTime, 1f); // Clamping timer to prevent infinite growth
+                m_rigidbody.linearVelocity = Vector3.Lerp(velocity, Vector3.zero, _timer);
+
+                return;
+            }
+
+            _timer = 0f;
+        }
     }
 }

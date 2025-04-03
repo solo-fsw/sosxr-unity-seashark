@@ -1,12 +1,15 @@
 using System;
 
 
-[Serializable]
-public enum TypeOfCollider
+namespace SOSXR.SeaShark.Colliders___Rigidbodies
 {
-    MeshCollider,
-    BoxCollider,
-    SphereCollider,
-    CapsuleCollider,
-    Collider
+    [Serializable]
+    public enum TypeOfCollider
+    {
+        MeshCollider,
+        BoxCollider,
+        SphereCollider,
+        CapsuleCollider,
+        Collider
+    }
 }

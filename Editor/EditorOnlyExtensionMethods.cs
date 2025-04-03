@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 
-namespace SOSXR.Extensions
+namespace SOSXR.SeaShark.Attributes.Editor
 {
     public static class EditorOnlyExtensionMethods
     {

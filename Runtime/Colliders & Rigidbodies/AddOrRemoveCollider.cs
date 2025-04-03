@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 
-namespace SOSXR.SimpleHelpers
+namespace SOSXR.SeaShark.Colliders___Rigidbodies
 {
     public class AddOrRemoveCollider : MonoBehaviour
     {

@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SimpleHelpers.Editor
+namespace SOSXR.SeaShark.Attributes.Editor
 {
     [CustomEditor(typeof(Move))]
     public class MoveEditor : UnityEditor.Editor
