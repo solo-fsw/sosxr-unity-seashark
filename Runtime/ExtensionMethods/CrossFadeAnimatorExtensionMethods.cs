@@ -165,7 +165,7 @@ namespace SOSXR.SeaShark
         {
             var stateNames = new List<string>();
             stateNames.Add("");
-            
+
             #if UNITY_EDITOR
 
             if (animator == null)

@@ -2,10 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 The changelog format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-## [0.2.2]- In progress
+
+## [0.3.0]- In progress
+
+### Added
+
+- [Whiteboard](https://github.com/solo-fsw/sosxr-unity-whiteboard)
+- [Keyboard](https://github.com/solo-fsw/sosxr-unity-keyboard)
+- [Unity Interface Support](https://github.com/TheDudeFromCI/Unity-Interface-Support/)
+- [Maple Mono font](https://github.com/subframe7536/maple-font)
+- Input Actions (in Samples/Input/)
+
 ### Fixed
+
 - Unity minimum supported version
 - Fixed windows finding home folder
+
+### Changes
+
+- Moving files around
+- Icons
+- Readme
 
 
 ## [0.2.1] 02-04-2025
@@ -23,8 +40,9 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - Video Player
 - [Config Data 2.3.2](https://github.com/solo-fsw/sosxr-unity-configdata)
 - HorizontalLine attribute
-- Button for Methods 
-- 
+- Button for Methods
+-
+
 ### Fixed
 
 - Adjusted namespaces
