@@ -187,21 +187,21 @@ namespace SOSXR.SeaShark
             #endif
 
             #if !UNITY_EDITOR
-            if (buildTriggerType == BuildTriggerType.OnlyInBuilds && !Application.isPlaying)
+            if (m_buildTriggerType == BuildTriggerType.OnlyInBuilds && !Application.isPlaying)
             {
                 return true;
             }
             #endif
 
             #if !UNITY_EDITOR && DEVELOPMENT_BUILD
-            if (buildTriggerType == BuildTriggerType.OnlyInDevelopmentBuilds )
+            if (m_buildTriggerType == BuildTriggerType.OnlyInDevelopmentBuilds )
             {
                 return true;
             }
             #endif
 
             #if !UNITY_EDITOR && !DEVELOPMENT_BUILD
-            if (buildTriggerType == BuildTriggerType.OnlyInProductionBuilds)
+            if (m_buildTriggerType == BuildTriggerType.OnlyInProductionBuilds)
             {
                 return true;
             }
@@ -224,7 +224,6 @@ namespace SOSXR.SeaShark
     }
 
 
-    // Simplified enum of trigger types
     public enum LifeCycleTriggerType
     {
         Awake,
