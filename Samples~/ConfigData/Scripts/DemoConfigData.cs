@@ -1,8 +1,7 @@
-using SOSXR.SeaShark.Attributes.Runtime.ConfigData;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.InEditorSamples.ConfigData.Scripts
+namespace SOSXR.SeaShark
 {
     [CreateAssetMenu(fileName = "Demo Config Data", menuName = "SOSXR/Config Data/Demo Config Data")]
     public class DemoConfigData : BaseConfigData

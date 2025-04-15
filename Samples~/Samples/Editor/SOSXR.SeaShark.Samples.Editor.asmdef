@@ -1,19 +1,19 @@
 {
-    "name": "SOSXR.SeaShark.Samples.Editor",
-    "rootNamespace": "",
-    "references": [
-        "GUID:e22ea03375eb640e2957fe6f56bfbdf4",
-        "GUID:5e2adbbbbdc0a4ec08e8458d65a2251b"
-    ],
-    "includePlatforms": [
-        "Editor"
-    ],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "SOSXR.SeaShark.Samples.Editor",
+  "rootNamespace": "",
+  "references": [
+    "GUID:e22ea03375eb640e2957fe6f56bfbdf4",
+    "GUID:5e2adbbbbdc0a4ec08e8458d65a2251b"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

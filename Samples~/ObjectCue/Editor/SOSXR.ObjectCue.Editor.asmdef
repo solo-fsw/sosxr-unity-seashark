@@ -1,18 +1,18 @@
 {
-    "name": "SOSXR.ObjectCue.Editor",
-    "rootNamespace": "",
-    "references": [
-        "GUID:87247f553259c4b3382f53dad66eb3a5"
-    ],
-    "includePlatforms": [
-        "Editor"
-    ],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "SOSXR.ObjectCue.Editor",
+  "rootNamespace": "",
+  "references": [
+    "GUID:87247f553259c4b3382f53dad66eb3a5"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }
