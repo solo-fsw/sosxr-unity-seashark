@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.Runtime.ConfigData
+namespace SOSXR.SeaShark
 {
     [Serializable]
     public static class HandleConfigData

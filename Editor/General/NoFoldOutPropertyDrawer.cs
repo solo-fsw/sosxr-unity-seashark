@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.Editor
+namespace SOSXR.SeaShark.Editor
 {
     /// <summary>
     ///     From Unity Timeline Samples

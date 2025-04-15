@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.DeviceDependentHelpers
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     Allows you to specify a list of platforms in which a GameObject should be specifically enabled or disabled

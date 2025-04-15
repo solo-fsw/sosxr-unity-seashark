@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.XR;
 
 
-namespace SOSXR.SeaShark.DeviceDependentHelpers
+namespace SOSXR.SeaShark
 {
     public class CheckDeviceType : MonoBehaviour
     {

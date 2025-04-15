@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 
-namespace UnityUtils
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     From: https://github.com/adammyhre/Unity-Utils

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     From Unity Timeline Samples

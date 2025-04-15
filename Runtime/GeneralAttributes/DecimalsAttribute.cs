@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes
+namespace SOSXR.SeaShark
 {
     public class DecimalsAttribute : PropertyAttribute
     {

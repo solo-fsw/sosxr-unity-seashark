@@ -1,4 +1,4 @@
-namespace SOSXR.SeaShark.Attributes.Runtime.ConfigData.ConfigToUnityEvent
+namespace SOSXR.SeaShark
 {
     public class ConfigBoolToUnityEvent : ConfigValueToUnityEvent<bool>
     {

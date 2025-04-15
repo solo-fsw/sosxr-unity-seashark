@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-namespace SOSXR.SeaShark.Patterns.Command
+namespace SOSXR.SeaShark
 {
     public class InputHandler : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes
+namespace SOSXR.SeaShark.Editor
 {
     [CustomPropertyDrawer(typeof(HelpAttribute))]
     public class HelpDrawer : PropertyDrawer

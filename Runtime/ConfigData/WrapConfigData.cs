@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.Runtime.ConfigData
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     This is a wrapper for the ConfigData to ensure that the ConfigData is initialized and destroyed correctly.

@@ -5,7 +5,7 @@ using System.Reflection;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.QueryData
+namespace SOSXR.SeaShark
 {
     [Serializable]
     public static class QueryURL

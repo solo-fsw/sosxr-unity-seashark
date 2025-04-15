@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark
+namespace SOSXR.SeaShark.Statics
 {
     public static class FileHelpers
     {

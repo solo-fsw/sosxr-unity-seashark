@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 
-namespace SOSXR.SeaShark.QueryData
+namespace SOSXR.SeaShark
 {
     public interface IHaveQueryData
     {

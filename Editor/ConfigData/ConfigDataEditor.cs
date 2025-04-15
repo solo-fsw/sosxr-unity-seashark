@@ -1,12 +1,11 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using SOSXR.SeaShark.Attributes.Runtime.ConfigData;
 using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.Editor.ConfigData
+namespace SOSXR.SeaShark.Editor
 {
     [CustomEditor(typeof(BaseConfigData), true)]
     public class ConfigDataEditor : UnityEditor.Editor

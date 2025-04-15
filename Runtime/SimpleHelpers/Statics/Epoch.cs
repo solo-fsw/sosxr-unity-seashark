@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace SOSXR.SeaShark
+namespace SOSXR.SeaShark.Statics
 {
     /// <summary>
     ///     Provides utilities for working with epoch time.

@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 
 
-namespace UnityUtils
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     From: https://github.com/adammyhre/Unity-Utils

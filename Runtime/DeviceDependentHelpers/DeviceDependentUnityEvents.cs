@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-namespace SOSXR.SeaShark.DeviceDependentHelpers
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     Runs UnityEvent on Start, depending on which Device we're currently on.

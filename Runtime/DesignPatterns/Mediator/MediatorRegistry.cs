@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Patterns.Mediator
+namespace SOSXR.SeaShark
 {
     [CreateAssetMenu(fileName = "MediatorRegistry", menuName = "SOSXR/Patterns/MediatorRegistry")]
     public class MediatorRegistry : ScriptableObject

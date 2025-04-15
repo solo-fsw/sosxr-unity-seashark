@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     Display one or more fields as read-only in the inspector.

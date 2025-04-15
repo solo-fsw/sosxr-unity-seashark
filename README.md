@@ -186,6 +186,11 @@ The DisableEditingPropertyDrawer is a custom property drawer for Unity that disa
 
 The InfoDrawer is a custom property drawer for Unity that displays informational text in the Unity Inspector for fields marked with `[Info]`. When applied, it shows a help box with a message specified by the attribute, without rendering the actual property field. This drawer is useful for providing additional context or instructions to developers or designers using the Inspector. Set the MessageType (None, Info, Warning, Error) if so desired, otherwise it defaults to None.
 
+## Optional
+
+To let future people know that the variable is optional, and that you don't necessarily need to set it. It has options to mark the field as "Will Find", "Will Get", and "Will Add" as well. These indicate that they may be blank in the Inspector right now, but that you will (in your own code) will get the values later, either through a Find somewhere in the scene, a GetComponent-type action, or an AddComponent.
+
+
 ## PreviewDrawer
 
 The PreviewDrawer is a custom property drawer for Unity that allows fields marked with `[Preview]` to display a visual preview of certain object types in the Unity Inspector. It supports previews for Texture, Material, Sprite, and GameObject types, displaying the associated texture or material on the Inspector when these objects are assigned to the field. The drawer automatically adjusts the height of the preview based on the attribute's specified height, making it useful for providing immediate visual feedback for assets like textures or materials without the need to open them separately.

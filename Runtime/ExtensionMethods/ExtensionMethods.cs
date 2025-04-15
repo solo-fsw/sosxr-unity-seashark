@@ -1048,22 +1048,6 @@ namespace SOSXR.SeaShark
 
 
         /// <summary>
-        ///     Sets the layer of the given GameObject and all of its children to the given layer.
-        /// </summary>
-        /// <param name="gameObject"></param>
-        /// <param name="layer"></param>
-        public static void SetLayersRecursively(this GameObject gameObject, int layer)
-        {
-            gameObject.layer = layer;
-
-            foreach (Transform t in gameObject.transform)
-            {
-                t.gameObject.SetLayersRecursively(layer);
-            }
-        }
-
-
-        /// <summary>
         ///     Sets Alpha of SpriteRenderer to given alpha.
         /// </summary>
         /// <param name="renderer"></param>

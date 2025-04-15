@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-namespace SOSXR.SeaShark.Attributes.Runtime.ConfigData
+namespace SOSXR.SeaShark
 {
     public class ConfigDataJsonToUnityEvent : MonoBehaviour
     {

@@ -12,18 +12,21 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - [Unity Interface Support](https://github.com/TheDudeFromCI/Unity-Interface-Support/)
 - [Maple Mono font](https://github.com/subframe7536/maple-font)
 - Input Actions (in Samples/Input/)
+- Optional attribute
 
 ### Fixed
 
 - Unity minimum supported version
 - Fixed windows finding home folder
+- AdditionalUnityEvents not firing
 
 ### Changes
 
 - Moving files around
 - Icons
 - Readme
-
+- Namespaces simplified: SOSXR.SeaShark for most, unless editor, then SOSXR.SeaShark.Editor
+- 
 
 ## [0.2.1] 02-04-2025
 

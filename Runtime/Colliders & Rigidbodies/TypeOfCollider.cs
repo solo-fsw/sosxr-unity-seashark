@@ -1,7 +1,7 @@
 using System;
 
 
-namespace SOSXR.SeaShark.Colliders___Rigidbodies
+namespace SOSXR.SeaShark
 {
     [Serializable]
     public enum TypeOfCollider

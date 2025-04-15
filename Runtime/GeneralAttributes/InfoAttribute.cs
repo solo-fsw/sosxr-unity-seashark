@@ -3,7 +3,7 @@ using System.Diagnostics;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     Based on Warped Imagination: https://youtu.be/533OH2m7fNg?si=hfyYb2p9s5WBl1vP

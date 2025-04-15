@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Patterns.Mediator.Editor
+namespace SOSXR.SeaShark.Editor
 {
     [CustomPropertyDrawer(typeof(Medium))]
     public class MediatorDrawer : PropertyDrawer

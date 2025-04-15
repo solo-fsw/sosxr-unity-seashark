@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Patterns.Mediator
+namespace SOSXR.SeaShark
 {
     [AttributeUsage(AttributeTargets.Field)]
     public class MediatorAttribute : PropertyAttribute
