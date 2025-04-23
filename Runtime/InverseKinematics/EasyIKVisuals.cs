@@ -11,6 +11,9 @@ namespace joaen
     [RequireComponent(typeof(EasyIK))]
     public class EasyIKVisuals : MonoBehaviour
     {
+        #if UNITY_EDITOR
+
+
         [Header("Visualization Settings")]
         [Tooltip("Draw local rotation axes for joints")]
         [SerializeField] private bool m_showLocalRotationAxis = false;
@@ -190,5 +193,8 @@ namespace joaen
                 Handles.DrawWireDisc(Vector3.down * pointOffset, Vector3.up, radius);
             }
         }
+
+
+        #endif
     }
 }
