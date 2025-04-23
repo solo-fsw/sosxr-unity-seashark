@@ -121,6 +121,11 @@ namespace SOSXR.SeaShark
                     return;
                 }
 
+                if (!enabled)
+                {
+                    return;
+                }
+
                 _activeCoroutine = StartCoroutine(FireEventCR());
             }
             else
@@ -160,7 +165,7 @@ namespace SOSXR.SeaShark
                     Debug.LogWarning("We cannot fire an event in OnDisable with a delay. Will fire immediately.");
                 }
 
-                FireEvent();
+                m_eventToFire?.Invoke(); // You cannot fire a coroutine in OnDisable, so we fire the event immediately.
             }
 
             if (m_triggerType == LifeCycleTriggerType.InputAction && m_inputAction.action != null)

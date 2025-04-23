@@ -11,6 +11,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - [Keyboard](https://github.com/solo-fsw/sosxr-unity-keyboard)
 - [Unity Interface Support](https://github.com/TheDudeFromCI/Unity-Interface-Support/)
 - [Maple Mono font](https://github.com/subframe7536/maple-font)
+- [EasyIK](https://github.com/joaen/EasyIK)
 - Input Actions (in Samples/Input/)
 - Optional attribute
 
@@ -26,7 +27,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - Icons
 - Readme
 - Namespaces simplified: SOSXR.SeaShark for most, unless editor, then SOSXR.SeaShark.Editor
-- 
+
 
 ## [0.2.1] 02-04-2025
 
