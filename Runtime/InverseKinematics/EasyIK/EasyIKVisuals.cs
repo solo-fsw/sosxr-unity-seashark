@@ -57,7 +57,7 @@ namespace joaen
                 DrawJointAxes();
             }
 
-            if (m_easyIK.poleTarget != null && m_easyIK.numberOfJoints < 4)
+            if (m_easyIK.PoleTarget != null && m_easyIK.NumberOfJoints < 4)
             {
                 if (m_showPoleRotationAxis)
                 {
@@ -77,7 +77,7 @@ namespace joaen
             var current = transform;
             var child = current.GetChild(0);
 
-            for (var i = 0; i < m_easyIK.numberOfJoints - 1; i++)
+            for (var i = 0; i < m_easyIK.NumberOfJoints - 1; i++)
             {
                 var length = Vector3.Distance(current.position, child.position);
                 var midpoint = current.position + (child.position - current.position).normalized * length / 2;
@@ -86,7 +86,7 @@ namespace joaen
                 DrawWireCapsule(midpoint, rotation, m_gizmoSize, length, boneColor);
 
                 // Move to next bone in chain
-                if (i < m_easyIK.numberOfJoints - 2)
+                if (i < m_easyIK.NumberOfJoints - 2)
                 {
                     current = child;
                     child = current.GetChild(0);
@@ -99,11 +99,11 @@ namespace joaen
         {
             var current = transform;
 
-            for (var i = 0; i < m_easyIK.numberOfJoints; i++)
+            for (var i = 0; i < m_easyIK.NumberOfJoints; i++)
             {
                 DrawLocalAxes(current);
 
-                if (i < m_easyIK.numberOfJoints - 1)
+                if (i < m_easyIK.NumberOfJoints - 1)
                 {
                     current = current.GetChild(0);
                 }
@@ -127,8 +127,8 @@ namespace joaen
             var end = GetEndJoint(start);
 
             Handles.color = Color.grey;
-            Handles.DrawLine(start.position, m_easyIK.poleTarget.position);
-            Handles.DrawLine(end.position, m_easyIK.poleTarget.position);
+            Handles.DrawLine(start.position, m_easyIK.PoleTarget.position);
+            Handles.DrawLine(end.position, m_easyIK.PoleTarget.position);
         }
 
 
@@ -137,7 +137,7 @@ namespace joaen
             var current = start;
 
             // Navigate to the end joint based on the number of joints
-            for (var i = 0; i < m_easyIK.numberOfJoints - 1; i++)
+            for (var i = 0; i < m_easyIK.NumberOfJoints - 1; i++)
             {
                 current = current.GetChild(0);
             }
