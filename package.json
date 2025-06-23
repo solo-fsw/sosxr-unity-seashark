@@ -11,6 +11,11 @@
   },
   "samples": [
     {
+      "displayName": "Android Runtime Permissions",
+      "description": "Contains Android Runtime Permission setter. Requires https://github.com/yasirkula/UnityAndroidRuntimePermissions.git",
+      "path": "Samples~/AndroidRuntimePermissions"
+    },
+    {
       "displayName": "ConfigData",
       "description": "Contains config data samples of this package",
       "path": "Samples~/ConfigData"

@@ -29,6 +29,15 @@ When using [EditorSpice](https://github.com/solo-fsw/sosxr-unity-editorspice) in
 3. Click on the `+` button and select `Add package from git URL...`.
 4. Paste the URL of this repo into the text field and press `Add`. Make sure it ends with `.git`.
 
+# Dependencies
+The entire package depends on our [Enhanced Logger](https://github.com/solo-fsw/sosxr-unity-enhancedlogger).
+
+A couple of scripts that can be downloaded from the Samples have additional dependencies.
+- Android Permission Requester depends on [UnityAndroidRuntimePermissions](https://github.com/yasirkula/UnityAndroidRuntimePermissions))
+
+
+# Android Runtime Requester
+Android Permission Requester (which depends on [UnityAndroidRuntimePermissions](https://github.com/yasirkula/UnityAndroidRuntimePermissions))
 
 # Additional Unity Events
 

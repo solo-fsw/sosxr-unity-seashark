@@ -7,6 +7,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 ### Added
 
+- Dependency on [Enhanced Logger](https://github.com/solo-fsw/sosxr-unity-enhancedlogger)
 - [Whiteboard](https://github.com/solo-fsw/sosxr-unity-whiteboard)
 - [Keyboard](https://github.com/solo-fsw/sosxr-unity-keyboard)
 - [Unity Interface Support](https://github.com/TheDudeFromCI/Unity-Interface-Support/)
@@ -14,6 +15,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - [EasyIK](https://github.com/joaen/EasyIK)
 - Input Actions (in Samples/Input/)
 - Optional attribute
+- Android Permission Requester (which depends on [UnityAndroidRuntimePermissions](https://github.com/yasirkula/UnityAndroidRuntimePermissions))
 
 ### Fixed
 
