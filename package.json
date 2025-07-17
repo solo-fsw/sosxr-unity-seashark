@@ -1,6 +1,6 @@
 {
   "name": "com.sosxr.seashark",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "displayName": "Sea Shark",
   "description": "Our very own C# extensions library",
   "documentationUrl": "https://youtu.be/xvFZjo5PgG0?si=F3cJFXtwofUAeAq2",
@@ -29,6 +29,11 @@
       "displayName": "Object Cue",
       "description": "Contains Object Cue",
       "path": "Samples~/ObjectCue"
+    },
+    {
+      "displayName": "BookPageCurl",
+      "description": "Contains Book Page Curl (LGPL3.0)",
+      "path": "Samples~/BookPageCurl"
     },
     {
       "displayName": "Samples",

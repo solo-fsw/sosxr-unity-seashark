@@ -13,3 +13,5 @@ WASD Icon [FlatIcon](https://www.flaticon.com/free-icons/wasd)
 
 TIS-100 sounds from [TIS-100 game](https://store.steampowered.com/app/370360/TIS100/)
 Vehicles sound from Soundly
+
+[Book Icon](https://www.flaticon.com/free-icons/open-book)

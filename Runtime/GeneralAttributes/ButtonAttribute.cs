@@ -3,15 +3,20 @@ using System;
 
 namespace SOSXR.SeaShark
 {
+    /// <summary>
+    ///     Uses the SOSXRBaseEditor.cs
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
     public class ButtonAttribute : Attribute
     {
-        public ButtonAttribute(string label = null)
+        public ButtonAttribute(string itemName = null, string tooltip = null)
         {
-            Label = label;
+            ItemName = itemName;
+            Tooltip = tooltip;
         }
 
 
-        public string Label { get; }
+        public string Tooltip { get; set; }
+        public string ItemName { get; set; }
     }
 }

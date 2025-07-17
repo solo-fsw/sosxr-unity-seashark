@@ -16,12 +16,17 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - Input Actions (in Samples/Input/)
 - Optional attribute
 - Android Permission Requester (which depends on [UnityAndroidRuntimePermissions](https://github.com/yasirkula/UnityAndroidRuntimePermissions))
+- [SirHall - Excessives](https://github.com/SirHall/Excessives?tab=readme-ov-file)
+- [drawers from: anchan828](https://github.com/anchan828/property-drawer-collection)
+- [Geometry Painter](https://gist.github.com/phosphoer/8cccb00e20d9892af1438a795779bee0)
+- [Book Page Curl](https://github.com/Dandarawy/UnityBookPageCurl?tab=LGPL-3.0-1-ov-file)
 
 ### Fixed
 
 - Unity minimum supported version
 - Fixed windows finding home folder
 - AdditionalUnityEvents not firing
+- SOSXRBaseEditor now allows for `[ContextMenu(...)]` to draw buttons.
 
 ### Changes
 
@@ -29,7 +34,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - Icons
 - Readme
 - Namespaces simplified: SOSXR.SeaShark for most, unless editor, then SOSXR.SeaShark.Editor
-
+- SOSXRBaseEditor now allows for a Tooltip to be displayed.
 
 ## [0.2.1] 02-04-2025
 

@@ -78,30 +78,4 @@ namespace SOSXR.SeaShark
             RedoMoveAction.action.performed -= _redoDelegate;
         }
     }
-
-
-    public class AudioHandler : MonoBehaviour
-    {
-        [SerializeField] private AudioClip m_audioClip;
-        [SerializeField] private Player m_player;
-        private Command _invoker;
-
-
-        private void Awake()
-        {
-            if (m_player == null)
-            {
-                m_player = FindFirstObjectByType<Player>();
-            }
-
-            _invoker = new CommandQueue();
-        }
-
-
-        [ContextMenu(nameof(PlayAudio))]
-        private void PlayAudio()
-        {
-            _invoker.Execute(new AudioCommand(m_player, m_audioClip));
-        }
-    }
 }
