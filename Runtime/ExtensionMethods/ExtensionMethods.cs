@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Events;
 using Object = UnityEngine.Object;
@@ -11,6 +12,51 @@ namespace SOSXR.SeaShark
 {
     public static class ExtensionMethods
     {
+        /// <summary>
+        ///     Converts a string to a space-separated format.
+        ///     Deals with underscores and camel case.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string ConvertToSpaces(this string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
+
+            // Replace underscores with spaces
+            input = ConvertUnderscoreToSpace(input);
+
+            // Replace camel case with spaces
+            input = ConvertCamelCaseToSpace(input);
+
+            return input;
+        }
+
+
+        /// <summary>
+        ///     Any underscores in the string will be replaced with spaces.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string ConvertUnderscoreToSpace(string input)
+        {
+            return Regex.Replace(input, "_", " ");
+        }
+
+
+        /// <summary>
+        ///     Converts camel case to space-separated format.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string ConvertCamelCaseToSpace(string input)
+        {
+            return Regex.Replace(input, "([a-z])([A-Z])", "$1 $2");
+        }
+
+
         /// <summary>
         ///     How far & in what direction do I need to go?
         ///     For each axis in 'axisToUse' that is set to 0, the displacement will also be 0.

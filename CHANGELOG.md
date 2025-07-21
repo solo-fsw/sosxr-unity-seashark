@@ -21,6 +21,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - [Geometry Painter](https://gist.github.com/phosphoer/8cccb00e20d9892af1438a795779bee0)
 - [Book Page Curl](https://github.com/Dandarawy/UnityBookPageCurl?tab=LGPL-3.0-1-ov-file) (Samples due to more restrictive GPL3 license)
 - Option to set the TMP Default font asset
+- Easy way to create new Settings in either Project Settings, or Preferences.
 
 ### Fixed
 

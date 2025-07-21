@@ -15,3 +15,5 @@ TIS-100 sounds from [TIS-100 game](https://store.steampowered.com/app/370360/TIS
 Vehicles sound from Soundly
 
 [Book Icon](https://www.flaticon.com/free-icons/open-book)
+
+[Settings Wheel](https://www.flaticon.com/free-icons/settings)
