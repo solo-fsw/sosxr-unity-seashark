@@ -16,9 +16,19 @@
       "path": "Samples~/AndroidRuntimePermissions"
     },
     {
+      "displayName": "BookPageCurl",
+      "description": "Contains Book Page Curl (LGPL3.0)",
+      "path": "Samples~/BookPageCurl"
+    },
+    {
       "displayName": "ConfigData",
       "description": "Contains config data samples of this package",
       "path": "Samples~/ConfigData"
+    },
+    {
+      "displayName": "Fonts",
+      "description": "Contains Maple Mono and other fonts",
+      "path": "Samples~/Fonts"
     },
     {
       "displayName": "Input Actions",
@@ -29,11 +39,6 @@
       "displayName": "Object Cue",
       "description": "Contains Object Cue",
       "path": "Samples~/ObjectCue"
-    },
-    {
-      "displayName": "BookPageCurl",
-      "description": "Contains Book Page Curl (LGPL3.0)",
-      "path": "Samples~/BookPageCurl"
     },
     {
       "displayName": "Samples",

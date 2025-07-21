@@ -19,7 +19,8 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - [SirHall - Excessives](https://github.com/SirHall/Excessives?tab=readme-ov-file)
 - [drawers from: anchan828](https://github.com/anchan828/property-drawer-collection)
 - [Geometry Painter](https://gist.github.com/phosphoer/8cccb00e20d9892af1438a795779bee0)
-- Option to set the TMP Default Font
+- [Book Page Curl](https://github.com/Dandarawy/UnityBookPageCurl?tab=LGPL-3.0-1-ov-file) (Samples due to more restrictive GPL3 license)
+- Option to set the TMP Default font asset
 
 ### Fixed
 
