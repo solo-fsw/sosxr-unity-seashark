@@ -30,11 +30,12 @@ namespace SOSXR.SeaShark.Editor
 
         private void OnUndo()
         {
-            var terrains = FindObjectsOfType<GeometryPainter>();
+            var painters = FindObjectsByType<GeometryPainter>(
+                FindObjectsInactive.Exclude, FindObjectsSortMode.None);
 
-            for (var i = 0; i < terrains.Length; ++i)
+            for (var i = 0; i < painters.Length; ++i)
             {
-                terrains[i].RebuildMesh();
+                painters[i].RebuildMesh();
             }
         }
 
@@ -157,7 +158,7 @@ namespace SOSXR.SeaShark.Editor
 
                 if (Physics.Raycast(mouseRay, out hitInfo))
                 {
-                    var geoPrefab = PrefabUtility.GetPrefabParent(Selection.activeGameObject);
+                    var geoPrefab = PrefabUtility.GetCorrespondingObjectFromSource(Selection.activeGameObject);
                     var newGeo = geoPrefab != null ? PrefabUtility.InstantiatePrefab(geoPrefab) as GameObject : Instantiate(geoItem.gameObject);
                     newGeo.transform.position = hitInfo.point;
                     newGeo.transform.localRotation = Quaternion.identity;
