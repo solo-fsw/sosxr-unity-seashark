@@ -3313,6 +3313,45 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Keyboard & Mouse",
+            "id": "d98b6c5b-20bf-4493-be93-1c95d1bb4f0d",
+            "actions": [
+                {
+                    "name": "Pointer Position",
+                    "type": "Value",
+                    "id": "3d867d6c-2d25-4a56-8742-b302f4ebfdb3",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a8d1ddeb-9f58-48a8-8e7c-a8d649edc3e0",
+                    "path": "<Pen>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pointer Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1208a0f1-b2cc-4103-a60e-e2d1841181c4",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pointer Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

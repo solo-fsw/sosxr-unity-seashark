@@ -10,14 +10,27 @@ namespace SOSXR.SeaShark.Editor
     {
         private static readonly string _defaultFontAssetPath = "Fonts & Materials/Maple Mono/Maple Mono";
         private static TMP_FontAsset _defaultFontAsset;
-        private static Font _defaultFont;
+
+        private static readonly string _fallBackFontPaths = "Fonts & Materials/Liberation Sans SDF";
+        private static TMP_FontAsset _fallBackFontAsset;
 
 
-        [MenuItem("SOSXR/Setup/Setup TMP Default Font")]
-        public static void SetDefaultTMPFont()
+        [MenuItem("SOSXR/Setup/Setup TMP Default")]
+        public static void SetupTMPDefaults()
         {
-            if (!GetDefaultFontAsset())
+            SetDefaultTMPFont();
+            SetFallBackTMPFont();
+        }
+
+
+        private static void SetDefaultTMPFont()
+        {
+            _defaultFontAsset = GetFont(_defaultFontAssetPath);
+
+            if (_defaultFontAsset == null)
             {
+                Log.Static($"Default font asset not found at path: {_defaultFontAssetPath}");
+
                 return;
             }
 
@@ -31,27 +44,51 @@ namespace SOSXR.SeaShark.Editor
             Undo.RecordObject(TMP_Settings.instance, "Change TMP Default Font");
             TMP_Settings.defaultFontAsset = _defaultFontAsset;
             EditorUtility.SetDirty(TMP_Settings.instance);
-
             AssetDatabase.SaveAssets();
 
             Debug.Log("TMP default font asset set.");
         }
 
 
-        private static bool GetDefaultFontAsset()
+        private static void SetFallBackTMPFont()
         {
-            _defaultFontAsset = Resources.Load(_defaultFontAssetPath) as TMP_FontAsset;
+            _fallBackFontAsset = GetFont(_fallBackFontPaths);
 
-            if (_defaultFontAsset == null)
+            if (_fallBackFontAsset == null)
             {
-                Log.Static($"Font asset {_defaultFontAssetPath} not found at specified path.");
+                Log.Static($"Fallback font asset not found at path: {_fallBackFontPaths}");
 
-                return false;
+                return;
             }
 
-            _defaultFont = _defaultFontAsset.sourceFontFile;
+            if (TMP_Settings.fallbackFontAssets.Contains(_fallBackFontAsset))
+            {
+                Log.Static("TMP fallback font asset is already set to ", _fallBackFontPaths);
 
-            return true;
+                return;
+            }
+
+            Undo.RecordObject(TMP_Settings.instance, "Change TMP Fallback Font");
+            TMP_Settings.fallbackFontAssets.Add(_fallBackFontAsset);
+            EditorUtility.SetDirty(TMP_Settings.instance);
+            AssetDatabase.SaveAssets();
+
+            Debug.Log("TMP fallback font asset set.");
+        }
+
+
+        private static TMP_FontAsset GetFont(string fontAssetPath)
+        {
+            var fontAsset = Resources.Load(fontAssetPath) as TMP_FontAsset;
+
+            if (fontAsset == null)
+            {
+                Log.Static($"Font asset {fontAssetPath} not found at specified path.");
+
+                return null;
+            }
+
+            return fontAsset;
         }
     }
 }
