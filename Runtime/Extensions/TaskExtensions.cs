@@ -3,7 +3,7 @@ using System.Collections;
 using System.Threading.Tasks;
 
 
-namespace UnityUtils
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     From: https://github.com/adammyhre/Unity-Utils

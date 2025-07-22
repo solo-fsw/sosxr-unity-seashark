@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using SOSXR.SeaShark.Patterns.Mediator;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.InEditorSamples.Samples
+namespace SOSXR.SeaShark.Samples
 {
     public class MediatorUIExample : MonoBehaviour
     {

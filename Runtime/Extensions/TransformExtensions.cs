@@ -4,7 +4,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 
-namespace UnityUtils
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     From: https://github.com/adammyhre/Unity-Utils

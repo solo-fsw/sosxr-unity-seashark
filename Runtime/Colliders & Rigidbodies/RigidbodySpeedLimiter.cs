@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Colliders___Rigidbodies
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     Limits the speed of a Rigidbody by clamping its velocity.

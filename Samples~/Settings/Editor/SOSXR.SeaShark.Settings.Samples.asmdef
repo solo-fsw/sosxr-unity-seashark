@@ -1,0 +1,20 @@
+{
+  "name": "SOSXR.SeaShark.Settings.Samples",
+  "rootNamespace": "",
+  "references": [
+    "GUID:5e2adbbbbdc0a4ec08e8458d65a2251b",
+    "GUID:3d2c2e10f47a24e279eb7163f3b379e7",
+    "GUID:eb1034696cce04f25a4a7d38d2e0e5a4"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

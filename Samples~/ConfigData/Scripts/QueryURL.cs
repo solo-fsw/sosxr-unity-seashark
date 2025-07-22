@@ -5,7 +5,7 @@ using System.Reflection;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.InEditorSamples.ConfigData.Scripts
+namespace SOSXR.SeaShark
 {
     public static class QueryURL
     {

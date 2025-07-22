@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.QueryData
+namespace SOSXR.SeaShark
 {
     [CreateAssetMenu(fileName = "QueryTest", menuName = "SOSXR/WebHelpers/QueryTest")]
     public class QueryTestSO : ScriptableObject, IHaveQueryData

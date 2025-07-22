@@ -1,8 +1,7 @@
-using SOSXR.SeaShark.Attributes;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.QueryData
+namespace SOSXR.SeaShark
 {
     public class QueryWrapper : MonoBehaviour
     {

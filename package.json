@@ -1,6 +1,6 @@
 {
   "name": "com.sosxr.seashark",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "displayName": "Sea Shark",
   "description": "Our very own C# extensions library",
   "documentationUrl": "https://youtu.be/xvFZjo5PgG0?si=F3cJFXtwofUAeAq2",
@@ -11,9 +11,24 @@
   },
   "samples": [
     {
+      "displayName": "Android Runtime Permissions",
+      "description": "Contains Android Runtime Permission setter. Requires https://github.com/yasirkula/UnityAndroidRuntimePermissions.git",
+      "path": "Samples~/AndroidRuntimePermissions"
+    },
+    {
+      "displayName": "BookPageCurl",
+      "description": "Contains Book Page Curl (LGPL3.0)",
+      "path": "Samples~/BookPageCurl"
+    },
+    {
       "displayName": "ConfigData",
       "description": "Contains config data samples of this package",
       "path": "Samples~/ConfigData"
+    },
+    {
+      "displayName": "Fonts",
+      "description": "Contains Maple Mono and other fonts",
+      "path": "Samples~/Fonts"
     },
     {
       "displayName": "Input Actions",
@@ -29,6 +44,11 @@
       "displayName": "Samples",
       "description": "Contains samples of this package",
       "path": "Samples~/Samples"
+    },
+    {
+      "displayName": "Settings",
+      "description": "Contains sample Settings (both Project Settings and Preferences) of this package",
+      "path": "Samples~/Settings"
     }
   ],
   "author": {

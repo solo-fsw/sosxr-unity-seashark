@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-namespace SOSXR.SeaShark.Colliders___Rigidbodies
+namespace SOSXR.SeaShark
 {
     [RequireComponent(typeof(Collider))]
     public abstract class ColliderInteractionBase : MonoBehaviour, ITargetsReceiver

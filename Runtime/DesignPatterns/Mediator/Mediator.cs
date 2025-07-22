@@ -6,7 +6,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 
-namespace SOSXR.SeaShark.Patterns.Mediator
+namespace SOSXR.SeaShark
 {
     public static class Mediator
     {

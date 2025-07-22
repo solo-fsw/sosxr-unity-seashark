@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.Editor
+namespace SOSXR.SeaShark.Editor
 {
     [CustomPropertyDrawer(typeof(PreviewAttribute))]
     public class PreviewDrawer : PropertyDrawer

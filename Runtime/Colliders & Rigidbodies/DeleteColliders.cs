@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Colliders___Rigidbodies
+namespace SOSXR.SeaShark
 {
     [RequireComponent(typeof(FindCollidersInScene))]
     public class DeleteColliders : MonoBehaviour

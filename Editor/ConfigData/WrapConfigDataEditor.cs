@@ -1,9 +1,8 @@
-using SOSXR.SeaShark.Attributes.Runtime.ConfigData;
 using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.Editor.ConfigData
+namespace SOSXR.SeaShark.Editor
 {
     [CustomEditor(typeof(WrapConfigData), true)]
     public class WrapConfigDataEditor : UnityEditor.Editor

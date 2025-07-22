@@ -2,46 +2,49 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-/// <summary>
-///     From: https://github.com/adammyhre/Unity-Utils
-/// </summary>
-public static class WaitFor
+namespace SOSXR.SeaShark
 {
-    public static WaitForFixedUpdate FixedUpdate { get; } = new();
-
-    public static WaitForEndOfFrame EndOfFrame { get; } = new();
-
-    private static readonly Dictionary<float, WaitForSeconds> WaitForSecondsDict = new(100, new FloatComparer());
-
-
-    public static WaitForSeconds Seconds(float seconds)
+    /// <summary>
+    ///     From: https://github.com/adammyhre/Unity-Utils
+    /// </summary>
+    public static class WaitFor
     {
-        if (seconds < 1f / Application.targetFrameRate)
+        public static WaitForFixedUpdate FixedUpdate { get; } = new();
+
+        public static WaitForEndOfFrame EndOfFrame { get; } = new();
+
+        private static readonly Dictionary<float, WaitForSeconds> WaitForSecondsDict = new(100, new FloatComparer());
+
+
+        public static WaitForSeconds Seconds(float seconds)
         {
-            return null;
+            if (seconds < 1f / Application.targetFrameRate)
+            {
+                return null;
+            }
+
+            if (!WaitForSecondsDict.TryGetValue(seconds, out var forSeconds))
+            {
+                forSeconds = new WaitForSeconds(seconds);
+                WaitForSecondsDict[seconds] = forSeconds;
+            }
+
+            return forSeconds;
         }
 
-        if (!WaitForSecondsDict.TryGetValue(seconds, out var forSeconds))
+
+        private class FloatComparer : IEqualityComparer<float>
         {
-            forSeconds = new WaitForSeconds(seconds);
-            WaitForSecondsDict[seconds] = forSeconds;
-        }
-
-        return forSeconds;
-    }
+            public bool Equals(float x, float y)
+            {
+                return Mathf.Abs(x - y) <= Mathf.Epsilon;
+            }
 
 
-    private class FloatComparer : IEqualityComparer<float>
-    {
-        public bool Equals(float x, float y)
-        {
-            return Mathf.Abs(x - y) <= Mathf.Epsilon;
-        }
-
-
-        public int GetHashCode(float obj)
-        {
-            return obj.GetHashCode();
+            public int GetHashCode(float obj)
+            {
+                return obj.GetHashCode();
+            }
         }
     }
 }

@@ -1,20 +1,20 @@
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.InEditorSamples.Samples
+namespace SOSXR.SeaShark.Samples
 {
     public class RequiredDemo : MonoBehaviour
     {
         [Required]
         public GameObject m_gameObject;
 
-        [Required]
+        [Optional]
         public string m_string;
 
-        [Required]
+        [Optional(OptionalType.WillFind)]
         public int m_int;
 
-        [Required]
+        [Optional(OptionalType.WillGet)]
         public Transform m_transform;
     }
 }

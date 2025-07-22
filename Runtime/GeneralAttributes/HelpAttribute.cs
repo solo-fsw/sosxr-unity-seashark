@@ -30,7 +30,7 @@ using System;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes
+namespace SOSXR.SeaShark
 {
     [AttributeUsage(AttributeTargets.Field)]
     public class HelpAttribute : PropertyAttribute

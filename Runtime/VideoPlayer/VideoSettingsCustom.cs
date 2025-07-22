@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.VideoPlayer
+namespace SOSXR.SeaShark
 {
     [Serializable]
     public class VideoSettingsCustom

@@ -1,4 +1,4 @@
-namespace SOSXR.SeaShark.Patterns.Command
+namespace SOSXR.SeaShark
 {
     public abstract class Command
     {

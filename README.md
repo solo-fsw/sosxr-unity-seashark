@@ -29,6 +29,15 @@ When using [EditorSpice](https://github.com/solo-fsw/sosxr-unity-editorspice) in
 3. Click on the `+` button and select `Add package from git URL...`.
 4. Paste the URL of this repo into the text field and press `Add`. Make sure it ends with `.git`.
 
+# Dependencies
+The entire package depends on our [Enhanced Logger](https://github.com/solo-fsw/sosxr-unity-enhancedlogger).
+
+A couple of scripts that can be downloaded from the Samples have additional dependencies.
+- Android Permission Requester depends on [UnityAndroidRuntimePermissions](https://github.com/yasirkula/UnityAndroidRuntimePermissions))
+
+
+# Android Runtime Requester
+Android Permission Requester (which depends on [UnityAndroidRuntimePermissions](https://github.com/yasirkula/UnityAndroidRuntimePermissions))
 
 # Additional Unity Events
 
@@ -185,6 +194,11 @@ The DisableEditingPropertyDrawer is a custom property drawer for Unity that disa
 ## InfoAttribute (by Warped Imagination)
 
 The InfoDrawer is a custom property drawer for Unity that displays informational text in the Unity Inspector for fields marked with `[Info]`. When applied, it shows a help box with a message specified by the attribute, without rendering the actual property field. This drawer is useful for providing additional context or instructions to developers or designers using the Inspector. Set the MessageType (None, Info, Warning, Error) if so desired, otherwise it defaults to None.
+
+## Optional
+
+To let future people know that the variable is optional, and that you don't necessarily need to set it. It has options to mark the field as "Will Find", "Will Get", and "Will Add" as well. These indicate that they may be blank in the Inspector right now, but that you will (in your own code) will get the values later, either through a Find somewhere in the scene, a GetComponent-type action, or an AddComponent.
+
 
 ## PreviewDrawer
 

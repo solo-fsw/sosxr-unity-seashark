@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 4446b7192d8bf914ebaf797b64fe8b86
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - BookPanel: {instanceID: 0}
+  - background: {instanceID: 0}
+  - ClippingPlane: {instanceID: 0}
+  - NextPageClip: {instanceID: 0}
+  - Shadow: {instanceID: 0}
+  - ShadowLTR: {instanceID: 0}
+  - Left: {instanceID: 0}
+  - LeftNext: {instanceID: 0}
+  - Right: {instanceID: 0}
+  - RightNext: {instanceID: 0}
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: d180d3c174b4b467083733305b387266, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

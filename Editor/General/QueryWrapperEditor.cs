@@ -1,13 +1,12 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using SOSXR.SeaShark.QueryData;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 
-namespace SOSXR.SeaShark.Attributes.Editor
+namespace SOSXR.SeaShark.Editor
 {
     [CustomEditor(typeof(QueryWrapper), true)]
     public class QueryWrapperEditor : UnityEditor.Editor

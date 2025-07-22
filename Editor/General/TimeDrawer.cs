@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.Editor.PropertyDrawers
+namespace SOSXR.SeaShark.Editor
 {
     [CustomPropertyDrawer(typeof(TimeAttribute))]
     public class TimeDrawer : PropertyDrawer

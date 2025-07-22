@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.InEditorSamples.ConfigData.Scripts
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     This demo is maybe a little specific to be in the ConfigData package, but it's a good example of how to use the
@@ -10,9 +10,6 @@ namespace SOSXR.SeaShark.Attributes.InEditorSamples.ConfigData.Scripts
     public class BuildQueryURL : MonoBehaviour
     {
         [SerializeField] private DemoConfigData m_configData;
-
-        // Testes
-        // Reverse
 
 
         private void OnEnable()

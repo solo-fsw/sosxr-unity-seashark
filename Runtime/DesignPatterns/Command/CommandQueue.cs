@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 
-namespace SOSXR.SeaShark.Patterns.Command
+namespace SOSXR.SeaShark
 {
     public class CommandQueue : Command
     {

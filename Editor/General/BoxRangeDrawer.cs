@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.Editor.PropertyDrawers
+namespace SOSXR.SeaShark.Editor
 {
     /// <summary>
     ///     From: https://docs.unity3d.com/ScriptReference/PropertyDrawer.html

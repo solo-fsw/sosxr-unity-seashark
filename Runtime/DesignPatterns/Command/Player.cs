@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Patterns.Command
+namespace SOSXR.SeaShark
 {
     public class Player : MonoBehaviour
     {

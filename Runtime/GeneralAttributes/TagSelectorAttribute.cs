@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     From: https://www.brechtos.com/tagselectorattribute/

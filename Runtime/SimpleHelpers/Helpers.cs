@@ -1,11 +1,9 @@
 ﻿using System.Reflection;
-using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
+using UnityEngine;
 
 
-namespace UnityUtils
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     From: https://github.com/adammyhre/Unity-Utils

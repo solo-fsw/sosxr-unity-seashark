@@ -4,7 +4,7 @@ using System.Reflection;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.Runtime.ConfigData
+namespace SOSXR.SeaShark
 {
     public abstract class BaseConfigData : ScriptableObject
     {

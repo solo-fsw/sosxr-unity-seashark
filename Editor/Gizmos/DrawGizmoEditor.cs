@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.Editor
+namespace SOSXR.SeaShark.Editor
 {
     [CustomEditor(typeof(DrawGizmo))]
     public class DrawGizmoEditor : UnityEditor.Editor

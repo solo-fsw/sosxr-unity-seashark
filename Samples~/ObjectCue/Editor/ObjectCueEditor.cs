@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Editor
+namespace SOSXR.SeaShark.ObjectCue.Editor
 {
     [CustomEditor(typeof(ObjectCue))]
     [CanEditMultipleObjects]

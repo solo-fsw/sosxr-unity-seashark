@@ -3,7 +3,7 @@ using UnityEngine.Rendering;
 #endif
 
 
-namespace UnityUtils
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     From: https://github.com/adammyhre/Unity-Utils

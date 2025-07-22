@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-namespace UnityUtils
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     From: https://github.com/adammyhre/Unity-Utils
@@ -69,7 +69,7 @@ namespace UnityUtils
         /// <param name="gameObject">GameObject whose children are to be destroyed.</param>
         public static void DestroyChildren(this GameObject gameObject)
         {
-            gameObject.transform.DestroyChildren();
+            TransformExtensions.DestroyChildren(gameObject.transform);
         }
 
 
@@ -152,7 +152,7 @@ namespace UnityUtils
         public static void SetLayersRecursively(this GameObject gameObject, int layer)
         {
             gameObject.layer = layer;
-            gameObject.transform.ForEveryChild(child => child.gameObject.SetLayersRecursively(layer));
+            gameObject.transform.ForEveryChild(child => SetLayersRecursively(child.gameObject, layer));
         }
     }
 }

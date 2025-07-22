@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 // Original code from: BasteRainGames
-namespace SOSXR.SeaShark.Attributes
+namespace SOSXR.SeaShark
 {
     public class HidingAttribute : PropertyAttribute
     {

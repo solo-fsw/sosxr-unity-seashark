@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-namespace SOSXR.SeaShark.DeviceDependentHelpers
+namespace SOSXR.SeaShark
 {
     public class PlatformDependentSpawner : MonoBehaviour
     {

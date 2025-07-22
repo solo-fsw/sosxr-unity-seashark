@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.QueryData
+namespace SOSXR.SeaShark
 {
     public class QueryConfigData : MonoBehaviour, IHaveQueryData
     {

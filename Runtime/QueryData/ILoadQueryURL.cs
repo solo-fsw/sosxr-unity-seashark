@@ -1,4 +1,4 @@
-namespace SOSXR.SeaShark.QueryData
+namespace SOSXR.SeaShark
 {
     public interface ILoadQueryURL
     {

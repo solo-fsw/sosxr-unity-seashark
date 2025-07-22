@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.DeviceDependentHelpers
+namespace SOSXR.SeaShark
 {
     [CreateAssetMenu(menuName = "SOSXR/CurrentDevice", fileName = "CurrentDevice")]
     public class CurrentDevice : ScriptableObject

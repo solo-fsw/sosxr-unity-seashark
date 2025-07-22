@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.QueryData
+namespace SOSXR.SeaShark
 {
     [RequireComponent(typeof(ILoadQueryURL))]
     public class LoadQueryURL : MonoBehaviour

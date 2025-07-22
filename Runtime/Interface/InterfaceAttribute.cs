@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     Attribute that require implementation of the provided interface.

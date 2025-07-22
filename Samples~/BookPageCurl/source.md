@@ -1,0 +1,1 @@
+[Dandarawy](https://github.com/Dandarawy/UnityBookPageCurl?tab=LGPL-3.0-1-ov-file)

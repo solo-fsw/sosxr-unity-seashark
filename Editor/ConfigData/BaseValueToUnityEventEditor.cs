@@ -1,12 +1,11 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using SOSXR.SeaShark.Attributes.Runtime.ConfigData.ConfigToUnityEvent;
 using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Attributes.Editor.ConfigData
+namespace SOSXR.SeaShark.Editor
 {
     [CustomEditor(typeof(ConfigValueToUnityEvent<>), true)] // Supports subclasses
     [CanEditMultipleObjects]

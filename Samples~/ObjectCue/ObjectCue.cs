@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-namespace SOSXR.SeaShark
+namespace SOSXR.SeaShark.ObjectCue
 {
     public enum ReturnDurationType
     {

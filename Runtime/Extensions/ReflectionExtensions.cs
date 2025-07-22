@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 
-namespace UnityUtils
+namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     From: https://github.com/adammyhre/Unity-Utils

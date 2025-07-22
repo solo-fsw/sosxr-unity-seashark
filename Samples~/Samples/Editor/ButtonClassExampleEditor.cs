@@ -16,11 +16,6 @@ namespace SOSXR.SeaShark.Samples.Editor
             base.OnInspectorGUI(); // Always call this first
 
             // Add custom editor code below
-
-            if (GUILayout.Button("Something"))
-            {
-                Debug.LogWarning("This is from the custom editor of " + target.name);
-            }
         }
     }
 }

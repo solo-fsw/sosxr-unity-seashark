@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SOSXR.SeaShark.Statics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Video;
 
 
-namespace SOSXR.SeaShark.VideoPlayer
+namespace SOSXR.SeaShark
 {
     [RequireComponent(typeof(UnityEngine.Video.VideoPlayer))]
     public class VideoPlayerManager : MonoBehaviour
