@@ -6,14 +6,14 @@ namespace SOSXR.SeaShark.Samples
 {
     /// <summary>
     ///     Based on Warped Imagination: https://www.youtube.com/watch?v=Q6TK-1ewnGk&ab_channel=WarpedImagination
-    ///     Because this derives from PreferencesBase, it will be shown in the Preferences window.
+    ///     This derives from ProjectSettingsBase, so it will be shown in the Project Settings window.
     /// </summary>
     [InitializeOnLoad]
-    public class PreferencesSample
+    public class AnotherProjectSettingsSample
     {
-        static PreferencesSample()
+        static AnotherProjectSettingsSample()
         {
-            PreferencesProvider.OnGUIEvent += OnGUI;
+            ProjectSettingsProvider.OnGUIEvent += OnGUI;
         }
 
 
@@ -21,18 +21,16 @@ namespace SOSXR.SeaShark.Samples
         ///     You get/set the value of the preference using a property like this.
         ///     This is the thing you can use in your code to check the value of the preference.
         /// </summary>
-        public static int TestOption
+        public static TestEnum SomeEnum
         {
-            get => EditorPrefs.GetInt(_testOption, 64);
-            set => EditorPrefs.SetInt(_testOption, value);
+            get => (TestEnum) EditorPrefs.GetInt(_testOption, (int) TestEnum.OptionOne);
+            set => EditorPrefs.SetInt(_testOption, (int) value);
         }
 
         /// <summary>
         ///     This stores the value of the preference to disk, so that it persists between Unity sessions.
         /// </summary>
-        private const string _testOption = "SomePreferencesI_Like";
-
-        private static Vector2Int _range = new(0, 100);
+        private const string _testOption = "SelectAnOption";
 
 
         /// <summary>
@@ -40,14 +38,13 @@ namespace SOSXR.SeaShark.Samples
         /// </summary>
         private static void OnGUI()
         {
-            var currentValue = TestOption;
+            var currentValue = SomeEnum;
 
-            // Show range slider 0-100
-            var value = EditorGUILayout.IntSlider(_testOption.ConvertToSpaces(), currentValue, _range.x, _range.y, GUILayout.Width(400));
+            var value = (TestEnum) EditorGUILayout.EnumPopup(_testOption.ConvertToSpaces(), currentValue, GUILayout.Width(400));
 
             if (currentValue != value)
             {
-                TestOption = value;
+                SomeEnum = value;
             }
         }
     }

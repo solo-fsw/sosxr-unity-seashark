@@ -8,8 +8,15 @@ namespace SOSXR.SeaShark.Samples
     ///     Based on Warped Imagination: https://www.youtube.com/watch?v=Q6TK-1ewnGk&ab_channel=WarpedImagination
     ///     This derives from ProjectSettingsBase, so it will be shown in the Project Settings window.
     /// </summary>
-    public class TextAndButtonProjectSettingsSample : ProjectSettingsBase
+    [InitializeOnLoad]
+    public class TextAndButtonProjectSettingsSample
     {
+        static TextAndButtonProjectSettingsSample()
+        {
+            ProjectSettingsProvider.OnGUIEvent += OnGUI;
+        }
+
+
         public static string[] SomeStrings
         {
             get
@@ -24,7 +31,7 @@ namespace SOSXR.SeaShark.Samples
         private const string _stringListKey = "SelectAnOptionStrings";
 
 
-        public override void OnGUI()
+        private static void OnGUI()
         {
             // Space
             GUILayout.Space(10);
