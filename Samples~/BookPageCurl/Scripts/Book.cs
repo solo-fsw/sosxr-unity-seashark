@@ -82,10 +82,7 @@ public class Book : MonoBehaviour
 
     private void EnableInputActions()
     {
-        if (m_mousePosition.action != null)
-        {
-            m_mousePosition.action.Enable();
-        }
+        m_mousePosition.action?.Enable();
 
         if (m_mouseClick.action != null)
         {
@@ -98,10 +95,7 @@ public class Book : MonoBehaviour
 
     private void DisableInputActions()
     {
-        if (m_mousePosition.action != null)
-        {
-            m_mousePosition.action.Disable();
-        }
+        m_mousePosition.action?.Disable();
 
         if (m_mouseClick.action != null)
         {
@@ -584,10 +578,7 @@ public class Book : MonoBehaviour
         Shadow.gameObject.SetActive(false);
         ShadowLTR.gameObject.SetActive(false);
 
-        if (OnFlip != null)
-        {
-            OnFlip.Invoke();
-        }
+        OnFlip?.Invoke();
     }
 
 
