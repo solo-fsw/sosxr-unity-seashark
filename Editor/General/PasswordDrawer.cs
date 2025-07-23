@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Editor
+namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(PasswordAttribute))]
     public class PasswordDrawer : PropertyDrawer

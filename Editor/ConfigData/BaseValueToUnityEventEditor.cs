@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Editor
+namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(ConfigValueToUnityEvent<>), true)] // Supports subclasses
     [CanEditMultipleObjects]

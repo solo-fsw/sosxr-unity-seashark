@@ -5,7 +5,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 
-namespace SOSXR.SeaShark.Editor
+namespace SOSXR.SeaShark.EditorScripts
 {
     /// <summary>
     ///     By using this as a base, you can keep the Button functionality in one place, and use it in multiple Editors.

@@ -10,7 +10,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Editor
+namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(GeometryPainter))]
     public class GeometryPainterEditor : UnityEditor.Editor

@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Editor
+namespace SOSXR.SeaShark.EditorScripts
 {
     /// <summary>
     ///     From Warped Imagination: https://youtu.be/533OH2m7fNg?si=hfyYb2p9s5WBl1vP

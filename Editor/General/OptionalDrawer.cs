@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Editor
+namespace SOSXR.SeaShark.EditorScripts
 {
     /// <summary>
     ///     Use this class to draw the <see cref="OptionalAttribute" /> in the inspector.

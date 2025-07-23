@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Editor
+namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(PopupAttribute))]
     public class PopupDrawer : PropertyDrawer

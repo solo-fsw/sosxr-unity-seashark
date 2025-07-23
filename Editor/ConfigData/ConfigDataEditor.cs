@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Editor
+namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(BaseConfigData), true)]
     public class ConfigDataEditor : UnityEditor.Editor

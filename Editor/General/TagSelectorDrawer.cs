@@ -4,7 +4,7 @@ using UnityEditorInternal;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Editor
+namespace SOSXR.SeaShark.EditorScripts
 {
     /// <summary>
     ///     Original by DYLAN ENGELMAN http://jupiterlighthousestudio.com/custom-inspectors-unity/

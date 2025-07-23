@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Editor
+namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(DisableAttribute))]
     public class DisableDrawer : PropertyDrawer

@@ -1,4 +1,4 @@
-using SOSXR.SeaShark.Editor;
+using SOSXR.SeaShark.EditorScripts;
 using UnityEditor;
 using UnityEngine;
 

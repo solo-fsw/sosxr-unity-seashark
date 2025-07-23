@@ -6,7 +6,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 
-namespace SOSXR.SeaShark.Editor
+namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(QueryWrapper), true)]
     public class QueryWrapperEditor : UnityEditor.Editor

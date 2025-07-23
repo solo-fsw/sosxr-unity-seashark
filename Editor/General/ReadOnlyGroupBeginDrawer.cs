@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Editor
+namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(ReadOnlyGroupBeginAttribute))]
     public class ReadOnlyGroupBeginDrawer : DecoratorDrawer

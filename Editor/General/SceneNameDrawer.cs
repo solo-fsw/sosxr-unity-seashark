@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Editor
+namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(SceneNameAttribute))]
     public class SceneNameDrawer : PropertyDrawer

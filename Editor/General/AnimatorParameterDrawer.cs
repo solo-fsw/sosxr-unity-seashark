@@ -7,7 +7,7 @@ using UnityEditor.Animations;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Editor
+namespace SOSXR.SeaShark.EditorScripts
 {
     /// <summary>
     ///     Animatorウィンドウにあるパラメータをスクリプトでタイプセーフに扱うためのPropertyDrawer
