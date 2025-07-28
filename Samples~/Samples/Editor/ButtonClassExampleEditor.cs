@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace SOSXR.SeaShark.Samples.Editor
+namespace SOSXR.SeaShark.Samples.EditorScripts
 {
     /// <summary>
     ///     Example class that shows you can still create custom Editors, whilst retaining the Button functionality.
@@ -18,4 +18,15 @@ namespace SOSXR.SeaShark.Samples.Editor
             // Add custom editor code below
         }
     }
+
+
+    #if EDITORSPICE
+
+
+
+    namespace SOSXR.SeaShark.Samples.EditorScripts
+    {
+    }
+    #endif
+
 }
