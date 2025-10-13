@@ -9,11 +9,10 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(GeometryPainter))]
-    public class GeometryPainterEditor : UnityEditor.Editor
+    public class GeometryPainterEditor : Editor
     {
         public static bool EditorActive;
 

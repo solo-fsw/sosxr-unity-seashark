@@ -17,3 +17,5 @@ Vehicles sound from Soundly
 [Book Icon](https://www.flaticon.com/free-icons/open-book)
 
 [Settings Wheel](https://www.flaticon.com/free-icons/settings)
+
+- [Scene icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/scene "scene icons")

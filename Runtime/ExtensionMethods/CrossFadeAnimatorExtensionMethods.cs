@@ -26,7 +26,7 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static bool HasState(this Animator animator, string stateName, int layerIndex = 0)
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             var controller = animator.runtimeAnimatorController as AnimatorController;
 
             if (controller == null)
@@ -44,7 +44,7 @@ namespace SOSXR.SeaShark
                 }
             }
 
-            #endif
+#endif
             return false;
         }
 
@@ -58,7 +58,7 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static bool CurrentState(this Animator animator, string stateName, int layerIndex = 0)
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             if (!animator.HasState(stateName))
             {
                 Debug.LogWarning("State not found, returning false");
@@ -83,7 +83,7 @@ namespace SOSXR.SeaShark
                 }
             }
 
-            #endif
+#endif
             return false;
         }
 
@@ -122,7 +122,7 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static float GetStateDuration(this Animator animator, string stateName, int layerIndex = 0)
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             if (!animator.HasState(stateName))
             {
                 Debug.LogWarning("State : " + stateName + " not found, returning default duration of " + _defaultDuration);
@@ -149,7 +149,7 @@ namespace SOSXR.SeaShark
 
             Debug.LogWarning("Returning default duration of " + _defaultDuration);
 
-            #endif
+#endif
             return _defaultDuration;
         }
 
@@ -166,7 +166,7 @@ namespace SOSXR.SeaShark
             var stateNames = new List<string>();
             stateNames.Add("");
 
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
 
             if (animator == null)
             {
@@ -187,12 +187,12 @@ namespace SOSXR.SeaShark
                 stateNames.Add(state.state.name);
             }
 
-            #endif
+#endif
             return stateNames;
         }
 
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         /// <summary>
         ///     Which state is the one with the arrow from the Entry point in the Animator?
         ///     By default, it only checks the first layer!
@@ -220,7 +220,7 @@ namespace SOSXR.SeaShark
 
             return stateMachine.defaultState;
         }
-        #endif
+#endif
 
 
         /// <summary>
@@ -241,10 +241,10 @@ namespace SOSXR.SeaShark
 
             var stateName = "";
 
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             var state = animator.GetDefaultEntryState(layerIndex);
             stateName = state.name;
-            #endif
+#endif
 
             return stateName;
         }
@@ -261,7 +261,7 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static bool IsLooping(this Animator animator, string stateName, int layerIndex = 0)
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             if (!animator.HasState(stateName))
             {
                 return false;
@@ -284,7 +284,7 @@ namespace SOSXR.SeaShark
                 }
             }
 
-            #endif
+#endif
             return false;
         }
     }

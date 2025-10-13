@@ -13,7 +13,7 @@ namespace SOSXR.SeaShark.Excessives
         public delegate void EventListener(T info);
 
 
-        private bool inUse = false;
+        private bool inUse;
         public static bool InUse => instance.inUse;
         private static T instance = new();
 

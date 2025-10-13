@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 namespace SOSXR.SeaShark
 {
     public class ImageFader : MonoBehaviour
@@ -10,7 +9,7 @@ namespace SOSXR.SeaShark
         [SerializeField] private bool m_fadeOnAwake = true;
         [SerializeField] [Range(0f, 10f)] private float m_preFadeInDuration = 2f;
         [SerializeField] [Range(0, 10)] private float m_defaultFadeDuration = 4f;
-        [SerializeField] [Range(0f, 10f)] private float m_preFadeOutDuration = 0f;
+        [SerializeField] [Range(0f, 10f)] private float m_preFadeOutDuration;
         [SerializeField] private AnimationCurve m_fadeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
         private Image _fadeImage;

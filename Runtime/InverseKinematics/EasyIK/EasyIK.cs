@@ -18,8 +18,8 @@ namespace joaen
         [Range(0, 20)] public int Iterations = 10;
         [Range(0f, 0.25f)] public float Tolerance = 0.0025f;
 
-        [Header("Pole target (3 joint chain)")]
-        [Optional] public Transform PoleTarget;
+        [Header("Pole target (3 joint chain)")] [Optional]
+        public Transform PoleTarget;
 
 
         private Transform[] _jointTransforms;

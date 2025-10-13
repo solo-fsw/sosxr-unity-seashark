@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.ObjectCue.Editor
 {
     [CustomEditor(typeof(ObjectCue))]
@@ -13,7 +12,7 @@ namespace SOSXR.SeaShark.ObjectCue.Editor
 
         private void OnEnable()
         {
-            _objectCue = (ObjectCue) target;
+            _objectCue = (ObjectCue)target;
         }
 
 

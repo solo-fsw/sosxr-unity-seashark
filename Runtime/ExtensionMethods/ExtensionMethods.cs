@@ -887,7 +887,7 @@ namespace SOSXR.SeaShark
         /// <param name="axisToUse"></param>
         public static Vector3 ZeroOutVector3(this Vector3 original, Vector3Int axisToUse)
         {
-            return ZeroOutVector3(original, (Vector3) axisToUse);
+            return ZeroOutVector3(original, (Vector3)axisToUse);
         }
 
 
@@ -974,7 +974,7 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static Vector3Int ToVector3Int(this Vector3 v3)
         {
-            return new Vector3Int((int) v3.x, (int) v3.y, (int) v3.y);
+            return new Vector3Int((int)v3.x, (int)v3.y, (int)v3.y);
         }
 
 
@@ -1204,10 +1204,10 @@ namespace SOSXR.SeaShark
         {
             // Standard Rounding gave problems when rounding values like 0.5 / 1.12125 / 2.45 etc. to 1 / 1.1213 / 2.5 respectively
             // Value needs to be cast to decimal, and MidpointRounding needs to be set to AwayFromZero to fix that issue:
-            var originalAsDecimal = (decimal) originalValue; // Float needs to be cast to decimal. Does not work properly when using double.
+            var originalAsDecimal = (decimal)originalValue; // Float needs to be cast to decimal. Does not work properly when using double.
             const MidpointRounding midwayRounding = MidpointRounding.AwayFromZero; // As per: https://stackoverflow.com/questions/37290845/incorrect-result-of-math-round-function-in-vb-net  /// And: https://docs.microsoft.com/en-us/dotnet/api/system.midpointrounding?redirectedfrom=MSDN&view=net-6.0
 
-            var rounded = (float) Math.Round(originalAsDecimal, decimals, midwayRounding);
+            var rounded = (float)Math.Round(originalAsDecimal, decimals, midwayRounding);
 
             return rounded;
         }
@@ -1221,7 +1221,7 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static double RoundCorrectly(this double originalValue, int decimals)
         {
-            return RoundCorrectly((float) originalValue, decimals);
+            return RoundCorrectly((float)originalValue, decimals);
         }
 
 
@@ -1309,7 +1309,7 @@ namespace SOSXR.SeaShark
 
                     if (methodParameters.Length == 0)
                     {
-                        method = (UnityAction) methodInfo.CreateDelegate(typeof(UnityAction), target);
+                        method = (UnityAction)methodInfo.CreateDelegate(typeof(UnityAction), target);
                     }
                     else if (methodParameters.Length > 0)
                     {

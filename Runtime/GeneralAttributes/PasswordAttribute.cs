@@ -12,14 +12,13 @@
 
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     public class PasswordAttribute : PropertyAttribute
     {
         public char mask = '*';
         public readonly bool useMask = true;
-        public readonly int minLength = 0;
+        public readonly int minLength;
         public readonly int maxLength = 2147483647;
 
 

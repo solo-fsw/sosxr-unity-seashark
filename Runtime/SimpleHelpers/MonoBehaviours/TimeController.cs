@@ -14,8 +14,9 @@ namespace SOSXR.SeaShark
         [SerializeField] [Range(0f, 2f)] private float m_timeScaleIncrease = 0.25f;
         [SerializeField] [Range(-2f, 0f)] private float m_timeScaleDecrease = -0.10f;
 
-        [Header("Input Action References")]
-        [SerializeField] private InputActionReference m_slowActionReference;
+        [Header("Input Action References")] [SerializeField]
+        private InputActionReference m_slowActionReference;
+
         [SerializeField] private InputActionReference m_pauseActionReference;
         [SerializeField] private InputActionReference m_normalActionReference;
         [SerializeField] private InputActionReference m_fastActionReference;

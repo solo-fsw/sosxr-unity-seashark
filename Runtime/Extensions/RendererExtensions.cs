@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering;
 
-
 namespace SOSXR.SeaShark
 {
     /// <summary>
@@ -21,7 +20,7 @@ namespace SOSXR.SeaShark
                 if (material.HasProperty("_Color"))
                 {
                     material.SetInt("_ZWrite", 1);
-                    material.renderQueue = (int) RenderQueue.Transparent;
+                    material.renderQueue = (int)RenderQueue.Transparent;
                 }
             }
         }
@@ -39,7 +38,7 @@ namespace SOSXR.SeaShark
                 if (material.HasProperty("_Color"))
                 {
                     material.SetInt("_ZWrite", 0);
-                    material.renderQueue = (int) RenderQueue.Transparent + 100;
+                    material.renderQueue = (int)RenderQueue.Transparent + 100;
                 }
             }
         }

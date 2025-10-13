@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(EnumLabelAttribute))]
@@ -12,7 +11,7 @@ namespace SOSXR.SeaShark.EditorScripts
     {
         private readonly Dictionary<string, string> customEnumNames = new();
 
-        private EnumLabelAttribute enumLabelAttribute => (EnumLabelAttribute) attribute;
+        private EnumLabelAttribute enumLabelAttribute => (EnumLabelAttribute)attribute;
 
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -24,9 +23,9 @@ namespace SOSXR.SeaShark.EditorScripts
                 EditorGUI.BeginChangeCheck();
 
                 var displayedOptions = property.enumNames
-                                               .Where(enumName => customEnumNames.ContainsKey(enumName))
-                                               .Select(enumName => customEnumNames[enumName])
-                                               .ToArray();
+                    .Where(enumName => customEnumNames.ContainsKey(enumName))
+                    .Select(enumName => customEnumNames[enumName])
+                    .ToArray();
 
                 var selectedIndex = EditorGUI.Popup(position, enumLabelAttribute.label, property.enumValueIndex, displayedOptions);
 
@@ -59,7 +58,7 @@ namespace SOSXR.SeaShark.EditorScripts
                             continue;
                         }
 
-                        var attrs = (EnumLabelAttribute[]) field.GetCustomAttributes(customAttribute.GetType(), false);
+                        var attrs = (EnumLabelAttribute[])field.GetCustomAttributes(customAttribute.GetType(), false);
 
                         if (!customEnumNames.ContainsKey(enumName))
                         {

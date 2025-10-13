@@ -9,7 +9,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 ### Removed
 
-- Removed SettingProvider (will now exclusively live in EditorSpice). You can register a new one from SeaShark (or wherever) if you want though, see Samples. 
+- Removed SettingProvider (will now exclusively live in EditorSpice). You can register a new one from SeaShark (or wherever) if you want though, see Samples.
 
 ### Changed
 

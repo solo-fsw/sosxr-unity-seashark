@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     /// <summary>
@@ -12,7 +11,7 @@ namespace SOSXR.SeaShark.EditorScripts
     {
         public override float GetHeight()
         {
-            var attr = (HorizontalLineAttribute) attribute;
+            var attr = (HorizontalLineAttribute)attribute;
 
             return Mathf.Max(attr.Padding, attr.Thickness);
         }
@@ -20,7 +19,7 @@ namespace SOSXR.SeaShark.EditorScripts
 
         public override void OnGUI(Rect position)
         {
-            var attr = (HorizontalLineAttribute) attribute;
+            var attr = (HorizontalLineAttribute)attribute;
 
             position.height = attr.Thickness;
             position.position += new Vector2(0, attr.Padding / 2);

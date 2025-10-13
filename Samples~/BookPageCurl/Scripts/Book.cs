@@ -8,7 +8,6 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-
 public enum FlipMode
 {
     RightToLeft,
@@ -24,9 +23,11 @@ public class Book : MonoBehaviour
     public Sprite background;
     public Sprite[] bookPages;
     public bool interactable = true;
+
     public bool enableShadowEffect = true;
+
     //represent the index of the sprite shown in the right page
-    public int currentPage = 0;
+    public int currentPage;
     public Image ClippingPlane;
     public Image NextPageClip;
     public Image Shadow;
@@ -37,34 +38,41 @@ public class Book : MonoBehaviour
     public Image RightNext;
     public UnityEvent OnFlip;
 
-    [Tooltip("Input action for pointer position (e.g. <Pointer>/position or <Mouse>/position)")]
-    [SerializeField] private InputActionProperty m_mousePosition;
-    [Tooltip("Input action for mouse click (e.g. <Mouse>/leftButton)")]
-    [SerializeField] private InputActionProperty m_mouseClick;
+    [Tooltip("Input action for pointer position (e.g. <Pointer>/position or <Mouse>/position)")] [SerializeField]
+    private InputActionProperty m_mousePosition;
+
+    [Tooltip("Input action for mouse click (e.g. <Mouse>/leftButton)")] [SerializeField]
+    private InputActionProperty m_mouseClick;
 
     private float radius1, radius2;
+
     //Spine Bottom
     private Vector3 _spineBottom;
+
     //Spine Top
     private Vector3 _spineTop;
+
     //corner of the page
     private Vector3 _cornerPage;
+
     //Edge Bottom Right
-    private Vector3 _edgeBottomRight;
     //Edge Bottom Left
-    private Vector3 _edgeBottomLeft;
     //follow point
     private Vector3 _followPoint;
-    private bool pageDragging = false;
-    private bool isMousePressed = false;
+    private bool pageDragging;
+
+    private bool isMousePressed;
+
     //current flip mode
     private FlipMode _flipMode;
     private Coroutine _currentCoroutine;
     private Vector2 _screenPoint;
 
     public int TotalPageCount => bookPages.Length;
-    public Vector3 EndBottomLeft => _edgeBottomLeft;
-    public Vector3 EndBottomRight => _edgeBottomRight;
+    public Vector3 EndBottomLeft { get; private set; }
+
+    public Vector3 EndBottomRight { get; private set; }
+
     public float Height => BookPanel.rect.height;
 
 
@@ -188,10 +196,10 @@ public class Book : MonoBehaviour
     private void CalcCurlCriticalPoints()
     {
         _spineBottom = new Vector3(0, -BookPanel.rect.height / 2);
-        _edgeBottomRight = new Vector3(BookPanel.rect.width / 2, -BookPanel.rect.height / 2);
-        _edgeBottomLeft = new Vector3(-BookPanel.rect.width / 2, -BookPanel.rect.height / 2);
+        EndBottomRight = new Vector3(BookPanel.rect.width / 2, -BookPanel.rect.height / 2);
+        EndBottomLeft = new Vector3(-BookPanel.rect.width / 2, -BookPanel.rect.height / 2);
         _spineTop = new Vector3(0, BookPanel.rect.height / 2);
-        radius1 = Vector2.Distance(_spineBottom, _edgeBottomRight);
+        radius1 = Vector2.Distance(_spineBottom, EndBottomRight);
         var pageWidth = BookPanel.rect.width / 2.0f;
         var pageHeight = BookPanel.rect.height;
         radius2 = Mathf.Sqrt(pageWidth * pageWidth + pageHeight * pageHeight);
@@ -211,8 +219,8 @@ public class Book : MonoBehaviour
         if (canvas.renderMode == RenderMode.WorldSpace)
         {
             var ray = Camera.main.ScreenPointToRay(mouseScreenPos);
-            var globalEBR = transform.TransformPoint(_edgeBottomRight);
-            var globalEBL = transform.TransformPoint(_edgeBottomLeft);
+            var globalEBR = transform.TransformPoint(EndBottomRight);
+            var globalEBL = transform.TransformPoint(EndBottomLeft);
             var globalSt = transform.TransformPoint(_spineTop);
             var p = new Plane(globalEBR, globalEBL, globalSt);
             float distance;
@@ -272,7 +280,7 @@ public class Book : MonoBehaviour
 
         _cornerPage = Calc_C_Position(followLocation);
         Vector3 t1;
-        var clipAngle = CalcClipAngle(_cornerPage, _edgeBottomLeft, out t1);
+        var clipAngle = CalcClipAngle(_cornerPage, EndBottomLeft, out t1);
         //0 < T0_T1_Angle < 180
         clipAngle = (clipAngle + 180) % 180;
 
@@ -310,7 +318,7 @@ public class Book : MonoBehaviour
         RightNext.transform.SetParent(BookPanel.transform, true);
         _cornerPage = Calc_C_Position(followLocation);
         Vector3 t1;
-        var clipAngle = CalcClipAngle(_cornerPage, _edgeBottomRight, out t1);
+        var clipAngle = CalcClipAngle(_cornerPage, EndBottomRight, out t1);
 
         if (clipAngle > -90)
         {
@@ -512,8 +520,8 @@ public class Book : MonoBehaviour
         if (pageDragging)
         {
             pageDragging = false;
-            var distanceToLeft = Vector2.Distance(_cornerPage, _edgeBottomLeft);
-            var distanceToRight = Vector2.Distance(_cornerPage, _edgeBottomRight);
+            var distanceToLeft = Vector2.Distance(_cornerPage, EndBottomLeft);
+            var distanceToRight = Vector2.Distance(_cornerPage, EndBottomRight);
 
             if (distanceToRight < distanceToLeft && _flipMode == FlipMode.RightToLeft)
             {
@@ -547,11 +555,11 @@ public class Book : MonoBehaviour
 
         if (_flipMode == FlipMode.RightToLeft)
         {
-            _currentCoroutine = StartCoroutine(TweenTo(_edgeBottomLeft, 0.15f, () => { Flip(); }));
+            _currentCoroutine = StartCoroutine(TweenTo(EndBottomLeft, 0.15f, () => { Flip(); }));
         }
         else
         {
-            _currentCoroutine = StartCoroutine(TweenTo(_edgeBottomRight, 0.15f, () => { Flip(); }));
+            _currentCoroutine = StartCoroutine(TweenTo(EndBottomRight, 0.15f, () => { Flip(); }));
         }
     }
 
@@ -591,7 +599,7 @@ public class Book : MonoBehaviour
 
         if (_flipMode == FlipMode.RightToLeft)
         {
-            _currentCoroutine = StartCoroutine(TweenTo(_edgeBottomRight, 0.15f,
+            _currentCoroutine = StartCoroutine(TweenTo(EndBottomRight, 0.15f,
                 () =>
                 {
                     UpdateSprites();
@@ -606,7 +614,7 @@ public class Book : MonoBehaviour
         }
         else
         {
-            _currentCoroutine = StartCoroutine(TweenTo(_edgeBottomLeft, 0.15f,
+            _currentCoroutine = StartCoroutine(TweenTo(EndBottomLeft, 0.15f,
                 () =>
                 {
                     UpdateSprites();
@@ -625,7 +633,7 @@ public class Book : MonoBehaviour
 
     public IEnumerator TweenTo(Vector3 to, float duration, Action onFinish)
     {
-        var steps = (int) (duration / 0.025f);
+        var steps = (int)(duration / 0.025f);
         var displacement = (to - _followPoint) / steps;
 
         for (var i = 0; i < steps - 1; i++)

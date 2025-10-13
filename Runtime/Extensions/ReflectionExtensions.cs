@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-
 namespace SOSXR.SeaShark
 {
     /// <summary>
@@ -14,21 +13,21 @@ namespace SOSXR.SeaShark
     {
         private static readonly Dictionary<Type, string> TypeDisplayNames = new()
         {
-            {typeof(int), "int"},
-            {typeof(float), "float"},
-            {typeof(decimal), "decimal"},
-            {typeof(double), "double"},
-            {typeof(string), "string"},
-            {typeof(bool), "bool"},
-            {typeof(byte), "byte"},
-            {typeof(sbyte), "sbyte"},
-            {typeof(uint), "uint"},
-            {typeof(short), "short"},
-            {typeof(ushort), "ushort"},
-            {typeof(long), "long"},
-            {typeof(ulong), "ulong"},
-            {typeof(char), "char"},
-            {typeof(object), "object"}
+            { typeof(int), "int" },
+            { typeof(float), "float" },
+            { typeof(decimal), "decimal" },
+            { typeof(double), "double" },
+            { typeof(string), "string" },
+            { typeof(bool), "bool" },
+            { typeof(byte), "byte" },
+            { typeof(sbyte), "sbyte" },
+            { typeof(uint), "uint" },
+            { typeof(short), "short" },
+            { typeof(ushort), "ushort" },
+            { typeof(long), "long" },
+            { typeof(ulong), "ulong" },
+            { typeof(char), "char" },
+            { typeof(object), "object" }
         };
 
         private static readonly Type[] ValueTupleTypes =
@@ -45,12 +44,12 @@ namespace SOSXR.SeaShark
 
         private static readonly Type[][] PrimitiveTypeCastHierarchy =
         {
-            new[] {typeof(byte), typeof(sbyte), typeof(char)},
-            new[] {typeof(short), typeof(ushort)},
-            new[] {typeof(int), typeof(uint)},
-            new[] {typeof(long), typeof(ulong)},
-            new[] {typeof(float)},
-            new[] {typeof(double)}
+            new[] { typeof(byte), typeof(sbyte), typeof(char) },
+            new[] { typeof(short), typeof(ushort) },
+            new[] { typeof(int), typeof(uint) },
+            new[] { typeof(long), typeof(ulong) },
+            new[] { typeof(float) },
+            new[] { typeof(double) }
         };
 
 
@@ -242,7 +241,7 @@ namespace SOSXR.SeaShark
 
             // Check if any method is an implicit or explicit cast operator and if the base type is assignable from the derived type.
             return methods.Where(m => m.Name == "op_Implicit" || (!implicitly && m.Name == "op_Explicit"))
-                          .Any(m => baseType(m).IsAssignableFrom(derivedType(m)));
+                .Any(m => baseType(m).IsAssignableFrom(derivedType(m)));
         }
 
 
@@ -402,8 +401,8 @@ namespace SOSXR.SeaShark
         private static string GetTupleDisplayName(this Type type, bool includeNamespace = false)
         {
             var parts = type
-                        .GetGenericArguments()
-                        .Select(x => x.GetDisplayName(includeNamespace));
+                .GetGenericArguments()
+                .Select(x => x.GetDisplayName(includeNamespace));
 
             return $"({string.Join(", ", parts)})";
         }
@@ -509,8 +508,8 @@ namespace SOSXR.SeaShark
             flags |= method.IsPublic ? BindingFlags.Public : BindingFlags.NonPublic;
 
             var candidates = newBase.GetMethods(flags)
-                                    .Where(x => AreMethodsEqual(x, method))
-                                    .ToArray();
+                .Where(x => AreMethodsEqual(x, method))
+                .ToArray();
 
             if (candidates.Length == 0)
             {

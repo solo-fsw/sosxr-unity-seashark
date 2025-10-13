@@ -5,7 +5,6 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 
-
 namespace SOSXR.SeaShark.ObjectCue
 {
     public enum ReturnDurationType
@@ -19,14 +18,14 @@ namespace SOSXR.SeaShark.ObjectCue
     public class RendererSet
     {
         public Renderer Renderer;
-        [Space(10)]
-        public Color OriginalColor;
+        [Space(10)] public Color OriginalColor;
         public AnimationCurve ColorCurve = new(new Keyframe(0, 0.05f), new Keyframe(1, 1f));
         public Color DesiredColor;
-        [Space(10)]
-        public Color OriginalEmissionColor;
+        [Space(10)] public Color OriginalEmissionColor;
+
         [Tooltip("Emission curve should probably never hit 0, because then flickering occurs.")]
         public AnimationCurve EmissionCurve = new(new Keyframe(0, 0.05f), new Keyframe(1, 0.35f));
+
         [Tooltip("DesiredEmissionColor should have a non-zero alpha value, otherwise it won't work.")]
         public Color DesiredEmissionColor;
     }
@@ -35,49 +34,54 @@ namespace SOSXR.SeaShark.ObjectCue
     [Serializable]
     public class ObjectCue : MonoBehaviour
     {
-        [Header("AUTOSTART")]
-        [Tooltip("In seconds. If -1, the CueSequence will not start automatically.")]
-        [Range(-1f, 10f)] [SerializeField] private float m_startDelay = -1;
+        [Header("AUTOSTART")] [Tooltip("In seconds. If -1, the CueSequence will not start automatically.")] [Range(-1f, 10f)] [SerializeField]
+        private float m_startDelay = -1;
 
 
-        [Header("LOOPING AND RETURN")]
-        [Tooltip("Loop duration in seconds (this is a full loop, so including the return to start values)")]
-        [Range(0.1f, 10f)] [SerializeField] private float m_cueLoopDuration = 2.5f;
-        [Tooltip("The amount of times this loop should repeat. -1 is infinite, 0 is do not loop")]
-        [Range(-1, 100)] [SerializeField] private int m_numberOfLoops = -1;
-        [Tooltip("In seconds. In case ReturnSequence is active when CueSequence is called again, this is the duration to which the object will transition back to original values, prior to starting new CueSequence")]
-        [Range(0.1f, 5f)] [SerializeField] private float m_gracefulTransitionDuration = 0.5f;
+        [Header("LOOPING AND RETURN")] [Tooltip("Loop duration in seconds (this is a full loop, so including the return to start values)")] [Range(0.1f, 10f)] [SerializeField]
+        private float m_cueLoopDuration = 2.5f;
+
+        [Tooltip("The amount of times this loop should repeat. -1 is infinite, 0 is do not loop")] [Range(-1, 100)] [SerializeField]
+        private int m_numberOfLoops = -1;
+
+        [Tooltip("In seconds. In case ReturnSequence is active when CueSequence is called again, this is the duration to which the object will transition back to original values, prior to starting new CueSequence")] [Range(0.1f, 5f)] [SerializeField]
+        private float m_gracefulTransitionDuration = 0.5f;
+
         [SerializeField] private ReturnDurationType m_returnDurationType = ReturnDurationType.RemainingTimeInCueSequence;
-        [Tooltip("Return duration in seconds: Once all loops are done / looping in stopped, how long does it take to transition back to original / starting values?")]
-        [Range(0.1f, 10f)] [SerializeField] private float m_customReturnDuration = 1f;
-        [Tooltip("A returnCurve starting low (0,0) and ending high (1,0.99f) seems to work well. When final value is set to 1 instead of 0.99f, flickering (in Emission) occurs.")]
-        [SerializeField] private AnimationCurve m_returnCurve = new(new Keyframe(0, 0), new Keyframe(1, 0.99f));
+
+        [Tooltip("Return duration in seconds: Once all loops are done / looping in stopped, how long does it take to transition back to original / starting values?")] [Range(0.1f, 10f)] [SerializeField]
+        private float m_customReturnDuration = 1f;
+
+        [Tooltip("A returnCurve starting low (0,0) and ending high (1,0.99f) seems to work well. When final value is set to 1 instead of 0.99f, flickering (in Emission) occurs.")] [SerializeField]
+        private AnimationCurve m_returnCurve = new(new Keyframe(0, 0), new Keyframe(1, 0.99f));
+
         [SerializeField] private List<RendererSet> m_renderers = new();
 
 
-        [Header("LOCAL TRANSFORM SETTINGS")]
-        [SerializeField] private Vector3 m_addedLocalPosition;
+        [Header("LOCAL TRANSFORM SETTINGS")] [SerializeField]
+        private Vector3 m_addedLocalPosition;
+
         [SerializeField] private AnimationCurve m_positionCurve = new(new Keyframe(0, 0), new Keyframe(1, 1));
 
-        [Space(10)]
-        [SerializeField] private Vector3 m_addedLocalRotation;
+        [Space(10)] [SerializeField] private Vector3 m_addedLocalRotation;
         [SerializeField] private AnimationCurve m_rotationCurve = new(new Keyframe(0, 0), new Keyframe(1, 1));
 
-        [Space(10)]
-        [SerializeField] private Vector3 m_addedLocalScale;
+        [Space(10)] [SerializeField] private Vector3 m_addedLocalScale;
         [SerializeField] private AnimationCurve m_scaleCurve = new(new Keyframe(0, 0), new Keyframe(1, 1));
 
 
-        [Header("AUDIO SETTINGS")]
-        [SerializeField] private AudioSource m_audioSource;
-        [SerializeField] private AudioClip m_cueClip;
-        [Tooltip("This sound will be played at each 'halfway-point' of the loop: at start, once reached max values, upon returning to original / starting values. It will not be played at final rest (upon reaching origianl starting values, once loops are done / stopped).")]
-        [SerializeField] private AudioClip m_halfWayClip;
-        [Tooltip("Sound that will be played at very last reaching of the original values, at the very end of all the loops.")]
-        [SerializeField] private AudioClip m_stopClip;
+        [Header("AUDIO SETTINGS")] [SerializeField]
+        private AudioSource m_audioSource;
 
-        [Header("UNITY EVENTS")]
-        public UnityEvent EventOnStart;
+        [SerializeField] private AudioClip m_cueClip;
+
+        [Tooltip("This sound will be played at each 'halfway-point' of the loop: at start, once reached max values, upon returning to original / starting values. It will not be played at final rest (upon reaching origianl starting values, once loops are done / stopped).")] [SerializeField]
+        private AudioClip m_halfWayClip;
+
+        [Tooltip("Sound that will be played at very last reaching of the original values, at the very end of all the loops.")] [SerializeField]
+        private AudioClip m_stopClip;
+
+        [Header("UNITY EVENTS")] public UnityEvent EventOnStart;
         public UnityEvent EventOnStop;
         [SerializeField] private float m_position;
 

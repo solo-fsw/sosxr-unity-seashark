@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     /// <summary>
@@ -37,14 +36,17 @@ namespace SOSXR.SeaShark
         ///     <para>Neutral message.</para>
         /// </summary>
         None,
+
         /// <summary>
         ///     <para>Info message.</para>
         /// </summary>
         Info,
+
         /// <summary>
         ///     <para>Warning message.</para>
         /// </summary>
         Warning,
+
         /// <summary>
         ///     <para>Error message.</para>
         /// </summary>

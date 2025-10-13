@@ -2,13 +2,12 @@
 using UnityEditor;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(ObserveAttribute))]
     public class ObserveDrawer : PropertyDrawer
     {
-        private ObserveAttribute observeAttribute => (ObserveAttribute) attribute;
+        private ObserveAttribute observeAttribute => (ObserveAttribute)attribute;
 
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -20,7 +19,7 @@ namespace SOSXR.SeaShark.EditorScripts
             {
                 if (IsMonoBehaviour(property))
                 {
-                    var mono = (MonoBehaviour) property.serializedObject.targetObject;
+                    var mono = (MonoBehaviour)property.serializedObject.targetObject;
 
                     foreach (var callbackName in observeAttribute.callbackNames)
                     {

@@ -1,7 +1,6 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     /// <summary>

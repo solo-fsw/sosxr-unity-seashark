@@ -18,7 +18,7 @@ namespace SOSXR.SeaShark
                 return 0; // Handling division by zero
             }
 
-            return (float) part / whole;
+            return (float)part / whole;
         }
 
 
@@ -76,7 +76,7 @@ namespace SOSXR.SeaShark
         }
 
 
-        #if ENABLED_UNITY_MATHEMATICS
+#if ENABLED_UNITY_MATHEMATICS
         public static half AtLeast(this half value, half max)
         {
             return MathfExtension.Max(value, max);
@@ -87,6 +87,6 @@ namespace SOSXR.SeaShark
         {
             return MathfExtension.Min(value, max);
         }
-        #endif
+#endif
     }
 }

@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     /// <summary>
@@ -108,7 +107,7 @@ namespace SOSXR.SeaShark
         /// <param name="targetVector">The target vector to approach.</param>
         /// <returns>The new vector incremented toward the target vector by the specified speed and time interval.</returns>
         public static Vector3 IncrementVectorTowardTargetVector(Vector3 currentVector, float speed, float deltaTime,
-                                                                Vector3 targetVector)
+            Vector3 targetVector)
         {
             return Vector3.MoveTowards(currentVector, targetVector, speed * deltaTime);
         }

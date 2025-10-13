@@ -1,13 +1,12 @@
 using UnityEditor;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(WrapConfigData), true)]
-    public class WrapConfigDataEditor : UnityEditor.Editor
+    public class WrapConfigDataEditor : Editor
     {
-        private UnityEditor.Editor configDataEditor;
+        private Editor configDataEditor;
         private SerializedProperty configDataProp;
 
 

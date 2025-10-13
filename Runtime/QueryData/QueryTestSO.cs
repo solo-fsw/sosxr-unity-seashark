@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     [CreateAssetMenu(fileName = "QueryTest", menuName = "SOSXR/WebHelpers/QueryTest")]

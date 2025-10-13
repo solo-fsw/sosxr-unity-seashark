@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEngine;
 
-
 namespace joaen
 {
     /// <summary>
@@ -11,21 +10,20 @@ namespace joaen
     [RequireComponent(typeof(EasyIK))]
     public class EasyIKVisuals : MonoBehaviour
     {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
 
 
-        [Header("Visualization Settings")]
-        [Tooltip("Draw local rotation axes for joints")]
-        [SerializeField] private bool m_showLocalRotationAxis = false;
+        [Header("Visualization Settings")] [Tooltip("Draw local rotation axes for joints")] [SerializeField]
+        private bool m_showLocalRotationAxis;
 
-        [Tooltip("Size of visual gizmos")]
-        [Range(0.0f, 1.0f)] [SerializeField] private float m_gizmoSize = 0.05f;
+        [Tooltip("Size of visual gizmos")] [Range(0.0f, 1.0f)] [SerializeField]
+        private float m_gizmoSize = 0.05f;
 
-        [Tooltip("Draw lines to pole target")]
-        [SerializeField] private bool m_showPoleDirection = false;
+        [Tooltip("Draw lines to pole target")] [SerializeField]
+        private bool m_showPoleDirection;
 
-        [Tooltip("Draw axis from start to end joint")]
-        [SerializeField] private bool m_showPoleRotationAxis = false;
+        [Tooltip("Draw axis from start to end joint")] [SerializeField]
+        private bool m_showPoleRotationAxis;
 
         [SerializeField] private EasyIK m_easyIK;
 
@@ -195,6 +193,6 @@ namespace joaen
         }
 
 
-        #endif
+#endif
     }
 }

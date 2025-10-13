@@ -12,13 +12,11 @@ namespace DitzelGames.FastIK
         public Transform Target;
         public Transform Pole;
 
-        [Header("Solver Parameters")]
-        public int Iterations = 10;
+        [Header("Solver Parameters")] public int Iterations = 10;
         public float Delta = 0.001f;
         [Range(0, 1)] public float SnapBackStrength = 1f;
 
-        [Header("IK Weights")]
-        [Range(0, 1)] public float PositionWeight = 1f;
+        [Header("IK Weights")] [Range(0, 1)] public float PositionWeight = 1f;
         [Range(0, 1)] public float RotationWeight = 1f;
 
         protected float[] BonesLength;
@@ -215,7 +213,7 @@ namespace DitzelGames.FastIK
 
         private void OnDrawGizmos()
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             var current = transform;
 
             for (var i = 0; i < ChainLength && current != null && current.parent != null; i++)
@@ -226,7 +224,7 @@ namespace DitzelGames.FastIK
                 Handles.DrawWireCube(Vector3.up * 0.5f, Vector3.one);
                 current = current.parent;
             }
-            #endif
+#endif
         }
     }
 }

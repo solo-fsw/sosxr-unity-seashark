@@ -1,23 +1,17 @@
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.Samples
 {
     public class SuffixDemo : MonoBehaviour
     {
-        [Suffix("SOSXR CAN MAKE LONG SUFFIX")]
-        public float Weight;
+        [Suffix("SOSXR CAN MAKE LONG SUFFIX")] public float Weight;
 
-        [Suffix("m")]
-        public float Length;
+        [Suffix("m")] public float Length;
 
-        [Suffix("s")]
-        public int Duration;
+        [Suffix("s")] public int Duration;
 
-        [Suffix("First name")]
-        public string Name;
+        [Suffix("First name")] public string Name;
 
-        [Suffix("Bush placement")]
-        public Vector2 Trees;
+        [Suffix("Bush placement")] public Vector2 Trees;
     }
 }

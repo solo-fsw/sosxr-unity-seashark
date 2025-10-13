@@ -3,7 +3,6 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     /// <summary>

@@ -139,15 +139,15 @@ namespace SOSXR.SeaShark
             var position = _startTransform.position;
 
             var directionVector = m_direction switch
-                                  {
-                                      TransformDirections.Forward => _startTransform.forward,
-                                      TransformDirections.Back => -_startTransform.forward,
-                                      TransformDirections.Up => _startTransform.up,
-                                      TransformDirections.Down => -_startTransform.up,
-                                      TransformDirections.Right => _startTransform.right,
-                                      TransformDirections.Left => -_startTransform.right,
-                                      _ => Vector3.zero
-                                  };
+            {
+                TransformDirections.Forward => _startTransform.forward,
+                TransformDirections.Back => -_startTransform.forward,
+                TransformDirections.Up => _startTransform.up,
+                TransformDirections.Down => -_startTransform.up,
+                TransformDirections.Right => _startTransform.right,
+                TransformDirections.Left => -_startTransform.right,
+                _ => Vector3.zero
+            };
 
             Gizmos.DrawLine(position, position + directionVector * m_size);
         }

@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-
 namespace SOSXR.SeaShark
 {
     public class AdditionalUnityEvent : MonoBehaviour
@@ -12,11 +11,13 @@ namespace SOSXR.SeaShark
         [SerializeField] private UnityEvent m_eventToFire;
         [SerializeField] private LifeCycleTriggerType m_triggerType = LifeCycleTriggerType.Awake;
         [SerializeField] private BuildTriggerType m_buildTriggerType = BuildTriggerType.Always;
-        [SerializeField] [Range(0f, 10f)] private float m_delayInSeconds = 0f;
+        [SerializeField] [Range(0f, 10f)] private float m_delayInSeconds;
 
-        [Header("Optional")]
-        [SerializeField] [Optional(OptionalType.WillFind)] private string[] m_tags = { };
-        [SerializeField] [Optional(OptionalType.WillGet)] private InputActionProperty m_inputAction;
+        [Header("Optional")] [SerializeField] [Optional(OptionalType.WillFind)]
+        private string[] m_tags = { };
+
+        [SerializeField] [Optional(OptionalType.WillGet)]
+        private InputActionProperty m_inputAction;
 
         private Coroutine _activeCoroutine;
 
@@ -184,33 +185,33 @@ namespace SOSXR.SeaShark
                 return true;
             }
 
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             if (m_buildTriggerType == BuildTriggerType.OnlyInEditor && Application.isPlaying)
             {
                 return true;
             }
-            #endif
+#endif
 
-            #if !UNITY_EDITOR
+#if !UNITY_EDITOR
             if (m_buildTriggerType == BuildTriggerType.OnlyInBuilds && !Application.isPlaying)
             {
                 return true;
             }
-            #endif
+#endif
 
-            #if !UNITY_EDITOR && DEVELOPMENT_BUILD
+#if !UNITY_EDITOR && DEVELOPMENT_BUILD
             if (m_buildTriggerType == BuildTriggerType.OnlyInDevelopmentBuilds )
             {
                 return true;
             }
-            #endif
+#endif
 
-            #if !UNITY_EDITOR && !DEVELOPMENT_BUILD
+#if !UNITY_EDITOR && !DEVELOPMENT_BUILD
             if (m_buildTriggerType == BuildTriggerType.OnlyInProductionBuilds)
             {
                 return true;
             }
-            #endif
+#endif
 
             Debug.LogError("BuildTriggerType is not set correctly. Please check the settings.");
 

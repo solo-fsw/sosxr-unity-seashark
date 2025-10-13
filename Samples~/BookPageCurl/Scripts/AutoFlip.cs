@@ -1,18 +1,17 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-
 [RequireComponent(typeof(Book))]
 public class AutoFlip : MonoBehaviour
 {
     public FlipMode Mode;
     public float PageFlipTime = 1;
     public float TimeBetweenPages = 1;
-    public float DelayBeforeStarting = 0;
+    public float DelayBeforeStarting;
     public bool AutoStartFlip = true;
     public Book ControledBook;
     public int AnimationFramesCount = 40;
-    private bool isFlipping = false;
+    private bool isFlipping;
 
 
     // Use this for initialization

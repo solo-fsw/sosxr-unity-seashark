@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     [RequireComponent(typeof(FindCollidersInScene))]

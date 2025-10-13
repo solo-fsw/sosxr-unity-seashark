@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     public class RemoveGameObject : MonoBehaviour, ITargetReceiver

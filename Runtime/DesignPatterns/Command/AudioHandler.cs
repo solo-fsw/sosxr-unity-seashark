@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     public class AudioHandler : MonoBehaviour
@@ -11,10 +10,10 @@ namespace SOSXR.SeaShark
 
         private void OnValidate()
         {
-          if (m_player == null)
-          {
-              m_player = GetComponent<Player>();
-          }
+            if (m_player == null)
+            {
+                m_player = GetComponent<Player>();
+            }
         }
 
         private void Awake()

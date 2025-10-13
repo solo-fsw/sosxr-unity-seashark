@@ -3,7 +3,6 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
 
-
 namespace SOSXR.SeaShark
 {
     public abstract class ConfigValueToUnityEvent<T> : MonoBehaviour
@@ -109,7 +108,7 @@ namespace SOSXR.SeaShark
 
             if (property != null && property.PropertyType == typeof(T) && property.CanRead)
             {
-                GetValue = () => (T) property.GetValue(ConfigData);
+                GetValue = () => (T)property.GetValue(ConfigData);
 
                 return;
             }
@@ -119,7 +118,7 @@ namespace SOSXR.SeaShark
 
             if (field != null && field.FieldType == typeof(T))
             {
-                GetValue = () => (T) field.GetValue(ConfigData);
+                GetValue = () => (T)field.GetValue(ConfigData);
 
                 return;
             }

@@ -39,11 +39,11 @@ namespace SOSXR.SeaShark.EditorScripts
         public static bool IsWrongType(this MemberInfo member)
         {
             var memberType = member switch
-                             {
-                                 PropertyInfo propertyInfo => propertyInfo.PropertyType,
-                                 FieldInfo fieldInfo => fieldInfo.FieldType,
-                                 _ => null
-                             };
+            {
+                PropertyInfo propertyInfo => propertyInfo.PropertyType,
+                FieldInfo fieldInfo => fieldInfo.FieldType,
+                _ => null
+            };
 
             return memberType != null && PropFieldTypes.Contains(memberType);
         }

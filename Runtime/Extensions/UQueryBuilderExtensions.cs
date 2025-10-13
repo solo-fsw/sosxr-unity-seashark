@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UIElements;
 
-
 namespace SOSXR.SeaShark
 {
     /// <summary>
@@ -19,7 +18,7 @@ namespace SOSXR.SeaShark
         /// <param name="keySelector">A function to extract a sort key from an element.</param>
         /// <param name="default">The Comparer to compare keys.</param>
         public static IEnumerable<T> OrderBy<T, TKey>(this UQueryBuilder<T> query, Func<T, TKey> keySelector,
-                                                      Comparer<TKey> @default)
+            Comparer<TKey> @default)
             where T : VisualElement
         {
             return query.ToList().OrderBy(keySelector, @default);

@@ -1,25 +1,25 @@
 {
-    "name": "SOSXR.SeaShark",
-    "rootNamespace": "SOSXR.SeaShark",
-    "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:eb1034696cce04f25a4a7d38d2e0e5a4",
-        "GUID:2510443271ef8f74ba27a53daf582389",
-        "GUID:6b4911466a85ce34c934d0255949e75e",
-        "GUID:bb97ea1f329be974ab6c9d252aea5972",
-        "GUID:e39e53512fd032c49a37a82b0dd59be0",
-        "GUID:81e22f46ddc2c4344b3cc97fef78d184",
-        "GUID:71d168ec2ded14d4e977bd844d557972",
-        "GUID:111d4e39aeddad44898002abada9c174"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "SOSXR.SeaShark",
+  "rootNamespace": "SOSXR.SeaShark",
+  "references": [
+    "GUID:75469ad4d38634e559750d17036d5f7c",
+    "GUID:6055be8ebefd69e48b49212b09b47b2f",
+    "GUID:eb1034696cce04f25a4a7d38d2e0e5a4",
+    "GUID:2510443271ef8f74ba27a53daf582389",
+    "GUID:6b4911466a85ce34c934d0255949e75e",
+    "GUID:bb97ea1f329be974ab6c9d252aea5972",
+    "GUID:e39e53512fd032c49a37a82b0dd59be0",
+    "GUID:81e22f46ddc2c4344b3cc97fef78d184",
+    "GUID:71d168ec2ded14d4e977bd844d557972",
+    "GUID:111d4e39aeddad44898002abada9c174"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

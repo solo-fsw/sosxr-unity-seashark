@@ -10,7 +10,7 @@ namespace SOSXR.SeaShark
     /// </summary>
     public static class ResourcesUtils
     {
-        #if ENABLED_UNITY_URP
+#if ENABLED_UNITY_URP
         /// <summary>
         ///     Load volume profile from given path.
         /// </summary>
@@ -20,6 +20,6 @@ namespace SOSXR.SeaShark
             var profile = Resources.Load<VolumeProfile>(path);
             volume.profile = profile;
         }
-        #endif
+#endif
     }
 }

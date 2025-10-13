@@ -9,9 +9,10 @@
 ## Attribution
 
 A huge thanks goes to two channels who are creating incredible content:
+
 - [Warped Imagination](https://www.youtube.com/@WarpedImagination)
 - [git-amend](https://www.youtube.com/@git-amend) on YouTube and also his [repo](https://github.com/adammyhre/Unity-Utils)
-  
+
 A lot of the good work shown in this repo is either a direct copy of their work, or a heavily 'inspired' version of it.
 
 Quite a few of the components here are __not__ by my design. They're all Open Source, and where possible I tried to attribute to the original author. If you see something that you believe is yours, please let me know, and I'll be happy to add you to the list of contributors.
@@ -30,13 +31,15 @@ When using [EditorSpice](https://github.com/solo-fsw/sosxr-unity-editorspice) in
 4. Paste the URL of this repo into the text field and press `Add`. Make sure it ends with `.git`.
 
 # Dependencies
+
 The entire package depends on our [Enhanced Logger](https://github.com/solo-fsw/sosxr-unity-enhancedlogger).
 
 A couple of scripts that can be downloaded from the Samples have additional dependencies.
+
 - Android Permission Requester depends on [UnityAndroidRuntimePermissions](https://github.com/yasirkula/UnityAndroidRuntimePermissions))
 
-
 # Android Runtime Requester
+
 Android Permission Requester (which depends on [UnityAndroidRuntimePermissions](https://github.com/yasirkula/UnityAndroidRuntimePermissions))
 
 # Additional Unity Events
@@ -93,6 +96,7 @@ In the Editor you can use the checkboxes to add or remove variables that should 
 While in the Editor, the OnValidate should pick up on any changes to the ScriptableObject, if you name your fields and properties correctly (see below). If it doesn't work, you have to hit the `UpdateConfigJson` button to save your changes to disk.
 
 The DemoConfigData's OnValidate and the corresponding auto-storing of the JSON to disk when changing values in the Inspector works only when:
+
 - Your `[SerializeField] private ...` backing-field is named starting with "m_" and in camelCase (e.g. `m_likeThis`)
 - Your corresponding `public` property is named the exact same name, but without te "m_", and in PascalCase (e.g.
   `LikeThis`)
@@ -153,8 +157,11 @@ A similar thing is done in the `OnValidate` on the `BaseConfigData` class: after
 # Fader
 
 # Fonts
+
 ## LinBiolineum
+
 ## Maple Mono
+
 > By subframe7536
 
 Downloaded from [GitHub](https://github.com/subframe7536/maple-font?tab=readme-ov-file#install)
@@ -167,6 +174,7 @@ Use the 'Maple Mono' font asset in any text field. It will automatically grab th
 If you'd rather always use the italic version, you can drag that one into the TMPro field too, but this shouldn't be necessary.
 
 # Interface Support
+
 By [TheDudeFromCI](https://github.com/TheDudeFromCI/Unity-Interface-Support/?tab=readme-ov-file).
 
 # General Attributes
@@ -198,7 +206,6 @@ The InfoDrawer is a custom property drawer for Unity that displays informational
 ## Optional
 
 To let future people know that the variable is optional, and that you don't necessarily need to set it. It has options to mark the field as "Will Find", "Will Get", and "Will Add" as well. These indicate that they may be blank in the Inspector right now, but that you will (in your own code) will get the values later, either through a Find somewhere in the scene, a GetComponent-type action, or an AddComponent.
-
 
 ## PreviewDrawer
 

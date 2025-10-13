@@ -12,32 +12,34 @@ namespace SOSXR.SeaShark
     /// </summary>
     public class WhiteboardMarker : MonoBehaviour
     {
-        [Header("Whiteboard to draw on")]
-        [SerializeField] private Whiteboard m_whiteboard;
-        [Tooltip("Set this to false if you're enabling/disabling the Drawing manually, for instance from the OnGrab en OnRelease of the XR Grab Interactable. \nThis would then be cheaper than having it run all the time")]
-        [SerializeField] private bool m_startDrawingOnStart = true;
+        [Header("Whiteboard to draw on")] [SerializeField]
+        private Whiteboard m_whiteboard;
 
-        [Header("Set to IgnoreRaycast layer!")]
-        [Tooltip("Needs to be on Ignore Raycast layer!")]
-        [SerializeField] private Transform m_drawPart;
-        [Tooltip("Needs to be on Ignore Raycast layer!")]
-        [SerializeField] private Transform m_end;
+        [Tooltip("Set this to false if you're enabling/disabling the Drawing manually, for instance from the OnGrab en OnRelease of the XR Grab Interactable. \nThis would then be cheaper than having it run all the time")] [SerializeField]
+        private bool m_startDrawingOnStart = true;
 
-        [Header("Settings")]
-        [Tooltip("In pixels, how large is the colouring area.")]
-        [SerializeField] private Vector2Int m_penSize = new(10, 10);
+        [Header("Set to IgnoreRaycast layer!")] [Tooltip("Needs to be on Ignore Raycast layer!")] [SerializeField]
+        private Transform m_drawPart;
 
-        [Header("Audio Player")]
-        [SerializeField] private AudioSource m_audioSource;
+        [Tooltip("Needs to be on Ignore Raycast layer!")] [SerializeField]
+        private Transform m_end;
+
+        [Header("Settings")] [Tooltip("In pixels, how large is the colouring area.")] [SerializeField]
+        private Vector2Int m_penSize = new(10, 10);
+
+        [Header("Audio Player")] [SerializeField]
+        private AudioSource m_audioSource;
 
 
-        [Header("Drawing Settings")]
-        [SerializeField] [Range(0f, 100f)] private float m_materialColorDensityPercentage = 75f;
-        [Tooltip("This is for each pixel in the brush tip the 'other' color, alongside the color of the Material. This is chosen 100-materialColorDensityPercentage percent. If you for instance set the materialColorDensityPercentage to 75%, and keep AlternativeColor to white, 25% of the brush will be white. Set the MaterialColorDensity to 100% if you don't want this.")]
-        [SerializeField] private Color m_alternativeColor = Color.white;
+        [Header("Drawing Settings")] [SerializeField] [Range(0f, 100f)]
+        private float m_materialColorDensityPercentage = 75f;
 
-        [Tooltip("How often does the entire draw calculation have to be done? This is in seconds")]
-        [SerializeField] [Range(0.001f, 0.1f)] private float m_drawIntervalSeconds = 0.05f; // 0.05f seconds seems to work well
+        [Tooltip("This is for each pixel in the brush tip the 'other' color, alongside the color of the Material. This is chosen 100-materialColorDensityPercentage percent. If you for instance set the materialColorDensityPercentage to 75%, and keep AlternativeColor to white, 25% of the brush will be white. Set the MaterialColorDensity to 100% if you don't want this.")] [SerializeField]
+        private Color m_alternativeColor = Color.white;
+
+        [Tooltip("How often does the entire draw calculation have to be done? This is in seconds")] [SerializeField] [Range(0.001f, 0.1f)]
+        private float m_drawIntervalSeconds = 0.05f; // 0.05f seconds seems to work well
+
         [SerializeField] [Range(0.001f, 0.5f)] private float m_interpolationSpecificity = 0.1f;
 
         [SerializeField] private AnimationCurve m_amplitudeCurves = new(new Keyframe(0, 0.1f), new Keyframe(1, 0));
@@ -271,8 +273,8 @@ namespace SOSXR.SeaShark
 
             var size = m_whiteboard.TextureSize;
 
-            _x = (int) (_touchPosition.x * size.x - m_penSize.x / 2);
-            _y = (int) (_touchPosition.y * size.y - m_penSize.y / 2);
+            _x = (int)(_touchPosition.x * size.x - m_penSize.x / 2);
+            _y = (int)(_touchPosition.y * size.y - m_penSize.y / 2);
         }
 
 
@@ -286,8 +288,8 @@ namespace SOSXR.SeaShark
         {
             for (var f = 0.01f; f < 1.00f; f += m_interpolationSpecificity)
             {
-                var lerpX = (int) Mathf.Lerp(_lastTouchPosition.x, x, f);
-                var lerpY = (int) Mathf.Lerp(_lastTouchPosition.y, y, f);
+                var lerpX = (int)Mathf.Lerp(_lastTouchPosition.x, x, f);
+                var lerpY = (int)Mathf.Lerp(_lastTouchPosition.y, y, f);
 
                 SetPixels(lerpX, lerpY);
             }

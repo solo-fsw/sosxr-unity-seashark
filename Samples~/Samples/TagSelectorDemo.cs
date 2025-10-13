@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.Samples
 {
     public class TagSelectorDemo : MonoBehaviour

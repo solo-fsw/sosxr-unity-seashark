@@ -3,7 +3,6 @@ using System.IO;
 using TMPro;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     public class BuildInfoToUI : MonoBehaviour
@@ -103,11 +102,11 @@ namespace SOSXR.SeaShark
             var daysDifference = (currentDate - buildDate).Days;
 
             return daysDifference switch
-                   {
-                       0 => "today",
-                       1 => "yesterday",
-                       _ => $"{daysDifference} days ago"
-                   };
+            {
+                0 => "today",
+                1 => "yesterday",
+                _ => $"{daysDifference} days ago"
+            };
         }
     }
 }

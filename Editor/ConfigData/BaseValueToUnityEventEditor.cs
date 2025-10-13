@@ -4,12 +4,11 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(ConfigValueToUnityEvent<>), true)] // Supports subclasses
     [CanEditMultipleObjects]
-    public class BaseValueToUnityEventEditor : UnityEditor.Editor
+    public class BaseValueToUnityEventEditor : Editor
     {
         private string[] validValueNames;
         private Type fieldType;
@@ -91,7 +90,7 @@ namespace SOSXR.SeaShark.EditorScripts
 
             if (GUILayout.Button("Find Values and Fire Event"))
             {
-                ((ConfigValueToUnityEvent<object>) target).FireCurrentValue();
+                ((ConfigValueToUnityEvent<object>)target).FireCurrentValue();
             }
 
             serializedObject.ApplyModifiedProperties();
@@ -125,14 +124,14 @@ namespace SOSXR.SeaShark.EditorScripts
             fieldType = baseType; // Store the expected type for filtering
 
             var properties = configType
-                             .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                             .Where(p => p.PropertyType == fieldType && p.CanRead)
-                             .Select(p => p.Name);
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p.PropertyType == fieldType && p.CanRead)
+                .Select(p => p.Name);
 
             var fields = configType
-                         .GetFields(BindingFlags.Public | BindingFlags.Instance)
-                         .Where(f => f.FieldType == fieldType)
-                         .Select(f => f.Name);
+                .GetFields(BindingFlags.Public | BindingFlags.Instance)
+                .Where(f => f.FieldType == fieldType)
+                .Select(f => f.Name);
 
             validValueNames = properties.Concat(fields).ToArray();
         }

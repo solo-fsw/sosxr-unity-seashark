@@ -52,5 +52,5 @@ This package only contains the single attribute, `InterfaceType` which exists wi
 ## Document revision history
 
 | Date         | Reason                         |
-| ------------ | ------------------------------ |
+|--------------|--------------------------------|
 | June 8, 2020 | Initial documentation written. |

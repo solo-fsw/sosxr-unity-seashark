@@ -1,7 +1,6 @@
 ﻿using SOSXR.SeaShark;
 using UnityEngine;
 
-
 public class ObserveExample : MonoBehaviour
 {
     public enum Test
@@ -11,12 +10,10 @@ public class ObserveExample : MonoBehaviour
     }
 
 
-    [Observe("Callback")]
-    public string
+    [Observe("Callback")] public string
         hoge;
 
-    [Observe("Callback", "Callback2")]
-    public Test
+    [Observe("Callback", "Callback2")] public Test
         test;
 
 

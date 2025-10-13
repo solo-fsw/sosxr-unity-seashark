@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace SOSXR.SeaShark.Excessives
 {
     internal static class BitWisE
@@ -12,7 +11,7 @@ namespace SOSXR.SeaShark.Excessives
         {
             if (boolArray.Length == 8)
             {
-                return (byte) (
+                return (byte)(
                     ((boolArray[0] ? 1 : 0) << 7) |
                     ((boolArray[1] ? 1 : 0) << 6) |
                     ((boolArray[2] ? 1 : 0) << 5) |
@@ -33,7 +32,7 @@ namespace SOSXR.SeaShark.Excessives
                     break;
                 }
 
-                rtnByte = (byte) (
+                rtnByte = (byte)(
                     rtnByte | ((boolArray[i] ? 1 : 0) << (7 - i))
                 );
             }
@@ -99,7 +98,7 @@ namespace SOSXR.SeaShark.Excessives
                 if (bitString[i] == '1')
                 {
                     returnbyte =
-                        (byte) (
+                        (byte)(
                             returnbyte |
                             (128 >> i)
                         );
@@ -122,8 +121,8 @@ namespace SOSXR.SeaShark.Excessives
         {
             return
                 GetBit(
-                    bitList[(int) Math.Floor((decimal) position / 8)],
-                    (int) position % 8
+                    bitList[(int)Math.Floor((decimal)position / 8)],
+                    (int)position % 8
                 );
         }
 
@@ -138,7 +137,7 @@ namespace SOSXR.SeaShark.Excessives
         /// </summary>
         public static byte Crossover(byte byte1, byte byte2, byte mask)
         {
-            return (byte) (
+            return (byte)(
                 (byte1 & mask)
                 |
                 (byte2 & ~mask)
@@ -168,7 +167,7 @@ namespace SOSXR.SeaShark.Excessives
 
             var added = new byte[a.LongLength];
 
-            return (byte[]) added.For((n, i) => added[i] = (byte) (a[i] + b[i]));
+            return (byte[])added.For((n, i) => added[i] = (byte)(a[i] + b[i]));
         }
 
         #endregion

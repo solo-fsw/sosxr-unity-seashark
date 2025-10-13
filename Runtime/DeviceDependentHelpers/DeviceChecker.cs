@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR;
 
-
 namespace SOSXR.SeaShark
 {
     public class DeviceChecker : MonoBehaviour
@@ -43,12 +42,12 @@ namespace SOSXR.SeaShark
             }
             else
             {
-                #if UNITY_EDITOR
+#if UNITY_EDITOR
 
                 Debug.Log("We're in the editor");
                 m_isEditor?.Invoke();
 
-                #endif
+#endif
             }
 
             m_platform.DeviceName = SystemInfo.deviceName;

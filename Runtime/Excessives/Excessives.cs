@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Cryptography;
 
-
 namespace SOSXR.SeaShark.Excessives
 {
     public static class MathE
@@ -403,19 +402,19 @@ namespace SOSXR.SeaShark.Excessives
         //{TODO} Rewrite these so they don't cast to double
         public static float Round(float val)
         {
-            return (float) Math.Round(val);
+            return (float)Math.Round(val);
         }
 
 
         public static float Floor(float val)
         {
-            return (float) Math.Floor(val);
+            return (float)Math.Floor(val);
         }
 
 
         public static float Ceil(float val)
         {
-            return (float) Math.Ceiling(val);
+            return (float)Math.Ceiling(val);
         }
 
 
@@ -531,7 +530,7 @@ namespace SOSXR.SeaShark.Excessives
         /// </summary>
         public static float SineLerp(float a, float b, float t)
         {
-            return (b - a) * (float) Math.Sin(t * Math.PI / 2) + a;
+            return (b - a) * (float)Math.Sin(t * Math.PI / 2) + a;
         }
 
 
@@ -551,7 +550,7 @@ namespace SOSXR.SeaShark.Excessives
             //Lerp function: lerped = ((b-a) * t * t) + a
             //Solve for t
             //t = Sqrt((lerped - a) / (b - a))
-            return (float) Math.Sqrt((lerped - a) / (double) (b - a));
+            return (float)Math.Sqrt((lerped - a) / (double)(b - a));
         }
 
         #endregion
@@ -576,7 +575,7 @@ namespace SOSXR.SeaShark.Excessives
         /// <returns></returns>
         public static float ToDeg(this float v)
         {
-            return v * 180 / (float) Math.PI;
+            return v * 180 / (float)Math.PI;
         }
 
 
@@ -598,7 +597,7 @@ namespace SOSXR.SeaShark.Excessives
         /// <returns></returns>
         public static float ToRad(this float v)
         {
-            return v * (float) Math.PI / 180;
+            return v * (float)Math.PI / 180;
         }
 
 
@@ -654,7 +653,7 @@ namespace SOSXR.SeaShark.Excessives
             //Testing new way to generate random numbers
             //double d = Math.Abs(bytes.DecDouble()) % 1.0;
             var ul = BitConverter.ToUInt64(bytes, 0) / (1 << 11);
-            var d = ul / (double) (1UL << 53);
+            var d = ul / (double)(1UL << 53);
 
             return d;
         }
@@ -668,7 +667,7 @@ namespace SOSXR.SeaShark.Excessives
 
         public static float Range(float min, float max)
         {
-            return (max - min) * (float) Range() + min;
+            return (max - min) * (float)Range() + min;
         }
 
 
@@ -679,7 +678,7 @@ namespace SOSXR.SeaShark.Excessives
         /// <typeparam name="T">The type parameter.</typeparam>
         public static T Pick<T>(params T[] array)
         {
-            return array[(int) (array.Length * Range())];
+            return array[(int)(array.Length * Range())];
         }
 
 
@@ -749,7 +748,7 @@ namespace SOSXR.SeaShark.Excessives
 
             for (long i = 0; i < key.LongLength; i++)
             {
-                XORd[i] = (byte) (input[i] ^ key[i]);
+                XORd[i] = (byte)(input[i] ^ key[i]);
             }
 
             return XORd;

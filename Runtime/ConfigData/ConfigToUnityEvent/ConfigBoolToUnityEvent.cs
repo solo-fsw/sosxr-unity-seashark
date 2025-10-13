@@ -2,7 +2,7 @@ namespace SOSXR.SeaShark
 {
     public class ConfigBoolToUnityEvent : ConfigValueToUnityEvent<bool>
     {
-        public bool Invert = false;
+        public bool Invert;
 
 
         protected override void FireEvent(bool value)

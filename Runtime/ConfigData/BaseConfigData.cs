@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     public abstract class BaseConfigData : ScriptableObject
@@ -124,7 +123,7 @@ namespace SOSXR.SeaShark
         }
 
 
-        private void OnValidate()
+        protected virtual void OnValidate()
         {
             var fields = GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
             var properties = GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);

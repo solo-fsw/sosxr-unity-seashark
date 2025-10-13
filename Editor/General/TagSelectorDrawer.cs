@@ -3,7 +3,6 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     /// <summary>
@@ -46,7 +45,7 @@ namespace SOSXR.SeaShark.EditorScripts
 
         private bool IsUsingDefaultTagField()
         {
-            return attribute is TagSelectorAttribute {UseDefaultTagFieldDrawer: true};
+            return attribute is TagSelectorAttribute { UseDefaultTagFieldDrawer: true };
         }
 
 
@@ -72,7 +71,7 @@ namespace SOSXR.SeaShark.EditorScripts
 
         private List<string> CreateTagList()
         {
-            var tagList = new List<string> {NO_TAG_OPTION};
+            var tagList = new List<string> { NO_TAG_OPTION };
             tagList.AddRange(InternalEditorUtility.tags);
 
             return tagList;

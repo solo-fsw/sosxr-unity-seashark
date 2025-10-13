@@ -1,13 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     [RequireComponent(typeof(ILoadQueryURL))]
     public class LoadQueryURL : MonoBehaviour
     {
-        [SerializeField] private bool m_startAutomatically = false;
+        [SerializeField] private bool m_startAutomatically;
         [SerializeField] protected ILoadQueryURL m_webViewPrefab;
         [SerializeField] private IHaveQueryData m_configData;
 

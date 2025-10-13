@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     [CreateAssetMenu(menuName = "SOSXR/CurrentDevice", fileName = "CurrentDevice")]

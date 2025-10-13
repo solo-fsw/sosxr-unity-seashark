@@ -1,11 +1,10 @@
 using UnityEditor;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(DrawGizmo))]
-    public class DrawGizmoEditor : UnityEditor.Editor
+    public class DrawGizmoEditor : Editor
     {
         private SerializedProperty m_gizmoType;
         private SerializedProperty m_endTransform;
@@ -28,7 +27,7 @@ namespace SOSXR.SeaShark.EditorScripts
         {
             serializedObject.Update();
 
-            var gizmoType = (GizmoType) m_gizmoType.enumValueIndex;
+            var gizmoType = (GizmoType)m_gizmoType.enumValueIndex;
 
             EditorGUILayout.PropertyField(m_gizmoType);
             EditorGUILayout.PropertyField(m_gizmoColor);

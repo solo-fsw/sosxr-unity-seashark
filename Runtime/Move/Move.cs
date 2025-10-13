@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     public class Move : MonoBehaviour, ITargetReceiver
@@ -34,8 +33,8 @@ namespace SOSXR.SeaShark
 
         public bool m_bezierLoop = true;
 
-        private float m_bezierT = 0f;
-        private float m_orbitAngle = 0f;
+        private float m_bezierT;
+        private float m_orbitAngle;
         private float m_time;
         private bool m_bouncingTowardsEnd = true;
         private Vector3 velocity;

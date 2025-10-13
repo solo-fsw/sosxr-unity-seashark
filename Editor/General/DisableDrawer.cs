@@ -3,7 +3,6 @@
 using UnityEditor;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(DisableAttribute))]

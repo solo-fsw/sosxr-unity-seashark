@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(SuffixAttribute))]
@@ -9,7 +8,7 @@ namespace SOSXR.SeaShark.EditorScripts
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            var suffixAttribute = (SuffixAttribute) attribute;
+            var suffixAttribute = (SuffixAttribute)attribute;
 
             var labelWidth = Mathf.Max(30f, suffixAttribute.Suffix.Length * 7f);
 
@@ -20,7 +19,7 @@ namespace SOSXR.SeaShark.EditorScripts
 
             var rightAlignedStyle = new GUIStyle(EditorStyles.label)
             {
-                normal = {textColor = Color.grey},
+                normal = { textColor = Color.grey },
                 alignment = TextAnchor.MiddleRight,
                 fontSize = EditorStyles.label.fontSize - 2,
                 fontStyle = FontStyle.Italic

@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.Samples
 {
     public class MediatorAudioListenerExample : MonoBehaviour
@@ -22,7 +21,7 @@ namespace SOSXR.SeaShark.Samples
 
         private void PlayAudio(Medium medium)
         {
-            var audioClip = (AudioClip) medium.Data;
+            var audioClip = (AudioClip)medium.Data;
 
             if (audioClip == null)
             {

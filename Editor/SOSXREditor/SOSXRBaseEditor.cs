@@ -13,7 +13,7 @@ namespace SOSXR.SeaShark.EditorScripts
     ///     A texture with `_textureName` should be in one of the Resources folders
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SOSXRBaseEditor<T> : UnityEditor.Editor where T : Object
+    public class SOSXRBaseEditor<T> : Editor where T : Object
     {
         private readonly string _textureName = "SOSXR_editor_icon"; // Needs to be in a Resources folder
         private static Texture2D _buttonIcon;
@@ -116,8 +116,8 @@ namespace SOSXR.SeaShark.EditorScripts
                 else // Get general defaults to use
                 {
                     var getDefault = typeof(SOSXRDefaultValues)
-                                     .GetMethod(nameof(SOSXRDefaultValues.Get))
-                                     ?.MakeGenericMethod(paramType);
+                        .GetMethod(nameof(SOSXRDefaultValues.Get))
+                        ?.MakeGenericMethod(paramType);
 
                     args[i] = getDefault?.Invoke(null, null) ?? GetFallbackValue(param);
 

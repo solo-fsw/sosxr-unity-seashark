@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace SOSXR.SeaShark.Excessives
 {
     public static class ZciencE

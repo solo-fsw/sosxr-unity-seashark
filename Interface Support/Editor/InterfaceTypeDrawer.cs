@@ -1,20 +1,20 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace WraithavenGames.UnityInterfaceSupport
 {
     /// <summary>
-    /// This property drawer is the meat of the interface support implementation. When
-    /// the value of field with this attribute is modified, the new value is tested
-    /// against the interface expected. If the component matches, the new value is
-    /// accepted. Otherwise, the old value is maintained.
+    ///     This property drawer is the meat of the interface support implementation. When
+    ///     the value of field with this attribute is modified, the new value is tested
+    ///     against the interface expected. If the component matches, the new value is
+    ///     accepted. Otherwise, the old value is maintained.
     /// </summary>
     [CustomPropertyDrawer(typeof(InterfaceTypeAttribute))]
     public class InterfaceTypeDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            InterfaceTypeAttribute att = attribute as InterfaceTypeAttribute;
+            var att = attribute as InterfaceTypeAttribute;
 
             if (property.propertyType != SerializedPropertyType.ObjectReference)
             {
@@ -23,10 +23,10 @@ namespace WraithavenGames.UnityInterfaceSupport
             }
 
             // Pick a specific component
-            MonoBehaviour oldComp = property.objectReferenceValue as MonoBehaviour;
+            var oldComp = property.objectReferenceValue as MonoBehaviour;
 
             GameObject temp = null;
-            string oldName = "";
+            var oldName = "";
 
             if (Event.current.type == EventType.Repaint)
             {
@@ -42,18 +42,25 @@ namespace WraithavenGames.UnityInterfaceSupport
                 }
             }
 
-            MonoBehaviour comp = EditorGUI.ObjectField(position, label, oldComp, typeof(MonoBehaviour), true) as MonoBehaviour;
+            var comp = EditorGUI.ObjectField(position, label, oldComp, typeof(MonoBehaviour), true) as MonoBehaviour;
 
             if (Event.current.type == EventType.Repaint)
             {
                 if (temp != null)
+                {
                     GameObject.DestroyImmediate(temp);
+                }
                 else
+                {
                     oldComp.name = oldName;
+                }
             }
 
             // Make sure something changed.
-            if (oldComp == comp) return;
+            if (oldComp == comp)
+            {
+                return;
+            }
 
             // If a component is assigned, make sure it is the interface we are looking for.
             if (comp != null)
@@ -61,10 +68,15 @@ namespace WraithavenGames.UnityInterfaceSupport
                 // Make sure component is of the right interface
                 if (comp.GetType() != att.type)
                     // Component failed. Check game object.
+                {
                     comp = comp.gameObject.GetComponent(att.type) as MonoBehaviour;
+                }
 
                 // Item failed test. Do not override old component
-                if (comp == null) return;
+                if (comp == null)
+                {
+                    return;
+                }
             }
 
             property.objectReferenceValue = comp;

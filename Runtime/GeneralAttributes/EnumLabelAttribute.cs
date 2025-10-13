@@ -13,7 +13,6 @@
 using System;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     [AttributeUsage(AttributeTargets.Enum | AttributeTargets.Field)]

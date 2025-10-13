@@ -6,24 +6,23 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Video;
 
-
 namespace SOSXR.SeaShark
 {
-    [RequireComponent(typeof(UnityEngine.Video.VideoPlayer))]
+    [RequireComponent(typeof(VideoPlayer))]
     public class VideoPlayerManager : MonoBehaviour
     {
         [SerializeField] private Material m_renderMaterial;
 
-        [Header("Clip Settings")]
-        [SerializeField] private bool m_startAutomatically = true;
+        [Header("Clip Settings")] [SerializeField]
+        private bool m_startAutomatically = true;
+
         [SerializeField] [Range(0, 60)] private float m_beforeFirstClipPauseDuration = 5f;
         [SerializeField] public List<VideoSettingsCustom> Clips;
         [SerializeField] private List<VideoSettingsCustom> m_randomizedClipList;
         [SerializeField] [Range(0, 60)] private float m_betweenEachClipPauseDuration = 2.5f;
         [SerializeField] private UnityEvent<string> VideoClipStarted;
 
-        [Header("Info")]
-        [SerializeField] public string CurrentClipName;
+        [Header("Info")] [SerializeField] public string CurrentClipName;
         [SerializeField] public float CurrentClipDuration;
         [SerializeField] public float CurrentClipTime;
         public Vector2Int Dimensions;
@@ -38,7 +37,7 @@ namespace SOSXR.SeaShark
 
         private Coroutine _playerCR;
 
-        public UnityEngine.Video.VideoPlayer VideoPlayer { get; private set; }
+        public VideoPlayer VideoPlayer { get; private set; }
         public AudioSource AudioSource { get; private set; }
 
 
@@ -46,7 +45,7 @@ namespace SOSXR.SeaShark
         {
             if (VideoPlayer == null)
             {
-                VideoPlayer = GetComponentInChildren<UnityEngine.Video.VideoPlayer>();
+                VideoPlayer = GetComponentInChildren<VideoPlayer>();
             }
 
             VideoPlayer.source = VideoSource.Url;
@@ -92,7 +91,7 @@ namespace SOSXR.SeaShark
         }
 
 
-        private void ReceivedAnError(UnityEngine.Video.VideoPlayer source, string message)
+        private void ReceivedAnError(VideoPlayer source, string message)
         {
             Debug.LogErrorFormat($"The VideoPlayer has received an error {source} {message}");
         }
@@ -142,7 +141,7 @@ namespace SOSXR.SeaShark
 
                     SetAudioSourceSettings(clip);
 
-                    CurrentClipDuration = (float) Math.Round(VideoPlayer.length, 0);
+                    CurrentClipDuration = (float)Math.Round(VideoPlayer.length, 0);
 
                     VideoPlayer.Play();
 
@@ -156,7 +155,8 @@ namespace SOSXR.SeaShark
 
                     yield return new WaitForSeconds(m_betweenEachClipPauseDuration);
                 }
-            } while (m_repeat);
+            }
+            while (m_repeat);
 
             Debug.LogFormat("Done playing all clips");
         }
@@ -166,7 +166,7 @@ namespace SOSXR.SeaShark
         {
             for (;;)
             {
-                CurrentClipTime = (float) Math.Round(VideoPlayer.clockTime, 0);
+                CurrentClipTime = (float)Math.Round(VideoPlayer.clockTime, 0);
 
                 yield return new WaitForSeconds(1);
             }
@@ -183,8 +183,8 @@ namespace SOSXR.SeaShark
 
         private void CreateNewRenderTexture()
         {
-            Dimensions.x = (int) VideoPlayer.width;
-            Dimensions.y = (int) VideoPlayer.height;
+            Dimensions.x = (int)VideoPlayer.width;
+            Dimensions.y = (int)VideoPlayer.height;
             _renderTexture = new RenderTexture(Dimensions.x, Dimensions.y, 24, RenderTextureFormat.Default);
             _renderTexture.name = "RenderTexture: " + Dimensions;
 

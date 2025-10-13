@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     /// <summary>
@@ -12,8 +11,9 @@ namespace SOSXR.SeaShark
         [SerializeField] private Vector2 m_textureSize = new(2048, 2048); // Create so that it updates to scale
 
         [SerializeField] private Renderer m_renderer;
-        [Tooltip("If we want the eventual canvas to be throwable by XR, the MeshCollider needs to be on another object, which is not a child of the XR Grab Interactable (more precisely, not a child of the Rigidbody dealing with those components)")]
-        [SerializeField] private Collider m_collider;
+
+        [Tooltip("If we want the eventual canvas to be throwable by XR, the MeshCollider needs to be on another object, which is not a child of the XR Grab Interactable (more precisely, not a child of the Rigidbody dealing with those components)")] [SerializeField]
+        private Collider m_collider;
 
         public Vector2 TextureSize => m_textureSize;
 
@@ -56,7 +56,7 @@ namespace SOSXR.SeaShark
                 return;
             }
 
-            Texture = new Texture2D((int) TextureSize.x, (int) TextureSize.y);
+            Texture = new Texture2D((int)TextureSize.x, (int)TextureSize.y);
             m_renderer.material.mainTexture = Texture; // Is the same as: _renderer.material.SetTexture("_MainTex", Texture);
 
             if (Math.Abs(transform.localScale.x - transform.localScale.y) > 0.01f ||

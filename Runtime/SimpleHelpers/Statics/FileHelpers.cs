@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.Statics
 {
     public static class FileHelpers
@@ -19,17 +18,17 @@ namespace SOSXR.SeaShark.Statics
         {
             var path = "";
 
-            #if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR
         using var envClass = new UnityEngine.AndroidJavaClass("android.os.Environment");
         using var dir = envClass.CallStatic<UnityEngine.AndroidJavaObject>("getExternalStoragePublicDirectory");
         path = dir.Call<string>("getAbsolutePath");
-            #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+#elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
             path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
-            #elif UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+#elif UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
         path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile));
-            #else
+#else
         path = "Home directory path is not supported on this platform.";
-            #endif
+#endif
 
             return path;
         }
@@ -46,17 +45,17 @@ namespace SOSXR.SeaShark.Statics
         {
             var path = "";
 
-            #if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR
         using var envClass = new UnityEngine.AndroidJavaClass("android.os.Environment");
         using var dir = envClass.CallStatic<UnityEngine.AndroidJavaObject>("getExternalStoragePublicDirectory", "Movies");
         path = dir.Call<string>("getAbsolutePath");
-            #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+#elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
             path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Movies");
-            #elif UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+#elif UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
         path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyVideos));
-            #else
+#else
         path = "Movies directory path is not supported on this platform.";
-            #endif
+#endif
 
             return path;
         }
@@ -73,15 +72,15 @@ namespace SOSXR.SeaShark.Statics
             var path = "";
             var arborVideoFolder = "ArborXR/videos";
 
-            #if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR
         using var envClass = new UnityEngine.AndroidJavaClass("android.os.Environment");
         using var dir = envClass.CallStatic<UnityEngine.AndroidJavaObject>("getExternalStoragePublicDirectory", arborVideoFolder);
         path = dir.Call<string>("getAbsolutePath");
-            #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+#elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
             path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), arborVideoFolder);
-            #else
+#else
         path = "ArborXR directory path is not supported on this platform.";
-            #endif
+#endif
 
             return path;
         }
@@ -98,17 +97,17 @@ namespace SOSXR.SeaShark.Statics
         {
             var path = "";
 
-            #if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR
         using var envClass = new UnityEngine.AndroidJavaClass("android.os.Environment");
         using var dir = envClass.CallStatic<UnityEngine.AndroidJavaObject>("getExternalStoragePublicDirectory", "Documents");
         path = dir.Call<string>("getAbsolutePath");
-            #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+#elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
             path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Documents");
-            #elif UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+#elif UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
         path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments));
-            #else
+#else
         path = "Documents directory path is not supported on this platform.";
-            #endif
+#endif
 
             return path;
         }
@@ -128,7 +127,7 @@ namespace SOSXR.SeaShark.Statics
             var filenames = Directory.GetFiles(path);
 
             // Filter by extensions
-            if (extensions is {Length: > 0})
+            if (extensions is { Length: > 0 })
             {
                 filenames = filenames.Where(f =>
                     excludeExtensions

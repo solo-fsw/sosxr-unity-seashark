@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     /// <summary>
@@ -9,7 +8,7 @@ namespace SOSXR.SeaShark
     /// </summary>
     public class UnloadUnusedAssets : MonoBehaviour
     {
-        [SerializeField] [Range(0, 300)] private int m_autoUnloadInterval = 0;
+        [SerializeField] [Range(0, 300)] private int m_autoUnloadInterval;
         private Coroutine _unloadCoroutine;
 
 

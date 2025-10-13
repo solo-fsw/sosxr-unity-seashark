@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public static class SOSXRDefaultValues
 {
     public static int Int => 42;
@@ -29,26 +28,26 @@ public static class SOSXRDefaultValues
         var type = typeof(T);
 
         return type switch
-               {
-                   _ when type == typeof(int) => (T) (object) Int,
-                   _ when type == typeof(float) => (T) (object) Float,
-                   _ when type == typeof(bool) => (T) (object) Bool,
-                   _ when type == typeof(string) => (T) (object) String,
-                   _ when type == typeof(double) => (T) (object) Double,
-                   _ when type == typeof(byte) => (T) (object) Byte,
-                   _ when type == typeof(char) => (T) (object) Char,
-                   _ when type == typeof(Vector2) => (T) (object) Vector2,
-                   _ when type == typeof(Vector3) => (T) (object) Vector3,
-                   _ when type == typeof(Vector4) => (T) (object) Vector4,
-                   _ when type == typeof(Color) => (T) (object) Color,
-                   _ when type == typeof(Quaternion) => (T) (object) Quaternion,
-                   _ when type == typeof(Transform) => (T) (object) Transform,
-                   _ when type == typeof(GameObject) => (T) (object) GameObject,
-                   _ when type == typeof(AnimationCurve) => (T) (object) Curve,
-                   _ when type == typeof(Bounds) => (T) (object) Bounds,
-                   _ when type == typeof(Rect) => (T) (object) Rect,
-                   _ when type == typeof(LayerMask) => (T) (object) LayerMask,
-                   _ => default
-               };
+        {
+            _ when type == typeof(int) => (T)(object)Int,
+            _ when type == typeof(float) => (T)(object)Float,
+            _ when type == typeof(bool) => (T)(object)Bool,
+            _ when type == typeof(string) => (T)(object)String,
+            _ when type == typeof(double) => (T)(object)Double,
+            _ when type == typeof(byte) => (T)(object)Byte,
+            _ when type == typeof(char) => (T)(object)Char,
+            _ when type == typeof(Vector2) => (T)(object)Vector2,
+            _ when type == typeof(Vector3) => (T)(object)Vector3,
+            _ when type == typeof(Vector4) => (T)(object)Vector4,
+            _ when type == typeof(Color) => (T)(object)Color,
+            _ when type == typeof(Quaternion) => (T)(object)Quaternion,
+            _ when type == typeof(Transform) => (T)(object)Transform,
+            _ when type == typeof(GameObject) => (T)(object)GameObject,
+            _ when type == typeof(AnimationCurve) => (T)(object)Curve,
+            _ when type == typeof(Bounds) => (T)(object)Bounds,
+            _ when type == typeof(Rect) => (T)(object)Rect,
+            _ when type == typeof(LayerMask) => (T)(object)LayerMask,
+            _ => default
+        };
     }
 }

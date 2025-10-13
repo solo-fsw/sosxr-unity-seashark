@@ -3,7 +3,6 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(AngleAttribute))]
@@ -11,7 +10,8 @@ namespace SOSXR.SeaShark.EditorScripts
     {
         private readonly MethodInfo knobMethodInfo = typeof(EditorGUI).GetMethod("Knob",
             BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static);
-        private AngleAttribute angleAttribute => (AngleAttribute) attribute;
+
+        private AngleAttribute angleAttribute => (AngleAttribute)attribute;
 
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -37,9 +37,9 @@ namespace SOSXR.SeaShark.EditorScripts
 
         private float Knob(Rect position, Vector2 knobSize, float currentValue, float start, float end, string unit, Color backgroundColor, Color activeColor, bool showValue)
         {
-            var invoke = knobMethodInfo.Invoke(null, new object[] {position, knobSize, currentValue, start, end, unit, backgroundColor, activeColor, showValue, GUIUtility.GetControlID("Knob".GetHashCode(), FocusType.Passive, position)});
+            var invoke = knobMethodInfo.Invoke(null, new object[] { position, knobSize, currentValue, start, end, unit, backgroundColor, activeColor, showValue, GUIUtility.GetControlID("Knob".GetHashCode(), FocusType.Passive, position) });
 
-            return (float) (invoke ?? 0);
+            return (float)(invoke ?? 0);
         }
 
 

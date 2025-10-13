@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     public enum RemovalAction
@@ -18,8 +17,9 @@ namespace SOSXR.SeaShark
     public class RemoveAllOthersOfType : MonoBehaviour
     {
         [SerializeField] private bool m_autoRemoveOnAwake = true;
-        [Tooltip("Drag a component of the type you want to control.")]
-        [SerializeField] private MonoBehaviour m_allowedComponent;
+
+        [Tooltip("Drag a component of the type you want to control.")] [SerializeField]
+        private MonoBehaviour m_allowedComponent;
 
         [SerializeField] private RemovalAction m_removalAction = RemovalAction.Disable;
 

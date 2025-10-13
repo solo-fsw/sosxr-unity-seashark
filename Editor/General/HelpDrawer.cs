@@ -2,22 +2,21 @@
 using UnityEditor;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(HelpAttribute))]
     public class HelpDrawer : PropertyDrawer
     {
         //  Global field to store the original (base) property height.
-        private float _baseHeight = 0;
+        private float _baseHeight;
 
         // Custom added height for drawing text area which has the MultilineAttribute.
-        private float _addedHeight = 0;
+        private float _addedHeight;
 
         /// <summary>
         ///     A wrapper which returns the PropertyDrawer.attribute field as a HelpAttribute.
         /// </summary>
-        private HelpAttribute helpAttribute => (HelpAttribute) attribute;
+        private HelpAttribute helpAttribute => (HelpAttribute)attribute;
 
         /// <summary>
         ///     A helper property to check for RangeAttribute.
@@ -28,7 +27,7 @@ namespace SOSXR.SeaShark.EditorScripts
             {
                 var attributes = fieldInfo.GetCustomAttributes(typeof(RangeAttribute), true);
 
-                return attributes != null && attributes.Length > 0 ? (RangeAttribute) attributes[0] : null;
+                return attributes != null && attributes.Length > 0 ? (RangeAttribute)attributes[0] : null;
             }
         }
 
@@ -41,7 +40,7 @@ namespace SOSXR.SeaShark.EditorScripts
             {
                 var attributes = fieldInfo.GetCustomAttributes(typeof(MultilineAttribute), true);
 
-                return attributes != null && attributes.Length > 0 ? (MultilineAttribute) attributes[0] : null;
+                return attributes != null && attributes.Length > 0 ? (MultilineAttribute)attributes[0] : null;
             }
         }
 
@@ -106,7 +105,7 @@ namespace SOSXR.SeaShark.EditorScripts
             }
 
             // Renders the HelpBox in the Unity inspector UI.
-            EditorGUI.HelpBox(helpPos, helpAttribute.Text, (MessageType) helpAttribute.Type);
+            EditorGUI.HelpBox(helpPos, helpAttribute.Text, (MessageType)helpAttribute.Type);
 
             position.y += helpPos.height + MarginHeight;
             position.height = _baseHeight;
@@ -124,7 +123,7 @@ namespace SOSXR.SeaShark.EditorScripts
                 }
                 else if (prop.propertyType == SerializedPropertyType.Integer)
                 {
-                    EditorGUI.IntSlider(position, prop, (int) range.min, (int) range.max, label);
+                    EditorGUI.IntSlider(position, prop, (int)range.min, (int)range.max, label);
                 }
                 else
                 {

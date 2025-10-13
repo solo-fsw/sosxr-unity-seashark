@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     /// <summary>
@@ -10,13 +9,13 @@ namespace SOSXR.SeaShark.EditorScripts
     [CustomPropertyDrawer(typeof(InfoAttribute))]
     public class InfoDrawer : DecoratorDrawer
     {
-        private float _height = 0f;
+        private float _height;
         private const float _padding = 20f;
 
 
         public override float GetHeight()
         {
-            var attr = (InfoAttribute) attribute;
+            var attr = (InfoAttribute)attribute;
 
             var style = EditorStyles.helpBox;
             style.alignment = TextAnchor.MiddleLeft;
@@ -33,11 +32,11 @@ namespace SOSXR.SeaShark.EditorScripts
 
         public override void OnGUI(Rect position)
         {
-            var attr = (InfoAttribute) attribute;
+            var attr = (InfoAttribute)attribute;
 
             position.height = _height;
             position.y += _padding * .5f;
-            EditorGUI.HelpBox(position, attr.InfoText, (MessageType) attr.MessageType);
+            EditorGUI.HelpBox(position, attr.InfoText, (MessageType)attr.MessageType);
             position.y += _padding * .5f;
         }
     }

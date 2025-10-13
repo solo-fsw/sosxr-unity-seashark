@@ -1,7 +1,6 @@
 ﻿using SOSXR.SeaShark;
 using UnityEngine;
 
-
 public class DisableExample : MonoBehaviour
 {
     [Disable] public string hoge = "hoge";

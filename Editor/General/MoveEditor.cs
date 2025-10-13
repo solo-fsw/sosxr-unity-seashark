@@ -1,11 +1,10 @@
 using UnityEditor;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(Move))]
-    public class MoveEditor : UnityEditor.Editor
+    public class MoveEditor : Editor
     {
         // Cached SerializedProperties
         private SerializedProperty actionToTakeProp;
@@ -74,10 +73,10 @@ namespace SOSXR.SeaShark.EditorScripts
                 return;
             }
 
-            var move = (Move) target;
+            var move = (Move)target;
 
             // Ensure ActionToTake is MoveAlongPath and there are enough points
-            if (actionToTakeProp.enumValueIndex != (int) ActionToTake.MoveAlongPath || move.m_bezierPoints == null || move.m_bezierPoints.Length < 4)
+            if (actionToTakeProp.enumValueIndex != (int)ActionToTake.MoveAlongPath || move.m_bezierPoints == null || move.m_bezierPoints.Length < 4)
             {
                 return;
             }
@@ -102,8 +101,8 @@ namespace SOSXR.SeaShark.EditorScripts
                 // Draw the curve for this segment
                 for (var i = 0; i < curveResolution; i++)
                 {
-                    var t1 = i / (float) curveResolution;
-                    var t2 = (i + 1) / (float) curveResolution;
+                    var t1 = i / (float)curveResolution;
+                    var t2 = (i + 1) / (float)curveResolution;
 
                     var point1 = Move.GetCubicBezierPoint(segmentPoints, t1);
                     var point2 = Move.GetCubicBezierPoint(segmentPoints, t2);
@@ -149,7 +148,7 @@ namespace SOSXR.SeaShark.EditorScripts
             EditorGUILayout.PropertyField(actionToTakeProp);
 
             // Draw target field for most movement types (except MoveByOffset and MoveInLocalSpace)
-            switch ((ActionToTake) actionToTakeProp.enumValueIndex)
+            switch ((ActionToTake)actionToTakeProp.enumValueIndex)
             {
                 case ActionToTake.ParentTo:
                 case ActionToTake.SyncTransform:
@@ -166,7 +165,7 @@ namespace SOSXR.SeaShark.EditorScripts
             }
 
             // Conditionally draw fields based on selected ActionToTake
-            switch ((ActionToTake) actionToTakeProp.enumValueIndex)
+            switch ((ActionToTake)actionToTakeProp.enumValueIndex)
             {
                 case ActionToTake.MoveTowards:
                 case ActionToTake.SmoothMoveTowards:
@@ -264,13 +263,13 @@ namespace SOSXR.SeaShark.EditorScripts
             EditorGUILayout.PropertyField(velocityProp, new GUIContent("Velocity"));
 
             // Rotation speed for RotateTowards
-            if (actionToTakeProp.enumValueIndex == (int) ActionToTake.SmoothLookAtTarget)
+            if (actionToTakeProp.enumValueIndex == (int)ActionToTake.SmoothLookAtTarget)
             {
                 EditorGUILayout.PropertyField(rotationSpeedProp, new GUIContent("Rotation Speed"));
             }
 
             // Smooth time for SmoothFollow
-            if (actionToTakeProp.enumValueIndex == (int) ActionToTake.SmoothFollow)
+            if (actionToTakeProp.enumValueIndex == (int)ActionToTake.SmoothFollow)
             {
                 EditorGUILayout.PropertyField(smoothTimeProp, new GUIContent("Smooth Time"));
             }

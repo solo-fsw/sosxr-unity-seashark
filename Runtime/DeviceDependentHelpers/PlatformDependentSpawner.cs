@@ -3,7 +3,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-
 namespace SOSXR.SeaShark
 {
     public class PlatformDependentSpawner : MonoBehaviour
@@ -11,28 +10,23 @@ namespace SOSXR.SeaShark
         [SerializeField] private CurrentDevice m_currentDevice;
         [SerializeField] private bool m_autoStart;
 
-        [Space(20)]
-        [SerializeField] private float m_spawnDelay;
+        [Space(20)] [SerializeField] private float m_spawnDelay;
         [SerializeField] private GameObject m_screenPrefab;
         [SerializeField] private GameObject m_openXRPrefab;
         [SerializeField] private Vector3 m_openXRPrefabOffset = Vector3.up * 2;
 
-        [Space(20)]
-        [SerializeField] private bool m_spawnRigPrefab = true;
+        [Space(20)] [SerializeField] private bool m_spawnRigPrefab = true;
         [SerializeField] private GameObject m_rigPrefab;
 
-        [Space(20)]
-        [SerializeField] private bool m_spawnEventSystems;
+        [Space(20)] [SerializeField] private bool m_spawnEventSystems;
         [SerializeField] private GameObject m_screenEventSystemPrefab;
         [SerializeField] private GameObject m_xrEventSystemPrefab;
 
-        [Space(20)]
-        [SerializeField] private bool m_destroyOnPlayerSpawn = true;
+        [Space(20)] [SerializeField] private bool m_destroyOnPlayerSpawn = true;
 
 
-        [Space(20)]
-        [SerializeField] private UnityEvent m_eventOnCreation;
-        [SerializeField] private List<string> m_destroyOnSpawnPlayerName = new() {"Overseer", "XR Origin"};
+        [Space(20)] [SerializeField] private UnityEvent m_eventOnCreation;
+        [SerializeField] private List<string> m_destroyOnSpawnPlayerName = new() { "Overseer", "XR Origin" };
 
         private GameObject _eventSystemGo;
         private GameObject _rig;
@@ -140,7 +134,7 @@ namespace SOSXR.SeaShark
 
         private GameObject InstantiateRequiredObject(GameObject go, bool toSpawn = true)
         {
-            if (toSpawn == false)
+            if (!toSpawn)
             {
                 return null;
             }

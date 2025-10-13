@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-
 namespace SOSXR.SeaShark
 {
     /// <summary>
@@ -10,18 +9,16 @@ namespace SOSXR.SeaShark
     /// </summary>
     public class DeviceDependentUnityEvents : MonoBehaviour
     {
-        [Header("Device")]
-        [SerializeField] private CurrentDevice m_currentDevice;
+        [Header("Device")] [SerializeField] private CurrentDevice m_currentDevice;
         [SerializeField] private Device m_targetDevice;
 
-        [Header("Timing: READ TOOLTIPS!")]
-        [Tooltip("This can work if it is not in the same Scene as where the DeviceChecker is, since that one SETS the device on Start")]
-        [SerializeField] private bool m_runOnStart = true;
-        [Tooltip("Since the Device is set in the DeviceChecker on Start, we might miss the event if we're not subscribed to it.")]
-        [SerializeField] private bool m_subscribeToEvents = true;
+        [Header("Timing: READ TOOLTIPS!")] [Tooltip("This can work if it is not in the same Scene as where the DeviceChecker is, since that one SETS the device on Start")] [SerializeField]
+        private bool m_runOnStart = true;
 
-        [Header("Events")]
-        [SerializeField] private UnityEvent m_eventIfOnTargetDevice;
+        [Tooltip("Since the Device is set in the DeviceChecker on Start, we might miss the event if we're not subscribed to it.")] [SerializeField]
+        private bool m_subscribeToEvents = true;
+
+        [Header("Events")] [SerializeField] private UnityEvent m_eventIfOnTargetDevice;
         [SerializeField] private UnityEvent m_eventIfNotOnTargetDevice;
 
 

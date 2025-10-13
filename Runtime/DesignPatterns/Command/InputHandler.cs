@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 namespace SOSXR.SeaShark
 {
     public class InputHandler : MonoBehaviour

@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark.EditorScripts
 {
     /// <summary>
@@ -52,7 +51,8 @@ namespace SOSXR.SeaShark.EditorScripts
                     position.height = height;
                     EditorGUI.PropertyField(position, property, property.hasVisibleChildren);
                     position.y = position.y + height;
-                } while (property.NextVisible(false));
+                }
+                while (property.NextVisible(false));
             }
         }
     }

@@ -52,7 +52,7 @@ void Start()
 
 #### Arrays & Lists
 
-Using collections is nearly identical, but each element in the array must be casted individually. The simplest way to do this is via `System.Linq`. 
+Using collections is nearly identical, but each element in the array must be casted individually. The simplest way to do this is via `System.Linq`.
 
 ```cs
 public IMyInterface[] MyInterfaceArray => myObjects.OfType<IMyInterface>().ToArray();

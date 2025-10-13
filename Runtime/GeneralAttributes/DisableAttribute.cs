@@ -12,7 +12,6 @@
 
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     public class DisableAttribute : PropertyAttribute

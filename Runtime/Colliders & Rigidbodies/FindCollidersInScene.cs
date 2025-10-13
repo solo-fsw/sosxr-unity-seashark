@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     public class FindCollidersInScene : MonoBehaviour

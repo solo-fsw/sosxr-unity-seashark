@@ -3,7 +3,6 @@ using System.Collections;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     public class QualityLevel : MonoBehaviour
@@ -58,7 +57,7 @@ namespace SOSXR.SeaShark
             {
                 SetQualityLevel("SM-T500", "We set the Quality Settings to SM-T500");
             }
-            else if (((IList) m_availableQualityLevels).Contains(m_platform.DeviceName))
+            else if (((IList)m_availableQualityLevels).Contains(m_platform.DeviceName))
             {
                 SetQualityLevel(m_platform.DeviceName, "We set the Quality Settings to " + m_platform.DeviceName);
             }
