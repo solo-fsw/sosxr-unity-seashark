@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -7,23 +8,20 @@ using Object = UnityEngine.Object;
 
 namespace SOSXR.SeaShark.EditorScripts
 {
-    /// <summary>
-    ///     By using this as a base, you can keep the Button functionality in one place, and use it in multiple Editors.
-    ///     Those editors should inherit from this class,  with the type of the object they are editing.
-    ///     A texture with `_textureName` should be in one of the Resources folders
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     public class SOSXRBaseEditor<T> : Editor where T : Object
     {
-        private readonly string _textureName = "SOSXR_editor_icon"; // Needs to be in a Resources folder
+        private readonly string _textureName = "SOSXR_editor_icon";
+
+        private readonly Dictionary<MethodInfo, object[]> _methodArgs = new();
         private static Texture2D _buttonIcon;
 
 
         public override void OnInspectorGUI()
         {
+            LoadParameterValues();
             base.OnInspectorGUI();
-
             DrawButtonsForMethods();
+            SaveParameterValues();
         }
 
 
@@ -33,8 +31,6 @@ namespace SOSXR.SeaShark.EditorScripts
             {
                 _buttonIcon = Resources.Load<Texture2D>(_textureName);
             }
-
-            var iconSize = new Vector2(24, 24); // or 24x24 etc.
 
             var monoFont = Resources.Load<Font>("Fonts/Maple Mono/Maple Mono");
 
@@ -46,100 +42,246 @@ namespace SOSXR.SeaShark.EditorScripts
                 contentOffset = new Vector2(4, 0),
                 fontSize = 12,
                 fixedHeight = 24,
-                font = monoFont != null ? monoFont : EditorStyles.label.font
+                font = monoFont ?? EditorStyles.label.font
             };
 
             var targetType = target.GetType();
             var methods = targetType.GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 
+            // find max parameters for alignment
+            var maxParams = 0;
+
             foreach (var method in methods)
             {
-                var buttonAttribute = method.GetCustomAttribute<ButtonAttribute>();
-                var contextMenuAttribute = method.GetCustomAttribute<ContextMenu>();
+                if (method.GetCustomAttribute<ButtonAttribute>() != null || method.GetCustomAttribute<ContextMenu>() != null)
+                {
+                    var paramCount = method.GetParameters().Length;
 
-                if (buttonAttribute == null && contextMenuAttribute == null)
+                    if (paramCount > maxParams)
+                    {
+                        maxParams = paramCount;
+                    }
+                }
+            }
+
+            var totalWidth = EditorGUIUtility.currentViewWidth;
+            var buttonWidth = totalWidth * 0.67f;
+            var remainingWidth = totalWidth - buttonWidth;
+
+            foreach (var method in methods)
+            {
+                if (method.GetCustomAttribute<ButtonAttribute>() == null && method.GetCustomAttribute<ContextMenu>() == null)
                 {
                     continue;
                 }
 
-                var args = GetParameters(method);
+                var parameters = method.GetParameters();
 
-                var label = buttonAttribute?.ItemName ?? contextMenuAttribute?.menuItem ?? method.Name;
-                var tooltip = buttonAttribute?.Tooltip ?? "";
-
-                string argsList = null;
-
-                if (args.Length > 0)
+                if (!_methodArgs.ContainsKey(method))
                 {
-                    argsList = string.Join(", ", args);
+                    _methodArgs[method] = new object[parameters.Length];
+                }
 
-                    if (!string.IsNullOrEmpty(tooltip))
+                EditorGUILayout.BeginHorizontal();
+
+                // Button
+                var buttonRect = GUILayoutUtility.GetRect(buttonWidth, 24, GUILayout.ExpandWidth(true));
+                var label = method.GetCustomAttribute<ButtonAttribute>()?.ItemName ?? method.GetCustomAttribute<ContextMenu>()?.menuItem ?? method.Name;
+                var tooltip = method.GetCustomAttribute<ButtonAttribute>()?.Tooltip ?? "";
+                var content = new GUIContent(label, _buttonIcon, tooltip);
+
+                if (GUI.Button(buttonRect, content))
+                {
+                    method.Invoke(target, _methodArgs[method]);
+                }
+
+                // Parameter fields
+                if (maxParams > 0)
+                {
+                    var fieldSectionWidth = remainingWidth / maxParams;
+
+                    for (var i = 0; i < maxParams; i++)
                     {
-                        tooltip += "\n";
+                        var fieldArea = GUILayoutUtility.GetRect(fieldSectionWidth, 24, GUILayout.ExpandWidth(true));
+
+                        if (i < parameters.Length)
+                        {
+                            var param = parameters[i];
+                            var fieldWidth = fieldArea.width * 0.8f;
+                            var fieldRect = new Rect(fieldArea.x + (fieldArea.width - fieldWidth) / 2, fieldArea.y, fieldWidth, fieldArea.height);
+                            _methodArgs[method][i] = DrawFieldForType(param, _methodArgs[method][i], fieldRect);
+                        }
+                        else
+                        {
+                            GUILayout.Space(fieldSectionWidth);
+                        }
                     }
-
-                    tooltip = tooltip + "Called with default args: " + argsList;
                 }
 
-                var spacingAndTooltipIndicator = string.IsNullOrEmpty(tooltip) && string.IsNullOrEmpty(argsList) ? "     " : "  ᵀ  "; // Spacing in between icon and button name. Will get a small indicator mark if a tooltip is present
-                var content = new GUIContent(string.Concat(spacingAndTooltipIndicator, label), _buttonIcon, tooltip); // Will draw icon if it has it, otherwise none
-
-                if (GUILayout.Button(content, style, GUILayout.Height(iconSize.y)))
-                {
-                    method.Invoke(target, args);
-                }
+                EditorGUILayout.EndHorizontal();
             }
         }
 
 
-        /// <summary>
-        ///     If any parameters are found on the method, it will first try to get the already present default value of the parameter.
-        ///     If no defaults are specified in the method, it will grab a pre-defined default value, depending on the type of the arg.
-        /// </summary>
-        /// <param name="method"></param>
-        /// <returns></returns>
-        private object[] GetParameters(MethodInfo method)
+        private object DrawFieldForType(ParameterInfo param, object currentValue, Rect rect)
         {
-            var parameters = method.GetParameters();
-            var args = new object[parameters.Length];
+            var type = param.ParameterType;
 
-            for (var i = 0; i < parameters.Length; i++)
+            if (type == typeof(bool))
             {
-                var param = parameters[i];
-                var paramType = param.ParameterType;
-
-                // First try to get the preset default arg value of the parameter:
-                if (param.HasDefaultValue)
-                {
-                    args[i] = param.DefaultValue;
-                }
-                else // Get general defaults to use
-                {
-                    var getDefault = typeof(SOSXRDefaultValues)
-                        .GetMethod(nameof(SOSXRDefaultValues.Get))
-                        ?.MakeGenericMethod(paramType);
-
-                    args[i] = getDefault?.Invoke(null, null) ?? GetFallbackValue(param);
-
-                    //var allArgsInARow = string.Join(", ", args.Select(a => a?.ToString() ?? "null"));
-                    //this.Verbose($"{method.Name} was invoked with default values: {allArgsInARow}"); // This does get logged since it's basically making up values to send...
-                }
+                return EditorGUI.Toggle(rect, currentValue is bool b ? b : default);
             }
 
-            return args;
+            if (type == typeof(int))
+            {
+                return EditorGUI.IntField(rect, currentValue is int i ? i : default);
+            }
+
+            if (type == typeof(float))
+            {
+                return EditorGUI.FloatField(rect, currentValue is float f ? f : default);
+            }
+
+            if (type == typeof(string))
+            {
+                return EditorGUI.TextField(rect, currentValue as string ?? "");
+            }
+
+            if (type == typeof(Vector3))
+            {
+                return EditorGUI.Vector3Field(rect, GUIContent.none, currentValue is Vector3 v ? v : default);
+            }
+
+            if (type.IsEnum)
+            {
+                return EditorGUI.EnumPopup(rect, (Enum) (currentValue ?? Activator.CreateInstance(type)));
+            }
+
+            return currentValue;
         }
 
 
-        private static object GetFallbackValue(ParameterInfo param)
+        #region Persistence
+
+        private void LoadParameterValues()
         {
-            if (param.HasDefaultValue)
+            if (target == null)
             {
-                return param.DefaultValue;
+                return;
             }
 
-            return param.ParameterType.IsValueType
-                ? Activator.CreateInstance(param.ParameterType)
-                : null;
+            var targetId = target.GetInstanceID();
+
+            foreach (var method in target.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+            {
+                var parameters = method.GetParameters();
+
+                if (parameters.Length == 0)
+                {
+                    continue;
+                }
+
+                var keyBase = $"{targetId}_{method.Name}";
+
+                if (!_methodArgs.ContainsKey(method))
+                {
+                    _methodArgs[method] = new object[parameters.Length];
+                }
+
+                for (var i = 0; i < parameters.Length; i++)
+                {
+                    var key = keyBase + "_" + i;
+
+                    if (EditorPrefs.HasKey(key))
+                    {
+                        _methodArgs[method][i] = DeserializeValue(EditorPrefs.GetString(key), parameters[i].ParameterType);
+                    }
+                }
+            }
         }
+
+
+        private void SaveParameterValues()
+        {
+            if (target == null)
+            {
+                return;
+            }
+
+            var targetId = target.GetInstanceID();
+
+            foreach (var kvp in _methodArgs)
+            {
+                var method = kvp.Key;
+                var parameters = method.GetParameters();
+
+                for (var i = 0; i < parameters.Length; i++)
+                {
+                    var key = $"{targetId}_{method.Name}_{i}";
+                    EditorPrefs.SetString(key, SerializeValue(kvp.Value[i]));
+                }
+            }
+        }
+
+
+        private string SerializeValue(object value)
+        {
+            if (value == null)
+            {
+                return "";
+            }
+
+            if (value is Vector3 v)
+            {
+                return $"{v.x},{v.y},{v.z}";
+            }
+
+            return value.ToString();
+        }
+
+
+        private object DeserializeValue(string str, Type type)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return type.IsValueType ? Activator.CreateInstance(type) : null;
+            }
+
+            if (type == typeof(bool))
+            {
+                return bool.Parse(str);
+            }
+
+            if (type == typeof(int))
+            {
+                return int.Parse(str);
+            }
+
+            if (type == typeof(float))
+            {
+                return float.Parse(str);
+            }
+
+            if (type == typeof(string))
+            {
+                return str;
+            }
+
+            if (type.IsEnum)
+            {
+                return Enum.Parse(type, str);
+            }
+
+            if (type == typeof(Vector3))
+            {
+                var parts = str.Split(',');
+
+                return new Vector3(float.Parse(parts[0]), float.Parse(parts[1]), float.Parse(parts[2]));
+            }
+
+            return null;
+        }
+
+        #endregion
     }
 }
