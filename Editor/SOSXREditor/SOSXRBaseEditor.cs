@@ -11,7 +11,6 @@ namespace SOSXR.SeaShark.EditorScripts
     public class SOSXRBaseEditor<T> : Editor where T : Object
     {
         private readonly string _textureName = "SOSXR_editor_icon";
-
         private readonly Dictionary<MethodInfo, object[]> _methodArgs = new();
         private static Texture2D _buttonIcon;
 
@@ -55,12 +54,7 @@ namespace SOSXR.SeaShark.EditorScripts
             {
                 if (method.GetCustomAttribute<ButtonAttribute>() != null || method.GetCustomAttribute<ContextMenu>() != null)
                 {
-                    var paramCount = method.GetParameters().Length;
-
-                    if (paramCount > maxParams)
-                    {
-                        maxParams = paramCount;
-                    }
+                    maxParams = Mathf.Max(maxParams, method.GetParameters().Length);
                 }
             }
 
@@ -70,9 +64,26 @@ namespace SOSXR.SeaShark.EditorScripts
 
             foreach (var method in methods)
             {
-                if (method.GetCustomAttribute<ButtonAttribute>() == null && method.GetCustomAttribute<ContextMenu>() == null)
+                var buttonAttr = method.GetCustomAttribute<ButtonAttribute>();
+                var contextAttr = method.GetCustomAttribute<ContextMenu>();
+
+                if (buttonAttr == null && contextAttr == null)
                 {
                     continue;
+                }
+
+                // Add optional space above
+                if (buttonAttr is {Space: > 0})
+                {
+                    GUILayout.Space(buttonAttr.Space);
+                }
+
+                // Optional horizontal line
+                if (buttonAttr is {HorizontalLine: true})
+                {
+                    var rect = EditorGUILayout.GetControlRect(false, 1);
+                    EditorGUI.DrawRect(rect, new Color(0.3f, 0.3f, 0.3f));
+                    GUILayout.Space(3);
                 }
 
                 var parameters = method.GetParameters();
@@ -84,13 +95,12 @@ namespace SOSXR.SeaShark.EditorScripts
 
                 EditorGUILayout.BeginHorizontal();
 
-                // Button
                 var buttonRect = GUILayoutUtility.GetRect(buttonWidth, 24, GUILayout.ExpandWidth(true));
-                var label = method.GetCustomAttribute<ButtonAttribute>()?.ItemName ?? method.GetCustomAttribute<ContextMenu>()?.menuItem ?? method.Name;
-                var tooltip = method.GetCustomAttribute<ButtonAttribute>()?.Tooltip ?? "";
+                var label = buttonAttr?.ItemName ?? contextAttr?.menuItem ?? method.Name;
+                var tooltip = buttonAttr?.Tooltip ?? "";
                 var content = new GUIContent(label, _buttonIcon, tooltip);
 
-                if (GUI.Button(buttonRect, content))
+                if (GUI.Button(buttonRect, content, style))
                 {
                     method.Invoke(target, _methodArgs[method]);
                 }
@@ -108,7 +118,14 @@ namespace SOSXR.SeaShark.EditorScripts
                         {
                             var param = parameters[i];
                             var fieldWidth = fieldArea.width * 0.8f;
-                            var fieldRect = new Rect(fieldArea.x + (fieldArea.width - fieldWidth) / 2, fieldArea.y, fieldWidth, fieldArea.height);
+
+                            var fieldRect = new Rect(
+                                fieldArea.x + (fieldArea.width - fieldWidth) / 2,
+                                fieldArea.y,
+                                fieldWidth,
+                                fieldArea.height
+                            );
+
                             _methodArgs[method][i] = DrawFieldForType(param, _methodArgs[method][i], fieldRect);
                         }
                         else
@@ -247,36 +264,42 @@ namespace SOSXR.SeaShark.EditorScripts
                 return type.IsValueType ? Activator.CreateInstance(type) : null;
             }
 
-            if (type == typeof(bool))
+            try
             {
-                return bool.Parse(str);
+                if (type == typeof(bool))
+                {
+                    return bool.Parse(str);
+                }
+
+                if (type == typeof(int))
+                {
+                    return int.Parse(str);
+                }
+
+                if (type == typeof(float))
+                {
+                    return float.Parse(str);
+                }
+
+                if (type == typeof(string))
+                {
+                    return str;
+                }
+
+                if (type.IsEnum)
+                {
+                    return Enum.Parse(type, str);
+                }
+
+                if (type == typeof(Vector3))
+                {
+                    var parts = str.Split(',');
+
+                    return new Vector3(float.Parse(parts[0]), float.Parse(parts[1]), float.Parse(parts[2]));
+                }
             }
-
-            if (type == typeof(int))
+            catch
             {
-                return int.Parse(str);
-            }
-
-            if (type == typeof(float))
-            {
-                return float.Parse(str);
-            }
-
-            if (type == typeof(string))
-            {
-                return str;
-            }
-
-            if (type.IsEnum)
-            {
-                return Enum.Parse(type, str);
-            }
-
-            if (type == typeof(Vector3))
-            {
-                var parts = str.Split(',');
-
-                return new Vector3(float.Parse(parts[0]), float.Parse(parts[1]), float.Parse(parts[2]));
             }
 
             return null;
