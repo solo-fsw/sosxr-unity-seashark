@@ -42,5 +42,11 @@ namespace SOSXR.SeaShark
 
             _queue.Enqueue(latestCommand);
         }
+
+
+        public override void Clear()
+        {
+            _queue.Clear();
+        }
     }
 }

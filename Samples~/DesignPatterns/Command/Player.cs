@@ -6,7 +6,7 @@ namespace SOSXR.SeaShark
     {
         public void Move(Vector3 direction)
         {
-            transform.position += direction;
+            transform.position = direction;
         }
 
 

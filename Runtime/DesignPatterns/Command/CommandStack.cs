@@ -42,5 +42,11 @@ namespace SOSXR.SeaShark
 
             _stack.Push(latestCommand);
         }
+
+
+        public override void Clear()
+        {
+            _stack.Clear();
+        }
     }
 }

@@ -9,5 +9,8 @@ namespace SOSXR.SeaShark
 
 
         public abstract void Redo();
+
+
+        public abstract void Clear();
     }
 }

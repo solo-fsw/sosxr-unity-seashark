@@ -6,17 +6,17 @@ using UnityEngine;
 
 namespace SOSXR.SeaShark
 {
-    public class MoveCommand : ICommand
+    public class CopyPositionCommand : ICommand
     {
         private readonly Player _player;
         private readonly float _duration;
-        private readonly Vector3 _direction;
+        private readonly Vector3 _position;
 
 
-        public MoveCommand(Player player, Vector3 direction, float duration)
+        public CopyPositionCommand(Player player, Vector3 position, float duration)
         {
             _player = player;
-            _direction = direction;
+            _position = position;
             _duration = duration;
         }
 
@@ -25,7 +25,7 @@ namespace SOSXR.SeaShark
         {
             try
             {
-                await CommandOverTime(_direction);
+                await CommandOverTime(_position);
             }
             catch (Exception e)
             {
@@ -38,7 +38,7 @@ namespace SOSXR.SeaShark
         {
             try
             {
-                await CommandOverTime(-_direction);
+                await CommandOverTime(-_position);
             }
             catch (Exception e)
             {
@@ -53,7 +53,7 @@ namespace SOSXR.SeaShark
         }
 
 
-        private async Task CommandOverTime(Vector3 direction)
+        private async Task CommandOverTime(Vector3 newPosition)
         {
             if (!Application.isPlaying)
             {
@@ -61,8 +61,6 @@ namespace SOSXR.SeaShark
             }
 
             var elapsedTime = 0f;
-            var startPosition = _player.transform.position;
-            var endPosition = startPosition + direction;
 
             while (elapsedTime < _duration)
             {
@@ -72,7 +70,7 @@ namespace SOSXR.SeaShark
 
             if (_player != null)
             {
-                _player.Move(endPosition);
+                _player.Move(newPosition);
             }
         }
     }
