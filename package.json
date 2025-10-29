@@ -27,6 +27,11 @@
       "path": "Samples~/ConfigData"
     },
     {
+      "displayName": "Design Patterns",
+      "description": "Contains Design Pattern samples of this package",
+      "path": "Samples~/DesignPatterns"
+    },
+    {
       "displayName": "Fonts",
       "description": "Contains Maple Mono and other fonts",
       "path": "Samples~/Fonts"
