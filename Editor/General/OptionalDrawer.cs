@@ -8,50 +8,38 @@ namespace SOSXR.SeaShark.EditorScripts
     ///     Use this class to draw the <see cref="OptionalAttribute" /> in the inspector.
     /// </summary>
     [CustomPropertyDrawer(typeof(OptionalAttribute))]
-    public class OptionalDrawer : DecoratorDrawer
+    public class OptionalDrawer : PropertyDrawer
     {
-        private const float INDENT_WIDTH = 15f;
-
-
-        public override void OnGUI(Rect position)
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            var optionalAttr = attribute as OptionalAttribute;
+            var optionalAttr = (OptionalAttribute) attribute;
 
-            var label = GetLabelText(optionalAttr.Type);
+            EditorGUI.PropertyField(position, property, label);
 
-            var style = new GUIStyle(EditorStyles.miniLabel);
-            style.normal.textColor = new Color(style.normal.textColor.r, style.normal.textColor.g, style.normal.textColor.b, 0.55f);
+            var style = new GUIStyle(EditorStyles.miniLabel)
+            {
+                normal = {textColor = new Color(1f, 1f, 1f, 0.55f)},
+                alignment = TextAnchor.MiddleRight
+            };
 
-            var textSize = style.CalcSize(new GUIContent(label));
+            var text = GetLabelText(optionalAttr.Type);
+            var size = style.CalcSize(new GUIContent(text));
 
-            position.height = EditorGUIUtility.singleLineHeight;
-            position.x += EditorGUIUtility.labelWidth - textSize.x - EditorGUI.indentLevel * INDENT_WIDTH;
-
-            EditorGUI.LabelField(position, label, style);
+            var rect = new Rect(position.xMax - size.x - 20f, position.y, size.x, position.height);
+            EditorGUI.LabelField(rect, text, style);
         }
 
 
         private string GetLabelText(OptionalType type)
         {
-            switch (type)
-            {
-                case OptionalType.WillAdd:
-                    return "(Will Add)";
-                case OptionalType.WillGet:
-                    return "(Will Get)";
-                case OptionalType.WillFind:
-                    return "(Will Find)";
-                case OptionalType.Optional:
-                    return "(Optional)";
-            }
-
-            return null;
-        }
-
-
-        public override float GetHeight()
-        {
-            return 0f;
+            return type switch
+                   {
+                       OptionalType.WillAdd => "(Will Add)",
+                       OptionalType.WillGet => "(Will Get)",
+                       OptionalType.WillFind => "(Will Find)",
+                       OptionalType.Optional => "(Optional)",
+                       _ => ""
+                   };
         }
     }
 }
