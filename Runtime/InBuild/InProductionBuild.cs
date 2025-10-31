@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark
 {
     public class InProductionBuild : MonoBehaviour
@@ -19,11 +20,11 @@ namespace SOSXR.SeaShark
 
         private void Awake()
         {
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            #if UNITY_EDITOR || DEVELOPMENT_BUILD
             // Do nothing
-#else
+            #else
             HandleComponents();
-#endif
+            #endif
         }
 
 

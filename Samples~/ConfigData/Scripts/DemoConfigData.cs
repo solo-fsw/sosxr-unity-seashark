@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark
 {
     [CreateAssetMenu(fileName = "Demo Config Data", menuName = "SOSXR/Config Data/Demo Config Data")]
@@ -22,7 +23,7 @@ namespace SOSXR.SeaShark
         [SerializeField] private bool m_showDebug;
         [SerializeField] [Range(0, 30)] private int m_debugUpdateInterval = 1;
         [SerializeField] private string m_clipDirectory = "/Users/Mine/Videos";
-        [SerializeField] private string[] m_extensions = { ".mp4" };
+        [SerializeField] private string[] m_extensions = {".mp4"};
         [SerializeField] private Ordering m_order = Ordering.Counterbalanced;
         [SerializeField] private bool m_showKeyboard;
         [SerializeField] private bool m_repeat;

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark.Samples
 {
     public class MediatorTruthExample : MonoBehaviour
@@ -26,7 +27,7 @@ namespace SOSXR.SeaShark.Samples
 
             m_medium = medium;
 
-            var truth = (bool)medium.Data;
+            var truth = (bool) medium.Data;
 
             Debug.LogFormat("Do we have any idea what we're doing? {0}", truth);
         }

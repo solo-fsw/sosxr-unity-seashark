@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
+
 namespace WraithavenGames.UnityInterfaceSupport
 {
     /// <summary>
@@ -19,6 +20,7 @@ namespace WraithavenGames.UnityInterfaceSupport
             if (property.propertyType != SerializedPropertyType.ObjectReference)
             {
                 EditorGUI.LabelField(position, label.text, "InterfaceType Attribute can only be used with MonoBehaviour Components!");
+
                 return;
             }
 
@@ -83,6 +85,7 @@ namespace WraithavenGames.UnityInterfaceSupport
             property.serializedObject.ApplyModifiedProperties();
         }
     }
+
 
     public class MonoInterface : MonoBehaviour
     {

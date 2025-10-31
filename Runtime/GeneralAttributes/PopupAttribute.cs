@@ -12,6 +12,7 @@
 
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark
 {
     public class PopupAttribute : PropertyAttribute

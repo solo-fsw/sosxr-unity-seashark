@@ -1,6 +1,7 @@
 using SOSXR.EnhancedLogger;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark.Samples
 {
     public class ButtonExampleClass : MonoBehaviour

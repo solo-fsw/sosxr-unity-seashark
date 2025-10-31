@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 
+
 namespace SOSXR.SeaShark
 {
     public class CommandQueue : Command

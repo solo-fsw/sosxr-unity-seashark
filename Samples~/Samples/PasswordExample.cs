@@ -1,6 +1,7 @@
 using SOSXR.SeaShark;
 using UnityEngine;
 
+
 public class PasswordExample : MonoBehaviour
 {
     [Password] public string pass;

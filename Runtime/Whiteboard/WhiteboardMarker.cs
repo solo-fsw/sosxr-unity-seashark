@@ -273,8 +273,8 @@ namespace SOSXR.SeaShark
 
             var size = m_whiteboard.TextureSize;
 
-            _x = (int)(_touchPosition.x * size.x - m_penSize.x / 2);
-            _y = (int)(_touchPosition.y * size.y - m_penSize.y / 2);
+            _x = (int) (_touchPosition.x * size.x - m_penSize.x / 2);
+            _y = (int) (_touchPosition.y * size.y - m_penSize.y / 2);
         }
 
 
@@ -288,8 +288,8 @@ namespace SOSXR.SeaShark
         {
             for (var f = 0.01f; f < 1.00f; f += m_interpolationSpecificity)
             {
-                var lerpX = (int)Mathf.Lerp(_lastTouchPosition.x, x, f);
-                var lerpY = (int)Mathf.Lerp(_lastTouchPosition.y, y, f);
+                var lerpX = (int) Mathf.Lerp(_lastTouchPosition.x, x, f);
+                var lerpY = (int) Mathf.Lerp(_lastTouchPosition.y, y, f);
 
                 SetPixels(lerpX, lerpY);
             }

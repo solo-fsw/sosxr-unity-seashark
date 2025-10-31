@@ -1,6 +1,7 @@
 ﻿using SOSXR.SeaShark;
 using UnityEngine;
 
+
 public class EnumLabelExample : MonoBehaviour
 {
     public enum Example

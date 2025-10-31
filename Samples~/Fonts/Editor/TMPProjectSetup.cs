@@ -3,6 +3,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark.EditorScripts
 {
     public static class TMPProjectSetup

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark.Samples
 {
     public class SuffixDemo : MonoBehaviour

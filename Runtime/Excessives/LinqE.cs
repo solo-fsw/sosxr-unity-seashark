@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace SOSXR.SeaShark.Excessives
 {
     public static class LinqE
@@ -338,7 +339,7 @@ namespace SOSXR.SeaShark.Excessives
 
             for (var i = 0; i < enumerable.Count(); i++)
             {
-                enumerable = enumerable.Swap(i, (int)CryptoRand.Range(0.0, enumerable.Count()));
+                enumerable = enumerable.Swap(i, (int) CryptoRand.Range(0.0, enumerable.Count()));
             }
 
             //for (int i = 0; i < newArray.Length; i++)

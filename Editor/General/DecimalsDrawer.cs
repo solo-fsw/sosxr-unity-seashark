@@ -3,6 +3,7 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(DecimalsAttribute))]
@@ -27,7 +28,7 @@ namespace SOSXR.SeaShark.EditorScripts
 
             if (property.propertyType == SerializedPropertyType.Float)
             {
-                var roundedValue = (float)Math.Round((decimal)property.floatValue, _attribute.Decimals, MidpointRounding.AwayFromZero);
+                var roundedValue = (float) Math.Round((decimal) property.floatValue, _attribute.Decimals, MidpointRounding.AwayFromZero);
                 property.floatValue = EditorGUILayout.FloatField(new GUIContent(property.name), roundedValue);
             }
             else if (property.propertyType is SerializedPropertyType.Vector2 or SerializedPropertyType.Vector3)

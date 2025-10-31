@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using SOSXR.EnhancedLogger;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark
 {
     public class GetRuntimePermission : MonoBehaviour
@@ -12,12 +13,12 @@ namespace SOSXR.SeaShark
 
         private void Awake()
         {
-#if !UNITY_ANDROID || UNITY_EDITOR
+            #if !UNITY_ANDROID || UNITY_EDITOR
             this.Debug("This script is only for Android platform. Skipping permission checks.");
             enabled = false;
 
             return;
-#endif
+            #endif
 
             _ = RequestAllFilesPermission();
             _ = RequestAdditionalPermissionsAsync();

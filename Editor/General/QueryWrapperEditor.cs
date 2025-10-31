@@ -57,21 +57,21 @@ namespace SOSXR.SeaShark.EditorScripts
             var objectType = _dataObjectProp.objectReferenceValue.GetType();
 
             var properties = objectType
-                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => p.CanRead)
-                .Where(p => !p.IsUnityBaseMember())
-                .Where(p => !p.IsWrongType())
-                .Where(p => p.PropertyType is { IsArray: false, IsGenericType: false })
-                .Where(p => !_excludedNamesTwo.Contains(p.Name))
-                .Select(p => p.Name);
+                             .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                             .Where(p => p.CanRead)
+                             .Where(p => !p.IsUnityBaseMember())
+                             .Where(p => !p.IsWrongType())
+                             .Where(p => p.PropertyType is {IsArray: false, IsGenericType: false})
+                             .Where(p => !_excludedNamesTwo.Contains(p.Name))
+                             .Select(p => p.Name);
 
             var fields = objectType
-                .GetFields(BindingFlags.Public | BindingFlags.Instance)
-                .Where(f => !f.IsUnityBaseMember())
-                .Where(f => !f.IsWrongType())
-                .Where(f => f.FieldType is { IsArray: false, IsGenericType: false })
-                .Where(f => !_excludedNamesTwo.Contains(f.Name))
-                .Select(f => f.Name);
+                         .GetFields(BindingFlags.Public | BindingFlags.Instance)
+                         .Where(f => !f.IsUnityBaseMember())
+                         .Where(f => !f.IsWrongType())
+                         .Where(f => f.FieldType is {IsArray: false, IsGenericType: false})
+                         .Where(f => !_excludedNamesTwo.Contains(f.Name))
+                         .Select(f => f.Name);
 
             _validValueNames = properties.Concat(fields).ToArray();
         }
@@ -135,8 +135,8 @@ namespace SOSXR.SeaShark.EditorScripts
             for (var i = 0; i < _validValueNames.Length; i++)
             {
                 var isSelected = stringVars.Count > 0 && Enumerable.Range(0, stringVars.Count)
-                    .Select(index => stringVars[index])
-                    .Contains(_validValueNames[i]);
+                                                                   .Select(index => stringVars[index])
+                                                                   .Contains(_validValueNames[i]);
 
                 var newSelected = EditorGUILayout.ToggleLeft(_validValueNames[i], isSelected);
 

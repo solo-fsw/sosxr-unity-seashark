@@ -1,6 +1,7 @@
 using SOSXR.SeaShark;
 using UnityEngine;
 
+
 [RequireComponent(typeof(Animator))]
 public class AnimatorParameterExample : MonoBehaviour
 {

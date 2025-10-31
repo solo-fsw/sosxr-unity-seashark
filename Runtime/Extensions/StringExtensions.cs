@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace SOSXR.SeaShark
 {
     /// <summary>
@@ -99,9 +100,9 @@ namespace SOSXR.SeaShark
 
             // Iterate over the input string, filtering and determining valid start/end indices
             foreach (var character in input
-                         .Where(character => char
-                             .IsLetterOrDigit(character) || character == '_' || (allowPeriods && character == '.'))
-                         .Where(character => filteredChars.Count != 0 || (!char.IsDigit(character) && character != '.')))
+                                      .Where(character => char
+                                          .IsLetterOrDigit(character) || character == '_' || (allowPeriods && character == '.'))
+                                      .Where(character => filteredChars.Count != 0 || (!char.IsDigit(character) && character != '.')))
             {
                 filteredChars.Add(character);
                 lastValidIndex = filteredChars.Count - 1; // Update lastValidIndex for valid characters

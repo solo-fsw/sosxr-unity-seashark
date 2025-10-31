@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark
 {
     [CreateAssetMenu(fileName = "MediatorRegistry", menuName = "SOSXR/Patterns/MediatorRegistry")]
     public class MediatorRegistry : ScriptableObject
     {
-        [SerializeField] private List<MediumInfo> m_registry = new() { new MediumInfo { Medium = new Medium(EmptyName) } };
+        [SerializeField] private List<MediumInfo> m_registry = new() {new MediumInfo {Medium = new Medium(EmptyName)}};
 
         public static string EmptyName => "NONE";
 
@@ -65,7 +66,7 @@ namespace SOSXR.SeaShark
 
             if (mediumInfo == null)
             {
-                mediumInfo = new MediumInfo { Medium = medium };
+                mediumInfo = new MediumInfo {Medium = medium};
                 Registry.Add(mediumInfo);
             }
 
@@ -86,7 +87,7 @@ namespace SOSXR.SeaShark
 
             if (mediumInfo == null)
             {
-                mediumInfo = new MediumInfo { Medium = medium };
+                mediumInfo = new MediumInfo {Medium = medium};
                 Registry.Add(mediumInfo);
             }
 
@@ -137,7 +138,7 @@ namespace SOSXR.SeaShark
 
             if (mediumInfo == null)
             {
-                mediumInfo = new MediumInfo { Medium = medium };
+                mediumInfo = new MediumInfo {Medium = medium};
                 Registry.Add(mediumInfo);
             }
 

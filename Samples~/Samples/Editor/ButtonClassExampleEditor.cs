@@ -1,6 +1,7 @@
 using SOSXR.SeaShark.EditorScripts;
 using UnityEditor;
 
+
 namespace SOSXR.SeaShark.Samples.EditorScripts
 {
     /// <summary>
@@ -18,11 +19,11 @@ namespace SOSXR.SeaShark.Samples.EditorScripts
     }
 
 
-#if EDITORSPICE
+    #if EDITORSPICE
 
 
     namespace SOSXR.SeaShark.Samples.EditorScripts
     {
     }
-#endif
+    #endif
 }

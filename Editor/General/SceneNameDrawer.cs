@@ -5,12 +5,13 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(SceneNameAttribute))]
     public class SceneNameDrawer : PropertyDrawer
     {
-        private SceneNameAttribute sceneNameAttribute => (SceneNameAttribute)attribute;
+        private SceneNameAttribute sceneNameAttribute => (SceneNameAttribute) attribute;
 
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

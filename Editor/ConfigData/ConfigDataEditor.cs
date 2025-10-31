@@ -4,12 +4,13 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(BaseConfigData), true)]
     public class ConfigDataEditor : Editor
     {
-        private readonly string[] _excludedNames = { "name", "hideFlags", "UpdateJsonOnValueChange" };
+        private readonly string[] _excludedNames = {"name", "hideFlags", "UpdateJsonOnValueChange"};
         private string[] _validValueNames;
         private SerializedProperty _updateJsonOnValueChangeProp;
         private bool[] _selectedValues;
@@ -28,14 +29,14 @@ namespace SOSXR.SeaShark.EditorScripts
             var configType = target.GetType();
 
             var properties = configType
-                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => p.CanRead && !_excludedNames.Contains(p.Name))
-                .Select(p => p.Name);
+                             .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                             .Where(p => p.CanRead && !_excludedNames.Contains(p.Name))
+                             .Select(p => p.Name);
 
             var fields = configType
-                .GetFields(BindingFlags.Public | BindingFlags.Instance)
-                .Where(f => !_excludedNames.Contains(f.Name))
-                .Select(f => f.Name);
+                         .GetFields(BindingFlags.Public | BindingFlags.Instance)
+                         .Where(f => !_excludedNames.Contains(f.Name))
+                         .Select(f => f.Name);
 
             _validValueNames = properties.Concat(fields).ToArray();
         }
@@ -45,7 +46,7 @@ namespace SOSXR.SeaShark.EditorScripts
         {
             serializedObject.Update();
 
-            var configData = (BaseConfigData)target;
+            var configData = (BaseConfigData) target;
 
             DrawDefaultInspector();
 
@@ -76,8 +77,8 @@ namespace SOSXR.SeaShark.EditorScripts
             {
                 var isSelected = _updateJsonOnValueChangeProp.arraySize > 0 &&
                                  Enumerable.Range(0, _updateJsonOnValueChangeProp.arraySize)
-                                     .Select(index => _updateJsonOnValueChangeProp.GetArrayElementAtIndex(index).stringValue)
-                                     .Contains(_validValueNames[i]);
+                                           .Select(index => _updateJsonOnValueChangeProp.GetArrayElementAtIndex(index).stringValue)
+                                           .Contains(_validValueNames[i]);
 
                 var newSelected = EditorGUILayout.ToggleLeft(_validValueNames[i], isSelected);
 
@@ -144,12 +145,12 @@ namespace SOSXR.SeaShark.EditorScripts
                 HandleConfigData.DeleteConfigJson();
             }
 
-#if !UNITY_EDITOR_LINUX
+            #if !UNITY_EDITOR_LINUX
             if (GUILayout.Button("Reveal in Finder"))
             {
                 EditorUtility.RevealInFinder(HandleConfigData.ConfigPath);
             }
-#endif
+            #endif
         }
     }
 }

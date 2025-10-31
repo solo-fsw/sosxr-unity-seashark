@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+
 /// <summary>
 ///     When this attribute is attached to a MonoBehaviour field within a
 ///     Unity Object, this allows an interface to be specified in to to
@@ -9,6 +10,7 @@ using UnityEngine;
 public class InterfaceTypeAttribute : PropertyAttribute
 {
     public Type type;
+
 
     /// <summary>
     ///     Creates a new InterfaceType attribute.

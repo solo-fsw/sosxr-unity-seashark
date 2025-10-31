@@ -4,6 +4,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(PopupAttribute))]
@@ -32,7 +33,7 @@ namespace SOSXR.SeaShark.EditorScripts
         }
 
 
-        private PopupAttribute popupAttribute => (PopupAttribute)attribute;
+        private PopupAttribute popupAttribute => (PopupAttribute) attribute;
 
         private Type variableType => popupAttribute.list[0].GetType();
 

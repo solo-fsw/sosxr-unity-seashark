@@ -1,5 +1,6 @@
 ﻿using System;
 
+
 namespace SOSXR.SeaShark.Statics
 {
     /// <summary>
@@ -55,7 +56,7 @@ namespace SOSXR.SeaShark.Statics
         /// <returns>The formatted local time string.</returns>
         public static string FormatEpoch(double epoch, string format = "dd/MM/yyyy HH:mm:ss.fff")
         {
-            return FormatEpoch((long)epoch, format);
+            return FormatEpoch((long) epoch, format);
         }
     }
 }

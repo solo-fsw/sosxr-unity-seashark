@@ -9,6 +9,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(GeometryPainter))]

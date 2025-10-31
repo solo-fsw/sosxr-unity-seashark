@@ -2,12 +2,13 @@
 using UnityEditor;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(PasswordAttribute))]
     public class PasswordDrawer : PropertyDrawer
     {
-        private PasswordAttribute passwordAttribute => (PasswordAttribute)attribute;
+        private PasswordAttribute passwordAttribute => (PasswordAttribute) attribute;
 
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

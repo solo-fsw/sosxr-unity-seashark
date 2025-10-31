@@ -2,6 +2,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 namespace SOSXR.SeaShark
 {
     [RequireComponent(typeof(Collider))]
@@ -57,9 +58,9 @@ namespace SOSXR.SeaShark
             if (m_targetColliders == null && Targets != null)
             {
                 m_targetColliders = Targets
-                    .Where(go => go != null)
-                    .SelectMany(go => go.GetComponents<Collider>())
-                    .ToArray();
+                                    .Where(go => go != null)
+                                    .SelectMany(go => go.GetComponents<Collider>())
+                                    .ToArray();
             }
 
             return m_thisCollider != null && m_targetColliders?.Length > 0;

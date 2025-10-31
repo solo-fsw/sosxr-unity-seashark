@@ -10,11 +10,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark
 {
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
     using UnityEditor;
-#endif
+    #endif
 
 
     // USAGE: Make a game object and put this script on it. Click the "Start Editing" button in the inspector
@@ -233,7 +234,7 @@ namespace SOSXR.SeaShark
 
         private void OnDrawGizmos()
         {
-#if UNITY_EDITOR
+            #if UNITY_EDITOR
             if (Selection.activeGameObject == null)
             {
                 return;
@@ -261,7 +262,7 @@ namespace SOSXR.SeaShark
 
                 Gizmos.DrawLine(transform.TransformPoint(hull[hull.Count - 1]), transform.TransformPoint(hull[0]));
             }
-#endif
+            #endif
         }
 
 
@@ -341,8 +342,7 @@ namespace SOSXR.SeaShark
                 {
                     hull.Add(nextHullPoint);
                 }
-            }
-            while (Vector3.Distance(nextHullPoint, hull[0]) > Mathf.Epsilon && hull.Count < 50);
+            } while (Vector3.Distance(nextHullPoint, hull[0]) > Mathf.Epsilon && hull.Count < 50);
 
             return hull;
         }

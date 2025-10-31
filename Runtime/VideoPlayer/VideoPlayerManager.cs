@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Video;
 
+
 namespace SOSXR.SeaShark
 {
     [RequireComponent(typeof(VideoPlayer))]
@@ -141,7 +142,7 @@ namespace SOSXR.SeaShark
 
                     SetAudioSourceSettings(clip);
 
-                    CurrentClipDuration = (float)Math.Round(VideoPlayer.length, 0);
+                    CurrentClipDuration = (float) Math.Round(VideoPlayer.length, 0);
 
                     VideoPlayer.Play();
 
@@ -155,8 +156,7 @@ namespace SOSXR.SeaShark
 
                     yield return new WaitForSeconds(m_betweenEachClipPauseDuration);
                 }
-            }
-            while (m_repeat);
+            } while (m_repeat);
 
             Debug.LogFormat("Done playing all clips");
         }
@@ -166,7 +166,7 @@ namespace SOSXR.SeaShark
         {
             for (;;)
             {
-                CurrentClipTime = (float)Math.Round(VideoPlayer.clockTime, 0);
+                CurrentClipTime = (float) Math.Round(VideoPlayer.clockTime, 0);
 
                 yield return new WaitForSeconds(1);
             }
@@ -183,8 +183,8 @@ namespace SOSXR.SeaShark
 
         private void CreateNewRenderTexture()
         {
-            Dimensions.x = (int)VideoPlayer.width;
-            Dimensions.y = (int)VideoPlayer.height;
+            Dimensions.x = (int) VideoPlayer.width;
+            Dimensions.y = (int) VideoPlayer.height;
             _renderTexture = new RenderTexture(Dimensions.x, Dimensions.y, 24, RenderTextureFormat.Default);
             _renderTexture.name = "RenderTexture: " + Dimensions;
 

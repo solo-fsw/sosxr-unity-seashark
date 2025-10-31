@@ -12,7 +12,7 @@ namespace SOSXR.SeaShark
     {
         #region Min
 
-#if ENABLED_UNITY_MATHEMATICS
+        #if ENABLED_UNITY_MATHEMATICS
         public static half Min(half a, half b)
         {
             return a < b ? a : b;
@@ -40,7 +40,7 @@ namespace SOSXR.SeaShark
 
             return num2;
         }
-#endif
+        #endif
 
 
         public static double Min(double a, double b)
@@ -75,7 +75,7 @@ namespace SOSXR.SeaShark
 
         #region Max
 
-#if ENABLED_UNITY_MATHEMATICS
+        #if ENABLED_UNITY_MATHEMATICS
         public static half Max(half a, half b)
         {
             return a > b ? a : b;
@@ -103,7 +103,7 @@ namespace SOSXR.SeaShark
 
             return num2;
         }
-#endif
+        #endif
 
 
         public static double Max(double a, double b)

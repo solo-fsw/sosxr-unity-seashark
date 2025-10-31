@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark
 {
     /// <summary>
@@ -8,17 +9,20 @@ namespace SOSXR.SeaShark
     /// </summary>
     public class OptionalAttribute : PropertyAttribute
     {
-        public OptionalType Type { get; private set; } = OptionalType.Optional;
-
         public OptionalAttribute()
         {
         }
+
 
         public OptionalAttribute(OptionalType type)
         {
             Type = type;
         }
+
+
+        public OptionalType Type { get; private set; } = OptionalType.Optional;
     }
+
 
     public enum OptionalType
     {

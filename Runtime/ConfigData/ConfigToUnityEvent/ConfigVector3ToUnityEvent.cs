@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark
 {
     public class ConfigVector3ToUnityEvent : ConfigValueToUnityEvent<Vector3>

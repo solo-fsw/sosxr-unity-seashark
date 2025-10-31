@@ -2,6 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark
 {
     /// <summary>
@@ -18,7 +19,7 @@ namespace SOSXR.SeaShark
         /// <summary>
         ///     Clears the console log in the Unity Editor.
         /// </summary
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
         public static void ClearConsole()
         {
             var assembly = Assembly.GetAssembly(typeof(SceneView));
@@ -26,6 +27,6 @@ namespace SOSXR.SeaShark
             var method = type.GetMethod("Clear");
             method?.Invoke(new object(), null);
         }
-#endif
+        #endif
     }
 }

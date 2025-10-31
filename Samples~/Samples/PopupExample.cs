@@ -1,6 +1,7 @@
 using SOSXR.SeaShark;
 using UnityEngine;
 
+
 public class PopupExample : MonoBehaviour
 {
     [Popup("Hoge", "Fuga", "Foo", "Bar")] public string popup;

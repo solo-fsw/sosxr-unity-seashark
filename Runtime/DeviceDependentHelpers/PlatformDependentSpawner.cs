@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 namespace SOSXR.SeaShark
 {
     public class PlatformDependentSpawner : MonoBehaviour
@@ -26,7 +27,7 @@ namespace SOSXR.SeaShark
 
 
         [Space(20)] [SerializeField] private UnityEvent m_eventOnCreation;
-        [SerializeField] private List<string> m_destroyOnSpawnPlayerName = new() { "Overseer", "XR Origin" };
+        [SerializeField] private List<string> m_destroyOnSpawnPlayerName = new() {"Overseer", "XR Origin"};
 
         private GameObject _eventSystemGo;
         private GameObject _rig;

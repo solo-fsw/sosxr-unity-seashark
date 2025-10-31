@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark
 {
     /// <summary>
@@ -56,7 +57,7 @@ namespace SOSXR.SeaShark
                 return;
             }
 
-            Texture = new Texture2D((int)TextureSize.x, (int)TextureSize.y);
+            Texture = new Texture2D((int) TextureSize.x, (int) TextureSize.y);
             m_renderer.material.mainTexture = Texture; // Is the same as: _renderer.material.SetTexture("_MainTex", Texture);
 
             if (Math.Abs(transform.localScale.x - transform.localScale.y) > 0.01f ||

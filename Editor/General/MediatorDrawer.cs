@@ -2,6 +2,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(Medium))]
@@ -13,7 +14,7 @@ namespace SOSXR.SeaShark.EditorScripts
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            var mediatorAttribute = (MediatorAttribute)fieldInfo.GetCustomAttribute(typeof(MediatorAttribute));
+            var mediatorAttribute = (MediatorAttribute) fieldInfo.GetCustomAttribute(typeof(MediatorAttribute));
 
             if (mediatorAttribute == null)
             {
@@ -111,7 +112,7 @@ namespace SOSXR.SeaShark.EditorScripts
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            var mediatorAttribute = (MediatorAttribute)fieldInfo.GetCustomAttribute(typeof(MediatorAttribute));
+            var mediatorAttribute = (MediatorAttribute) fieldInfo.GetCustomAttribute(typeof(MediatorAttribute));
 
             if (mediatorAttribute == null)
             {

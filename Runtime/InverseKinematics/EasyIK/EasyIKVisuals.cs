@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
+
 namespace joaen
 {
     /// <summary>
@@ -10,7 +11,7 @@ namespace joaen
     [RequireComponent(typeof(EasyIK))]
     public class EasyIKVisuals : MonoBehaviour
     {
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
 
 
         [Header("Visualization Settings")] [Tooltip("Draw local rotation axes for joints")] [SerializeField]
@@ -193,6 +194,6 @@ namespace joaen
         }
 
 
-#endif
+        #endif
     }
 }

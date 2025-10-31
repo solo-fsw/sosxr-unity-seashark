@@ -12,7 +12,7 @@ namespace SOSXR.SeaShark.EditorScripts
     [CustomPropertyDrawer(typeof(LabelSearchAttribute))]
     public class LabelSearchDrawer : PropertyDrawer
     {
-        private LabelSearchAttribute labelSearchAttribute => (LabelSearchAttribute)attribute;
+        private LabelSearchAttribute labelSearchAttribute => (LabelSearchAttribute) attribute;
         private const int CONTENT_HEIGHT = 16;
 
 
@@ -233,7 +233,7 @@ namespace SOSXR.SeaShark.EditorScripts
         private Type GetType(SerializedProperty property)
         {
             return Assembly.Load("UnityEngine.dll")
-                .GetType("UnityEngine." + property.type.Replace("PPtr<$", "").Replace(">", ""));
+                           .GetType("UnityEngine." + property.type.Replace("PPtr<$", "").Replace(">", ""));
         }
     }
 }

@@ -8,6 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+
 public enum FlipMode
 {
     RightToLeft,
@@ -633,7 +634,7 @@ public class Book : MonoBehaviour
 
     public IEnumerator TweenTo(Vector3 to, float duration, Action onFinish)
     {
-        var steps = (int)(duration / 0.025f);
+        var steps = (int) (duration / 0.025f);
         var displacement = (to - _followPoint) / steps;
 
         for (var i = 0; i < steps - 1; i++)

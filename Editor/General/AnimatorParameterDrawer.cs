@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark.EditorScripts
 {
     /// <summary>
@@ -21,7 +22,7 @@ namespace SOSXR.SeaShark.EditorScripts
     [CustomPropertyDrawer(typeof(AnimatorParameterAttribute))]
     public class AnimatorParameterDrawer : PropertyDrawer
     {
-        private AnimatorParameterAttribute animatorParameterAttribute => (AnimatorParameterAttribute)attribute;
+        private AnimatorParameterAttribute animatorParameterAttribute => (AnimatorParameterAttribute) attribute;
 
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -47,8 +48,8 @@ namespace SOSXR.SeaShark.EditorScripts
             }
 
             var eventNames = parameters
-                .Where(t => CanAddEventName(t.type))
-                .Select(t => t.name).ToList();
+                             .Where(t => CanAddEventName(t.type))
+                             .Select(t => t.name).ToList();
 
             if (eventNames.Count == 0)
             {
@@ -121,7 +122,7 @@ namespace SOSXR.SeaShark.EditorScripts
         private bool CanAddEventName(AnimatorControllerParameterType animatorControllerParameterType)
         {
             return !(animatorParameterAttribute.parameterType != AnimatorParameterAttribute.ParameterType.None
-                     && (int)animatorControllerParameterType != (int)animatorParameterAttribute.parameterType);
+                     && (int) animatorControllerParameterType != (int) animatorParameterAttribute.parameterType);
         }
 
 

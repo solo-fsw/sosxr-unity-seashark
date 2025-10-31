@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark.Samples
 {
     public class MediatorUIExample : MonoBehaviour
@@ -23,7 +24,7 @@ namespace SOSXR.SeaShark.Samples
                 Debug.LogWarningFormat(this, "This channel's medium.Data seems to be null... is that correct?");
             }
 
-            var text = (string)medium.Data;
+            var text = (string) medium.Data;
 
             if (text == null)
             {

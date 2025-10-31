@@ -3,12 +3,13 @@
 using UnityEditor;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomPropertyDrawer(typeof(SelectableLabelAttribute))]
     public class SelectableLabelDrawer : PropertyDrawer
     {
-        private SelectableLabelAttribute selectableLabelAttribute => (SelectableLabelAttribute)attribute;
+        private SelectableLabelAttribute selectableLabelAttribute => (SelectableLabelAttribute) attribute;
 
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
