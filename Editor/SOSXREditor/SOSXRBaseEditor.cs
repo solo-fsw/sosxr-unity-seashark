@@ -86,6 +86,8 @@ namespace SOSXR.SeaShark.EditorScripts
                     GUILayout.Space(3);
                 }
 
+                DrawMethodInfo(method);
+
                 var parameters = method.GetParameters();
 
                 if (!_methodArgs.ContainsKey(method))
@@ -175,6 +177,32 @@ namespace SOSXR.SeaShark.EditorScripts
             }
 
             return currentValue;
+        }
+
+
+        private void DrawMethodInfo(MethodInfo method)
+        {
+            var infoAttrs = method.GetCustomAttributes(typeof(InfoAttribute), true);
+
+            foreach (InfoAttribute info in infoAttrs)
+            {
+                var style = new GUIStyle(EditorStyles.helpBox)
+                {
+                    wordWrap = true,
+                    fontSize = 12,
+                    alignment = TextAnchor.MiddleLeft,
+                    padding = new RectOffset(10, 10, 6, 6)
+                };
+
+                var inspectorWidth = EditorGUIUtility.currentViewWidth - 20f;
+                var height = style.CalcHeight(new GUIContent(info.InfoText), inspectorWidth);
+
+                EditorGUILayout.BeginVertical();
+                GUILayout.Space(4);
+                EditorGUI.HelpBox(EditorGUILayout.GetControlRect(false, height), info.InfoText, (MessageType) info.MessageType);
+                GUILayout.Space(4);
+                EditorGUILayout.EndVertical();
+            }
         }
 
 

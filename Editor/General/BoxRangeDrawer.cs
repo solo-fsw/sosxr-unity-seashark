@@ -107,3 +107,8 @@ namespace SOSXR.SeaShark.EditorScripts
         }
     }
 }
+
+
+namespace SOSXR.SeaShark.EditorScripts
+{
+}

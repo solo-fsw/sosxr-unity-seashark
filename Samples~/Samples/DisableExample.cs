@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class DisableExample : MonoBehaviour
 {
-    [Disable] public string hoge = "hoge";
+    [DisableEditing] public string hoge = "hoge";
 
-    [Disable] public int fuga = 1;
+    [DisableEditing] public int fuga = 1;
 
-    [Disable] public AudioType audioType = AudioType.ACC;
+    [DisableEditing] public AudioType audioType = AudioType.ACC;
 }
