@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
+
 namespace SOSXR.SeaShark.EditorScripts
 {
     /// <summary>
@@ -9,35 +10,26 @@ namespace SOSXR.SeaShark.EditorScripts
     [CustomPropertyDrawer(typeof(InfoAttribute))]
     public class InfoDrawer : DecoratorDrawer
     {
-        private float _height;
-        private const float _padding = 20f;
+        private const float _padding = 4f;
 
 
         public override float GetHeight()
         {
-            var attr = (InfoAttribute)attribute;
+            var attr = (InfoAttribute) attribute;
+            var style = new GUIStyle(EditorStyles.helpBox) {wordWrap = true, fontSize = 12};
+            var inspectorWidth = EditorGUIUtility.currentViewWidth - 20f;
 
-            var style = EditorStyles.helpBox;
-            style.alignment = TextAnchor.MiddleLeft;
-            style.wordWrap = true;
-            style.padding = new RectOffset(10, 10, 10, 10);
-            style.fontSize = 12;
-
-            var inspectorWidth = Screen.width; // Strangely enough is Screen.width the width of the inspector in this case.
-            _height = style.CalcHeight(new GUIContent(attr.InfoText), inspectorWidth);
-
-            return _height * _padding;
+            return style.CalcHeight(new GUIContent(attr.InfoText), inspectorWidth) + _padding * 2;
         }
 
 
         public override void OnGUI(Rect position)
         {
-            var attr = (InfoAttribute)attribute;
-
-            position.height = _height;
-            position.y += _padding * .5f;
-            EditorGUI.HelpBox(position, attr.InfoText, (MessageType)attr.MessageType);
-            position.y += _padding * .5f;
+            var attr = (InfoAttribute) attribute;
+            var style = new GUIStyle(EditorStyles.helpBox) {wordWrap = true, fontSize = 12};
+            position.y += _padding;
+            position.height -= _padding * 2;
+            EditorGUI.HelpBox(position, attr.InfoText, (MessageType) attr.MessageType);
         }
     }
 }
