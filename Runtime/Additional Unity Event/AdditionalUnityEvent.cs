@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using SOSXR.EnhancedLogger;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -14,11 +15,9 @@ namespace SOSXR.SeaShark
         [SerializeField] private BuildTriggerType m_buildTriggerType = BuildTriggerType.Always;
         [SerializeField] [Range(0f, 10f)] private float m_delayInSeconds;
 
-        [Header("Optional")] [SerializeField] [Optional(OptionalType.WillFind)]
-        private string[] m_tags = { };
-
-        [SerializeField] [Optional(OptionalType.WillGet)]
-        private InputActionProperty m_inputAction;
+        [Header("Optional")]
+        [SerializeField] [Optional(OptionalType.WillFind)] private string[] m_tags = { };
+        [SerializeField] [Optional(OptionalType.WillGet)] private InputActionProperty m_inputAction;
 
         private Coroutine _activeCoroutine;
 
@@ -107,6 +106,7 @@ namespace SOSXR.SeaShark
         }
 
 
+        [Button]
         public void FireEvent()
         {
             if (!ShouldFire())
@@ -140,7 +140,9 @@ namespace SOSXR.SeaShark
         private IEnumerator FireEventCR()
         {
             yield return new WaitForSeconds(m_delayInSeconds);
+
             m_eventToFire?.Invoke();
+
             _activeCoroutine = null;
         }
 
@@ -152,7 +154,7 @@ namespace SOSXR.SeaShark
                 return;
             }
 
-            Debug.LogFormat(this, "An active UnityEvent was cancelled. It may mean that the event was not fired, or not fired at the right time.");
+            this.Verbose( "An active UnityEvent was cancelled. It may mean that the event was not fired, or not fired at the right time.");
             StopCoroutine(_activeCoroutine);
             _activeCoroutine = null;
         }
@@ -164,7 +166,7 @@ namespace SOSXR.SeaShark
             {
                 if (m_delayInSeconds > 0)
                 {
-                    Debug.LogWarning("We cannot fire an event in OnDisable with a delay. Will fire immediately.");
+                    this.Warning("We cannot fire an event in OnDisable with a delay. Will fire immediately.");
                 }
 
                 m_eventToFire?.Invoke(); // You cannot fire a coroutine in OnDisable, so we fire the event immediately.
@@ -201,7 +203,7 @@ namespace SOSXR.SeaShark
             #endif
 
             #if !UNITY_EDITOR && DEVELOPMENT_BUILD
-            if (m_buildTriggerType == BuildTriggerType.OnlyInDevelopmentBuilds )
+            if (m_buildTriggerType == BuildTriggerType.OnlyInDevelopmentBuilds)
             {
                 return true;
             }
@@ -214,7 +216,7 @@ namespace SOSXR.SeaShark
             }
             #endif
 
-            Debug.LogError("BuildTriggerType is not set correctly. Please check the settings.");
+            this.Error("BuildTriggerType is not set correctly. Please check the settings.");
 
             return false;
         }

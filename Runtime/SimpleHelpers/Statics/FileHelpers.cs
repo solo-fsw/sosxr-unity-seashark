@@ -26,9 +26,9 @@ namespace SOSXR.SeaShark.Statics
             #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
             path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
             #elif UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-        path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile));
+            path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile));
             #else
-        path = "Home directory path is not supported on this platform.";
+            path = "Home directory path is not supported on this platform.";
             #endif
 
             return path;
