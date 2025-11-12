@@ -16,7 +16,7 @@ namespace SOSXR.SeaShark
         [SerializeField] [Range(0f, 10f)] private float m_delayInSeconds;
 
         [Header("Optional")]
-        [SerializeField] [Optional(OptionalType.WillFind)] private string[] m_tags = { };
+        [SerializeField] [Optional(OptionalType.WillFind)] [TagSelector] private string[] m_tags = { };
         [SerializeField] [Optional(OptionalType.WillGet)] private InputActionProperty m_inputAction;
 
         private Coroutine _activeCoroutine;
@@ -26,7 +26,7 @@ namespace SOSXR.SeaShark
         {
             if (m_triggerType == LifeCycleTriggerType.Awake)
             {
-                FireEvent();
+                SafeFireEvent();
             }
         }
 
@@ -36,12 +36,12 @@ namespace SOSXR.SeaShark
             if (m_triggerType == LifeCycleTriggerType.InputAction && m_inputAction.action != null)
             {
                 m_inputAction.action.Enable();
-                m_inputAction.action.performed += context => FireEvent();
+                m_inputAction.action.performed += context => SafeFireEvent();
             }
 
             if (m_triggerType == LifeCycleTriggerType.OnEnable)
             {
-                FireEvent();
+                SafeFireEvent();
             }
         }
 
@@ -50,7 +50,7 @@ namespace SOSXR.SeaShark
         {
             if (m_triggerType == LifeCycleTriggerType.Start)
             {
-                FireEvent();
+                SafeFireEvent();
             }
         }
 
@@ -59,7 +59,7 @@ namespace SOSXR.SeaShark
         {
             if (m_triggerType == LifeCycleTriggerType.Update)
             {
-                FireEvent();
+                SafeFireEvent();
             }
         }
 
@@ -68,7 +68,7 @@ namespace SOSXR.SeaShark
         {
             if (m_triggerType == LifeCycleTriggerType.TriggerEnter && ShouldFireForTag(other.tag))
             {
-                FireEvent();
+                SafeFireEvent();
             }
         }
 
@@ -77,7 +77,7 @@ namespace SOSXR.SeaShark
         {
             if (m_triggerType == LifeCycleTriggerType.TriggerExit && ShouldFireForTag(other.tag))
             {
-                FireEvent();
+                SafeFireEvent();
             }
         }
 
@@ -86,7 +86,7 @@ namespace SOSXR.SeaShark
         {
             if (m_triggerType == LifeCycleTriggerType.CollisionEnter && ShouldFireForTag(collision.gameObject.tag))
             {
-                FireEvent();
+                SafeFireEvent();
             }
         }
 
@@ -95,25 +95,38 @@ namespace SOSXR.SeaShark
         {
             if (m_triggerType == LifeCycleTriggerType.CollisionExit && ShouldFireForTag(collision.gameObject.tag))
             {
-                FireEvent();
+                SafeFireEvent();
             }
         }
 
 
-        private bool ShouldFireForTag(string tag)
+        private bool ShouldFireForTag(string tagName)
         {
-            return m_tags.Length == 0 || m_tags.Contains(tag);
+            return m_tags.Length == 0 || m_tags.Contains(tagName);
         }
 
 
+        /// <summary>
+        ///     This checks with the ShouldFire whether this event should fire given the circumstances
+        /// </summary>
         [Button]
-        public void FireEvent()
+        public void SafeFireEvent()
         {
             if (!ShouldFire())
             {
                 return;
             }
 
+            FireEvent();
+        }
+
+
+        /// <summary>
+        ///     Only the timing checks && no-duplicate-coroutine checks are done here, but no "ShouldFire" check.
+        /// </summary>
+        [Button]
+        public void FireEvent()
+        {
             if (m_delayInSeconds > 0)
             {
                 if (_activeCoroutine != null)
@@ -154,7 +167,7 @@ namespace SOSXR.SeaShark
                 return;
             }
 
-            this.Verbose( "An active UnityEvent was cancelled. It may mean that the event was not fired, or not fired at the right time.");
+            this.Verbose("An active UnityEvent was cancelled. It may mean that the event was not fired, or not fired at the right time.");
             StopCoroutine(_activeCoroutine);
             _activeCoroutine = null;
         }
@@ -244,6 +257,7 @@ namespace SOSXR.SeaShark
         CollisionEnter,
         CollisionExit,
         OnDisable,
-        InputAction
+        InputAction,
+        Never
     }
 }
