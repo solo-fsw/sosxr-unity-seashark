@@ -20,9 +20,9 @@ namespace SOSXR.SeaShark.Statics
             var path = "";
 
             #if UNITY_ANDROID && !UNITY_EDITOR
-        using var envClass = new UnityEngine.AndroidJavaClass("android.os.Environment");
-        using var dir = envClass.CallStatic<UnityEngine.AndroidJavaObject>("getExternalStoragePublicDirectory");
-        path = dir.Call<string>("getAbsolutePath");
+            using var envClass = new UnityEngine.AndroidJavaClass("android.os.Environment");
+            using var dir = envClass.CallStatic<UnityEngine.AndroidJavaObject>("getExternalStoragePublicDirectory");
+            path = dir.Call<string>("getAbsolutePath");
             #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
             path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
             #elif UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN

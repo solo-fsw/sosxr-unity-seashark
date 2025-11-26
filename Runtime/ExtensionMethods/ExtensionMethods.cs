@@ -942,13 +942,26 @@ namespace SOSXR.SeaShark
         /// </summary>
         /// <param name="original"></param>
         /// <returns></returns>
-        public static Transform ZeroOutTransform(this Transform original)
+        public static void ZeroOutTransform(this Transform original)
         {
             original.position = Vector3.zero;
             original.rotation = Quaternion.identity;
             original.localScale = Vector3.one;
 
-            return original;
+            //return original;
+        }
+
+
+        /// <summary>
+        ///     Set the GameObject's Transform's Position and Rotation to 0,0,0. Set the LocalScale to 1,1,1
+        /// </summary>
+        /// <param name="original"></param>
+        /// <returns></returns>
+        public static void ZeroOutTransform(this GameObject original)
+        {
+            original.transform.ZeroOutTransform();
+
+            // return original;
         }
 
 
@@ -957,13 +970,24 @@ namespace SOSXR.SeaShark
         /// </summary>
         /// <param name="original"></param>
         /// <returns></returns>
-        public static Transform LocalZeroOutTransform(this Transform original)
+        public static Transform ZeroOutLocalTransform(this Transform original)
         {
             original.localPosition = Vector3.zero;
             original.localRotation = Quaternion.identity;
             original.localScale = Vector3.one;
 
             return original;
+        }
+
+
+        /// <summary>
+        ///     Set the GameObject's Transform's LocalPosition and LocalRotation to 0,0,0. Set the LocalScale to 1,1,1
+        /// </summary>
+        /// <param name="original"></param>
+        /// <returns></returns>
+        public static void ZeroOutLocalTransform(this GameObject original)
+        {
+            original.transform.ZeroOutLocalTransform();
         }
 
 

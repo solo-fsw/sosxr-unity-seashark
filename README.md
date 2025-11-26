@@ -237,6 +237,8 @@ The TimeAttribute is a custom property drawer for Unity that formats an integer 
 
 ## InterfaceAttribute
 
+# Minimap
+
 # Move (Work in Progress)
 
 # Object Cue
