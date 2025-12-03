@@ -12,201 +12,228 @@ namespace SOSXR.SeaShark.EditorScripts
     {
         private readonly string _textureName = "SOSXR_editor_icon";
         private readonly Dictionary<MethodInfo, object[]> _methodArgs = new();
+        private List<MethodInfo> _cachedMethods;
+        private Dictionary<MethodInfo, ParameterInfo[]> _cachedParams;
+        private Dictionary<MethodInfo, GUIContent> _cachedContent;
+        private Dictionary<MethodInfo, ButtonAttribute> _cachedButtonAttrs; // Cache attributes
+        private Dictionary<MethodInfo, InfoAttribute[]> _cachedInfoAttrs; // Cache info attributes
+        private Font _monoFont;
+        private GUIStyle _style;
+        private GUIStyle _infoStyle; // Cache info style
+        private int _maxParams;
         private static Texture2D _buttonIcon;
 
-
-        public override void OnInspectorGUI()
-        {
-            LoadParameterValues();
-            base.OnInspectorGUI();
-            DrawButtonsForMethods();
-            SaveParameterValues();
-        }
+        // Cache layout calculations
+        private float _buttonWidth;
+        private float _remainingWidth;
+        private float _sectionWidth;
+        private const float ButtonHeight = 24f;
+        private const float Spacing = 2f;
 
 
-        private void DrawButtonsForMethods()
+        private void OnEnable()
         {
             if (_buttonIcon == null)
             {
                 _buttonIcon = Resources.Load<Texture2D>(_textureName);
             }
 
-            var monoFont = Resources.Load<Font>("Fonts/Maple Mono/Maple Mono");
+            if (_monoFont == null)
+            {
+                _monoFont = Resources.Load<Font>("Fonts/Maple Mono/Maple Mono");
+            }
 
-            var style = new GUIStyle(GUI.skin.button)
+            _cachedMethods = new List<MethodInfo>();
+            _cachedParams = new Dictionary<MethodInfo, ParameterInfo[]>();
+            _cachedContent = new Dictionary<MethodInfo, GUIContent>();
+            _cachedButtonAttrs = new Dictionary<MethodInfo, ButtonAttribute>();
+            _cachedInfoAttrs = new Dictionary<MethodInfo, InfoAttribute[]>();
+            _maxParams = 0;
+
+            var methods = target.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+            foreach (var m in methods)
+            {
+                var buttonAttr = m.GetCustomAttribute<ButtonAttribute>();
+                var contextAttr = m.GetCustomAttribute<ContextMenu>();
+
+                if (buttonAttr != null || contextAttr != null)
+                {
+                    _cachedMethods.Add(m);
+                    var parameters = m.GetParameters();
+                    _cachedParams[m] = parameters;
+                    _maxParams = Math.Max(_maxParams, parameters.Length);
+
+                    var label = buttonAttr?.ItemName ?? contextAttr?.menuItem ?? m.Name;
+                    var tooltip = buttonAttr?.Tooltip ?? "";
+                    _cachedContent[m] = new GUIContent(label, _buttonIcon, tooltip);
+
+                    // Cache attributes
+                    _cachedButtonAttrs[m] = buttonAttr;
+                    _cachedInfoAttrs[m] = (InfoAttribute[]) m.GetCustomAttributes(typeof(InfoAttribute), true);
+
+                    if (!_methodArgs.ContainsKey(m))
+                    {
+                        _methodArgs[m] = new object[parameters.Length];
+                    }
+                }
+            }
+
+            LoadParameterValues();
+        }
+
+
+        private void CreateStyleIfNone()
+        {
+            _style ??= new GUIStyle(GUI.skin.button)
             {
                 imagePosition = ImagePosition.ImageLeft,
                 alignment = TextAnchor.MiddleLeft,
                 padding = new RectOffset(6, 6, 2, 2),
                 contentOffset = new Vector2(4, 0),
                 fontSize = 12,
-                fixedHeight = 24,
-                font = monoFont ?? EditorStyles.label.font
+                fixedHeight = ButtonHeight,
+                font = _monoFont ?? EditorStyles.label.font
             };
 
-            var targetType = target.GetType();
-            var methods = targetType.GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-
-            // find max parameters for alignment
-            var maxParams = 0;
-
-            foreach (var method in methods)
+            _infoStyle ??= new GUIStyle(EditorStyles.helpBox)
             {
-                if (method.GetCustomAttribute<ButtonAttribute>() != null || method.GetCustomAttribute<ContextMenu>() != null)
-                {
-                    maxParams = Mathf.Max(maxParams, method.GetParameters().Length);
-                }
-            }
+                wordWrap = true,
+                fontSize = 12,
+                alignment = TextAnchor.MiddleLeft,
+                padding = new RectOffset(10, 10, 6, 6)
+            };
+        }
 
-            var totalWidth = EditorGUIUtility.currentViewWidth;
-            var buttonWidth = totalWidth * 0.67f;
-            var remainingWidth = totalWidth - buttonWidth;
 
-            foreach (var method in methods)
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            // Pre-create styles
+            CreateStyleIfNone();
+
+            // Cache width calculations once per frame
+            var width = EditorGUIUtility.currentViewWidth;
+            _buttonWidth = width * 0.67f;
+            _remainingWidth = width - _buttonWidth;
+            _sectionWidth = _maxParams > 0 ? _remainingWidth / _maxParams : 0;
+
+            var y = EditorGUILayout.GetControlRect(false, 0).y;
+
+            foreach (var method in _cachedMethods)
             {
-                var buttonAttr = method.GetCustomAttribute<ButtonAttribute>();
-                var contextAttr = method.GetCustomAttribute<ContextMenu>();
+                var buttonAttr = _cachedButtonAttrs[method];
 
-                if (buttonAttr == null && contextAttr == null)
-                {
-                    continue;
-                }
-
-                // Add optional space above
                 if (buttonAttr is {Space: > 0})
                 {
-                    GUILayout.Space(buttonAttr.Space);
+                    y += buttonAttr.Space;
                 }
 
-                // Optional horizontal line
                 if (buttonAttr is {HorizontalLine: true})
                 {
-                    var rect = EditorGUILayout.GetControlRect(false, 1);
-                    EditorGUI.DrawRect(rect, new Color(0.3f, 0.3f, 0.3f));
-                    GUILayout.Space(3);
+                    EditorGUI.DrawRect(new Rect(0, y, width, 1), new Color(0.3f, 0.3f, 0.3f));
+                    y += 4;
                 }
 
-                DrawMethodInfo(method);
+                y = DrawMethodInfo(method, y, width);
 
-                var parameters = method.GetParameters();
+                var parameters = _cachedParams[method];
+                var buttonRect = new Rect(0, y, _buttonWidth, ButtonHeight);
 
-                if (!_methodArgs.ContainsKey(method))
-                {
-                    _methodArgs[method] = new object[parameters.Length];
-                }
-
-                EditorGUILayout.BeginHorizontal();
-
-                var buttonRect = GUILayoutUtility.GetRect(buttonWidth, 24, GUILayout.ExpandWidth(true));
-                var label = buttonAttr?.ItemName ?? contextAttr?.menuItem ?? method.Name;
-                var tooltip = buttonAttr?.Tooltip ?? "";
-                var content = new GUIContent(label, _buttonIcon, tooltip);
-
-                if (GUI.Button(buttonRect, content, style))
+                if (GUI.Button(buttonRect, _cachedContent[method], _style))
                 {
                     method.Invoke(target, _methodArgs[method]);
                 }
 
-                // Parameter fields
-                if (maxParams > 0)
+                // Draw parameter fields
+                if (_maxParams > 0)
                 {
-                    var fieldSectionWidth = remainingWidth / maxParams;
-
-                    for (var i = 0; i < maxParams; i++)
+                    for (var i = 0; i < _maxParams; i++)
                     {
-                        var fieldArea = GUILayoutUtility.GetRect(fieldSectionWidth, 24, GUILayout.ExpandWidth(true));
-
                         if (i < parameters.Length)
                         {
-                            var param = parameters[i];
-                            var fieldWidth = fieldArea.width * 0.8f;
-
-                            var fieldRect = new Rect(
-                                fieldArea.x + (fieldArea.width - fieldWidth) / 2,
-                                fieldArea.y,
-                                fieldWidth,
-                                fieldArea.height
-                            );
-
-                            _methodArgs[method][i] = DrawFieldForType(param, _methodArgs[method][i], fieldRect);
-                        }
-                        else
-                        {
-                            GUILayout.Space(fieldSectionWidth);
+                            var x = _buttonWidth + i * _sectionWidth;
+                            var rect = new Rect(x + _sectionWidth * 0.1f, y, _sectionWidth * 0.8f, ButtonHeight);
+                            _methodArgs[method][i] = DrawField(parameters[i], _methodArgs[method][i], rect);
                         }
                     }
                 }
 
-                EditorGUILayout.EndHorizontal();
+                y += ButtonHeight + Spacing;
             }
+
+            GUILayout.Space(y);
         }
 
 
-        private object DrawFieldForType(ParameterInfo param, object currentValue, Rect rect)
+        private object DrawField(ParameterInfo param, object value, Rect rect)
         {
             var type = param.ParameterType;
 
             if (type == typeof(bool))
             {
-                return EditorGUI.Toggle(rect, currentValue is bool b ? b : default);
+                return EditorGUI.Toggle(rect, value is bool b && b);
             }
 
             if (type == typeof(int))
             {
-                return EditorGUI.IntField(rect, currentValue is int i ? i : default);
+                return EditorGUI.IntField(rect, value is int i ? i : 0);
             }
 
             if (type == typeof(float))
             {
-                return EditorGUI.FloatField(rect, currentValue is float f ? f : default);
+                return EditorGUI.FloatField(rect, value is float f ? f : 0f);
             }
 
             if (type == typeof(string))
             {
-                return EditorGUI.TextField(rect, currentValue as string ?? "");
+                return EditorGUI.TextField(rect, value as string ?? "");
             }
 
             if (type == typeof(Vector3))
             {
-                return EditorGUI.Vector3Field(rect, GUIContent.none, currentValue is Vector3 v ? v : default);
+                return EditorGUI.Vector3Field(rect, GUIContent.none, value is Vector3 v ? v : Vector3.zero);
             }
 
             if (type.IsEnum)
             {
-                return EditorGUI.EnumPopup(rect, (Enum) (currentValue ?? Activator.CreateInstance(type)));
+                return EditorGUI.EnumPopup(rect, (Enum) (value ?? Activator.CreateInstance(type)));
             }
 
-            return currentValue;
+            return value;
         }
 
 
-        private void DrawMethodInfo(MethodInfo method)
+        private float DrawMethodInfo(MethodInfo method, float startY, float width)
         {
-            var infoAttrs = method.GetCustomAttributes(typeof(InfoAttribute), true);
+            var y = startY;
+            var infoAttrs = _cachedInfoAttrs[method];
 
-            foreach (InfoAttribute info in infoAttrs)
+            if (infoAttrs.Length == 0)
             {
-                var style = new GUIStyle(EditorStyles.helpBox)
-                {
-                    wordWrap = true,
-                    fontSize = 12,
-                    alignment = TextAnchor.MiddleLeft,
-                    padding = new RectOffset(10, 10, 6, 6)
-                };
-
-                var inspectorWidth = EditorGUIUtility.currentViewWidth - 20f;
-                var height = style.CalcHeight(new GUIContent(info.InfoText), inspectorWidth);
-
-                EditorGUILayout.BeginVertical();
-                GUILayout.Space(4);
-                EditorGUI.HelpBox(EditorGUILayout.GetControlRect(false, height), info.InfoText, (MessageType) info.MessageType);
-                GUILayout.Space(4);
-                EditorGUILayout.EndVertical();
+                return y;
             }
+
+            var availableWidth = width - 20f;
+
+            foreach (var info in infoAttrs)
+            {
+                var content = new GUIContent(info.InfoText);
+                var height = _infoStyle.CalcHeight(content, availableWidth);
+                EditorGUI.HelpBox(new Rect(0, y, availableWidth, height), info.InfoText, (MessageType) info.MessageType);
+                y += height + 8;
+            }
+
+            return y;
         }
 
 
-        #region Persistence
+        private void OnDisable()
+        {
+            SaveParameterValues();
+        }
+
 
         private void LoadParameterValues()
         {
@@ -215,31 +242,19 @@ namespace SOSXR.SeaShark.EditorScripts
                 return;
             }
 
-            var targetId = target.GetInstanceID();
+            var id = target.GetInstanceID();
 
-            foreach (var method in target.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+            foreach (var method in _cachedMethods)
             {
-                var parameters = method.GetParameters();
-
-                if (parameters.Length == 0)
-                {
-                    continue;
-                }
-
-                var keyBase = $"{targetId}_{method.Name}";
-
-                if (!_methodArgs.ContainsKey(method))
-                {
-                    _methodArgs[method] = new object[parameters.Length];
-                }
+                var parameters = _cachedParams[method];
 
                 for (var i = 0; i < parameters.Length; i++)
                 {
-                    var key = keyBase + "_" + i;
+                    var key = $"{id}_{method.Name}_{i}";
 
                     if (EditorPrefs.HasKey(key))
                     {
-                        _methodArgs[method][i] = DeserializeValue(EditorPrefs.GetString(key), parameters[i].ParameterType);
+                        _methodArgs[method][i] = Deserialize(EditorPrefs.GetString(key), parameters[i].ParameterType);
                     }
                 }
             }
@@ -253,23 +268,23 @@ namespace SOSXR.SeaShark.EditorScripts
                 return;
             }
 
-            var targetId = target.GetInstanceID();
+            var id = target.GetInstanceID();
 
             foreach (var kvp in _methodArgs)
             {
                 var method = kvp.Key;
-                var parameters = method.GetParameters();
+                var parameters = _cachedParams[method];
 
                 for (var i = 0; i < parameters.Length; i++)
                 {
-                    var key = $"{targetId}_{method.Name}_{i}";
-                    EditorPrefs.SetString(key, SerializeValue(kvp.Value[i]));
+                    var key = $"{id}_{method.Name}_{i}";
+                    EditorPrefs.SetString(key, Serialize(kvp.Value[i]));
                 }
             }
         }
 
 
-        private string SerializeValue(object value)
+        private string Serialize(object value)
         {
             if (value == null)
             {
@@ -285,7 +300,7 @@ namespace SOSXR.SeaShark.EditorScripts
         }
 
 
-        private object DeserializeValue(string str, Type type)
+        private object Deserialize(string str, Type type)
         {
             if (string.IsNullOrEmpty(str))
             {
@@ -321,18 +336,17 @@ namespace SOSXR.SeaShark.EditorScripts
 
                 if (type == typeof(Vector3))
                 {
-                    var parts = str.Split(',');
+                    var p = str.Split(',');
 
-                    return new Vector3(float.Parse(parts[0]), float.Parse(parts[1]), float.Parse(parts[2]));
+                    return new Vector3(float.Parse(p[0]), float.Parse(p[1]), float.Parse(p[2]));
                 }
             }
             catch
             {
+                // Silent fail, return default
             }
 
-            return null;
+            return type.IsValueType ? Activator.CreateInstance(type) : null;
         }
-
-        #endregion
     }
 }

@@ -8,7 +8,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 ### Added
 
 - Minimap 
-- 
+
 ### Removed
 
 - Removed SettingProvider (will now exclusively live in EditorSpice). You can register a new one from SeaShark (or wherever) if you want though, see Samples.
@@ -19,6 +19,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - ButtonAttribute has option for space and/or horizontal line above.
 
 ### Fixed
+- Optimised the SOSXR Base Editor
 
 ## [0.3.0] - 22-07-2025
 
