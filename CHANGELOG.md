@@ -7,7 +7,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 ### Added
 
-- Minimap 
+- Minimap
 
 ### Removed
 
@@ -17,8 +17,10 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 - ButtonAttribute now works with values you set for parameters
 - ButtonAttribute has option for space and/or horizontal line above.
+- QuitApplication.Quit now also works in the editor
 
 ### Fixed
+
 - Optimised the SOSXR Base Editor
 
 ## [0.3.0] - 22-07-2025

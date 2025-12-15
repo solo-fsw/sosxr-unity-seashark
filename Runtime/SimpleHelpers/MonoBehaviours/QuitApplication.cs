@@ -18,6 +18,16 @@ namespace SOSXR.SeaShark
         [ContextMenu(nameof(Quit))]
         public void Quit()
         {
+            #if UNITY_EDITOR
+            if (Application.isEditor)
+            {
+                // exit playmode
+                UnityEditor.EditorApplication.isPlaying = false;
+
+                return;
+            }
+            #endif
+
             Application.Quit();
         }
     }
