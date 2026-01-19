@@ -109,7 +109,7 @@ namespace SOSXR.SeaShark
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogError($"Error notifying specific listeners for {propertyName}: {ex}");
+                    Debug.LogError($"Error notifying specific listeners for {propertyName}: {ex.Message}");
                 }
             }
 
@@ -119,7 +119,7 @@ namespace SOSXR.SeaShark
             }
             catch (Exception ex)
             {
-                Debug.LogError($"Error notifying general listeners for {propertyName}: {ex}");
+                Debug.LogError($"Error notifying general listeners for {propertyName}: {ex.Message}");
             }
         }
 

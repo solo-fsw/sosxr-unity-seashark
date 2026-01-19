@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Cryptography;
@@ -223,29 +223,10 @@ namespace SOSXR.SeaShark.Excessives
         #region ClampWrap
 
         //Useful for clamping angles
-        ////{TODO} Could probably just redo this using modulo
-        //public static float ClampWrap(float value, float min, float max)
-        //{
-        //	if (value < min)
-        //		return value + (max * ((value / max) + 1));
-        //	if (value > max)
-        //		return value - (max * (value / max));
-        //	return value;
-        //}
-
-
         public static float ClampWrap(float value, float min, float max)
         {
-            value = (value - min) % (max - min) + min;
-
-            if (value < min)
-            {
-                value += max;
-            }
-
-            return value;
+            return (value - min) % (max - min) + min;
         }
-
 
         public static double ClampWrap(double value, double min, double max)
         {
@@ -400,10 +381,9 @@ namespace SOSXR.SeaShark.Excessives
 
         #region Float
 
-        //{TODO} Rewrite these so they don't cast to double
         public static float Round(float val)
         {
-            return (float) Math.Round(val);
+            return (float) Math.Round(val, MidpointRounding.AwayFromZero);
         }
 
 

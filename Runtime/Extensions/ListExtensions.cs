@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,19 +10,29 @@ namespace SOSXR.SeaShark
     /// </summary>
     public static class ListExtensions
     {
-        private static Random rng;
-
+        private static readonly Random rng = new Random();
 
         /// <summary>
-        ///     Determines whether a collection is null or has no elements
-        ///     without having to enumerate the entire collection to get a count.
-        ///     Uses LINQ's Any() method to determine if the collection is empty,
-        ///     so there is some GC overhead.
+        ///     Shuffles the elements in the list using the Durstenfeld implementation of the Fisher-Yates algorithm.
+        ///     This method modifies the input list in-place, ensuring each permutation is equally likely, and returns the list for
+        ///     method chaining.
+        ///     Reference: http://en.wikipedia.org/wiki/Fisher-Yates_shuffle
         /// </summary>
-        /// <param name="list">List to evaluate</param>
-        public static bool IsNullOrEmpty<T>(this IList<T> list)
+        /// <param name="list">The list to be shuffled.</param>
+        /// <typeparam name="T">The type of the elements in the list.</typeparam>
+        /// <returns>The shuffled list.</returns>
+        public static IList<T> Shuffle<T>(this IList<T> list)
         {
-            return list == null || !list.Any();
+            var count = list.Count;
+
+            while (count > 1)
+            {
+                --count;
+                var index = rng.Next(count + 1);
+                (list[index], list[count]) = (list[count], list[index]);
+            }
+
+            return list;
         }
 
 
@@ -55,7 +65,7 @@ namespace SOSXR.SeaShark
             (list[indexA], list[indexB]) = (list[indexB], list[indexA]);
         }
 
-
+/*
         /// <summary>
         ///     Shuffles the elements in the list using the Durstenfeld implementation of the Fisher-Yates algorithm.
         ///     This method modifies the input list in-place, ensuring each permutation is equally likely, and returns the list for
@@ -83,6 +93,7 @@ namespace SOSXR.SeaShark
 
             return list;
         }
+        */
 
 
         /// <summary>

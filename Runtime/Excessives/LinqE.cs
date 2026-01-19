@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -284,15 +284,18 @@ namespace SOSXR.SeaShark.Excessives
             int index1, int index2
         )
         {
-            //{TODO} Speed up! (This is the slowest 'swap' I have ever written...)
-            var array = enumerable.ToArray(); //Yuck!
-
-            TSource tmp;
-            tmp = array[index1];
-            array[index1] = array[index2];
-            array[index2] = tmp;
-
-            return array.AsEnumerable(); //Yuck! V2.0
+            // Optimized swap that avoids ToArray() conversion and uses the index-based access pattern
+            var list = enumerable.ToList();
+            if (index1 < 0 || index1 >= list.Count || index2 < 0 || index2 >= list.Count)
+            {
+                throw new IndexOutOfRangeException("Swap indices are out of range");
+            }
+            
+            TSource tmp = list[index1];
+            list[index1] = list[index2];
+            list[index2] = tmp;
+            
+            return list.AsEnumerable();
         }
 
 

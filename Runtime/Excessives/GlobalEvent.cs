@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 
 //Modified from: https://github.com/FuzzyHobo/UnityCallbackAndEventTutorial/blob/master/Assets/Scenes/EventCallbackScene/Event.cs
@@ -60,7 +60,7 @@ namespace SOSXR.SeaShark.Excessives
             listeners?.Invoke(this as T);
 
             inUse = false;
-            Reset(); //{TODO} Push this back into the master for Excessives
+            Reset();
         }
 
 
