@@ -6,18 +6,22 @@ using System.Linq;
 namespace SOSXR.SeaShark
 {
     /// <summary>
-    ///     From: https://github.com/adammyhre/Unity-Utils
+    ///     String extension helpers used across the project.
     /// </summary>
     public static class StringExtensions
     {
-        /// <summary>Checks if a string is Null or white space</summary>
+        /// <summary>Checks if a string is Null or white space.</summary>
+        /// <param name="val">The string to test.</param>
+        /// <returns>True if the string is null or consists only of white-space characters.</returns>
         public static bool IsNullOrWhiteSpace(this string val)
         {
             return string.IsNullOrWhiteSpace(val);
         }
 
 
-        /// <summary>Checks if a string is Null or empty</summary>
+        /// <summary>Checks if a string is Null or empty.</summary>
+        /// <param name="value">The string to test.</param>
+        /// <returns>True if the string is null or empty.</returns>
         public static bool IsNullOrEmpty(this string value)
         {
             return string.IsNullOrEmpty(value);
@@ -25,13 +29,17 @@ namespace SOSXR.SeaShark
 
 
         /// <summary>Checks if a string contains null, empty or white space.</summary>
+        /// <param name="val">The string to test.</param>
+        /// <returns>True if the string is blank (null, empty, or whitespace).</returns>
         public static bool IsBlank(this string val)
         {
             return val.IsNullOrWhiteSpace() || val.IsNullOrEmpty();
         }
 
 
-        /// <summary>Checks if a string is null and returns an empty string if it is.</summary>
+        /// <summary>Returns an empty string if the value is null; otherwise returns the original value.</summary>
+        /// <param name="val">The string value to coalesce.</param>
+        /// <returns>Null-safe string value.</returns>
         public static string OrEmpty(this string val)
         {
             return val ?? string.Empty;
@@ -42,6 +50,9 @@ namespace SOSXR.SeaShark
         ///     Shortens a string to the specified maximum length. If the string's length
         ///     is less than the maxLength, the original string is returned.
         /// </summary>
+        /// <param name="val">The string to shorten.</param>
+        /// <param name="maxLength">Maximum allowed length.</param>
+        /// <returns>The shortened string or the original if within bounds.</returns>
         public static string Shorten(this string val, int maxLength)
         {
             if (val.IsBlank())
@@ -54,7 +65,10 @@ namespace SOSXR.SeaShark
 
 
         /// <summary>Slices a string from the start index to the end index.</summary>
-        /// <result>The sliced string.</result>
+        /// <param name="val">The string to slice.</param>
+        /// <param name="startIndex">Inclusive start index.</param>
+        /// <param name="endIndex">Exclusive end index. Can be negative to count from end.</param>
+        /// <returns>The sliced substring.</returns>
         public static string Slice(this string val, int startIndex, int endIndex)
         {
             if (val.IsBlank())
@@ -83,11 +97,8 @@ namespace SOSXR.SeaShark
         ///     Converts the input string to an alphanumeric string, optionally allowing periods.
         /// </summary>
         /// <param name="input">The input string to be converted.</param>
-        /// <param name="allowPeriods">A boolean flag indicating whether periods should be allowed in the output string.</param>
-        /// <returns>
-        ///     A new string containing only alphanumeric characters, underscores, and optionally periods.
-        ///     If the input string is null or empty, an empty string is returned.
-        /// </returns>
+        /// <param name="allowPeriods">Whether periods are allowed in the output.</param>
+        /// <returns>A new string containing only alphanumeric characters, underscores, and optionally periods.</returns>
         public static string ConvertToAlphanumeric(this string input, bool allowPeriods = false)
         {
             if (string.IsNullOrEmpty(input))

@@ -11,8 +11,12 @@ namespace SOSXR.SeaShark
     ///     [SerializeField] private string m_disableOrEnableThisField;
     /// </summary>
     [AttributeUsage(AttributeTargets.Field)]
+    /// <summary>
+    ///     Conditionally enables a field in the Inspector based on another field's value.
+    /// </summary>
     public class EnableIfAttribute : PropertyAttribute
     {
+        /// <summary>Name of the field that controls enabled state.</summary>
         public readonly string ConditionField;
 
 

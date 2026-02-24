@@ -12,8 +12,9 @@ namespace SOSXR.SeaShark
 
 
     /// <summary>
-    ///     This is useful for when you want to make sure only one object of a certain type is active at a time.
-    ///     I must admit, there are probably better ways to do this, but this is a simple way to do it.
+    /// Ensures only one instance of a specific component type is active at a time.
+    /// Automatically removes (disables or destroys) all other instances of the same type on Awake.
+    /// Useful for singleton-like behavior without using the singleton pattern.
     /// </summary>
     public class RemoveAllOthersOfType : MonoBehaviour
     {
@@ -36,6 +37,11 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Finds all instances of the allowed component's type in the scene and removes all except the allowed one.
+        /// Removal action (disable or destroy) is determined by m_removalAction.
+        /// Available as a context menu item in the Inspector.
+        /// </summary>
         [ContextMenu(nameof(RemoveAllOthersOfType))]
         public void RemoveOtherObjects()
         {

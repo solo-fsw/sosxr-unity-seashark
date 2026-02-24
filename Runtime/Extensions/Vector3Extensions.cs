@@ -4,13 +4,18 @@
 namespace SOSXR.SeaShark
 {
     /// <summary>
-    ///     From: https://github.com/adammyhre/Unity-Utils
+    ///     Extension methods for UnityEngine.Vector3.
     /// </summary>
     public static class Vector3Extensions
     {
         /// <summary>
-        ///     Sets any x y z values of a Vector3
+        ///     Sets the X, Y, and/or Z components of a Vector3.
         /// </summary>
+        /// <param name="vector">The original vector.</param>
+        /// <param name="x">New X value (nullable).</param>
+        /// <param name="y">New Y value (nullable).</param>
+        /// <param name="z">New Z value (nullable).</param>
+        /// <returns>A new Vector3 with the specified components set.</returns>
         public static Vector3 With(this Vector3 vector, float? x = null, float? y = null, float? z = null)
         {
             return new Vector3(x ?? vector.x, y ?? vector.y, z ?? vector.z);
@@ -18,8 +23,13 @@ namespace SOSXR.SeaShark
 
 
         /// <summary>
-        ///     Adds to any x y z values of a Vector3
+        ///     Adds to the X, Y, and Z components of a Vector3.
         /// </summary>
+        /// <param name="vector">The original vector.</param>
+        /// <param name="x">Amount to add to X (default 0).</param>
+        /// <param name="y">Amount to add to Y (default 0).</param>
+        /// <param name="z">Amount to add to Z (default 0).</param>
+        /// <returns>A new Vector3 with updated components.</returns>
         public static Vector3 Add(this Vector3 vector, float x = 0, float y = 0, float z = 0)
         {
             return new Vector3(vector.x + x, vector.y + y, vector.z + z);

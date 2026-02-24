@@ -6,21 +6,27 @@ using UnityEngine;
 namespace SOSXR.SeaShark
 {
     /// <summary>
-    ///     Based on Warped Imagination: https://youtu.be/533OH2m7fNg?si=hfyYb2p9s5WBl1vP
+    ///     Displays informational text in the Inspector with an optional message style.
     /// </summary>
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
     [Conditional("UNITY_EDITOR")]
     public class InfoAttribute : PropertyAttribute
     {
+        /// <summary>Info text to display in the Inspector.</summary>
         public readonly string InfoText;
 
 
+        /// <summary>
+        ///     Creates a new instance with the specified text.
+        /// </summary>
+        /// <param name="infoText">Text to display.</param>
         public InfoAttribute(string infoText)
         {
             InfoText = infoText;
         }
 
 
+        /// <summary>Visual style for the message.</summary>
         public SOSXRMessageType MessageType { get; set; } = SOSXRMessageType.None;
     }
 

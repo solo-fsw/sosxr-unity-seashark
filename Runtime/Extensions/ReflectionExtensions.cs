@@ -8,7 +8,7 @@ using System.Reflection;
 namespace SOSXR.SeaShark
 {
     /// <summary>
-    ///     From: https://github.com/adammyhre/Unity-Utils
+    ///     Extension helpers for runtime reflection utilities.
     /// </summary>
     public static class ReflectionExtensions
     {
@@ -412,9 +412,9 @@ namespace SOSXR.SeaShark
         /// <summary>
         ///     Determines if two methods from different types have the same signature.
         /// </summary>
-        /// <param name="a">First method</param>
-        /// <param name="b">Second method</param>
-        /// <returns><c>true</c> if they are equal</returns>
+        /// <param name="a">The first method to compare.</param>
+        /// <param name="b">The second method to compare.</param>
+        /// <returns><c>true</c> if both methods have an equal signature; otherwise <c>false</c>.</returns>
         public static bool AreMethodsEqual(MethodInfo a, MethodInfo b)
         {
             if (a.Name != b.Name)

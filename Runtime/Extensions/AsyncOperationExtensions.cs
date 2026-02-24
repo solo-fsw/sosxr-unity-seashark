@@ -5,7 +5,7 @@ using UnityEngine;
 namespace SOSXR.SeaShark
 {
     /// <summary>
-    ///     From: https://github.com/adammyhre/Unity-Utils
+    ///     AsyncOperation helpers for converting to Tasks.
     /// </summary>
     public static class AsyncOperationExtensions
     {

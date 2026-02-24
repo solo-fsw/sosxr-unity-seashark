@@ -16,12 +16,21 @@ using UnityEngine;
 
 namespace SOSXR.SeaShark
 {
+    /// <summary>
+    ///     Provides a dropdown selector for scene names in the Inspector.
+    /// </summary>
     public class SceneNameAttribute : PropertyAttribute
     {
+        /// <summary>Index of the currently selected scene in the list.</summary>
         public int selectedValue = 0;
+        /// <summary>When true, only enabled scenes are considered in the dropdown.</summary>
         public readonly bool enableOnly = true;
 
 
+        /// <summary>
+        ///     Creates a new SceneNameAttribute.
+        /// </summary>
+        /// <param name="enableOnly">If true, limit options to enabled scenes.</param>
         public SceneNameAttribute(bool enableOnly = true)
         {
             this.enableOnly = enableOnly;

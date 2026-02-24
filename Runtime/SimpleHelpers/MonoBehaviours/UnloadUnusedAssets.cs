@@ -5,7 +5,8 @@ using UnityEngine;
 namespace SOSXR.SeaShark
 {
     /// <summary>
-    ///     Periodically unloads unused assets to free memory.
+    /// Periodically unloads unused assets to free memory.
+    /// If m_autoUnloadInterval is greater than 0, automatically unloads assets at the specified interval (in seconds).
     /// </summary>
     public class UnloadUnusedAssets : MonoBehaviour
     {
@@ -47,6 +48,10 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Immediately unloads all unused assets from memory.
+        /// Available as a context menu item in the Inspector.
+        /// </summary>
         [ContextMenu(nameof(UnloadNow))]
         public void UnloadNow()
         {
