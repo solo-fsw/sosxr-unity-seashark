@@ -13,11 +13,13 @@ namespace SOSXR.SeaShark
         {
             get
             {
+                // Lazily initialize the config path once accessed. Ensures directory exists before use.
                 if (string.IsNullOrEmpty(_configPath))
                 {
                     var path = Path.Combine(Application.persistentDataPath, CONFIG_NAME);
                     var directory = Path.GetDirectoryName(path);
 
+                    // Create the containing directory if it doesn't exist yet
                     if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
                     {
                         try
@@ -52,16 +54,19 @@ namespace SOSXR.SeaShark
 
             try
             {
+                // Serialize the config data to JSON for persistence
                 var jsonData = JsonUtility.ToJson(configData, true);
                 jsonData = CleanJsonData(jsonData);
 
                 var directory = Path.GetDirectoryName(ConfigPath);
 
+                // Ensure target directory exists before writing
                 if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
                 {
                     Directory.CreateDirectory(directory);
                 }
 
+                // Persist the JSON to disk. Create/overwrite the file as needed.
                 using (var fs = new FileStream(ConfigPath, FileMode.Create, FileAccess.Write, FileShare.None))
                 using (var writer = new StreamWriter(fs))
                 {
@@ -93,6 +98,7 @@ namespace SOSXR.SeaShark
                 return;
             }
 
+            // If there is no existing config file, create a new one from provided data
             if (!File.Exists(ConfigPath))
             {
                 Debug.Log($"No config found at: {ConfigPath}. Creating new config.");
@@ -111,6 +117,7 @@ namespace SOSXR.SeaShark
                     jsonData = reader.ReadToEnd();
                 }
 
+                // Normalize JSON if needed and overwrite target configData with loaded values
                 jsonData = CleanJsonData(jsonData);
                 JsonUtility.FromJsonOverwrite(jsonData, configData);
 
