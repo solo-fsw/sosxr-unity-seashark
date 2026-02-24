@@ -1,256 +1,274 @@
-# SeaShark
+# SOSXR SeaShark - C# Utilities Library
 
-**Our very own C# enhancements library**
+A comprehensive collection of C# extensions, utilities, and design pattern implementations for Unity development. SeaShark provides lightweight, reusable components for common gameplay, UI, and system architecture challenges.
 
-- By: Maarten R. Struijk Wilbrink
-- For: Leiden University SOSXR
-- Fully open source: Feel free to add to, or modify, anything you see fit.
+## Table of Contents
 
-## Attribution
-
-A huge thanks goes to two channels who are creating incredible content:
-
-- [Warped Imagination](https://www.youtube.com/@WarpedImagination)
-- [git-amend](https://www.youtube.com/@git-amend) on YouTube and also his [repo](https://github.com/adammyhre/Unity-Utils)
-
-A lot of the good work shown in this repo is either a direct copy of their work, or a heavily 'inspired' version of it.
-
-Quite a few of the components here are __not__ by my design. They're all Open Source, and where possible I tried to attribute to the original author. If you see something that you believe is yours, please let me know, and I'll be happy to add you to the list of contributors.
-
-### Distinction between SeaShark and EditorSpice
-
-When using [EditorSpice](https://github.com/solo-fsw/sosxr-unity-editorspice) in your project, none of your actual 'game-code' should be affected. These are tools to make the Editor behave in (marginally) more useful ways, but will not / should not be embedded in your actual program. You should be able to delete the entire EditorSpice folder / package without affecting your game in any way. The Spice aims for zero errors, zero null references, and zero warnings.ß
-
-[SeaShark](https://github.com/solo-fsw/sosxr-unity-seashark) however is a library of patterns and attributes that you can use in your project. They're designed to be embedded in your project, and to be used by your code. Similarly to EditorSpice they're designed to make your project better, and to make your life easier. However, you cannot use SeaShark and then delete it without creating tons of pretty red lines in your console.
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Core Features](#core-features)
+  - [Design Patterns](#design-patterns)
+  - [Extension Methods](#extension-methods)
+  - [Configuration System](#configuration-system)
+  - [Pub/Sub System](#pubsub-system)
+- [Advanced Features](#advanced-features)
+  - [Fader](#fader)
+  - [Fonts](#fonts)
+  - [Interface Support](#interface-support)
+  - [In Build](#in-build)
+  - [Interfaces](#interfaces)
+  - [Minimap](#minimap)
+  - [Move (Work in Progress)](#move-work-in-progress)
+  - [Object Cue](#object-cue)
+  - [Query Strings](#query-strings)
+  - [Video Player](#video-player)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation
 
-1. Open the Unity project you want to install this package in.
-2. Open the Package Manager window.
-3. Click on the `+` button and select `Add package from git URL...`.
-4. Paste the URL of this repo into the text field and press `Add`. Make sure it ends with `.git`.
+Add this package to your Unity project via the Package Manager or by cloning the repository into your Assets folder.
 
-# Dependencies
+## Quick Start
 
-The entire package depends on our [Enhanced Logger](https://github.com/solo-fsw/sosxr-unity-enhancedlogger).
-
-A couple of scripts that can be downloaded from the Samples have additional dependencies.
-
-- Android Permission Requester depends on [UnityAndroidRuntimePermissions](https://github.com/yasirkula/UnityAndroidRuntimePermissions))
-
-# Android Runtime Requester
-
-Android Permission Requester (which depends on [UnityAndroidRuntimePermissions](https://github.com/yasirkula/UnityAndroidRuntimePermissions))
-
-# Additional Unity Events
-
-# Button (for Methods)
-
-# Config Data
-
-1. Create a ScriptableObject which holds your data by deriving from `BaseConfigData`. See `DemoConfigData` as an example.
-    1. You should have only one (derived) `ConfigData` in use.
-2. Create a new instance of your justly created asset by right-clicking in the Project window and selecting the same path as you set in the `[CreateAssetMenu(...)` section of the ScriptableObject (e.g. `Create > SOSXR > Config Data > Demo Config Data`).
-3. Create a JSON file by hitting the `CreateNewConfigJsonFile` button. See the console to find out where it has been created. You can hit the `Reveal in Finder` button too.
-4. To edit the data:
-    1. Either edit the `.json` directly, and hit `LoadConfigFromJson` when you're done
-    2. Edit the fields in the Inspector, and hit `UpdateConfigJson`
-5. If you are editing the JSON directly, hit `LoadConfigFromJson` once you've made changes in the JSON.
-
-## Best practices
-
-Use a `[SerializeField] private` backing-field with a `public` property for your data. Have the `SetValue` method linked in the `set` portion like so:
+### Using Extension Methods
 
 ```csharp
-[SerializeField] private string m_baseURL = "https://youtu.be/xvFZjo5PgG0?si=F3cJFXtwofUAeA";
-public string BaseURL
+// Safe component access
+var rigidbody = gameObject.GetOrAdd<Rigidbody>();
+
+// Vector manipulation
+var newPos = transform.position.WithX(10f);
+
+// String utilities
+if (!playerName.IsNullOrWhiteSpace())
 {
-    get => m_baseURL;
-    set => SetValue(ref m_baseURL, value, nameof(BaseURL));
+    Debug.Log(playerName);
 }
 ```
 
-## Responding to Data (changes) in the Config
-
-Use any of the `ConfigXXXToUnityEvent` classes to pipe through any of the data from the `ConfigData` to a UnityEvent. This will then pass along that info to whatever component you like.
-
-## Writing to JSON
-
-You can list which variable changes will trigger a JSON update:
-
-``` json
-"m_updateJsonOnSpecificValueChanged": [
-   "QueryStringURL",
-   "PPN"
-],
-```
-
-In this case the JSON gets rewrit when QueryStringURL changes or the PPN changes.
-
-In the Editor you can use the checkboxes to add or remove variables that should trigger this update.
-
-(These functions leverage the [PubSub](#pubsub-) system mentioned below)
-
-----
-
-While in the Editor, the OnValidate should pick up on any changes to the ScriptableObject, if you name your fields and properties correctly (see below). If it doesn't work, you have to hit the `UpdateConfigJson` button to save your changes to disk.
-
-The DemoConfigData's OnValidate and the corresponding auto-storing of the JSON to disk when changing values in the Inspector works only when:
-
-- Your `[SerializeField] private ...` backing-field is named starting with "m_" and in camelCase (e.g. `m_likeThis`)
-- Your corresponding `public` property is named the exact same name, but without te "m_", and in PascalCase (e.g.
-  `LikeThis`)
-  This issue doesn't exist when writing directly to the `public` property.
-
-## PubSub
-
-Register that you want to update the Json when a value changes. This way, any time you change any of the properties of the (derived) `ConfigData` class, those changes will automatically get stored into the JSON on disk. See `DemoConfigData` for more examples.
-
-### (Un)subscribe to specific value chance
-
-``` csharp
-private void OnEnable()
-{
-    configData.Subscribe(nameof(configData.ShowDebug), _ => RespondToNotification());
-}
-
-private void RespondToNotification()
-{
-    Debug.LogFormat("ShowDebug changed to {0}", configData.ShowDebug);
-}
-
-private void OnDisable()
-{
-    configData.Unsubscribe(nameof(configData.ShowDebug), _ => RespondToNotification());
-}
-```
-
-### (Un)subscribe to any value change
+### Using the Configuration System
 
 ```csharp
-private void OnEnable()
+public class GameConfig : BaseConfigData
 {
-    configData.SubscribeToAny(OnAnyValueChanged);
+    [SerializeField] private int m_difficulty;
+    public int Difficulty
+    {
+        get => m_difficulty;
+        set => SetValue(ref m_difficulty, value, nameof(Difficulty));
+    }
 }
 
-private void OnAnyValueChanged(string propertyName, object newValue)
-{
-    Debug.Log($"{propertyName} changed to: {newValue}");
-}
-
-private void OnDisable()
-{
-    configData.UnsubscribeFromAny(OnAnyValueChanged);
-}
+// In initialization code:
+var config = ScriptableObject.CreateInstance<GameConfig>();
+config.UpdateJsonOnValueChange = new List<string> { nameof(GameConfig.Difficulty) };
+config.Initialize();
+config.Subscribe(nameof(GameConfig.Difficulty), (newValue) => 
+    Debug.Log($"Difficulty changed to {newValue}"));
 ```
 
-A similar thing is done in the `OnValidate` on the `BaseConfigData` class: after any change (in the Inspector for example) to any field that's in the `m_updateJsonOnSpecificValueChanged` list, the `HandleConfigData.UpdateConfigJson(this);` kicks in and will save your changes to disk (but see [Bonus](#bonus)).
+### Using the Mediator Pattern
 
-# Design Patterns
+```csharp
+// Subscribe to a medium
+Mediator.Subscribe(new Medium("PlayerDamaged"), (medium) =>
+{
+    Debug.Log($"Player took damage: {medium.Data}");
+});
 
-## Command
+// Publish an event
+Mediator.Publish(new Medium("PlayerDamaged", damageAmount));
+```
 
-## Mediator
+## Core Features
 
-# Extension Methods
+### Design Patterns
 
-# Fader
+#### Command
 
-# Fonts
+The Command pattern in SeaShark encapsulates actions as discrete, self-contained units. This makes gameplay sequences, editor actions, and AI steps easier to reason about, test, and reuse.
 
-## LinBiolineum
+SeaShark exposes two practical execution strategies: **CommandQueue** (FIFO) and **CommandStack** (LIFO). CommandQueue processes commands in the order they were issued, which is ideal for linear sequences, scripted events, and multi-step user input flows. CommandStack preserves a history of actions so the most recent command can be undone or reversed, which is perfect for undo/redo workflows.
 
-## Maple Mono
+Use cases typically involve modeling an action as an object (e.g., MoveCommand, AttackCommand, SpawnCommand) and routing them through a central executor or history manager. This keeps producers decoupled from executors and makes error handling, retries, and analytics straightforward.
 
-> By subframe7536
+**Related types and namespaces:** `SOSXR.SeaShark.CommandQueue`, `SOSXR.SeaShark.CommandStack`, `SOSXR.SeaShark.ICommand`. For decoupled sequencing, also explore `SOSXR.SeaShark.Mediator`-related classes.
 
-Downloaded from [GitHub](https://github.com/subframe7536/maple-font?tab=readme-ov-file#install)
+#### Mediator
 
-Imported as a [TMPro](https://docs.unity3d.com/Packages/com.unity.ugui@2.0/manual/TextMeshPro/index.html) font asset using this [tutorial](https://www.youtube.com/watch?v=EV4wFb78FFs).
+The Mediator pattern in SeaShark provides a decoupled message-passing backbone. Components communicate via a central hub rather than direct references, reducing coupling and simplifying extension.
 
-### Usage in Unity
+Mediator, Medium, and MediatorRegistry form a lightweight pub/sub style system that lets components publish messages and subscribe to types they care about. This approach supports scalable, modular architectures where adding or swapping systems doesn't require rewiring existing components.
 
-Use the 'Maple Mono' font asset in any text field. It will automatically grab the italic font if you hit the 'I' in the textmeshpro component.
-If you'd rather always use the italic version, you can drag that one into the TMPro field too, but this shouldn't be necessary.
+Why use a mediator: it makes behavior extensible, testable, and easier to reason about in large scenes. It also facilitates cross-system coordination without tight coupling between game objects.
 
-# Interface Support
+**Usage patterns:** Register mediator roles with MediatorRegistry, publish messages through Medium, and subscribe to message types in interested components. Use a mediator instance to orchestrate coordinated actions without direct references.
 
-By [TheDudeFromCI](https://github.com/TheDudeFromCI/Unity-Interface-Support/?tab=readme-ov-file).
+**Related types and namespaces:** `SOSXR.SeaShark.Mediator.Mediator`, `SOSXR.SeaShark.Mediator.Medium`, `SOSXR.SeaShark.Mediator.MediatorRegistry`.
 
-# General Attributes
+### Extension Methods
 
-## BoxRangeAttribute
+Extension methods are lightweight helpers attached to existing Unity types (GameObject, Vector, String, Color, etc.) to reduce boilerplate and improve readability. They live in the `SOSXR.SeaShark.Extensions` family of namespaces and are designed to feel natural in everyday Unity workflows.
 
-The BoxRangeDrawer is a custom property drawer for Unity that provides a user-friendly way to input and restrict values for fields marked with `[BoxRange]`. It supports int, float, Vector2, Vector3, and Vector3Int types, displaying a slider in the Unity Inspector to enforce that values remain within a specified range. This tool enhances the editor experience by visually representing the allowed range for properties, ensuring that values stay within defined bounds without additional validation logic. The drawer is especially useful for developers who need to constrain numeric or vector inputs directly within the Unity editor.
+Main categories you'll encounter: **GameObjectExtensions**, **VectorExtensions**, **StringExtensions**, **ColorExtensions**, **TransformExtensions**, and possibly additional domain-specific extension sets. The goal is to provide fluent, readable defaults for common tasks (e.g., safe component access, vector tweaking, string utilities, and color manipulations).
 
-## DecimalAttribute
+Why use extensions: they reduce repetitive boilerplate, improve code clarity, and enable fluent style patterns that align with gameplay logic and UI workflows.
 
-The DecimalsDrawer is a custom property drawer for Unity that rounds float properties to a specified number of decimal places in the Unity Inspector, based on the DecimalsAttribute. Mark a value with `[Decimal]` It displays the allowed precision and ensures that the values entered are automatically rounded to the defined decimal precision, using MidpointRounding.AwayFromZero. Currently, it supports rounding for float properties and provides placeholder messages for unsupported types like Vector2 and Vector3. This drawer simplifies the process of managing decimal precision in float values directly within the Unity editor.
+**Common usage patterns:**
+- `GetOrAddComponent<T>(gameObject)` ensures a component exists without boilerplate
+- `Vector3.WithX(v, x)` / `WithY(v, y)` / `WithZ(v, z)` yield modified vectors in a single expression
+- `string.ToTitleCase()` or `string.IsNullOrWhiteSpace()` for string utilities
+- `color.WithAlpha(a)` produces a new color with adjusted transparency
 
-MidpointRounding.AwayFromZero is used to ensure that values are rounded to the nearest even number when they fall exactly between two integers. This rounding method is commonly used in financial applications and is the default behavior for the Math.Round method in C#.
+**Related namespaces:** `SOSXR.SeaShark.Extensions`, `SOSXR.SeaShark.Extensions.GameObjectExtensions`, `SOSXR.SeaShark.Extensions.VectorExtensions`, `SOSXR.SeaShark.Extensions.StringExtensions`, `SOSXR.SeaShark.Extensions.ColorExtensions`.
 
-## DisableEditingAttribute
+### Configuration System
 
-The DisableEditingPropertyDrawer is a custom property drawer for Unity that disables editing of fields marked with `[DisableEditing]`. When applied, it renders the property as read-only, preventing users from modifying its value while still displaying it in the Inspector. This drawer is useful for situations where a property needs to be visible but should not be editable, such as when the value is controlled by other systems or scripts.
+The BaseConfigData system provides automatic JSON persistence and reactive change notifications. Define configuration classes by inheriting from BaseConfigData and using the SetValue helper in property setters.
 
-## HelpAttribute (John Earnshaw, reblGreen Software Limited)
+**Key features:**
+- Automatic JSON serialization/deserialization
+- Property change notifications (specific and global)
+- Reflection-based field change detection in the editor
+- Configurable auto-update on specific property changes
 
-## HideIf Attribute (based on BasteRainGames)
+**Related types:** `SOSXR.SeaShark.BaseConfigData`, `SOSXR.SeaShark.HandleConfigData`.
 
-## Horizontal Line Attribute (by Warped Imagination)
+### Pub/Sub System
 
-## InfoAttribute (by Warped Imagination)
+The GlobalEvent system provides a garbage-free, disposal-based event mechanism for decoupled communication. Events are obtained via Get(), listeners are registered/unregistered, and the event fires when disposed.
 
-The InfoDrawer is a custom property drawer for Unity that displays informational text in the Unity Inspector for fields marked with `[Info]`. When applied, it shows a help box with a message specified by the attribute, without rendering the actual property field. This drawer is useful for providing additional context or instructions to developers or designers using the Inspector. Set the MessageType (None, Info, Warning, Error) if so desired, otherwise it defaults to None.
+**Key features:**
+- Singleton-like pattern with InUse flag to prevent re-entrant firing
+- Garbage-free event firing
+- Automatic cleanup and reuse
+- Thread-safe listener management
 
-## Optional
+**Related types:** `SOSXR.SeaShark.Excessives.GlobalEvent<T>`.
 
-To let future people know that the variable is optional, and that you don't necessarily need to set it. It has options to mark the field as "Will Find", "Will Get", and "Will Add" as well. These indicate that they may be blank in the Inspector right now, but that you will (in your own code) will get the values later, either through a Find somewhere in the scene, a GetComponent-type action, or an AddComponent.
+## Advanced Features
 
-## PreviewDrawer
+### Fader
 
-The PreviewDrawer is a custom property drawer for Unity that allows fields marked with `[Preview]` to display a visual preview of certain object types in the Unity Inspector. It supports previews for Texture, Material, Sprite, and GameObject types, displaying the associated texture or material on the Inspector when these objects are assigned to the field. The drawer automatically adjusts the height of the preview based on the attribute's specified height, making it useful for providing immediate visual feedback for assets like textures or materials without the need to open them separately.
+The Fader utility provides smooth fade transitions for UI and scene-related elements, typically by adjusting CanvasGroup alpha or material/color properties.
 
-## ReadOnlyAttribute (BeginReadOnlyGroup, EndReadOnlyGroup)
+Use it to create polished transitions between UI panels, scenes, or gameplay states without duplicating fade logic across components.
 
-The ReadOnlyDrawer, BeginReadOnlyGroupDrawer, and EndReadOnlyGroupDrawer are custom property drawers for Unity that allow you to mark individual properties or groups of properties as read-only in the Inspector. The ReadOnlyDrawer disables a single property marked with `[ReadOnly]`, ensuring that the field remains visible but uneditable. The `[BeginReadOnlyGroup]` and `[EndReadOnlyGroup]` are used to define a block of properties that are rendered as read-only within a group, disabling editing for all properties between these two markers. This is useful when you want to prevent users from modifying certain properties while still allowing them to view the values.
+**Why:** Consistent timing and easing across the project, better user experience, and a centralized place to tweak feel and duration.
 
-## Required Attribute (from Warped Imagination)
+**Basic usage patterns:** Fade a UI panel in by gradually increasing a CanvasGroup alpha from 0 to 1 over a duration; fade out when closing a panel; chain fades with content loading steps to produce seamless UX.
 
-## Suffix Attribute
+**Related types/namespaces:** `SOSXR.SeaShark.UI.Fader`, `SOSXR.SeaShark.UI.CanvasGroupFader`, `SOSXR.SeaShark.Utils.FaderUtilities`.
 
-## TagSelectorAttribute (by Dylan Engelman and Brecht Lecluyse)
+### Fonts
 
-The TagSelectorPropertyDrawer is a custom property drawer for Unity that allows you to select tags from a dropdown menu for fields marked with `[TagSelector]`. If the UseDefaultTagFieldDrawer option is enabled, it uses Unity's default tag selector. Otherwise, it generates a custom tag list, including a "<NoTag>" option, allowing the user to assign or clear tags from the property. This drawer simplifies tag selection by offering a dropdown of all available tags, ensuring that string properties can only be assigned valid tag values, which is especially useful in managing tagging systems within Unity projects.
+Font utilities surface and manage font assets (e.g., Maple Mono, LinBiolineum) used across UI text. They simplify loading, caching, and applying fonts to TMPro components.
 
-## TimeAttribute
+**How to use:** Load a TMP_FontAsset via a helper (e.g., FontManager.LoadAsset or FontUtils.GetFontAsset("Maple Mono")) and assign it to TextMeshPro components at runtime for consistent typography across the app.
 
-The TimeAttribute is a custom property drawer for Unity that formats an integer value representing time (in seconds)into a human-readable format, such as hours, minutes, and seconds, for fields marked with the TimeAttribute. If the DisplayHours option in the TimeAttribute is enabled, the time is shown in a hh:mm:ss format; otherwise, it is displayed in a mm:ss format. It displays both the raw integer input field and the formatted time underneath it. If the property is not an integer, it displays an error message. This drawer is useful for managing and visualizing time-based properties in the Unity Inspector.
+**Common scenarios:** Theming or accessibility changes that require font swaps, global font defaults for headings vs body text, and runtime font switching for localization or branding updates.
 
-# In Build
+**Related namespaces:** `SOSXR.SeaShark.Fonts`, `SOSXR.SeaShark.Fonts.MapleMono`, `SOSXR.SeaShark.Fonts.LinBiolineum`.
 
-## In Production Build
+### Interface Support
 
-## Destroy in Build
+Interface support helps you expose and consume interfaces across Unity objects in a decoupled fashion. Attributes and small discovery helpers enable straightforward interface-based wiring without hard references.
 
-# Interfaces
+**What's available:** A lightweight InterfaceAttribute (and helpers) to tag components that implement interfaces for runtime discovery and resolution. This makes it easier to wire services, controllers, and systems in large projects.
 
-## InterfaceAttribute
+**How to implement:** Define a simple interface (e.g., IMyService) and implement it on a MonoBehaviour. Mark the component with the appropriate interface attribute to participate in discovery, then resolve via an InterfaceResolver or similar helper.
 
-# Minimap
+**Usage patterns:** Implement core lifecycle or service interfaces (IInitializable, IUpdatable, IConfigurable) to standardize behavior, then resolve implementations at runtime through the interface abstraction.
 
-# Move (Work in Progress)
+**Related resources:** InterfaceAttribute, `SOSXR.SeaShark.Interfaces`.
 
-# Object Cue
+### In Build
 
-# Query Strings
+In Build contains build-time utilities and scripts intended to influence the final build. They help you tailor production behavior without polluting editor-time code paths.
 
-# Simple Helpers
+**Typical tasks:** Strip or replace debug utilities for production, apply platform-specific tweaks, and prune unused assets or test hooks to reduce build size.
 
-Some MonoBehaviours and Static classes that give some useful functionality. Notable inclusions are:
+**Why:** Keep a clean separation between editor-time tooling and runtime behavior, while ensuring predictable production builds.
 
-- DDOL
-- FindGameObjectsWithTag
-- SetMainCameraAsCanvasWorldCamera
+**Usage patterns:** Create prebuild/postbuild scripts or use BuildConfig directives to enable/disable features depending on target platforms. Configure these utilities to run automatically during the build pipeline.
 
-# Video Player
+**Related resources:** `SOSXR.SeaShark.Build`, BuildTime utilities, BuildScripts.
+
+### Interfaces
+
+This section lists core interface contracts used across SOSXR components and when to implement them. Interfaces provide explicit, decoupled contracts that help with testing and modularity.
+
+**Typical contracts** include generic lifecycle hooks and configurability markers (examples: IInitializable, IUpdatable, IConfigurable). Use them to enforce consistent behavior across components.
+
+**When to implement:** When your class provides a service or capability that others should consume via a known interface, not a concrete type. This enables clean substitution and easier unit testing.
+
+**How to implement:** Define a small interface and implement it on a MonoBehaviour or ScriptableObject. Expose resolution utilities to obtain a concrete implementation at runtime without tight coupling.
+
+**Related resources:** InterfaceAttribute, interface discovery utilities.
+
+### Minimap
+
+The Minimap subsystem ties together a Cartographer with a minimap UI to visualize a simplified representation of the world. It decouples world data from the UI rendering, letting you adjust what appears on the map without altering gameplay mechanics.
+
+Configure MapMaker entries to describe map regions, icons, visibility rules, and zoom behavior. MapMaker entries allow you to tailor map visuals for exploration, objectives, and player guidance.
+
+**Basic setup steps:**
+1. Add a Minimap controller to your UI
+2. Wire in a Cartographer component
+3. Create MapMaker entries for the areas you want on the map
+4. Update or tune entries to reflect terrain, objectives, or faction colors as needed
+
+**Related classes:** `SOSXR.SeaShark.Minimap.Cartographer`, `SOSXR.SeaShark.Minimap.MapMaker`, `SOSXR.SeaShark.Minimap.MapMakerEntry`, `SOSXR.SeaShark.UI.MinimapPanel`.
+
+### Move (Work in Progress)
+
+Move is a work-in-progress feature aimed at providing movement control and basic pathing for game entities. The current scope focuses on scaffolding movement commands and waypoint navigation; more advanced pathfinding, obstacle avoidance, and performance optimizations are forthcoming.
+
+**Status and limitations:** As an evolving API, some method names and behaviors may change. It's best used with feature flags or guarded usage inside experimental branches.
+
+**How to use (conceptual):** Attach a MoveController or MoveAgent to your unit, call StartMove(targetPosition) or feed a waypoint list, and listen for completion or interruption events to trigger subsequent actions.
+
+**Related resources:** `SOSXR.SeaShark.Move`, MoveController, MoveAgent.
+
+### Object Cue
+
+Object Cue provides lightweight cues to visually mark objects in the scene. This is useful for tutorials, onboarding, tooltips, or gameplay feedback when an object is interactive or important.
+
+**Use cases** include highlighting interactables when focused, signaling objectives or collectibles, and providing hover or targeting feedback in 3D space.
+
+**Basic usage (conceptual):** Attach an ObjectCue component to a target, or invoke ObjectCue.Show(target, CueType.Highlight, duration). Hide or fade out after the cue completes or when the player moves away.
+
+**Related resources:** `SOSXR.SeaShark.Cues.ObjectCue`, CueType enums, CuePalette.
+
+### Query Strings
+
+QueryURL and a simple builder help you assemble URLs with query parameters in a safe, consistent manner. This is particularly valuable for making REST API calls, search endpoints, or feature-flag driven URLs.
+
+**Why:** Centralizes encoding, parameter ordering, and null-handling for query strings. Reduces boilerplate and makes testing easier by isolating URL-building logic.
+
+**Basic usage pattern (conceptual):** Start with a base URL, then chain Add("key", value) calls for each parameter. Finalize with ToString() to obtain the full URL.
+
+**Related types:** `SOSXR.SeaShark.Network.QueryURL`, `SOSXR.SeaShark.Network.QueryStringBuilder`.
+
+### Video Player
+
+Video player utilities wrap Unity's VideoPlayer integration to streamline common playback tasks. They provide helpers to load, play, pause, seek, and respond to completion events in a consistent way.
+
+**Why:** Simplify in-game tutorials, cutscenes, and contextual video experiences. Centralized handling reduces boilerplate across multiple scenes and UI layers.
+
+**Basic usage pattern (conceptual):** Invoke VideoPlayerManager.Play(videoClip) to start playback, and subscribe to completion callbacks to trigger next steps. Use Pause/Resume/Seek for precise playback control as part of UI or gameplay flow.
+
+**Related resources:** `SOSXR.SeaShark.Video.Player`, VideoPlayerExtensions, VideoCueSystem.
+
+## Contributing
+
+Contributions are welcome! Please ensure that:
+- All public APIs have XML documentation comments
+- Complex logic includes inline comments explaining the "why"
+- Code follows the existing style and conventions
+- Tests are included for new features
+
+## License
+
+See LICENSE.md for details.
