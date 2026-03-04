@@ -3,8 +3,8 @@
   "version": "0.5.0",
   "displayName": "SeaShark",
   "description": "A comprehensive collection of C# extensions, utilities, and design pattern implementations for Unity. Provides lightweight, reusable components for gameplay, UI, and system architecture with zero external dependencies.",
-  "documentationUrl": "https://github.com/solo-fsw/sosxr-unity-seashark/blob/main/README.md",
-  "documentation": "https://github.com/solo-fsw/sosxr-unity-seashark/blob/main/README.md",
+  "documentationUrl": "https://github.com/solo-fsw/sosxr-unity-seashark",
+  "documentation": "https://github.com/solo-fsw/sosxr-unity-seashark",
   "unity": "6000.0",
   "repository": {
     "type": "git",
