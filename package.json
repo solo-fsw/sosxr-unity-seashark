@@ -1,7 +1,7 @@
 {
   "name": "com.sosxr.seashark",
   "version": "0.5.0",
-  "displayName": "SOSXR SeaShark - C# Utilities",
+  "displayName": "SOSXR SeaShark",
   "description": "A comprehensive collection of C# extensions, utilities, and design pattern implementations for Unity. Provides lightweight, reusable components for gameplay, UI, and system architecture with zero external dependencies.",
   "documentationUrl": "https://github.com/solo-fsw/sosxr-unity-seashark/blob/main/README.md",
   "documentation": "https://github.com/solo-fsw/sosxr-unity-seashark/blob/main/README.md",
