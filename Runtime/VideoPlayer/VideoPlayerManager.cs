@@ -6,33 +6,54 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Video;
 
-
 namespace SOSXR.SeaShark
 {
     [RequireComponent(typeof(VideoPlayer))]
     public class VideoPlayerManager : MonoBehaviour
     {
-        [SerializeField] private Material m_renderMaterial;
+        [SerializeField]
+        private Material m_renderMaterial;
 
-        [Header("Clip Settings")] [SerializeField]
+        [Header("Clip Settings")]
+        [SerializeField]
         private bool m_startAutomatically = true;
 
-        [SerializeField] [Range(0, 60)] private float m_beforeFirstClipPauseDuration = 5f;
-        [SerializeField] public List<VideoSettingsCustom> Clips;
-        [SerializeField] private List<VideoSettingsCustom> m_randomizedClipList;
-        [SerializeField] [Range(0, 60)] private float m_betweenEachClipPauseDuration = 2.5f;
-        [SerializeField] private UnityEvent<string> VideoClipStarted;
+        [SerializeField]
+        [Range(0, 60)]
+        private float m_beforeFirstClipPauseDuration = 5f;
 
-        [Header("Info")] [SerializeField] public string CurrentClipName;
-        [SerializeField] public float CurrentClipDuration;
-        [SerializeField] public float CurrentClipTime;
+        [SerializeField]
+        public List<VideoSettingsCustom> Clips;
+
+        [SerializeField]
+        private List<VideoSettingsCustom> m_randomizedClipList;
+
+        [SerializeField]
+        [Range(0, 60)]
+        private float m_betweenEachClipPauseDuration = 2.5f;
+
+        [SerializeField]
+        private UnityEvent<string> VideoClipStarted;
+
+        [Header("Info")]
+        [SerializeField]
+        public string CurrentClipName;
+
+        [SerializeField]
+        public float CurrentClipDuration;
+
+        [SerializeField]
+        public float CurrentClipTime;
         public Vector2Int Dimensions;
 
+        [SerializeField]
+        private string m_clipDirectory;
 
-        [SerializeField] private string m_clipDirectory;
-        [SerializeField] private string[] m_extensions;
-        [SerializeField] private bool m_repeat;
+        [SerializeField]
+        private string[] m_extensions;
 
+        [SerializeField]
+        private bool m_repeat;
 
         private RenderTexture _renderTexture;
 
@@ -40,7 +61,6 @@ namespace SOSXR.SeaShark
 
         public VideoPlayer VideoPlayer { get; private set; }
         public AudioSource AudioSource { get; private set; }
-
 
         private void OnValidate()
         {
@@ -57,7 +77,6 @@ namespace SOSXR.SeaShark
             }
         }
 
-
         private void Start()
         {
             if (VideoPlayer == null || AudioSource == null)
@@ -69,14 +88,16 @@ namespace SOSXR.SeaShark
                 return;
             }
 
-            var clipNames = FileHelpers.GetFileNamesFromDirectory(m_extensions, false, true, m_clipDirectory);
+            var clipNames = FileHelpers.GetFileNamesFromDirectory(
+                m_extensions,
+                false,
+                true,
+                m_clipDirectory
+            );
 
             foreach (var clipName in clipNames)
             {
-                Clips.Add(new VideoSettingsCustom
-                {
-                    ClipName = clipName
-                });
+                Clips.Add(new VideoSettingsCustom { ClipName = clipName });
             }
 
             if (m_startAutomatically)
@@ -85,18 +106,15 @@ namespace SOSXR.SeaShark
             }
         }
 
-
         private void OnEnable()
         {
             VideoPlayer.errorReceived += ReceivedAnError;
         }
 
-
         private void ReceivedAnError(VideoPlayer source, string message)
         {
             Debug.LogErrorFormat($"The VideoPlayer has received an error {source} {message}");
         }
-
 
         public void StartPlayer(string unused)
         {
@@ -110,7 +128,6 @@ namespace SOSXR.SeaShark
             _playerCR = StartCoroutine(PlayerCR());
         }
 
-
         private IEnumerator PlayerCR()
         {
             yield return new WaitForSeconds(m_beforeFirstClipPauseDuration);
@@ -123,7 +140,9 @@ namespace SOSXR.SeaShark
 
                 foreach (var clip in m_randomizedClipList)
                 {
-                    Debug.LogFormat($"Playing clip {clip.ClipName} from {m_randomizedClipList.Count} clips.");
+                    Debug.LogFormat(
+                        $"Playing clip {clip.ClipName} from {m_randomizedClipList.Count} clips."
+                    );
 
                     VideoClipStarted?.Invoke(clip.ClipName);
 
@@ -142,7 +161,7 @@ namespace SOSXR.SeaShark
 
                     SetAudioSourceSettings(clip);
 
-                    CurrentClipDuration = (float) Math.Round(VideoPlayer.length, 0);
+                    CurrentClipDuration = (float)Math.Round(VideoPlayer.length, 0);
 
                     VideoPlayer.Play();
 
@@ -161,17 +180,15 @@ namespace SOSXR.SeaShark
             Debug.LogFormat("Done playing all clips");
         }
 
-
         private IEnumerator UpdateCurrentClipTimeCR()
         {
-            for (;;)
+            for (; ; )
             {
-                CurrentClipTime = (float) Math.Round(VideoPlayer.clockTime, 0);
+                CurrentClipTime = (float)Math.Round(VideoPlayer.clockTime, 0);
 
                 yield return new WaitForSeconds(1);
             }
         }
-
 
         private void GetURLAndPrepare(VideoSettingsCustom clip)
         {
@@ -180,18 +197,21 @@ namespace SOSXR.SeaShark
             VideoPlayer.Prepare();
         }
 
-
         private void CreateNewRenderTexture()
         {
-            Dimensions.x = (int) VideoPlayer.width;
-            Dimensions.y = (int) VideoPlayer.height;
-            _renderTexture = new RenderTexture(Dimensions.x, Dimensions.y, 24, RenderTextureFormat.Default);
+            Dimensions.x = (int)VideoPlayer.width;
+            Dimensions.y = (int)VideoPlayer.height;
+            _renderTexture = new RenderTexture(
+                Dimensions.x,
+                Dimensions.y,
+                24,
+                RenderTextureFormat.Default
+            );
             _renderTexture.name = "RenderTexture: " + Dimensions;
 
             m_renderMaterial.mainTexture = _renderTexture;
             VideoPlayer.targetTexture = _renderTexture;
         }
-
 
         private void SetAudioSourceSettings(VideoSettingsCustom clip)
         {
@@ -201,7 +221,6 @@ namespace SOSXR.SeaShark
 
             AudioSource.transform.position = clip.AudioLocation;
         }
-
 
         private void StopPlaying()
         {
@@ -214,13 +233,11 @@ namespace SOSXR.SeaShark
             Debug.LogFormat("Stopping playing");
         }
 
-
         [ContextMenu(nameof(ReshuffleVideos))]
         public void ReshuffleVideos()
         {
             StartPlaying();
         }
-
 
         private void StartPlaying()
         {
@@ -235,7 +252,6 @@ namespace SOSXR.SeaShark
 
             _playerCR = StartCoroutine(PlayerCR());
         }
-
 
         private void OnDisable()
         {

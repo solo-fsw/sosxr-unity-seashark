@@ -57,23 +57,22 @@ namespace SOSXR.SeaShark
 
         private void SendUnityEvents()
         {
+            if (m_currentDevice.Current == Device.None)
+            {
+                Debug.LogError("CurrentDevice has not yet been set.");
+
+                return;
+            }
+
             if (m_currentDevice.Current == m_targetDevice)
             {
                 Debug.Log("CurrentDevice is " + m_targetDevice + " so running event.");
                 m_eventIfOnTargetDevice?.Invoke();
             }
-            else if (m_currentDevice.Current != m_targetDevice)
+            else
             {
                 Debug.Log("CurrentDevice is not " + m_targetDevice + " so running event.");
                 m_eventIfNotOnTargetDevice?.Invoke();
-            }
-            else if (m_currentDevice.Current == Device.None)
-            {
-                Debug.LogError("CurrentDevice has not yet been set.");
-            }
-            else
-            {
-                Debug.LogError("Something went wrong.");
             }
         }
 
