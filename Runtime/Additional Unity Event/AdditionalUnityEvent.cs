@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Linq;
-using SOSXR.EnhancedLogger;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -167,7 +166,7 @@ namespace SOSXR.SeaShark
                 return;
             }
 
-            this.Verbose("An active UnityEvent was cancelled. It may mean that the event was not fired, or not fired at the right time.");
+            // Debug.Log("An active UnityEvent was cancelled. It may mean that the event was not fired, or not fired at the right time.");
             StopCoroutine(_activeCoroutine);
             _activeCoroutine = null;
         }
@@ -179,7 +178,7 @@ namespace SOSXR.SeaShark
             {
                 if (m_delayInSeconds > 0)
                 {
-                    this.Warning("We cannot fire an event in OnDisable with a delay. Will fire immediately.");
+                    Debug.LogWarning("We cannot fire an event in OnDisable with a delay. Will fire immediately.");
                 }
 
                 m_eventToFire?.Invoke(); // You cannot fire a coroutine in OnDisable, so we fire the event immediately.
@@ -229,7 +228,7 @@ namespace SOSXR.SeaShark
             }
             #endif
 
-            this.Error("BuildTriggerType is not set correctly. Please check the settings.");
+            Debug.LogError("BuildTriggerType is not set correctly. Please check the settings.");
 
             return false;
         }

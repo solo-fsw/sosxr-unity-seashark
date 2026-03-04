@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using SOSXR.EnhancedLogger;
 using UnityEngine;
 
 
@@ -14,7 +13,7 @@ namespace SOSXR.SeaShark
         private void Awake()
         {
             #if !UNITY_ANDROID || UNITY_EDITOR
-            this.Debug("This script is only for Android platform. Skipping permission checks.");
+            Debug.Log("This script is only for Android platform. Skipping permission checks.");
             enabled = false;
 
             return;
@@ -48,7 +47,7 @@ namespace SOSXR.SeaShark
             using (var version = new AndroidJavaClass("android.os.Build$VERSION"))
             {
                 var sdkInt = version.GetStatic<int>("SDK_INT");
-                this.Debug($"Android API Level: {sdkInt}");
+                Debug.Log($"Android API Level: {sdkInt}");
 
                 return sdkInt;
             }
@@ -60,7 +59,7 @@ namespace SOSXR.SeaShark
             using (var env = new AndroidJavaClass("android.os.Environment"))
             {
                 var isExternalStorageManager = env.CallStatic<bool>("isExternalStorageManager");
-                this.Debug($"Android has Manage All Files Access Permission: {isExternalStorageManager}");
+                Debug.Log($"Android has Manage All Files Access Permission: {isExternalStorageManager}");
 
                 return isExternalStorageManager;
             }
@@ -77,7 +76,7 @@ namespace SOSXR.SeaShark
                 activity.Call("startActivity", intent);
             }
 
-            this.Debug("Opened Manage All Files Access Settings. Please grant permission manually.");
+            Debug.Log("Opened Manage All Files Access Settings. Please grant permission manually.");
         }
 
 
@@ -85,21 +84,21 @@ namespace SOSXR.SeaShark
         {
             try
             {
-                this.Info("Requesting permission for: " + permission);
+                Debug.Log("Requesting permission for: " + permission);
                 var result = await AndroidRuntimePermissions.RequestPermissionAsync(permission);
 
                 if (result == AndroidRuntimePermissions.Permission.Granted)
                 {
-                    this.Success("Granted: " + permission);
+                    Debug.Log("Granted: " + permission);
                 }
                 else
                 {
-                    this.Warning($"Permission {result} for {permission} was not granted.");
+                    Debug.LogWarning($"Permission {result} for {permission} was not granted.");
                 }
             }
             catch (Exception e)
             {
-                this.Error("Error requesting permission: " + e.Message);
+                Debug.LogError("Error requesting permission: " + e.Message);
             }
         }
     }
