@@ -82,6 +82,7 @@ namespace SOSXR.SeaShark
 
         private async Task RequestPermission(string permission)
         {
+#if HAS_ANDROID_RUNTIME_PERMISSIONS
             try
             {
                 Debug.Log("Requesting permission for: " + permission);
@@ -100,6 +101,10 @@ namespace SOSXR.SeaShark
             {
                 Debug.LogError("Error requesting permission: " + e.Message);
             }
+#else
+            Debug.LogWarning($"AndroidRuntimePermissions package is not installed. Cannot request permission: {permission}. Install https://github.com/yasirkula/UnityAndroidRuntimePermissions.git via Package Manager.");
+            await Task.CompletedTask;
+#endif
         }
     }
 }
