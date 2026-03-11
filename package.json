@@ -6,7 +6,12 @@
   "documentationUrl": "https://github.com/solo-fsw/sosxr-unity-seashark",
   "documentation": "https://github.com/solo-fsw/sosxr-unity-seashark",
   "unity": "6000.0",
-  "dependencies": {},
+  "dependencies": {
+    "com.unity.inputsystem": "1.1.0",
+    "com.unity.ugui": "2.0.0",
+    "com.unity.xr.management": "4.0.0",
+    "com.unity.modules.animation": "1.0.0",
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/solo-fsw/sosxr-unity-seashark"
