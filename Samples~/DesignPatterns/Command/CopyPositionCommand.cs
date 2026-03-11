@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using SOSXR.EnhancedLogger;
 using UnityEngine;
 
 
@@ -29,7 +28,7 @@ namespace SOSXR.SeaShark
             }
             catch (Exception e)
             {
-                Log.Static(e.Message, LogLevel.Warning);
+                Debug.LogWarning(e.Message);
             }
         }
 
@@ -42,7 +41,7 @@ namespace SOSXR.SeaShark
             }
             catch (Exception e)
             {
-                Log.Static(e.Message, LogLevel.Warning);
+                Debug.LogWarning(e.Message);
             }
         }
 

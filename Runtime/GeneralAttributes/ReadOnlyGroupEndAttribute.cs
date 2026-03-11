@@ -5,7 +5,7 @@ namespace SOSXR.SeaShark
 {
     /// <summary>
     ///     Use with <see cref="ReadOnlyGroupBeginAttribute" />.
-    ///     Close the read-only group and resume editable fields.
+    ///     Closes the read-only group and resumes editable fields.
     /// </summary>
     /// <seealso cref="ReadOnlyGroupBeginAttribute" />
     /// <seealso cref="ReadOnlyAttribute" />

@@ -1,5 +1,4 @@
 using System;
-using SOSXR.EnhancedLogger;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -39,7 +38,7 @@ namespace SOSXR.SeaShark
 
             if (FindFirstObjectByType<EventSystem>() == null)
             {
-                this.Warning("Had to spawn Event System, since none was available. ");
+                Debug.LogWarning("Had to spawn Event System, since none was available. ");
                 var o = new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
             }
 
@@ -82,42 +81,42 @@ namespace SOSXR.SeaShark
 
         private void MoveUp()
         {
-            this.Verbose("Calling MoveUp");
+            // Debug.Log("Calling MoveUp");
             _invoker.Execute(new MoveCommand(m_player, new Vector3(0, 1, 0), m_moveDelay));
         }
 
 
         private void MoveDown()
         {
-            this.Verbose("Calling MoveDown");
+            // Debug.Log("Calling MoveDown");
             _invoker.Execute(new MoveCommand(m_player, new Vector3(0, -1, 0), m_moveDelay));
         }
 
 
         private void MoveLeft()
         {
-            this.Verbose("Calling MoveLeft");
+            // Debug.Log("Calling MoveLeft");
             _invoker.Execute(new MoveCommand(m_player, new Vector3(-1, 0, 0), m_moveDelay));
         }
 
 
         private void MoveRight()
         {
-            this.Verbose("Calling MoveRight");
+            // Debug.Log("Calling MoveRight");
             _invoker.Execute(new MoveCommand(m_player, new Vector3(1, 0, 0), m_moveDelay));
         }
 
 
         private void Undo()
         {
-            this.Verbose("Calling Undo");
+            // Debug.Log("Calling Undo");
             _invoker.Undo();
         }
 
 
         private void Redo()
         {
-            this.Verbose("Calling Redo");
+            // Debug.Log("Calling Redo");
             _invoker.Redo();
         }
 

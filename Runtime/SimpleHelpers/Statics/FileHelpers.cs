@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace SOSXR.SeaShark.Statics
 {
+    /// <summary>
+    ///     Utility helpers for filesystem paths and common file operations used by SOSXR SeaShark runtime.
+    /// </summary>
     public static class FileHelpers
     {
         /// <summary>

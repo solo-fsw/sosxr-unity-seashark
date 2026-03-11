@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 namespace SOSXR.SeaShark
 {
+    /// <summary>
+    /// Manages a UI-based keycode entry system where players input a fixed-length keycode via on-screen buttons.
+    /// It validates characters based on allowed character types and fires an event when the keycode is complete.
+    /// </summary>
     public class KeyStrokeManager : MonoBehaviour
     {
         [SerializeField] [Range(2, 20)] private int m_requiredKeyCodeLength = 4;
@@ -18,6 +22,9 @@ namespace SOSXR.SeaShark
         [SerializeField] private List<AudioClip> m_audioClips;
         [SerializeField] private AudioClip m_failedAudio;
 
+        /// <summary>
+        /// Event fired when a complete keycode has been entered. Passes the entered keycode string as a parameter.
+        /// </summary>
         public UnityEvent<string> KeyCodeEntered;
 
         private string[] _characters;
@@ -25,6 +32,9 @@ namespace SOSXR.SeaShark
         private const string ClearedPhrase = "== Cleared ==";
 
 
+        /// <summary>
+        /// Initializes the keycode entry system. Implementation details are environment-specific.
+        /// </summary>
         private void Awake()
         {
             _characters = new string[m_keyCaps.Length];
@@ -32,6 +42,9 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Enables the keycode entry UI and sets up button listeners when the component is enabled.
+        /// </summary>
         private void OnEnable()
         {
             GetButtonContent();
@@ -153,6 +166,10 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Called when the player submits the entered keycode. Validates the input and fires the KeyCodeEntered
+        /// event if valid.
+        /// </summary>
         public void EnterKeyCode()
         {
             if (_keyCode.Length == m_requiredKeyCodeLength)

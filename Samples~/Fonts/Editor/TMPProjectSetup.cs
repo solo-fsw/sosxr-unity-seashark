@@ -1,4 +1,3 @@
-using SOSXR.EnhancedLogger;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -29,14 +28,14 @@ namespace SOSXR.SeaShark.EditorScripts
 
             if (_defaultFontAsset == null)
             {
-                Log.Static($"Default font asset not found at path: {_defaultFontAssetPath}");
+                Debug.Log($"Default font asset not found at path: {_defaultFontAssetPath}");
 
                 return;
             }
 
             if (TMP_Settings.defaultFontAsset == _defaultFontAsset)
             {
-                Log.Static("TMP default font asset is already set to ", _defaultFontAssetPath);
+                Debug.Log($"TMP default font asset is already set to {_defaultFontAssetPath}");
 
                 return;
             }
@@ -56,14 +55,14 @@ namespace SOSXR.SeaShark.EditorScripts
 
             if (_fallBackFontAsset == null)
             {
-                Log.Static($"Fallback font asset not found at path: {_fallBackFontPaths}");
+                Debug.Log($"Fallback font asset not found at path: {_fallBackFontPaths}");
 
                 return;
             }
 
             if (TMP_Settings.fallbackFontAssets.Contains(_fallBackFontAsset))
             {
-                Log.Static("TMP fallback font asset is already set to ", _fallBackFontPaths);
+                Debug.Log($"TMP fallback font asset is already set to {_fallBackFontPaths}");
 
                 return;
             }
@@ -83,7 +82,7 @@ namespace SOSXR.SeaShark.EditorScripts
 
             if (fontAsset == null)
             {
-                Log.Static($"Font asset {fontAssetPath} not found at specified path.");
+                Debug.Log($"Font asset {fontAssetPath} not found at specified path.");
 
                 return null;
             }

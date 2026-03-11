@@ -7,7 +7,6 @@ using UnityEngine.Events;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-
 namespace SOSXR.SeaShark
 {
     public static class ExtensionMethods
@@ -34,7 +33,6 @@ namespace SOSXR.SeaShark
             return input;
         }
 
-
         /// <summary>
         ///     Any underscores in the string will be replaced with spaces.
         /// </summary>
@@ -44,7 +42,6 @@ namespace SOSXR.SeaShark
         {
             return Regex.Replace(input, "_", " ");
         }
-
 
         /// <summary>
         ///     Converts camel case to space-separated format.
@@ -56,35 +53,44 @@ namespace SOSXR.SeaShark
             return Regex.Replace(input, "([a-z])([A-Z])", "$1 $2");
         }
 
-
         /// <summary>
         ///     How far & in what direction do I need to go?
         ///     For each axis in 'axisToUse' that is set to 0, the displacement will also be 0.
         /// </summary>
         /// <returns></returns>
-        public static Vector3 CalculateDisplacement(this Transform originTrans, Transform targetTrans, Vector3 axisToUse)
+        public static Vector3 CalculateDisplacement(
+            this Transform originTrans,
+            Transform targetTrans,
+            Vector3 axisToUse
+        )
         {
             return CalculateDisplacement(originTrans.position, targetTrans.position, axisToUse);
         }
 
-
         /// <summary>
         ///     How far & in what direction do I need to go?
         ///     For each axis in 'axisToUse' that is set to 0, the displacement will also be 0.
         /// </summary>
         /// <returns></returns>
-        public static Vector3 CalculateDisplacement(this Transform originTrans, Vector3 targetPos, Vector3 axisToUse)
+        public static Vector3 CalculateDisplacement(
+            this Transform originTrans,
+            Vector3 targetPos,
+            Vector3 axisToUse
+        )
         {
             return CalculateDisplacement(originTrans.position, targetPos, axisToUse);
         }
-
 
         /// <summary>
         ///     How far & in what direction do I need to go?
         ///     For each axis in 'axisToUe' that is set to 0, the displacement will also be 0.
         /// </summary>
         /// <returns></returns>
-        public static Vector3 CalculateDisplacement(this Vector3 originPos, Vector3 targetPos, Vector3 axisToUse)
+        public static Vector3 CalculateDisplacement(
+            this Vector3 originPos,
+            Vector3 targetPos,
+            Vector3 axisToUse
+        )
         {
             var displacement = targetPos - originPos;
 
@@ -106,7 +112,6 @@ namespace SOSXR.SeaShark
             return displacement;
         }
 
-
         /// <summary>
         ///     Creates Vector with max 1
         /// </summary>
@@ -116,7 +121,6 @@ namespace SOSXR.SeaShark
         {
             return displacement.normalized;
         }
-
 
         /// <summary>
         ///     Calculates how far away the target is.
@@ -129,7 +133,6 @@ namespace SOSXR.SeaShark
             return displacement.magnitude;
         }
 
-
         /// <summary>
         ///     Calculates how far away the target is from the origin
         /// </summary>
@@ -141,7 +144,6 @@ namespace SOSXR.SeaShark
             return origin.CalculateDisplacement(target, Vector3.one).CalculateDistance();
         }
 
-
         /// <summary>
         ///     Calculates whether I am looking at the target.
         ///     Defaults to -1 to 1, with 1 looking directly at, -1 looking directly away.
@@ -151,9 +153,16 @@ namespace SOSXR.SeaShark
         /// <param name="lookAtTarget"></param>
         /// <param name="remap"></param>
         /// <returns></returns>
-        public static float CalculateLookAtDotProduct(this Transform transformOne, Transform lookAtTarget, bool remap = false)
+        public static float CalculateLookAtDotProduct(
+            this Transform transformOne,
+            Transform lookAtTarget,
+            bool remap = false
+        )
         {
-            var displacement = transformOne.CalculateDisplacement(lookAtTarget.position, Vector3.one);
+            var displacement = transformOne.CalculateDisplacement(
+                lookAtTarget.position,
+                Vector3.one
+            );
             var direction = displacement.CalculateDirection();
             var dotProduct = Vector3.Dot(direction, transformOne.forward.normalized); // -1 to 1, with 1 looking directly at, -1 looking directly away
 
@@ -166,7 +175,6 @@ namespace SOSXR.SeaShark
 
             return dotProduct;
         }
-
 
         /// <summary>
         ///     Returns 1 for Right, -1 for Left, 0 for neither.
@@ -182,7 +190,10 @@ namespace SOSXR.SeaShark
 
             if (dot != 0)
             {
-                var displacement = transformOne.CalculateDisplacement(lookAtTarget.position, Vector3.one);
+                var displacement = transformOne.CalculateDisplacement(
+                    lookAtTarget.position,
+                    Vector3.one
+                );
                 var direction = displacement.CalculateDirection();
                 var perpendicular = Vector3.Cross(transformOne.forward, direction);
                 upDotProduct = Vector3.Dot(perpendicular, transformOne.up.normalized);
@@ -201,7 +212,6 @@ namespace SOSXR.SeaShark
             return 0;
         }
 
-
         /// <summary>
         ///     Returns 1 for Up, -1 for Down, 0 for neither.
         /// </summary>
@@ -216,7 +226,10 @@ namespace SOSXR.SeaShark
 
             if (dot != 0)
             {
-                var displacement = transformOne.CalculateDisplacement(lookAtTarget.position, Vector3.one);
+                var displacement = transformOne.CalculateDisplacement(
+                    lookAtTarget.position,
+                    Vector3.one
+                );
                 var direction = displacement.CalculateDirection();
                 upDotProduct = Vector3.Dot(direction, transformOne.up.normalized);
             }
@@ -234,7 +247,6 @@ namespace SOSXR.SeaShark
             return 0;
         }
 
-
         /// <summary>
         ///     Returns the difference in height between the two transforms
         ///     transformTwo - transformOne
@@ -247,7 +259,6 @@ namespace SOSXR.SeaShark
             return transformTwo.position.y - transformOne.position.y;
         }
 
-
         /// <summary>
         ///     Sets a transform to a new world position
         /// </summary>
@@ -257,7 +268,6 @@ namespace SOSXR.SeaShark
         {
             MoveToNewPosition(thisGameObject.transform, newPosition.position);
         }
-
 
         /// <summary>
         ///     Sets a transform to a new world position
@@ -269,7 +279,6 @@ namespace SOSXR.SeaShark
             MoveToNewPosition(thisGameObject.transform, newPosition);
         }
 
-
         /// <summary>
         ///     Sets a transform to a new world position
         /// </summary>
@@ -279,7 +288,6 @@ namespace SOSXR.SeaShark
         {
             MoveToNewPosition(thisTransform, newPosition.position);
         }
-
 
         /// <summary>
         ///     Sets a transform to a new world position
@@ -291,18 +299,20 @@ namespace SOSXR.SeaShark
             thisTransform.position = newPosition;
         }
 
-
         /// <summary>
         ///     Lerps a transform to a new world position
         /// </summary>
         /// <param name="thisTransform"></param>
         /// <param name="toTransform"></param>
         /// <param name="speed"></param>
-        public static void LerpToNewPosition(this Transform thisTransform, Transform toTransform, float speed)
+        public static void LerpToNewPosition(
+            this Transform thisTransform,
+            Transform toTransform,
+            float speed
+        )
         {
             LerpToNewPosition(thisTransform, toTransform.position, speed);
         }
-
 
         /// <summary>
         ///     Lerps a transform to a new world position
@@ -310,11 +320,18 @@ namespace SOSXR.SeaShark
         /// <param name="thisTransform"></param>
         /// <param name="newPosition"></param>
         /// <param name="speed"></param>
-        public static void LerpToNewPosition(this Transform thisTransform, Vector3 newPosition, float speed)
+        public static void LerpToNewPosition(
+            this Transform thisTransform,
+            Vector3 newPosition,
+            float speed
+        )
         {
-            thisTransform.position = Vector3.Lerp(thisTransform.position, newPosition, Time.deltaTime * speed);
+            thisTransform.position = Vector3.Lerp(
+                thisTransform.position,
+                newPosition,
+                Time.deltaTime * speed
+            );
         }
-
 
         /// <summary>
         ///     Sets a transform to a new world position
@@ -322,13 +339,16 @@ namespace SOSXR.SeaShark
         /// <param name="thisTransform"></param>
         /// <param name="newPosition"></param>
         /// <param name="basedOn"></param>
-        public static void MovePositionTo(this Transform thisTransform, Transform newPosition, Transform basedOn)
+        public static void MovePositionTo(
+            this Transform thisTransform,
+            Transform newPosition,
+            Transform basedOn
+        )
         {
             var distanceDiff = newPosition.position - basedOn.position;
 
             thisTransform.position += distanceDiff;
         }
-
 
         /// <summary>
         ///     Adjusts the height by the given float value
@@ -345,17 +365,16 @@ namespace SOSXR.SeaShark
             return thisPosition;
         }
 
-
         /// <summary>
         ///     Sorts GameObjects by name
         /// </summary>
         /// <param name="gameObjects"></param>
         public static void SortByName(this List<GameObject> gameObjects)
         {
-            gameObjects.Sort((x, y) =>
-                string.Compare(x?.name, y?.name, StringComparison.OrdinalIgnoreCase));
+            gameObjects.Sort(
+                (x, y) => string.Compare(x?.name, y?.name, StringComparison.OrdinalIgnoreCase)
+            );
         }
-
 
         /// <summary>
         ///     Sorts GameObjects by name
@@ -363,10 +382,11 @@ namespace SOSXR.SeaShark
         /// <param name="gameObjects"></param>
         public static void SortByName(this GameObject[] gameObjects)
         {
-            Array.Sort(gameObjects, (x, y) =>
-                string.Compare(x?.name, y?.name, StringComparison.OrdinalIgnoreCase));
+            Array.Sort(
+                gameObjects,
+                (x, y) => string.Compare(x?.name, y?.name, StringComparison.OrdinalIgnoreCase)
+            );
         }
-
 
         /// <summary>
         ///     Sorts Transforms by name
@@ -374,10 +394,10 @@ namespace SOSXR.SeaShark
         /// <param name="transforms"></param>
         public static void SortByName(this List<Transform> transforms)
         {
-            transforms.Sort((x, y) =>
-                string.Compare(x?.name, y?.name, StringComparison.OrdinalIgnoreCase));
+            transforms.Sort(
+                (x, y) => string.Compare(x?.name, y?.name, StringComparison.OrdinalIgnoreCase)
+            );
         }
-
 
         /// <summary>
         ///     Sorts Transforms by name
@@ -385,10 +405,11 @@ namespace SOSXR.SeaShark
         /// <param name="transforms"></param>
         public static void SortByName(this Transform[] transforms)
         {
-            Array.Sort(transforms, (x, y) =>
-                string.Compare(x?.name, y?.name, StringComparison.OrdinalIgnoreCase));
+            Array.Sort(
+                transforms,
+                (x, y) => string.Compare(x?.name, y?.name, StringComparison.OrdinalIgnoreCase)
+            );
         }
-
 
         /// <summary>
         ///     Draws debug ray from Transform in the Vector3 direction displacement
@@ -400,7 +421,6 @@ namespace SOSXR.SeaShark
             Debug.DrawRay(originTrans.position, displacement);
         }
 
-
         /// <summary>
         ///     Checks if given string has text, and whether that text is more than just whitespace
         /// </summary>
@@ -411,7 +431,6 @@ namespace SOSXR.SeaShark
             return !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str);
         }
 
-
         /// <summary>
         ///     Calculate the standard deviation of an array
         ///     Adapted from: https://stackoverflow.com/questions/5336457/how-to-calculate-a-standard-deviation-array
@@ -421,45 +440,47 @@ namespace SOSXR.SeaShark
         public static float CalculateSD(this float[] floatArray)
         {
             var average = floatArray.Average();
-            var sumOfSquaresOfDifferences = floatArray.Select(val => (val - average) * (val - average)).Sum();
+            var sumOfSquaresOfDifferences = floatArray
+                .Select(val => (val - average) * (val - average))
+                .Sum();
 
             return Mathf.Sqrt(sumOfSquaresOfDifferences / floatArray.Length);
         }
 
-
-        /// <summary>
-        ///     Fisher Yates shuffle. From : https://answers.unity.com/questions/16531/randomizing-arrays.html
-        /// </summary>
-        /// <param name="arr">Arr.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public static void Shuffle<T>(this T[] arr)
-        {
-            for (var i = arr.Length - 1; i > 0; i--)
-            {
-                var r = Random.Range(0, i + 1);
-                (arr[i], arr[r]) = (arr[r], arr[i]);
-            }
-        }
-
-
-        /// <summary>
-        ///     Fisher Yates shuffle on List. From
-        ///     https://forum.unity.com/threads/clever-way-to-shuffle-a-list-t-in-one-line-of-c-code.241052/
-        /// </summary>
-        /// <param name="ts"></param>
-        /// <typeparam name="T"></typeparam>
-        public static void Shuffle<T>(this IList<T> ts)
-        {
-            var count = ts.Count;
-            var last = count - 1;
-
-            for (var i = 0; i < last; ++i)
-            {
-                var r = Random.Range(i, count);
-                (ts[i], ts[r]) = (ts[r], ts[i]);
-            }
-        }
-
+        // A better version is found in the ListExtensions.cs
+        //
+        // /// <summary>
+        // ///     Fisher Yates shuffle. From : https://answers.unity.com/questions/16531/randomizing-arrays.html
+        // /// </summary>
+        // /// <param name="arr">Arr.</param>
+        // /// <typeparam name="T">The 1st type parameter.</typeparam>
+        // public static void Shuffle<T>(this T[] arr)
+        // {
+        //     for (var i = arr.Length - 1; i > 0; i--)
+        //     {
+        //         var r = Random.Range(0, i + 1);
+        //         (arr[i], arr[r]) = (arr[r], arr[i]);
+        //     }
+        // }
+        //
+        //
+        // /// <summary>
+        // ///     Fisher Yates shuffle on List. From
+        // ///     https://forum.unity.com/threads/clever-way-to-shuffle-a-list-t-in-one-line-of-c-code.241052/
+        // /// </summary>
+        // /// <param name="ts"></param>
+        // /// <typeparam name="T"></typeparam>
+        // public static void Shuffle<T>(this IList<T> ts)
+        // {
+        //     var count = ts.Count;
+        //     var last = count - 1;
+        //
+        //     for (var i = 0; i < last; ++i)
+        //     {
+        //         var r = Random.Range(i, count);
+        //         (ts[i], ts[r]) = (ts[r], ts[i]);
+        //     }
+        // }
 
         /// <summary>
         ///     Just get the children, without the parent transform.
@@ -487,7 +508,6 @@ namespace SOSXR.SeaShark
             return firstChildren;
         }
 
-
         /// <summary>
         ///     Find by name the transform of (sub)child in a given parent, recursively.
         ///     Adapted from: https://forum.unity.com/threads/solved-find-a-child-by-name-searching-all-subchildren.40684/
@@ -511,7 +531,6 @@ namespace SOSXR.SeaShark
 
             return null;
         }
-
 
         /// <summary>
         ///     Find the transform of (sub)child in a given parent by the start of a name, recursively.
@@ -537,7 +556,6 @@ namespace SOSXR.SeaShark
             return null;
         }
 
-
         /// <summary>
         ///     Find the transform of (sub)child in a given parent by the end of a name, recursively.
         ///     Adapted from: https://forum.unity.com/threads/solved-find-a-child-by-name-searching-all-subchildren.40684/
@@ -562,12 +580,14 @@ namespace SOSXR.SeaShark
             return null;
         }
 
-
         /// <summary>
         ///     Find the transform of (sub)child in a given parent containing part of a name, recursively.
         ///     Adapted from: https://forum.unity.com/threads/solved-find-a-child-by-name-searching-all-subchildren.40684/
         /// </summary>
-        public static Transform FindChildByNameContains(this Transform transform, string nameContains)
+        public static Transform FindChildByNameContains(
+            this Transform transform,
+            string nameContains
+        )
         {
             if (transform.name.Contains(nameContains))
             {
@@ -586,7 +606,6 @@ namespace SOSXR.SeaShark
 
             return null;
         }
-
 
         /// <summary>
         ///     Function to search through all child Transforms and return matching Transforms
@@ -614,7 +633,6 @@ namespace SOSXR.SeaShark
             return matchingTransforms.ToArray();
         }
 
-
         /// <summary>
         ///     Function to search through all child Transforms and return matching Transforms
         ///     By ChatGPT
@@ -622,7 +640,10 @@ namespace SOSXR.SeaShark
         /// <param name="parent"></param>
         /// <param name="nameContains"></param>
         /// <returns></returns>
-        public static List<Transform> FindChildrenByNameContains(this Transform parent, string nameContains)
+        public static List<Transform> FindChildrenByNameContains(
+            this Transform parent,
+            string nameContains
+        )
         {
             var matchingTransforms = new List<Transform>();
 
@@ -640,7 +661,6 @@ namespace SOSXR.SeaShark
 
             return matchingTransforms;
         }
-
 
         /// <summary>
         ///     Find by tag the transform of (sub)child in a given parent, recursively.
@@ -666,7 +686,6 @@ namespace SOSXR.SeaShark
             return null;
         }
 
-
         /// <summary>
         ///     Find by tag the transform of the first found ancestor, recursively.
         ///     Adapted from: https://forum.unity.com/threads/solved-find-a-child-by-name-searching-all-subchildren.40684/
@@ -675,7 +694,6 @@ namespace SOSXR.SeaShark
         {
             return FindAncestorByTag(transform.gameObject, tag).transform;
         }
-
 
         /// <summary>
         ///     Find by tag the GameObject of the first found ancestor, recursively.
@@ -706,7 +724,6 @@ namespace SOSXR.SeaShark
             return null;
         }
 
-
         /// <summary>
         ///     Cleans up an array and takes out any null items
         ///     From ChatGPT
@@ -718,7 +735,6 @@ namespace SOSXR.SeaShark
             return CleanupCollection(transformsArray.ToList()).ToArray();
         }
 
-
         /// <summary>
         ///     Cleans up an array and takes out any null items
         ///     From ChatGPT
@@ -727,9 +743,10 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static List<Transform> CleanupCollection(this List<Transform> transformsArray)
         {
-            return transformsArray.Where(transform => transform != null && transform.gameObject.activeSelf).ToList();
+            return transformsArray
+                .Where(transform => transform != null && transform.gameObject.activeSelf)
+                .ToList();
         }
-
 
         /// <summary>
         ///     Puts the X and Y axis of the Vector3 into a new Vector2
@@ -740,7 +757,6 @@ namespace SOSXR.SeaShark
         {
             return new Vector2(input.x, input.y);
         }
-
 
         /// <summary>
         ///     Clamps the float to a value between minMax.x and minMax.y
@@ -753,7 +769,6 @@ namespace SOSXR.SeaShark
             return Mathf.Clamp(input, minMax.x, minMax.y);
         }
 
-
         /// <summary>
         ///     Clamps the input.x and input.y to a value between minMax.x and minMax.y
         /// </summary>
@@ -764,7 +779,6 @@ namespace SOSXR.SeaShark
         {
             return new Vector2(input.x.Clamp(minMax), input.y.Clamp(minMax));
         }
-
 
         /// <summary>
         ///     Clamps the input.x, the input.y, and the input.z to a value between minMax.x and minMax.y
@@ -777,7 +791,6 @@ namespace SOSXR.SeaShark
             return new Vector3(input.x.Clamp(minMax), input.y.Clamp(minMax), input.z.Clamp(minMax));
         }
 
-
         /// <summary>
         ///     Clamps the float to a value between 0 and 1
         /// </summary>
@@ -787,7 +800,6 @@ namespace SOSXR.SeaShark
         {
             return Mathf.Clamp01(input);
         }
-
 
         /// <summary>
         ///     Clamps the Vector2 to a value between 0 and 1
@@ -799,7 +811,6 @@ namespace SOSXR.SeaShark
             return new Vector2(Clamped01(input.x), Clamped01(input.y));
         }
 
-
         /// <summary>
         ///     Clamps the Vector3 to a value between 0 and 1
         /// </summary>
@@ -809,7 +820,6 @@ namespace SOSXR.SeaShark
         {
             return new Vector3(Clamped01(input.x), Clamped01(input.y), Clamped01(input.z));
         }
-
 
         /// <summary>
         ///     If > 0.5 then 1, else 0
@@ -830,7 +840,6 @@ namespace SOSXR.SeaShark
             return input;
         }
 
-
         /// <summary>
         ///     If > 0.5 then 1, else 0
         ///     For both x and y-axis
@@ -842,7 +851,6 @@ namespace SOSXR.SeaShark
             return new Vector2(ReverseClamped01(input.x), ReverseClamped01(input.y));
         }
 
-
         /// <summary>
         ///     If > 0.5 then 1, else 0
         ///     For all axis
@@ -851,9 +859,12 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static Vector3 ReverseClamped01(this Vector3 input)
         {
-            return new Vector3(ReverseClamped01(input.x), ReverseClamped01(input.y), ReverseClamped01(input.z));
+            return new Vector3(
+                ReverseClamped01(input.x),
+                ReverseClamped01(input.y),
+                ReverseClamped01(input.z)
+            );
         }
-
 
         /// <summary>
         ///     Returns a new Vector3 with Y axis set to 0
@@ -864,7 +875,6 @@ namespace SOSXR.SeaShark
         {
             return new Vector3(input.x, 0, input.z);
         }
-
 
         /// <summary>
         ///     Returns the Transform but with the Y axis set to 0
@@ -878,7 +888,6 @@ namespace SOSXR.SeaShark
             return input;
         }
 
-
         /// <summary>
         ///     For each of the Axis of the 'axisToUse' Vector3, if it's set to 0, the corresponding input axis will also be set to
         ///     0
@@ -887,9 +896,8 @@ namespace SOSXR.SeaShark
         /// <param name="axisToUse"></param>
         public static Vector3 ZeroOutVector3(this Vector3 original, Vector3Int axisToUse)
         {
-            return ZeroOutVector3(original, (Vector3) axisToUse);
+            return ZeroOutVector3(original, (Vector3)axisToUse);
         }
-
 
         /// <summary>
         ///     For each of the Axis of the 'axisToUse' Vector3, if it's set to 0, the corresponding input axis will also be set to
@@ -919,7 +927,6 @@ namespace SOSXR.SeaShark
             return newVector;
         }
 
-
         /// <summary>
         ///     Sets local scale uniformly. Cannot be smaller than 0.
         /// </summary>
@@ -936,7 +943,6 @@ namespace SOSXR.SeaShark
             transform.localScale = new Vector3(scale, scale, scale);
         }
 
-
         /// <summary>
         ///     Set the Transform's Position and Rotation to 0,0,0. Set the LocalScale to 1,1,1
         /// </summary>
@@ -951,7 +957,6 @@ namespace SOSXR.SeaShark
             //return original;
         }
 
-
         /// <summary>
         ///     Set the GameObject's Transform's Position and Rotation to 0,0,0. Set the LocalScale to 1,1,1
         /// </summary>
@@ -963,7 +968,6 @@ namespace SOSXR.SeaShark
 
             // return original;
         }
-
 
         /// <summary>
         ///     Set the Transform's LocalPosition and LocalRotation to 0,0,0. Set the LocalScale to 1,1,1
@@ -979,7 +983,6 @@ namespace SOSXR.SeaShark
             return original;
         }
 
-
         /// <summary>
         ///     Set the GameObject's Transform's LocalPosition and LocalRotation to 0,0,0. Set the LocalScale to 1,1,1
         /// </summary>
@@ -990,7 +993,6 @@ namespace SOSXR.SeaShark
             original.transform.ZeroOutLocalTransform();
         }
 
-
         /// <summary>
         ///     Casts normal Vector3 to the closest Vector3Int
         /// </summary>
@@ -998,9 +1000,8 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static Vector3Int ToVector3Int(this Vector3 v3)
         {
-            return new Vector3Int((int) v3.x, (int) v3.y, (int) v3.y);
+            return new Vector3Int((int)v3.x, (int)v3.y, (int)v3.y);
         }
-
 
         /// <summary>
         ///     Example: a value can range from 0 to 1. If for example 0.5 is the 'center' / 'high point', then 0.75 will be as far
@@ -1020,7 +1021,6 @@ namespace SOSXR.SeaShark
 
             return rangedValue;
         }
-
 
         /// <summary>
         ///     Example: a value can range from 0 to 1. If for example 0.5 is the 'center' / 'high point', then 0.75 will be as far
@@ -1046,7 +1046,6 @@ namespace SOSXR.SeaShark
             return rangedValues;
         }
 
-
         /// <summary>
         ///     Gets minimum value of Vector2
         /// </summary>
@@ -1056,7 +1055,6 @@ namespace SOSXR.SeaShark
         {
             return Mathf.Min(input.x, input.y);
         }
-
 
         /// <summary>
         ///     Gets minimum value of Vector3
@@ -1068,7 +1066,6 @@ namespace SOSXR.SeaShark
             return Mathf.Min(input.x, input.y, input.z);
         }
 
-
         /// <summary>
         ///     Gets maximum value of Vector2
         /// </summary>
@@ -1079,7 +1076,6 @@ namespace SOSXR.SeaShark
             return Mathf.Max(input.x, input.y);
         }
 
-
         /// <summary>
         ///     Gets maximum value of Vector3
         /// </summary>
@@ -1089,7 +1085,6 @@ namespace SOSXR.SeaShark
         {
             return Mathf.Max(input.x, input.y, input.z);
         }
-
 
         /// <summary>
         ///     Runs through children of given Transform, and destroys all;
@@ -1103,7 +1098,6 @@ namespace SOSXR.SeaShark
             }
         }
 
-
         /// <summary>
         ///     Runs through children of given Transform, and destroys all immediately
         /// </summary>
@@ -1116,7 +1110,6 @@ namespace SOSXR.SeaShark
             }
         }
 
-
         /// <summary>
         ///     Sets Alpha of SpriteRenderer to given alpha.
         /// </summary>
@@ -1128,7 +1121,6 @@ namespace SOSXR.SeaShark
             color.a = alpha;
             renderer.color = color;
         }
-
 
         /// <summary>
         ///     Sets Alpha of material on given Renderer to given alpha.
@@ -1143,7 +1135,6 @@ namespace SOSXR.SeaShark
             material.color = color;
         }
 
-
         /// <summary>
         ///     Picks a random item from this list
         /// </summary>
@@ -1155,7 +1146,6 @@ namespace SOSXR.SeaShark
             return list[Random.Range(0, list.Count)];
         }
 
-
         /// <summary>
         ///     Splits a string into a string array, with each character separated by a space.
         /// </summary>
@@ -1166,7 +1156,6 @@ namespace SOSXR.SeaShark
             return string.Join(" ", input.ToCharArray());
         }
 
-
         /// <summary>
         ///     Extracts the file name from a full path, and removes the given character and everything before it.
         /// </summary>
@@ -1174,7 +1163,11 @@ namespace SOSXR.SeaShark
         /// <param name="removeBeforeCharacter"></param>
         /// <param name="removeExtension"></param>
         /// <returns></returns>
-        public static string ExtractedFileNameFromPath(this string fullPath, string removeBeforeCharacter = "/", string removeExtension = ".unity")
+        public static string ExtractedFileNameFromPath(
+            this string fullPath,
+            string removeBeforeCharacter = "/",
+            string removeExtension = ".unity"
+        )
         {
             var lastIndex = fullPath.LastIndexOf(removeBeforeCharacter, StringComparison.Ordinal);
             var removeIncluding = lastIndex + 1;
@@ -1183,7 +1176,6 @@ namespace SOSXR.SeaShark
 
             return withoutExtension;
         }
-
 
         /// <summary>
         ///     Usage example:
@@ -1195,7 +1187,12 @@ namespace SOSXR.SeaShark
         /// <param name="radius"></param>
         /// <param name="lineWidth"></param>
         /// <param name="useWorldSpace"></param>
-        public static void DrawCircle(this GameObject gameObject, float radius = 1f, float lineWidth = 0.025f, bool useWorldSpace = false)
+        public static void DrawCircle(
+            this GameObject gameObject,
+            float radius = 1f,
+            float lineWidth = 0.025f,
+            bool useWorldSpace = false
+        )
         {
             const int segments = 360;
             const int closedSegments = segments + 1; // add extra point to make start point and endpoint the same to close the circle
@@ -1217,7 +1214,6 @@ namespace SOSXR.SeaShark
             line.SetPositions(points);
         }
 
-
         /// <summary>
         ///     This rounds a float to specified decimals: otherwise issues to round .5 values (e.g. 3.5 to 4, or 6.555 to 6.56)
         /// </summary>
@@ -1228,14 +1224,13 @@ namespace SOSXR.SeaShark
         {
             // Standard Rounding gave problems when rounding values like 0.5 / 1.12125 / 2.45 etc. to 1 / 1.1213 / 2.5 respectively
             // Value needs to be cast to decimal, and MidpointRounding needs to be set to AwayFromZero to fix that issue:
-            var originalAsDecimal = (decimal) originalValue; // Float needs to be cast to decimal. Does not work properly when using double.
+            var originalAsDecimal = (decimal)originalValue; // Float needs to be cast to decimal. Does not work properly when using double.
             const MidpointRounding midwayRounding = MidpointRounding.AwayFromZero; // As per: https://stackoverflow.com/questions/37290845/incorrect-result-of-math-round-function-in-vb-net  /// And: https://docs.microsoft.com/en-us/dotnet/api/system.midpointrounding?redirectedfrom=MSDN&view=net-6.0
 
-            var rounded = (float) Math.Round(originalAsDecimal, decimals, midwayRounding);
+            var rounded = (float)Math.Round(originalAsDecimal, decimals, midwayRounding);
 
             return rounded;
         }
-
 
         /// <summary>
         ///     This rounds a double to specified decimals: otherwise issues to round .5 values (e.g. 3.5 to 4, or 6.555 to 6.56)
@@ -1245,9 +1240,8 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static double RoundCorrectly(this double originalValue, int decimals)
         {
-            return RoundCorrectly((float) originalValue, decimals);
+            return RoundCorrectly((float)originalValue, decimals);
         }
-
 
         /// <summary>
         ///     This rounds a Vector2 to specified decimals: otherwise issues to round .5 values (e.g. 3.5 to 4, or 6.555 to 6.56)
@@ -1260,12 +1254,11 @@ namespace SOSXR.SeaShark
             var rounded = new Vector3
             {
                 x = RoundCorrectly(originalValue.x, decimals),
-                y = RoundCorrectly(originalValue.y, decimals)
+                y = RoundCorrectly(originalValue.y, decimals),
             };
 
             return rounded;
         }
-
 
         /// <summary>
         ///     This rounds a Vector3 to specified decimals: otherwise issues to round .5 values (e.g. 3.5 to 4, or 6.555 to 6.56)
@@ -1279,12 +1272,11 @@ namespace SOSXR.SeaShark
             {
                 x = RoundCorrectly(originalValue.x, decimals),
                 y = RoundCorrectly(originalValue.y, decimals),
-                z = RoundCorrectly(originalValue.z, decimals)
+                z = RoundCorrectly(originalValue.z, decimals),
             };
 
             return rounded;
         }
-
 
         /// <summary>
         ///     Remaps float from old range to new range.
@@ -1309,13 +1301,14 @@ namespace SOSXR.SeaShark
             return to;
         }
 
-
         /// <summary>
         ///     Returns all UnityActions from a UnityEvent that are assigned to it in the Inspector
         /// </summary>
         /// <param name="unityEvent"></param>
         /// <returns></returns>
-        public static IEnumerable<UnityAction> GetPersistentCallersFromUnityEvent(this UnityEvent unityEvent)
+        public static IEnumerable<UnityAction> GetPersistentCallersFromUnityEvent(
+            this UnityEvent unityEvent
+        )
         {
             var persistentCallers = new List<UnityAction>();
 
@@ -1333,24 +1326,47 @@ namespace SOSXR.SeaShark
 
                     if (methodParameters.Length == 0)
                     {
-                        method = (UnityAction) methodInfo.CreateDelegate(typeof(UnityAction), target);
+                        method = (UnityAction)
+                            methodInfo.CreateDelegate(typeof(UnityAction), target);
                     }
                     else if (methodParameters.Length > 0)
                     {
-                        Debug.LogWarning("GetPersistentCallersFromUnityEvent" + "Cannot handle multiple parameters. Make sure to add" + methodName + "from" + target.name + "manually to the new UnityEvent");
+                        Debug.LogWarning(
+                            "GetPersistentCallersFromUnityEvent"
+                                + "Cannot handle multiple parameters. Make sure to add"
+                                + methodName
+                                + "from"
+                                + target.name
+                                + "manually to the new UnityEvent"
+                        );
 
                         continue;
                     }
 
                     if (method == null)
                     {
-                        Debug.LogWarning("GetPersistentCallersFromUnityEvent" + "Could not create delegate for" + methodName + "on" + target + "with Type" + targetType);
+                        Debug.LogWarning(
+                            "GetPersistentCallersFromUnityEvent"
+                                + "Could not create delegate for"
+                                + methodName
+                                + "on"
+                                + target
+                                + "with Type"
+                                + targetType
+                        );
 
                         continue;
                     }
 
-
-                    Debug.Log("GetPersistentCallersFromUnityEvent" + "Found" + methodName + "for" + target + "with Type" + targetType);
+                    Debug.Log(
+                        "GetPersistentCallersFromUnityEvent"
+                            + "Found"
+                            + methodName
+                            + "for"
+                            + target
+                            + "with Type"
+                            + targetType
+                    );
 
                     persistentCallers.Add(method);
                 }
@@ -1358,7 +1374,6 @@ namespace SOSXR.SeaShark
 
             return persistentCallers;
         }
-
 
         /// <summary>
         ///     Returns true if this is the first child Transform of its parent.
@@ -1371,7 +1386,6 @@ namespace SOSXR.SeaShark
 
             return siblingIndex == 0;
         }
-
 
         /// <summary>
         ///     Returns true if this is the last child Transform of its parent.
@@ -1386,23 +1400,27 @@ namespace SOSXR.SeaShark
             return siblingIndex == maxIndex;
         }
 
-
         /// <summary>
         ///     Safely find a GameObject in the scene
         /// </summary>
         /// <param name="monoBehaviour"></param>
         /// <param name="foundObject"></param>
         /// <typeparam name="T"></typeparam>
-        public static void SafeFindObjectOfType<T>(this MonoBehaviour monoBehaviour, out T foundObject) where T : MonoBehaviour
+        public static void SafeFindObjectOfType<T>(
+            this MonoBehaviour monoBehaviour,
+            out T foundObject
+        )
+            where T : MonoBehaviour
         {
             foundObject = Object.FindFirstObjectByType<T>();
 
             if (foundObject == null)
             {
-                Debug.LogError("SafeFindObjectOfType" + "Could not find" + typeof(T) + "in the scene");
+                Debug.LogError(
+                    "SafeFindObjectOfType" + "Could not find" + typeof(T) + "in the scene"
+                );
             }
         }
-
 
         /// <summary>
         ///     Get or add a component to a GameObject
@@ -1412,7 +1430,8 @@ namespace SOSXR.SeaShark
         /// <param name="go"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T GetOrAddComponent<T>(this GameObject go) where T : Component
+        public static T GetOrAddComponent<T>(this GameObject go)
+            where T : Component
         {
             if (go.GetComponent<T>() == null)
             {
@@ -1421,7 +1440,6 @@ namespace SOSXR.SeaShark
 
             return go.GetComponent<T>();
         }
-
 
         /// <summary>
         ///     Recreates a temporary AudioSource when the original is buy.
@@ -1463,7 +1481,10 @@ namespace SOSXR.SeaShark
 
             if (tempSource.rolloffMode == AudioRolloffMode.Custom)
             {
-                tempSource.SetCustomCurve(AudioSourceCurveType.CustomRolloff, original.GetCustomCurve(AudioSourceCurveType.CustomRolloff));
+                tempSource.SetCustomCurve(
+                    AudioSourceCurveType.CustomRolloff,
+                    original.GetCustomCurve(AudioSourceCurveType.CustomRolloff)
+                );
             }
 
             tempSource.clip = clip;
@@ -1472,7 +1493,6 @@ namespace SOSXR.SeaShark
             var destroyDelay = clip.length + 1f; // +1 sec for safety.
             Object.Destroy(tempSource, destroyDelay);
         }
-
 
         /// <summary>
         ///     Checks to see whether a list contains an index. For this the list needs to be not null.
@@ -1487,7 +1507,6 @@ namespace SOSXR.SeaShark
             return list != null && index >= 0 && index <= list.Count - 1;
         }
 
-
         /// <summary>
         ///     Checks to see whether an array contains an index. For this the array needs to be not null.
         ///     Returns false if null or if provided index is less than 0 or more than the Length-1
@@ -1501,7 +1520,6 @@ namespace SOSXR.SeaShark
             return array != null && index >= 0 && index <= array.Length - 1;
         }
 
-
         /// <summary>
         ///     Get Random float from Vector2 range
         /// </summary>
@@ -1512,7 +1530,6 @@ namespace SOSXR.SeaShark
             return Random.Range(range.x, range.y);
         }
 
-
         /// <summary>
         ///     Gets last digit of a number
         /// </summary>
@@ -1522,7 +1539,6 @@ namespace SOSXR.SeaShark
 
             return positiveNumber % 10;
         }
-
 
         /// <summary>
         ///     Divides the dividend by the divisor and returns the remainder.
@@ -1552,7 +1568,6 @@ namespace SOSXR.SeaShark
             return dividend % divisor;
         }
 
-
         /// <summary>
         ///     Add item to list if unique: if it is not already in list, please add.
         /// </summary>
@@ -1578,7 +1593,6 @@ namespace SOSXR.SeaShark
                 list.Add(item);
             }
         }
-
 
         /// <summary>
         ///     Add items to list if unique: if they are not already in list, please add.
@@ -1606,7 +1620,6 @@ namespace SOSXR.SeaShark
             }
         }
 
-
         /// <summary>
         ///     Remove item from list if it exists in list.
         /// </summary>
@@ -1630,7 +1643,6 @@ namespace SOSXR.SeaShark
                 list.Remove(item);
             }
         }
-
 
         /// <summary>
         ///     Remove items from list if they exist in list.
@@ -1657,3 +1669,4 @@ namespace SOSXR.SeaShark
         }
     }
 }
+

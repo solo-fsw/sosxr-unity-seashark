@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace SOSXR.SeaShark
 {
+    /// <summary>
+    /// Controls a LineRenderer by updating its positions to match a list of Transform points.
+    /// Automatically syncs the line's vertex count with the number of points and updates positions every frame.
+    /// </summary>
     [RequireComponent(typeof(LineRenderer))]
     public class LineRendererController : MonoBehaviour
     {

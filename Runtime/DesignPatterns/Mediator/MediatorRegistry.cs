@@ -6,12 +6,20 @@ using UnityEngine;
 namespace SOSXR.SeaShark
 {
     [CreateAssetMenu(fileName = "MediatorRegistry", menuName = "SOSXR/Patterns/MediatorRegistry")]
+    /// <summary>
+    /// Maintains a registry of mediums, listeners, and callers for the mediator pattern.
+    /// It tracks metadata about which listeners are subscribed to which mediums
+    /// and which objects publish to them.
+    /// </summary>
     public class MediatorRegistry : ScriptableObject
     {
         [SerializeField] private List<MediumInfo> m_registry = new() {new MediumInfo {Medium = new Medium(EmptyName)}};
 
         public static string EmptyName => "NONE";
 
+        /// <summary>
+        /// Gets or sets the registry entries that track all registered mediums.
+        /// </summary>
         public List<MediumInfo> Registry
         {
             get => m_registry;
@@ -19,6 +27,10 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Inspects the mediator's registered mediums and logs warnings for mediums that
+        /// have no listeners or callers.
+        /// </summary>
         [ContextMenu(nameof(CheckMediatorForOrphanMediums))]
         public void CheckMediatorForOrphanMediums()
         {
@@ -42,6 +54,9 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Clears the registry metadata lists without unsubscribing listeners or stopping callers.
+        /// </summary>
         [ContextMenu(nameof(ClearRegistryButNotMediums))]
         public void ClearRegistryButNotMediums()
         {
@@ -53,6 +68,9 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Registers a listener name for the specified medium.
+        /// </summary>
         public void RegisterListener(Medium medium, string listenerString)
         {
             if (Registry == null)
@@ -74,6 +92,9 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Registers a caller name for the specified medium.
+        /// </summary>
         public void RegisterCaller(Medium medium, string callerName)
         {
             if (Registry == null)
@@ -95,6 +116,9 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Removes a listener name from the specified medium's registry.
+        /// </summary>
         public void UnregisterListener(Medium medium, string listenerString)
         {
             if (Registry == null)
@@ -110,6 +134,9 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Removes a caller name from the specified medium's registry.
+        /// </summary>
         public void UnregisterCaller(Medium medium, string callerName)
         {
             if (Registry == null)
@@ -125,6 +152,9 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Updates the medium's type name and data string in the registry to reflect its current state.
+        /// </summary>
         public void UpdateData(Medium medium)
         {
             if (Registry == null)
@@ -152,6 +182,9 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Clears all data lists for every registered medium.
+        /// </summary>
         public void ClearDataLists()
         {
             foreach (var registered in Registry)
@@ -163,6 +196,9 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Clears the data list for the specified medium.
+        /// </summary>
         public void ClearDataList(Medium medium)
         {
             if (Registry == null)
@@ -181,6 +217,10 @@ namespace SOSXR.SeaShark
     }
 
 
+    /// <summary>
+    /// Represents a communication channel (medium) with a channel name and optional data payload.
+    /// Provides helpers to obtain the data type name and a string representation of the data.
+    /// </summary>
     [Serializable]
     public class Medium
     {
@@ -229,6 +269,10 @@ namespace SOSXR.SeaShark
     }
 
 
+    /// <summary>
+    /// Holds metadata about a medium: the medium itself, a list of data values,
+    /// and lists of listener and caller names associated with the medium.
+    /// </summary>
     [Serializable]
     public class MediumInfo
     {

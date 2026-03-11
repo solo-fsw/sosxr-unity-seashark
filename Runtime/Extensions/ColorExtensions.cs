@@ -5,7 +5,7 @@ using UnityEngine;
 namespace SOSXR.SeaShark
 {
     /// <summary>
-    ///     From: https://github.com/adammyhre/Unity-Utils
+    ///     Color-related extension helpers for UnityEngine.Color.
     /// </summary>
     public static class ColorExtensions
     {

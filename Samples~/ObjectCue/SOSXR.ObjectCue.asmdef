@@ -1,3 +1,16 @@
 {
-  "name": "SOSXR.ObjectCue"
+  "name": "SOSXR.ObjectCue",
+  "rootNamespace": "SOSXR.SeaShark.ObjectCue",
+  "references": [
+    "SOSXR.SeaShark"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

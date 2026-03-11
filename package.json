@@ -1,19 +1,36 @@
 {
   "name": "com.sosxr.seashark",
-  "version": "0.4.0",
-  "displayName": "Sea Shark",
-  "description": "Our very own C# extensions library",
-  "documentationUrl": "https://youtu.be/xvFZjo5PgG0?si=F3cJFXtwofUAeAq2",
+  "version": "0.6.0",
+  "displayName": "SeaShark",
+  "description": "A comprehensive collection of C# extensions, utilities, and design pattern implementations for Unity. Provides lightweight, reusable components for gameplay, UI, and system architecture with zero external dependencies.",
+  "documentationUrl": "https://github.com/solo-fsw/sosxr-unity-seashark",
+  "documentation": "https://github.com/solo-fsw/sosxr-unity-seashark",
   "unity": "6000.0",
-  "dependencies": {
-    "com.unity.inputsystem": "1.12.0",
-    "com.unity.textmeshpro": "3.0.1",
-    "com.unity.xr.core-utils": "2.5.3"
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/solo-fsw/sosxr-unity-seashark"
+  },
+  "license": "MIT",
+  "keywords": [
+    "utilities",
+    "extensions",
+    "design-patterns",
+    "mediator",
+    "command-pattern",
+    "configuration",
+    "ui",
+    "gameplay"
+  ],
+  "author": {
+    "name": "SOSXR",
+    "email": "sosxr@fsw.leidenuniv.nl",
+    "url": "https://github.com/solo-fsw/sosxr-unity-seashark"
   },
   "samples": [
     {
       "displayName": "Android Runtime Permissions",
-      "description": "Contains Android Runtime Permission setter. Requires https://github.com/yasirkula/UnityAndroidRuntimePermissions.git",
+      "description": "Runtime permission handling for Android builds (requires https://github.com/yasirkula/UnityAndroidRuntimePermissions.git)",
       "path": "Samples~/AndroidRuntimePermissions"
     },
     {
@@ -23,12 +40,12 @@
     },
     {
       "displayName": "ConfigData",
-      "description": "Contains config data samples of this package",
+      "description": "Sample configuration data using ScriptableObjects and lightweight data wrappers",
       "path": "Samples~/ConfigData"
     },
     {
       "displayName": "Design Patterns",
-      "description": "Contains Design Pattern samples of this package",
+      "description": "Design pattern samples demonstrating common solutions",
       "path": "Samples~/DesignPatterns"
     },
     {
@@ -38,7 +55,7 @@
     },
     {
       "displayName": "Input Actions",
-      "description": "Contains Input Actions",
+      "description": "Contains Input System actions and helpers",
       "path": "Samples~/InputActions"
     },
     {
@@ -47,15 +64,10 @@
       "path": "Samples~/ObjectCue"
     },
     {
-      "displayName": "Samples",
+      "displayName": "Basic Samples",
       "description": "Contains samples of this package",
       "path": "Samples~/Samples"
     }
   ],
-  "author": {
-    "name": "SOSXR",
-    "email": "sosxr@fsw.leidenuniv.nl",
-    "url": "https://youtu.be/xvFZjo5PgG0?si=F3cJFXtwofUAeAq2"
-  },
   "changelogUrl": "https://github.com/solo-fsw/sosxr-unity-seashark/blob/main/CHANGELOG.md"
 }

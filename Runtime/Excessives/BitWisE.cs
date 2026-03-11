@@ -3,11 +3,17 @@
 
 namespace SOSXR.SeaShark.Excessives
 {
+    /// <summary>
+    /// Collection of lightweight bitwise utilities used by the project.
+    /// Includes packing/unpacking booleans, bitstring/string conversions, and simple bit operations.
+    /// </summary>
     internal static class BitWisE
     {
         #region Bit Play
 
-        //Good for packing 8 bools (8 bytes) into 1
+        /// <summary>Encodes up to eight booleans into a single byte.</summary>
+        /// <param name="boolArray">Boolean array to encode. If exactly eight elements, they map to bits 7 through 0.</param>
+        /// <returns>A byte representing the input booleans as bits.</returns>
         public static byte BoolArrayToSingleBinaryByte(bool[] boolArray)
         {
             if (boolArray.Length == 8)
@@ -42,7 +48,9 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
-        //Unpacks one byte back into an array of 8 bools
+        /// <summary>Unpacks a single byte into an array of eight booleans.</summary>
+        /// <param name="binary">The byte to unpack.</param>
+        /// <returns>An array of eight booleans corresponding to the bits of the input byte, from least-significant to most-significant.</returns>
         public static bool[] SingleBinaryByteToBool(byte binary)
         {
             return new[]
@@ -59,7 +67,9 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
-        //Will return a string showing all the byte values for the byte sent in
+        /// <summary>Returns a string representation of a single byte's bits.</summary>
+        /// <param name="_byte">The byte to convert to a string of bits.</param>
+        /// <returns>A string consisting of eight characters '0' or '1' representing the bits from most-significant to least-significant.</returns>
         public static string BinaryToString(byte _byte)
         {
             var byteString = "";
@@ -78,7 +88,9 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
-        //Same as previous, just allows for entire arrays to be processed in one go
+        /// <summary>Converts an array of bytes to a concatenated bit string.</summary>
+        /// <param name="bytes">The byte array to convert.</param>
+        /// <returns>A string representing all bytes as bits, with the most-significant bit of each byte first.</returns>
         public static string BinaryToString(byte[] bytes)
         {
             var byteString = "";
@@ -90,6 +102,9 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>Parses an 8-character string of '0' and '1' into a single byte.</summary>
+        /// <param name="bitString">A string of length 8 representing bits, where the first character is the most-significant bit.</param>
+        /// <returns>The corresponding byte value.</returns>
         public static byte StringToBinary(string bitString)
         {
             byte returnbyte = 0;
@@ -111,6 +126,10 @@ namespace SOSXR.SeaShark.Excessives
 
 
         //Get a bit at any point
+        /// <summary>Gets the value of the bit at the specified position within a single byte.</summary>
+        /// <param name="bitList">The byte containing the bit field.</param>
+        /// <param name="position">Zero-based position of the bit within the byte (0 = least-significant bit).</param>
+        /// <returns>True if the bit at the given position is set; otherwise false.</returns>
         public static bool GetBit(byte bitList, int position)
         {
             return (bitList & (1 << position)) > 0;
@@ -118,6 +137,10 @@ namespace SOSXR.SeaShark.Excessives
 
 
         //Get a bit at any point
+        /// <summary>Gets the value of a bit at a global position across a byte array.</summary>
+        /// <param name="bitList">The array of bytes containing the bit field.</param>
+        /// <param name="position">Zero-based bit index across the concatenated bytes (LSB first within each byte).</param>
+        /// <returns>True if the bit at the given position is set; otherwise false.</returns>
         public static bool GetBit(byte[] bitList, ulong position)
         {
             return
@@ -133,9 +156,11 @@ namespace SOSXR.SeaShark.Excessives
 
         #region Crossover
 
-        /// <summary>
-        ///     Applies byte1 to byte2 using a mask
-        /// </summary>
+        /// <summary>Applies a bitwise crossover between two bytes using a mask.</summary>
+        /// <param name="byte1">First source byte.</param>
+        /// <param name="byte2">Second source byte.</param>
+        /// <param name="mask">Mask indicating which bits to take from the first source.</param>
+        /// <returns>The result of combining the two bytes according to the mask.</returns>
         public static byte Crossover(byte byte1, byte byte2, byte mask)
         {
             return (byte) (
@@ -146,6 +171,11 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>Applies per-byte crossover across two byte arrays using a per-byte mask.</summary>
+        /// <param name="byte1">First source array.</param>
+        /// <param name="byte2">Second source array.</param>
+        /// <param name="mask">Mask array indicating per-byte crossover masks.</param>
+        /// <returns>The resulting array after crossover. The input array is modified in place and returned.</returns>
         public static byte[] Crossover
             (byte[] byte1, byte[] byte2, byte[] mask)
         {
@@ -159,6 +189,10 @@ namespace SOSXR.SeaShark.Excessives
         #endregion
 
 
+        /// <summary>Adds two byte arrays element-wise.</summary>
+        /// <param name="a">First addend array.</param>
+        /// <param name="b">Second addend array.</param>
+        /// <returns>A new array containing the element-wise sums, or default if lengths do not match.</returns>
         public static byte[] Add(byte[] a, byte[] b)
         {
             if (a.LongLength != b.LongLength)
@@ -177,6 +211,9 @@ namespace SOSXR.SeaShark.Excessives
 
         #region ToBytes
 
+        /// <summary>Converts a string to a byte array by encoding each character to two bytes.</summary>
+        /// <param name="v">The string to convert.</param>
+        /// <returns>Byte array representing the characters of the string.</returns>
         public static byte[] ToBytes(this string v)
         {
             var cArray = v.ToCharArray();
@@ -199,66 +236,99 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>Converts a single byte to a byte array.</summary>
+        /// <param name="v">The byte to convert.</param>
+        /// <returns>A single-element byte array containing the value.</returns>
         public static byte[] ToBytes(this byte v)
         {
             return BitConverter.GetBytes(v);
         }
 
 
+        /// <summary>Converts a signed byte to a byte array.</summary>
+        /// <param name="v">The sbyte to convert.</param>
+        /// <returns>A two's-complement representation as a byte array.</returns>
         public static byte[] ToBytes(this sbyte v)
         {
             return BitConverter.GetBytes(v);
         }
 
 
+        /// <summary>Converts a character to a two-byte array.</summary>
+        /// <param name="v">The character to convert.</param>
+        /// <returns>Byte array representation of the character.</returns>
         public static byte[] ToBytes(this char v)
         {
             return BitConverter.GetBytes(v);
         }
 
 
+        /// <summary>Converts an unsigned short to a byte array.</summary>
+        /// <param name="v">The ushort to convert.</param>
+        /// <returns>Byte array representation of the value.</returns>
         public static byte[] ToBytes(this ushort v)
         {
             return BitConverter.GetBytes(v);
         }
 
 
+        /// <summary>Converts a short to a byte array.</summary>
+        /// <param name="v">The short value to convert.</param>
+        /// <returns>Byte array representation of the value.</returns>
         public static byte[] ToBytes(this short v)
         {
             return BitConverter.GetBytes(v);
         }
 
 
+        /// <summary>Converts an unsigned int to a byte array.</summary>
+        /// <param name="v">The uint value to convert.</param>
+        /// <returns>Byte array representation of the value.</returns>
         public static byte[] ToBytes(this uint v)
         {
             return BitConverter.GetBytes(v);
         }
 
 
+        /// <summary>Converts a signed int to a byte array.</summary>
+        /// <param name="v">The int value to convert.</param>
+        /// <returns>Byte array representation of the value.</returns>
         public static byte[] ToBytes(this int v)
         {
             return BitConverter.GetBytes(v);
         }
 
 
+        /// <summary>Converts an unsigned long to a byte array.</summary>
+        /// <param name="v">The ulong value to convert.</param>
+        /// <returns>Byte array representation of the value.</returns>
         public static byte[] ToBytes(this ulong v)
         {
             return BitConverter.GetBytes(v);
         }
 
 
+        /// <summary>Converts a long to a byte array.</summary>
+        /// <param name="v">The long value to convert.</param>
+        /// <returns>Byte array representation of the value.</returns>
         public static byte[] ToBytes(this long v)
         {
             return BitConverter.GetBytes(v);
         }
 
 
+        /// <summary>Converts a float to a byte array.</summary>
+        /// <param name="v">The float value to convert.</param>
+        /// <returns>Byte array representation of the value.</returns>
         public static byte[] ToBytes(this float v)
         {
             return BitConverter.GetBytes(v);
         }
 
 
+        /// <summary>Converts a double to a byte array.</summary>
+        /// <param name="v">The double value to convert.</param>
+        /// <returns>Byte array representation of the value.</returns>
         public static byte[] ToBytes(this double v)
         {
             return BitConverter.GetBytes(v);

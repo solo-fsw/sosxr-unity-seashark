@@ -15,11 +15,19 @@ using UnityEngine;
 
 namespace SOSXR.SeaShark
 {
+    /// <summary>
+    ///     Marks a field for observation/monitoring by triggering specified callbacks.
+    /// </summary>
     public class ObserveAttribute : PropertyAttribute
     {
+        /// <summary>Name(s) of the callback methods to invoke for observation.</summary>
         public readonly string[] callbackNames;
 
 
+        /// <summary>
+        ///     Creates a new ObserveAttribute with the given callback names.
+        /// </summary>
+        /// <param name="callbackNames">Callback method names to observe.</param>
         public ObserveAttribute(params string[] callbackNames)
         {
             this.callbackNames = callbackNames;

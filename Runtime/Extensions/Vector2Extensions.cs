@@ -4,13 +4,17 @@ using UnityEngine;
 namespace SOSXR.SeaShark
 {
     /// <summary>
-    ///     From: https://github.com/adammyhre/Unity-Utils
+    ///     Extension methods for UnityEngine.Vector2.
     /// </summary>
     public static class Vector2Extensions
     {
         /// <summary>
-        ///     Adds to any x y values of a Vector2
+        ///     Adds to the X and/or Y components of a Vector2.
         /// </summary>
+        /// <param name="vector2">The original vector.</param>
+        /// <param name="x">Amount to add to the X component (default 0).</param>
+        /// <param name="y">Amount to add to the Y component (default 0).</param>
+        /// <returns>A new Vector2 with updated components.</returns>
         public static Vector2 Add(this Vector2 vector2, float x = 0, float y = 0)
         {
             return new Vector2(vector2.x + x, vector2.y + y);
@@ -18,8 +22,12 @@ namespace SOSXR.SeaShark
 
 
         /// <summary>
-        ///     Sets any x y values of a Vector2
+        ///     Sets the X and/or Y components of a Vector2.
         /// </summary>
+        /// <param name="vector2">The original vector.</param>
+        /// <param name="x">New X value (nullable).</param>
+        /// <param name="y">New Y value (nullable).</param>
+        /// <returns>A new Vector2 with the specified components set.</returns>
         public static Vector2 With(this Vector2 vector2, float? x = null, float? y = null)
         {
             return new Vector2(x ?? vector2.x, y ?? vector2.y);

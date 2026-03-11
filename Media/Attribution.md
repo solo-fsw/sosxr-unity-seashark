@@ -21,3 +21,23 @@ Vehicles sound from Soundly
 - [Scene icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/scene "scene icons")
 
 - [Map icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/map "map icons")
+
+- [Christmas icons created by Aranagraphics - Flaticon](https://www.flaticon.com/free-icons/christmas "christmas icons")
+
+- [Industry icons created by berkahicon - Flaticon](https://www.flaticon.com/free-icons/industry "industry icons")
+
+- [Mediation icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/mediation "mediation icons")
+
+- [Swimming pool icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/swimming-pool "swimming pool icons")
+
+- [Optics icons created by Iconjam - Flaticon](https://www.flaticon.com/free-icons/optics "optics icons")
+
+- [Pin icons created by Kajo - Flaticon](https://www.flaticon.com/free-icons/pin "pin icons")
+
+- [Showcase icons created by mia elysia - Flaticon](https://www.flaticon.com/free-icons/showcase "showcase icons")
+
+- [Machine icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/machine "machine icons")
+
+- [Strategy icons created by JK-Icon - Flaticon](https://www.flaticon.com/free-icons/strategy "strategy icons")
+
+- [Testing icons created by juicy_fish - Flaticon](https://www.flaticon.com/free-icons/testing "testing icons")

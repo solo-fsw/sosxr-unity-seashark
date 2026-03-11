@@ -4,9 +4,9 @@
 namespace SOSXR.SeaShark
 {
     /// <summary>
-    ///     Display a field as read-only in the inspector.
+    ///     Displays a field as read-only in the Inspector.
     ///     CustomPropertyDrawers will not work when this attribute is used.
-    /// </summary>
+     /// </summary>
     /// <seealso cref="ReadOnlyGroupBeginAttribute" />
     /// <seealso cref="ReadOnlyGroupAttribute" />
     public class ReadOnlyAttribute : PropertyAttribute

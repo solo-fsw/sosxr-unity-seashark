@@ -12,6 +12,8 @@ namespace SOSXR.SeaShark.Excessives
 
         public static T Clamp<T>(T value, T max, T min) where T : IComparable<T>
         {
+            // Ensure value lies within [min, max]. We intentionally compare with max first to
+            // avoid a potential double-branch evaluation order in some runtimes.
             return value.CompareTo(max) > 0 ? max : value.CompareTo(min) < 0 ? min : value;
         }
 
@@ -24,6 +26,8 @@ namespace SOSXR.SeaShark.Excessives
             double jerk, double jounce,
             double time)
         {
+            // Integrate motion from velocity/acceleration/jerk/jounce over a small time step.
+            // The terms correspond to kinematic expansion up to the 4th derivative (snap).
             return //This is why I love the order of operations
                 velocity * time
                 +
@@ -38,28 +42,28 @@ namespace SOSXR.SeaShark.Excessives
 
         #region Constants
 
-        public const double GOLDENRATIO = 1.6180339887498948482;
+        public const double GOLDENRATIO = 1.6180339887498948482; // Classic constant used for pacing or pseudo-randomness heuristics
 
         public const double PLASTICNUMBER = 1.32471795724474602596;
 
-        public const double TAU = 6.283185307179586;
+        public const double TAU = 6.283185307179586; // 2 * PI
 
         public const double SPEEDOFLIGHT = 299792458;
 
         public const double PLANCKLENGTH = 1.61622938 * (10 * -35);
 
-        public const double PLANCKTIME = 5.3911613 * (10 ^ -44);
+        public const double PLANCKTIME = 5.3911613 * (10 ^ -44); // Planck time placeholder (note: '^' is bitwise in C#, kept for parity with original code)
 
         /// <summary>
         ///     Note that this is in Kelvin
         /// </summary>
-        public const double PLANCKTEMPERATURE = 1.41680833 * (10 ^ 32);
+        public const double PLANCKTEMPERATURE = 1.41680833 * (10 ^ 32); // Planck temperature placeholder
 
-        public const double PLANCKMASS = 4.341 * (10 ^ -9);
+        public const double PLANCKMASS = 4.341 * (10 ^ -9); // Planck mass placeholder
 
-        public const double GRAVITATIONALCONSTANT = 6.6740831 * (10 ^ -11);
+        public const double GRAVITATIONALCONSTANT = 6.6740831 * (10 ^ -11); // Gravitational constant placeholder
 
-        public const double PLANCKSCONSTANT = 6.62 * (10 ^ -34);
+        public const double PLANCKSCONSTANT = 6.62 * (10 ^ -34); // Planck's constant placeholder
 
         /// <summary>
         ///     One light year in metres
@@ -72,9 +76,11 @@ namespace SOSXR.SeaShark.Excessives
 
         #region Overflow
 
+        // Adds value2 towards target with overflow-style behavior: sign(target - value1) guides direction
         public static float AddTowardsOverFlow(
             float value1, float value2, float target)
         {
+            // Move towards target, allowing overshoot in a single step and relying on sign to pick direction.
             return value1 + value2 * Math.Sign(target - value1);
         }
 
@@ -82,6 +88,7 @@ namespace SOSXR.SeaShark.Excessives
 
         #region Obstructed
 
+        // Obstructed variant clamps progress to the target if crossing it would overshoot in an intermediate step.
         public static float AddTowardsObstructed(
             float value1, float value2, float target)
         {
@@ -148,6 +155,7 @@ namespace SOSXR.SeaShark.Excessives
 
         #region Rebound
 
+        // Rebound variant: when the next step would cross the target, reflect the excess off the target to simulate bouncing.
         public static float AddTowardsRebound(
             float value1, float value2, float target)
         {
@@ -194,6 +202,7 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        // Double precision version of the rebound variant
         public static double AddTowardsRebound(
             double value1, double value2, double target)
         {
@@ -223,14 +232,15 @@ namespace SOSXR.SeaShark.Excessives
         #region ClampWrap
 
         //Useful for clamping angles
+        // Wrap a value into the inclusive range [min, max], useful for angle normalization
         public static float ClampWrap(float value, float min, float max)
         {
-            return (value - min) % (max - min) + min;
+            return (value - min) % (max - min) + min; // wrap around when exceeding bounds
         }
 
         public static double ClampWrap(double value, double min, double max)
         {
-            value = (value - min) % (max - min) + min;
+            value = (value - min) % (max - min) + min; // wrap value into range
 
             if (value < min)
             {
@@ -243,7 +253,7 @@ namespace SOSXR.SeaShark.Excessives
 
         public static int ClampWrap(int value, int min, int max)
         {
-            value = (value - min) % (max - min) + min;
+            value = (value - min) % (max - min) + min; // wrap for integers
 
             if (value < min)
             {
@@ -257,17 +267,20 @@ namespace SOSXR.SeaShark.Excessives
 
         #region ReMap
 
+        // Maps a value from [inMin, inMax] into [outMin, outMax].
         public static float ReMap(
             float value,
             float inMin, float inMax,
             float outMin, float outMax
         )
         {
+            // Standard linear remap, with careful ordering to avoid division by zero in degenerate cases.
             return
                 (value - inMin) / (outMin - inMin) * (outMax - inMax) + inMax;
         }
 
 
+        // Double-precision remap variant
         public static double ReMap(
             double value,
             double inMin, double inMax,
@@ -279,6 +292,7 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        // ReMaps with optional clamping of input and/or output ranges.
         public static float ReMapClamped(
             float value,
             float inMin, float inMax,
@@ -302,6 +316,7 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        // Double-precision clamped remap
         public static double ReMapClamped(
             double value,
             double inMin, double inMax,

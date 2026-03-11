@@ -5,11 +5,22 @@ using System.Linq;
 
 namespace SOSXR.SeaShark.Excessives
 {
+    /// <summary>
+    /// LINQ extension methods for enumerable operations including loops, combinations, permutations, and utilities.
+    /// Provides additional functionality beyond standard LINQ for iteration, searching, and manipulation.
+    /// </summary>
     public static class LinqE
     {
         #region Loops
 
-        //Foreach, no return
+        /// <summary>
+        /// Iterates through each element in the enumerable and invokes an action on each element.
+        /// Returns the original enumerable for method chaining.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to iterate through.</param>
+        /// <param name="action">The action to invoke on each element.</param>
+        /// <returns>The original enumerable.</returns>
         public static IEnumerable<TSource> ForEach<TSource>(
             this IEnumerable<TSource> enumerable,
             Action<TSource> action
@@ -27,7 +38,14 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
-        //For, no return
+        /// <summary>
+        /// Iterates through each element in the enumerable with its index and invokes an action on each.
+        /// Returns the original enumerable for method chaining.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to iterate through.</param>
+        /// <param name="action">The action to invoke on each element and its index.</param>
+        /// <returns>The original enumerable.</returns>
         public static IEnumerable<TSource> For<TSource>(
             this IEnumerable<TSource> enumerable,
             Action<TSource, int> action
@@ -48,6 +66,14 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Invokes an action on all unique pairs of elements (combinations) in the enumerable.
+        /// Each pair is processed only once (i, j) where i &lt; j.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to process.</param>
+        /// <param name="action">The action to invoke on each pair of elements.</param>
+        /// <returns>The original enumerable.</returns>
         public static IEnumerable<TSource> Combination<TSource>(
             this IEnumerable<TSource> enumerable,
             Action<TSource, TSource> action
@@ -65,6 +91,14 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Invokes an action on all permutations of pairs in the enumerable.
+        /// Each element is paired with every other element, including itself.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to process.</param>
+        /// <param name="action">The action to invoke on each pair permutation.</param>
+        /// <returns>The original enumerable.</returns>
         public static IEnumerable<TSource> Permuation<TSource>(
             this IEnumerable<TSource> enumerable,
             Action<TSource, TSource> action
@@ -88,7 +122,14 @@ namespace SOSXR.SeaShark.Excessives
 
         #region Loops Backward
 
-        //Foreach, no return
+        /// <summary>
+        /// Iterates through the enumerable in reverse order and invokes an action on each element.
+        /// Returns the original enumerable for method chaining.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to iterate through in reverse.</param>
+        /// <param name="action">The action to invoke on each element.</param>
+        /// <returns>The original enumerable.</returns>
         public static IEnumerable<TSource> ForEachBack<TSource>(
             this IEnumerable<TSource> enumerable,
             Action<TSource> action
@@ -103,7 +144,14 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
-        //For, no return
+        /// <summary>
+        /// Iterates through the enumerable in reverse order with its index and invokes an action on each.
+        /// Returns the original enumerable for method chaining.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to iterate through in reverse.</param>
+        /// <param name="action">The action to invoke on each element and its index.</param>
+        /// <returns>The original enumerable.</returns>
         public static IEnumerable<TSource> ForBack<TSource>(
             this IEnumerable<TSource> enumerable,
             Action<TSource, int> action
@@ -122,13 +170,13 @@ namespace SOSXR.SeaShark.Excessives
         #region Get Sub Array
 
         /// <summary>
-        ///     Creates a sub array from one passed to it
+        /// Creates a sub-array from the enumerable starting at the specified index with the specified length.
         /// </summary>
-        /// <typeparam name="TSource"></typeparam>
-        /// <param name="enumerable"></param>
-        /// <param name="startIndex"></param>
-        /// <param name="length"></param>
-        /// <returns></returns>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to extract from.</param>
+        /// <param name="startIndex">The starting index of the sub-array.</param>
+        /// <param name="length">The length of the sub-array.</param>
+        /// <returns>A new enumerable containing the sub-array elements.</returns>
         public static IEnumerable<TSource> SubArray<TSource>(
             this IEnumerable<TSource> enumerable,
             int startIndex, int length
@@ -142,6 +190,16 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Creates a sub-array by stepping through the enumerable with wrapping.
+        /// Starts at startIndex and steps by stepsize for the specified number of cycles, wrapping around if necessary.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to extract from.</param>
+        /// <param name="startIndex">The starting index.</param>
+        /// <param name="cycles">The number of elements to extract.</param>
+        /// <param name="stepsize">The step size between elements (default: 1).</param>
+        /// <returns>A new enumerable containing the stepped elements with wrapping.</returns>
         public static IEnumerable<TSource> SubArraySmart<TSource>(
             this IEnumerable<TSource> enumerable,
             int startIndex, int cycles, int stepsize = 1
@@ -170,6 +228,13 @@ namespace SOSXR.SeaShark.Excessives
 
         #region Min/Max
 
+        /// <summary>
+        /// Finds the element with the minimum value according to the provided selector function.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to search.</param>
+        /// <param name="selector">A function to extract the comparable value from each element.</param>
+        /// <returns>The element with the minimum value, or default if enumerable is empty.</returns>
         public static TSource Minimum<TSource>(
             this IEnumerable<TSource> enumerable,
             Func<TSource, IComparable> selector
@@ -193,6 +258,13 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Finds the element with the maximum value according to the provided selector function.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to search.</param>
+        /// <param name="selector">A function to extract the comparable value from each element.</param>
+        /// <returns>The element with the maximum value, or default if enumerable is empty.</returns>
         public static TSource Maximum<TSource>(
             this IEnumerable<TSource> enumerable,
             Func<TSource, IComparable> selector
@@ -220,12 +292,12 @@ namespace SOSXR.SeaShark.Excessives
         #region Misc
 
         /// <summary>
-        ///     Selects the nth element in an enumerable
+        /// Returns the element at the specified index (nth element) in the enumerable.
         /// </summary>
-        /// <typeparam name="TSource"></typeparam>
-        /// <param name="enumerable"></param>
-        /// <param name="n"></param>
-        /// <returns></returns>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to search.</param>
+        /// <param name="n">The zero-based index of the element to return.</param>
+        /// <returns>The element at index n, or default if index is out of range.</returns>
         public static TSource Nth<TSource>(
             this IEnumerable<TSource> enumerable,
             int n
@@ -251,12 +323,12 @@ namespace SOSXR.SeaShark.Excessives
 
 
         /// <summary>
-        ///     Finds the index of a given object in an enumerable
+        /// Finds the index of the specified element in the enumerable.
         /// </summary>
-        /// <typeparam name="TSource"></typeparam>
-        /// <param name="enumerable"></param>
-        /// <param name="instance"></param>
-        /// <returns></returns>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to search.</param>
+        /// <param name="instance">The element to find.</param>
+        /// <returns>The zero-based index of the element, or -1 if not found.</returns>
         public static int FindIndex<TSource>(
             this IEnumerable<TSource> enumerable,
             TSource instance
@@ -279,6 +351,15 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Swaps the elements at the specified indices in the enumerable.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to modify.</param>
+        /// <param name="index1">The index of the first element to swap.</param>
+        /// <param name="index2">The index of the second element to swap.</param>
+        /// <returns>A new enumerable with the elements swapped.</returns>
+        /// <exception cref="IndexOutOfRangeException">Thrown if either index is out of range.</exception>
         public static IEnumerable<TSource> Swap<TSource>(
             this IEnumerable<TSource> enumerable,
             int index1, int index2
@@ -299,6 +380,15 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Sets the element at the specified index to the provided value.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to modify.</param>
+        /// <param name="value">The new value to set.</param>
+        /// <param name="index">The index of the element to set.</param>
+        /// <returns>A new enumerable with the element at the specified index replaced.</returns>
+        /// <exception cref="Exception">Thrown if index is out of range.</exception>
         public static IEnumerable<TSource> SetAt<TSource>(
             this IEnumerable<TSource> enumerable,
             TSource value, int index
@@ -321,11 +411,11 @@ namespace SOSXR.SeaShark.Excessives
         #region Random
 
         /// <summary>
-        ///     Randomly picks an element from an enumerable
+        /// Randomly selects and returns a single element from the enumerable.
         /// </summary>
-        /// <typeparam name="TSource"></typeparam>
-        /// <param name="enumerable"></param>
-        /// <returns></returns>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to pick from.</param>
+        /// <returns>A randomly selected element from the enumerable.</returns>
         public static TSource Pick<TSource>(
             this IEnumerable<TSource> enumerable
         )
@@ -334,6 +424,12 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Randomly shuffles the elements in the enumerable using the Fisher-Yates algorithm.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements in the enumerable.</typeparam>
+        /// <param name="enumerable">The enumerable to shuffle.</param>
+        /// <returns>A new enumerable with elements in random order.</returns>
         public static IEnumerable<TSource> Shuffle<TSource>(
             this IEnumerable<TSource> enumerable
         )

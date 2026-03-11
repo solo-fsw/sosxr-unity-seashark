@@ -4,14 +4,22 @@ using UnityEngine;
 namespace SOSXR.SeaShark
 {
     /// <summary>
-    ///     From: https://docs.unity3d.com/ScriptReference/PropertyDrawer.html
+    ///     Constrains a numeric field to a inclusive range in the Inspector.
+    ///     The value is clamped between Min and Max when edited in the Inspector.
     /// </summary>
     public class BoxRangeAttribute : PropertyAttribute
     {
-        public readonly float Max;
+        /// <summary>Minimum value of the allowed range.</summary>
         public readonly float Min;
+        /// <summary>Maximum value of the allowed range.</summary>
+        public readonly float Max;
 
 
+        /// <summary>
+        ///     Creates a new instance with the specified minimum and maximum range.
+        /// </summary>
+        /// <param name="min">Minimum value of the range.</param>
+        /// <param name="max">Maximum value of the range.</param>
         public BoxRangeAttribute(float min, float max)
         {
             Min = min;

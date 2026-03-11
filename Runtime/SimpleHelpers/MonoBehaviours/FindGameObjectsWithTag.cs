@@ -1,18 +1,21 @@
 using System.Linq;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
     public class FindGameObjectsWithTag : MonoBehaviour
     {
-        [SerializeField] [TagSelector] private string m_tagToSearchFor = "MainCamera";
+        [SerializeField]
+        [TagSelector]
+        private string m_tagToSearchFor = "MainCamera";
 
-        [SerializeField] private bool m_searchEveryFrameIfNull = true;
-        [SerializeField] private bool m_checkForNull = true;
+        [SerializeField]
+        private bool m_searchEveryFrameIfNull = true;
+
+        [SerializeField]
+        private bool m_checkForNull = true;
 
         private GameObject[] _foundGameObjects;
-
 
         public GameObject FirstOrOnlyGameObject
         {
@@ -34,7 +37,6 @@ namespace SOSXR.SeaShark
             }
         }
 
-
         public void FindGameObjectsIfNull()
         {
             if (_foundGameObjects != null && _foundGameObjects.Length != 0)
@@ -45,27 +47,32 @@ namespace SOSXR.SeaShark
             FindGameObjects();
         }
 
-
         public void FindGameObjects()
         {
             _foundGameObjects = GameObject.FindGameObjectsWithTag(m_tagToSearchFor);
         }
 
-
         private bool InvalidatedCache()
         {
-            if (_foundGameObjects == null || _foundGameObjects.Length == 0 || _foundGameObjects.All(go => go != null))
+            if (
+                _foundGameObjects == null
+                || _foundGameObjects.Length == 0
+                || _foundGameObjects.All(go => go != null)
+            )
             {
                 return false;
             }
 
             _foundGameObjects = null;
 
-            Debug.Log("Invalidated cache because a GameObject with tag \"" + m_tagToSearchFor + "\" was destroyed.");
+            Debug.Log(
+                "Invalidated cache because a GameObject with tag \""
+                    + m_tagToSearchFor
+                    + "\" was destroyed."
+            );
 
             return true;
         }
-
 
         private void Awake()
         {
@@ -85,7 +92,6 @@ namespace SOSXR.SeaShark
                 targetsReceiver.Targets = GameObjects;
             }
         }
-
 
         private void Update()
         {

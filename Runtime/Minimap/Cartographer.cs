@@ -1,11 +1,16 @@
 using System;
 using System.Collections.Generic;
-using SOSXR.EnhancedLogger;
 using UnityEngine;
 
 
 namespace SOSXR.SeaShark
 {
+    /// <summary>
+    /// Generates and manages a minimap by creating sprite renderers for objects tagged for the map.
+    /// Runs in both editor and play mode (ExecuteAlways).
+    /// The minimap configuration is defined via MapMaker entries that specify which objects to map
+    /// and how to display them.
+    /// </summary>
     [ExecuteAlways]
     public class Cartographer : MonoBehaviour
     {
@@ -30,7 +35,7 @@ namespace SOSXR.SeaShark
 
             if (_camera == null)
             {
-                this.Warning("We're missing our camera in the minimap, that can't be!");
+                Debug.LogWarning("We're missing our camera in the minimap, that can't be!");
             }
 
             // Get mask of camera, to be able to set the layer of our objects
@@ -42,7 +47,7 @@ namespace SOSXR.SeaShark
             }
             else
             {
-                this.Warning("Our camera either has nothing selected on the culling mask, or multiple layers. This cannot be. Select only one layer on the minimap camera");
+                Debug.LogWarning("Our camera either has nothing selected on the culling mask, or multiple layers. This cannot be. Select only one layer on the minimap camera");
             }
         }
 
@@ -53,6 +58,11 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Creates minimap sprites for all configured tags. Sprites are instantiated as children
+        /// of the tagged objects and positioned/rotated according to MapMaker settings.
+        /// This method is available as a context menu item for manual triggering in the editor or play mode.
+        /// </summary>
         [Button]
         public void GenerateMap()
         {
@@ -64,7 +74,7 @@ namespace SOSXR.SeaShark
 
                 if (go == null)
                 {
-                    this.Warning("Could not find a GameObject with the tag '" + mapMaker.Tag + "'!");
+                    Debug.LogWarning("Could not find a GameObject with the tag '" + mapMaker.Tag + "'!");
 
                     continue;
                 }
@@ -97,10 +107,13 @@ namespace SOSXR.SeaShark
 
             GenerateMap();
 
-            this.Info("Regenerated map");
+            Debug.Log("Regenerated map");
         }
 
 
+        /// <summary>
+        /// Destroys all minimap sprites that were previously generated.
+        /// </summary>
         [Button]
         public void DestroyMap()
         {
@@ -121,13 +134,22 @@ namespace SOSXR.SeaShark
     }
 
 
+    /// <summary>
+    /// Defines the configuration for mapping a GameObject to the minimap.
+    /// Specifies the tag to search for, the sprite to render, rotation offset, and the scale
+    /// factor for the minimap representation.
+    /// </summary>
     [Serializable]
     public struct MapMaker
     {
+        /// <summary>Tag used to find GameObjects in the scene to include on the minimap.</summary>
         [TagSelector] public string Tag;
+        /// <summary>Sprite to render for objects with the matching tag.</summary>
         public Sprite Sprite;
         [Tooltip("X probably needs to be 90 to make it face up to the camera.")]
+        /// <summary>Rotation offset applied to the minimap sprite.</summary>
         public Vector3 Rotation;
+        /// <summary>Scale factor applied to the minimap sprite.</summary>
         [Range(0f, 5f)] public float Scale;
     }
 }
