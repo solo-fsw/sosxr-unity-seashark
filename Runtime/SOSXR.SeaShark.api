@@ -1,0 +1,1684 @@
+// This file is generated. Do not modify by hand.
+// XML documentation file not found. To check if public methods have XML comments,
+// make sure the XML doc file is present and located next to the scraped dll
+[System.AttributeUsage(System.AttributeTargets.Field)] public class PostfixAttribute : UnityEngine.PropertyAttribute
+{
+    public readonly string Postfix;
+    public PostfixAttribute(string postfix) {}
+}
+
+namespace DitzelGames.FastIK
+{
+    public class FastIKFabric : UnityEngine.MonoBehaviour
+    {
+        protected UnityEngine.Transform[] Bones;
+        protected float[] BonesLength;
+        public int ChainLength = 2;
+        protected float CompleteLength;
+        public float Delta = 0.001f;
+        [UnityEngine.Header(@"Solver Parameters")] public int Iterations = 10;
+        public UnityEngine.Transform Pole;
+        protected UnityEngine.Vector3[] Positions;
+        [UnityEngine.Header(@"IK Weights")] [UnityEngine.Range(0f, 1f)] public float PositionWeight = 1f;
+        protected UnityEngine.Transform Root;
+        [UnityEngine.Range(0f, 1f)] public float RotationWeight = 1f;
+        [UnityEngine.Range(0f, 1f)] public float SnapBackStrength = 1f;
+        protected UnityEngine.Vector3[] StartDirectionSucc;
+        protected UnityEngine.Quaternion[] StartRotationBone;
+        protected UnityEngine.Quaternion StartRotationTarget;
+        public UnityEngine.Transform Target;
+        public FastIKFabric() {}
+    }
+}
+
+namespace joaen
+{
+    public class EasyIK : UnityEngine.MonoBehaviour
+    {
+        [UnityEngine.Range(0f, 20f)] public int Iterations = 10;
+        [UnityEngine.Range(0f, 6f)] public int NumberOfJoints = 2;
+        [SOSXR.SeaShark.Header(@"Pole target (3 joint chain)")] [SOSXR.SeaShark.Optional] public UnityEngine.Transform PoleTarget;
+        public UnityEngine.Transform Target;
+        [UnityEngine.Range(0f, 0.25f)] public float Tolerance = 0.0025f;
+        [UnityEngine.Range(0f, 1f)] public float Weight = 1f;
+        public EasyIK() {}
+    }
+
+    [UnityEngine.RequireComponent(typeof(EasyIK))] public class EasyIKVisuals : UnityEngine.MonoBehaviour
+    {
+        public EasyIKVisuals() {}
+        public static void DrawWireCapsule(UnityEngine.Vector3 position, UnityEngine.Quaternion rotation, float radius, float height, UnityEngine.Color color);
+    }
+}
+
+namespace SOSXR.SeaShark
+{
+    public enum ActionToTake
+    {
+        ParentTo = 0,
+        SyncTransform = 1,
+        MoveTowards = 2,
+        SmoothMoveTowards = 3,
+        LookAt = 4,
+        SmoothLookAtTarget = 5,
+        MoveByOffset = 6,
+        MoveAlongPath = 7,
+        MoveInLocalSpace = 8,
+        MoveInCircle = 9,
+        MoveSinusoidally = 10,
+        SmoothBounceBackAndForth = 11,
+        MoveWithElasticity = 12,
+        SmoothFollow = 13,
+    }
+
+    public class AdditionalUnityEvent : UnityEngine.MonoBehaviour
+    {
+        public AdditionalUnityEvent() {}
+        public void CancelEvent();
+        [Button(null, null, 0, false)] public void FireEvent();
+        [Button(null, null, 0, false)] public void SafeFireEvent();
+        public bool ShouldFire();
+    }
+
+    public class AddOrRemoveCollider : UnityEngine.MonoBehaviour
+    {
+        public AddOrRemoveCollider() {}
+        [UnityEngine.ContextMenu(@"AddColliderOfType")] public void AddColliderOfType();
+        [UnityEngine.ContextMenu(@"RemoveAnyCollider")] public void RemoveAnyCollider();
+    }
+
+    public enum AllowedCharacterType
+    {
+        Letters = 0,
+        Digits = 1,
+        LettersAndDigits = 2,
+    }
+
+    public class AngleAttribute : UnityEngine.PropertyAttribute
+    {
+        public UnityEngine.Color activeColor;
+        public UnityEngine.Color backgroundColor;
+        public float knobSize = 32f; // warning: this initializer is overridden in at least one ctor
+        public readonly float max = -1f; // warning: this initializer is overridden in at least one ctor
+        public readonly float min = -1f; // warning: this initializer is overridden in at least one ctor
+        public readonly bool showValue = true; // warning: this initializer is overridden in at least one ctor
+        public readonly string unit;
+        public AngleAttribute() {}
+        public AngleAttribute(float min, float max) {}
+        public AngleAttribute(float min, float max, string unit) {}
+        public AngleAttribute(float min, float max, string unit, UnityEngine.Color backgroundColor) {}
+        public AngleAttribute(float min, float max, string unit, UnityEngine.Color backgroundColor, UnityEngine.Color activeColor) {}
+        public AngleAttribute(float min, float max, string unit, UnityEngine.Color backgroundColor, UnityEngine.Color activeColor, bool showValue) {}
+        public AngleAttribute(float min, float max, string unit, UnityEngine.Color backgroundColor, UnityEngine.Color activeColor, bool showValue, float knobSize) {}
+    }
+
+    public class AnimatorParameterAttribute : UnityEngine.PropertyAttribute
+    {
+        public readonly AnimatorParameterAttribute.ParameterType parameterType = AnimatorParameterAttribute.ParameterType.None; // warning: this initializer is overridden in at least one ctor
+        public int selectedValue;
+        public AnimatorParameterAttribute() {}
+        public AnimatorParameterAttribute(AnimatorParameterAttribute.ParameterType parameterType) {}
+        public enum ParameterType
+        {
+            Float = 1,
+            Int = 3,
+            Bool = 4,
+            Trigger = 9,
+            None = 9999,
+        }
+    }
+
+    public static class AsyncOperationExtensions
+    {
+        public static System.Threading.Tasks.Task AsTask(this UnityEngine.AsyncOperation asyncOperation);
+    }
+
+    public class AudioFader : UnityEngine.MonoBehaviour
+    {
+        public AudioFader() {}
+        public void AudioFade(float fadeDuration, float targetVolume);
+        [UnityEngine.ContextMenu(@"FindAllAudioSourcesInScene")] public void FindAllAudioSourcesInScene();
+        [UnityEngine.ContextMenu(@"StartAudioFadeIn")] public void StartAudioFadeIn();
+        [UnityEngine.ContextMenu(@"StartAudioFadeOut")] public void StartAudioFadeOut();
+        [UnityEngine.ContextMenu(@"StartAudioFadeTo")] public void StartAudioFadeTo();
+    }
+
+    public class AutoCycleBuildScenes : UnityEngine.MonoBehaviour
+    {
+        public AutoCycleBuildScenes() {}
+    }
+
+    public abstract class BaseConfigData : UnityEngine.ScriptableObject
+    {
+        public System.Collections.Generic.List<string> UpdateJsonOnValueChange { get; set; }
+        protected BaseConfigData() {}
+        public void DeInitialize();
+        [UnityEngine.ContextMenu(@"ForceUnsubscribeAll")] public void ForceUnsubscribeAll();
+        public void Initialize();
+        [UnityEngine.ContextMenu(@"LoadConfigJson")] public void LoadConfigJson();
+        protected void NotifyChange(string propertyName, object value);
+        protected virtual void OnValidate();
+        [UnityEngine.ContextMenu(@"ReadJson")] public string ReadJson();
+        protected void SetValue<T>(ref T field, T value, string propertyName);
+        public void Subscribe(string propertyName, System.Action<object> callback);
+        public void SubscribeToAny(System.Action<string, object> callback);
+        public void Unsubscribe(string propertyName, System.Action<object> callback);
+        public void UnsubscribeFromAny(System.Action<string, object> callback);
+        [UnityEngine.ContextMenu(@"UpdateConfigJson")] public void UpdateConfigJson();
+    }
+
+    public class BoxRangeAttribute : UnityEngine.PropertyAttribute
+    {
+        public readonly float Max;
+        public readonly float Min;
+        public BoxRangeAttribute(float min, float max) {}
+    }
+
+    public class BuildInfoToUI : UnityEngine.MonoBehaviour
+    {
+        public BuildInfoToUI() {}
+        public static string ReadLastLineOfFile(string fileContent);
+    }
+
+    public enum BuildTriggerType
+    {
+        Always = 0,
+        OnlyInEditor = 1,
+        OnlyInBuilds = 2,
+        OnlyInDevelopmentBuilds = 3,
+        OnlyInProductionBuilds = 4,
+    }
+
+    [System.AttributeUsage(System.AttributeTargets.Method)] public class ButtonAttribute : System.Attribute
+    {
+        public bool HorizontalLine { get; set; }
+        public string ItemName { get; set; }
+        public int Space { get; set; }
+        public string Tooltip { get; set; }
+        public ButtonAttribute(string itemName = default(string), string tooltip = default(string), int space = 0, bool horizontalLine = false) {}
+    }
+
+    public static class CameraExtensions
+    {
+        public static UnityEngine.Vector2 GetViewportExtentsWithMargin(this UnityEngine.Camera camera, System.Nullable<UnityEngine.Vector2> viewportMargin = default(System.Nullable<UnityEngine.Vector2>));
+    }
+
+    [UnityEngine.ExecuteAlways] public class Cartographer : UnityEngine.MonoBehaviour
+    {
+        public Cartographer() {}
+        [Button(null, null, 0, false)] public void DestroyMap();
+        [Button(null, null, 0, false)] public void GenerateMap();
+    }
+
+    public class CheckDeviceType : UnityEngine.MonoBehaviour
+    {
+        public CheckDeviceType() {}
+    }
+
+    [UnityEngine.RequireComponent(typeof(UnityEngine.Collider))] public abstract class ColliderInteractionBase : UnityEngine.MonoBehaviour, ITargetsReceiver
+    {
+        [UnityEngine.SerializeField] protected UnityEngine.Collider[] m_targetColliders;
+        [UnityEngine.SerializeField] protected UnityEngine.Collider m_thisCollider;
+        public UnityEngine.Events.UnityEvent<UnityEngine.Collider> OnEnter;
+        public UnityEngine.Events.UnityEvent<UnityEngine.Collider> OnExit;
+        public UnityEngine.Events.UnityEvent<UnityEngine.Collider> OnStay;
+        public UnityEngine.GameObject[] Targets { get; set; }
+        protected ColliderInteractionBase() {}
+        protected void Enter(UnityEngine.Collider other);
+        protected void Exit(UnityEngine.Collider other);
+        protected bool FindOtherCollider();
+        protected virtual void OnValidate();
+        protected void Stay(UnityEngine.Collider other);
+        protected abstract bool ValidateColliders();
+    }
+
+    [UnityEngine.RequireComponent(typeof(UnityEngine.Rigidbody))] public class CollisionInteraction : ColliderInteractionBase
+    {
+        [UnityEngine.SerializeField] protected UnityEngine.Rigidbody[] m_targetRigidbodies;
+        [UnityEngine.SerializeField] protected UnityEngine.Rigidbody m_thisRigidbody;
+        public CollisionInteraction() {}
+        protected override void OnValidate();
+        protected override bool ValidateColliders();
+    }
+
+    public static class ColorExtensions
+    {
+        public static UnityEngine.Color Add(this UnityEngine.Color thisColor, UnityEngine.Color otherColor);
+        public static UnityEngine.Color Blend(this UnityEngine.Color color1, UnityEngine.Color color2, float ratio);
+        public static UnityEngine.Color FromHex(this string hex);
+        public static UnityEngine.Color Invert(this UnityEngine.Color color);
+        public static UnityEngine.Color SetAlpha(this UnityEngine.Color color, float alpha);
+        public static UnityEngine.Color Subtract(this UnityEngine.Color thisColor, UnityEngine.Color otherColor);
+        public static string ToHex(this UnityEngine.Color color);
+    }
+
+    public abstract class Command
+    {
+        protected Command() {}
+        public abstract void Clear();
+        public abstract void Execute(ICommand command);
+        public abstract void Redo();
+        public abstract void Undo();
+    }
+
+    public class CommandQueue : Command
+    {
+        public CommandQueue() {}
+        public override void Clear();
+        public override void Execute(ICommand command);
+        public override void Redo();
+        public override void Undo();
+    }
+
+    public class CommandStack : Command
+    {
+        public CommandStack() {}
+        public override void Clear();
+        public override void Execute(ICommand command);
+        public override void Redo();
+        public override void Undo();
+    }
+
+    public class ConfigBoolToUnityEvent : SOSXR.SeaShark.ConfigValueToUnityEvent<bool>
+    {
+        public bool Invert;
+        public ConfigBoolToUnityEvent() {}
+        protected override void FireEvent(bool value);
+    }
+
+    public class ConfigDataJsonToUnityEvent : UnityEngine.MonoBehaviour
+    {
+        public ConfigDataJsonToUnityEvent() {}
+    }
+
+    public class ConfigFloatToUnityEvent : SOSXR.SeaShark.ConfigValueToUnityEvent<float>
+    {
+        public ConfigFloatToUnityEvent() {}
+        protected override void FireEvent(float value);
+    }
+
+    public class ConfigIntToUnityEvent : SOSXR.SeaShark.ConfigValueToUnityEvent<int>
+    {
+        public ConfigIntToUnityEvent() {}
+        protected override void FireEvent(int value);
+    }
+
+    public class ConfigStringToUnityEvent : SOSXR.SeaShark.ConfigValueToUnityEvent<string>
+    {
+        public ConfigStringToUnityEvent() {}
+        protected override void FireEvent(string value);
+    }
+
+    public abstract class ConfigValueToUnityEvent<T> : UnityEngine.MonoBehaviour
+    {
+        public BaseConfigData ConfigData;
+        public UnityEngine.Events.UnityEvent<T> EventToFire;
+        public bool RunOnStart = true;
+        public bool SubscribeToChanges = true;
+        public string ValueName;
+        protected ConfigValueToUnityEvent() {}
+        public void FireCurrentValue();
+        protected abstract void FireEvent(T value);
+    }
+
+    public class ConfigVector2ToUnityEvent : SOSXR.SeaShark.ConfigValueToUnityEvent<UnityEngine.Vector2>
+    {
+        public ConfigVector2ToUnityEvent() {}
+        protected override void FireEvent(UnityEngine.Vector2 value);
+    }
+
+    public class ConfigVector3ToUnityEvent : SOSXR.SeaShark.ConfigValueToUnityEvent<UnityEngine.Vector3>
+    {
+        public ConfigVector3ToUnityEvent() {}
+        protected override void FireEvent(UnityEngine.Vector3 value);
+    }
+
+    public static class CrossFadeAnimatorExtensionMethods
+    {
+        public static bool CanTransitionTo(this UnityEngine.Animator animator, string stateName, int layerIndex = 0);
+        public static bool CurrentState(this UnityEngine.Animator animator, string stateName, int layerIndex = 0);
+        public static UnityEditor.Animations.AnimatorState GetDefaultEntryState(this UnityEngine.Animator animator, int layerIndex = 0);
+        public static string GetDefaultEntryStateName(this UnityEngine.Animator animator, int layerIndex = 0);
+        public static float GetStateDuration(this UnityEngine.Animator animator, string stateName, int layerIndex = 0);
+        public static System.Collections.Generic.List<string> GetStateNames(this UnityEngine.Animator animator, int layerIndex = 0);
+        public static bool HasState(this UnityEngine.Animator animator, string stateName, int layerIndex = 0);
+        public static bool IsLooping(this UnityEngine.Animator animator, string stateName, int layerIndex = 0);
+    }
+
+    [UnityEngine.CreateAssetMenu(fileName = @"CurrentDevice", menuName = @"SOSXR/CurrentDevice")] public class CurrentDevice : UnityEngine.ScriptableObject
+    {
+        public Device Current;
+        public string DeviceName { get; set; }
+        public CurrentDevice() {}
+    }
+
+    public static class DateTimeExtensions
+    {
+        public static System.DateTime WithDate(this System.DateTime dt, System.Nullable<int> year = default(System.Nullable<int>), System.Nullable<int> month = default(System.Nullable<int>), System.Nullable<int> day = default(System.Nullable<int>));
+    }
+
+    public class DDOL : UnityEngine.MonoBehaviour
+    {
+        public DDOL() {}
+    }
+
+    public class DecimalsAttribute : UnityEngine.PropertyAttribute
+    {
+        public readonly int Decimals;
+        public DecimalsAttribute(int decimals) {}
+    }
+
+    [UnityEngine.RequireComponent(typeof(FindCollidersInScene))] public class DeleteColliders : UnityEngine.MonoBehaviour
+    {
+        public DeleteColliders() {}
+    }
+
+    public class DestroyInBuild : UnityEngine.MonoBehaviour
+    {
+        public DestroyInBuild() {}
+        public bool NeedsDestroying();
+    }
+
+    public enum Device
+    {
+        None = 0,
+        HMD = 1,
+        Tablet = 2,
+        Editor = 3,
+    }
+
+    public class DeviceChecker : UnityEngine.MonoBehaviour
+    {
+        public DeviceChecker() {}
+        public void ActAsHMD();
+        public void ActAsTablet();
+    }
+
+    public class DeviceDependentUnityEvents : UnityEngine.MonoBehaviour
+    {
+        public DeviceDependentUnityEvents() {}
+    }
+
+    public class DisableEditingAttribute : UnityEngine.PropertyAttribute
+    {
+        public DisableEditingAttribute() {}
+    }
+
+    [UnityEngine.ExecuteAlways] public class DisableFrustumCulling : UnityEngine.MonoBehaviour
+    {
+        public DisableFrustumCulling() {}
+    }
+
+    public class DrawGizmo : UnityEngine.MonoBehaviour
+    {
+        public DrawGizmo() {}
+    }
+
+    [System.AttributeUsage(System.AttributeTargets.Field)] public class EnableIfAttribute : UnityEngine.PropertyAttribute
+    {
+        public readonly string ConditionField;
+        public EnableIfAttribute(string conditionField) {}
+    }
+
+    public static class EnumerableExtensions
+    {
+        public static void ForEach<T>(this System.Collections.Generic.IEnumerable<T> sequence, System.Action<T> action);
+        public static T Random<T>(this System.Collections.Generic.IEnumerable<T> sequence);
+    }
+
+    public static class EnumeratorExtensions
+    {
+        public static System.Collections.Generic.IEnumerable<T> ToEnumerable<T>(this System.Collections.Generic.IEnumerator<T> e);
+    }
+
+    public static class ExtensionMethods
+    {
+        public static void AddIfUnique<T>(this System.Collections.Generic.List<T> list, T item);
+        public static void AddRangeUnique<T>(this System.Collections.Generic.List<T> list, System.Collections.Generic.IEnumerable<T> items);
+        public static UnityEngine.Vector3 AdjustHeightBy(this UnityEngine.Vector3 thisPosition, float heightAdjust);
+        public static UnityEngine.Vector3 CalculateDirection(this UnityEngine.Vector3 displacement);
+        public static UnityEngine.Vector3 CalculateDisplacement(this UnityEngine.Transform originTrans, UnityEngine.Transform targetTrans, UnityEngine.Vector3 axisToUse);
+        public static UnityEngine.Vector3 CalculateDisplacement(this UnityEngine.Transform originTrans, UnityEngine.Vector3 targetPos, UnityEngine.Vector3 axisToUse);
+        public static UnityEngine.Vector3 CalculateDisplacement(this UnityEngine.Vector3 originPos, UnityEngine.Vector3 targetPos, UnityEngine.Vector3 axisToUse);
+        public static float CalculateDistance(this UnityEngine.Vector3 displacement);
+        public static float CalculateDistance(this UnityEngine.Transform origin, UnityEngine.Transform target);
+        public static float CalculateLookAtDotProduct(this UnityEngine.Transform transformOne, UnityEngine.Transform lookAtTarget, bool remap = false);
+        public static float CalculateSD(this float[] floatArray);
+        public static float Clamp(this float input, UnityEngine.Vector2 minMax);
+        public static UnityEngine.Vector2 Clamp(this UnityEngine.Vector2 input, UnityEngine.Vector2 minMax);
+        public static UnityEngine.Vector3 Clamp(this UnityEngine.Vector3 input, UnityEngine.Vector2 minMax);
+        public static float Clamped01(this float input);
+        public static UnityEngine.Vector2 Clamped01(this UnityEngine.Vector2 input);
+        public static UnityEngine.Vector3 Clamped01(this UnityEngine.Vector3 input);
+        public static System.Collections.Generic.List<UnityEngine.Transform> CleanupCollection(this System.Collections.Generic.List<UnityEngine.Transform> transformsArray);
+        public static UnityEngine.Transform[] CleanupCollection(this System.Collections.Generic.IEnumerable<UnityEngine.Transform> transformsArray);
+        public static float CompareHeight(this UnityEngine.Transform transformOne, UnityEngine.Transform transformTwo);
+        public static bool ContainsIndex<T>(this System.Collections.Generic.List<T> list, int index);
+        public static bool ContainsIndex<T>(this T[] array, int index);
+        public static bool ContainsText(this string str);
+        public static string ConvertCamelCaseToSpace(string input);
+        public static string ConvertToSpaces(this string input);
+        public static string ConvertUnderscoreToSpace(string input);
+        public static void DestroyChildren(this UnityEngine.Transform t);
+        public static void DestroyChildrenImmediately(this UnityEngine.Transform t);
+        public static void DrawCircle(this UnityEngine.GameObject gameObject, float radius = 1f, float lineWidth = 0.025f, bool useWorldSpace = false);
+        public static void DrawRay(this UnityEngine.Transform originTrans, UnityEngine.Vector3 displacement);
+        public static string ExtractedFileNameFromPath(this string fullPath, string removeBeforeCharacter = @"/", string removeExtension = @".unity");
+        public static void FadeAlpha(this UnityEngine.Renderer renderer, float alpha);
+        public static void FadeAlpha(this UnityEngine.SpriteRenderer renderer, float alpha);
+        public static UnityEngine.GameObject FindAncestorByTag(this UnityEngine.GameObject gameObject, string tag);
+        public static UnityEngine.Transform FindAncestorByTag(this UnityEngine.Transform transform, string tag);
+        public static UnityEngine.Transform FindChildByName(this UnityEngine.Transform transform, string name);
+        public static UnityEngine.Transform FindChildByNameContains(this UnityEngine.Transform transform, string nameContains);
+        public static UnityEngine.Transform FindChildByNameEnd(this UnityEngine.Transform transform, string nameEnd);
+        public static UnityEngine.Transform FindChildByNameStart(this UnityEngine.Transform transform, string nameStart);
+        public static UnityEngine.Transform FindChildByTag(this UnityEngine.Transform transform, string tag);
+        public static System.Collections.Generic.List<UnityEngine.Transform> FindChildrenByNameContains(this UnityEngine.Transform parent, string nameContains);
+        public static UnityEngine.Transform[] FindChildrenByNameEnd(this UnityEngine.Transform parent, string nameEndsWith);
+        public static UnityEngine.Transform Flatten(this UnityEngine.Transform input);
+        public static UnityEngine.Vector3 Flatten(this UnityEngine.Vector3 input);
+        public static UnityEngine.Transform[] GetChildrenWithoutParent(this UnityEngine.Transform parent);
+        public static int GetLastDigit(this int number);
+        public static float GetMax(this UnityEngine.Vector2 input);
+        public static float GetMax(this UnityEngine.Vector3 input);
+        public static float GetMin(this UnityEngine.Vector2 input);
+        public static float GetMin(this UnityEngine.Vector3 input);
+        public static T GetOrAddComponent<T>(this UnityEngine.GameObject go) where T : UnityEngine.Component;
+        public static System.Collections.Generic.IEnumerable<UnityEngine.Events.UnityAction> GetPersistentCallersFromUnityEvent(this UnityEngine.Events.UnityEvent unityEvent);
+        public static float GetRandomFromRange(this UnityEngine.Vector2 range);
+        public static T GetRandomItemFromList<T>(this System.Collections.Generic.IList<T> list);
+        public static int GetRemainder(this int dividend, int divisor);
+        public static bool IsFirstChild(this UnityEngine.Transform trans);
+        public static bool IsLastChild(this UnityEngine.Transform trans);
+        public static int LeftRight(this UnityEngine.Transform transformOne, UnityEngine.Transform lookAtTarget);
+        public static void LerpToNewPosition(this UnityEngine.Transform thisTransform, UnityEngine.Transform toTransform, float speed);
+        public static void LerpToNewPosition(this UnityEngine.Transform thisTransform, UnityEngine.Vector3 newPosition, float speed);
+        public static void MovePositionTo(this UnityEngine.Transform thisTransform, UnityEngine.Transform newPosition, UnityEngine.Transform basedOn);
+        public static void MoveToNewPosition(this UnityEngine.GameObject thisGameObject, UnityEngine.Transform newPosition);
+        public static void MoveToNewPosition(this UnityEngine.GameObject thisGameObject, UnityEngine.Vector3 newPosition);
+        public static void MoveToNewPosition(this UnityEngine.Transform thisTransform, UnityEngine.Transform newPosition);
+        public static void MoveToNewPosition(this UnityEngine.Transform thisTransform, UnityEngine.Vector3 newPosition);
+        public static float NormalizeFromHighPoint(this float rangedValue, float highPoint);
+        public static UnityEngine.Vector2 NormalizeFromHighPoint(this UnityEngine.Vector2 rangedValues, float highPoint);
+        public static void PlayEnsured(this UnityEngine.AudioSource original, UnityEngine.AudioClip clip);
+        public static float RemapValue(this float from, UnityEngine.Vector2 oldRange, UnityEngine.Vector2 newRange);
+        public static void RemoveRangeSafe<T>(this System.Collections.Generic.List<T> list, System.Collections.Generic.IEnumerable<T> items);
+        public static void RemoveSafe<T>(this System.Collections.Generic.List<T> list, T item);
+        public static float ReverseClamped01(this float input);
+        public static UnityEngine.Vector2 ReverseClamped01(this UnityEngine.Vector2 input);
+        public static UnityEngine.Vector3 ReverseClamped01(this UnityEngine.Vector3 input);
+        public static double RoundCorrectly(this double originalValue, int decimals);
+        public static float RoundCorrectly(this float originalValue, int decimals);
+        public static UnityEngine.Vector2 RoundCorrectly(this UnityEngine.Vector2 originalValue, int decimals);
+        public static UnityEngine.Vector3 RoundCorrectly(this UnityEngine.Vector3 originalValue, int decimals);
+        public static void SafeFindObjectOfType<T>(this UnityEngine.MonoBehaviour monoBehaviour, out T foundObject) where T : UnityEngine.MonoBehaviour;
+        public static void SetLocalScale(this UnityEngine.Transform transform, float scale);
+        public static void SortByName(this System.Collections.Generic.List<UnityEngine.GameObject> gameObjects);
+        public static void SortByName(this System.Collections.Generic.List<UnityEngine.Transform> transforms);
+        public static void SortByName(this UnityEngine.GameObject[] gameObjects);
+        public static void SortByName(this UnityEngine.Transform[] transforms);
+        public static string SplitString(this string input);
+        public static UnityEngine.Vector2 ToVector2XY(this UnityEngine.Vector3 input);
+        public static UnityEngine.Vector3Int ToVector3Int(this UnityEngine.Vector3 v3);
+        public static int UpDown(this UnityEngine.Transform transformOne, UnityEngine.Transform lookAtTarget);
+        public static void ZeroOutLocalTransform(this UnityEngine.GameObject original);
+        public static UnityEngine.Transform ZeroOutLocalTransform(this UnityEngine.Transform original);
+        public static void ZeroOutTransform(this UnityEngine.GameObject original);
+        public static void ZeroOutTransform(this UnityEngine.Transform original);
+        public static UnityEngine.Vector3 ZeroOutVector3(this UnityEngine.Vector3 original, UnityEngine.Vector3 axisToUse);
+        public static UnityEngine.Vector3 ZeroOutVector3(this UnityEngine.Vector3 original, UnityEngine.Vector3Int axisToUse);
+    }
+
+    public class FindCollidersInScene : UnityEngine.MonoBehaviour
+    {
+        public UnityEngine.Collider[] FilteredColliders { get; set; }
+        public FindCollidersInScene() {}
+        [UnityEngine.ContextMenu(@"FindAllColliders")] protected virtual void FindAllColliders();
+    }
+
+    public class FindGameObjectsWithTag : UnityEngine.MonoBehaviour
+    {
+        public UnityEngine.GameObject FirstOrOnlyGameObject { get; }
+        public UnityEngine.GameObject[] GameObjects { get; }
+        public FindGameObjectsWithTag() {}
+        public void FindGameObjects();
+        public void FindGameObjectsIfNull();
+    }
+
+    public class FrameRateLimiter : UnityEngine.MonoBehaviour
+    {
+        public FrameRateLimiter() {}
+    }
+
+    public static class GameObjectExtensions
+    {
+        public static void DestroyChildren(this UnityEngine.GameObject gameObject);
+        public static void DestroyChildrenImmediate(this UnityEngine.GameObject gameObject);
+        public static void DisableChildren(this UnityEngine.GameObject gameObject);
+        public static void EnableChildren(this UnityEngine.GameObject gameObject);
+        public static T GetOrAdd<T>(this UnityEngine.GameObject gameObject) where T : UnityEngine.Component;
+        public static void HideInHierarchy(this UnityEngine.GameObject gameObject);
+        public static T OrNull<T>(this T obj) where T : UnityEngine.Object;
+        public static string Path(this UnityEngine.GameObject gameObject);
+        public static string PathFull(this UnityEngine.GameObject gameObject);
+        public static void ResetTransformation(this UnityEngine.GameObject gameObject);
+        public static void SetLayersRecursively(this UnityEngine.GameObject gameObject, int layer);
+    }
+
+    [UnityEngine.ExecuteInEditMode] public class GeometryPainter : UnityEngine.MonoBehaviour
+    {
+        public float BevelRadius = 0.1f;
+        public float Height = 0.25f;
+        public float Resolution = 10f;
+        public System.Collections.Generic.List<GeometryPainter.TilePos> TileMap = new();
+        public GeometryPainter() {}
+        public void AddPoint(UnityEngine.Vector3 point);
+        public void RebuildMesh();
+        public void RemovePoint(UnityEngine.Vector3 point);
+        public struct TilePos
+        {
+            public int x;
+            public int y;
+        }
+    }
+
+    public enum GizmoType
+    {
+        Cube = 0,
+        WireCube = 1,
+        Sphere = 2,
+        WireSphere = 3,
+        LinePointing = 4,
+        LineBetween = 5,
+    }
+
+    public static class HandleConfigData
+    {
+        public static string ConfigPath { get; }
+        public static void DeleteConfigJson(bool isUpdate = false);
+        public static void LoadConfigFromJson(BaseConfigData configData);
+        public static string ReadConfigJson(BaseConfigData configData);
+        public static void UpdateConfigJson(BaseConfigData configData);
+        public static void WriteConfigToJson(BaseConfigData configData, bool isUpdate = false);
+    }
+
+    [System.AttributeUsage(System.AttributeTargets.Field|System.AttributeTargets.Property, AllowMultiple = true)] public class HeaderAttribute : UnityEngine.PropertyAttribute
+    {
+        public readonly string header;
+        public HeaderAttribute(string header) {}
+    }
+
+    public static class Helpers
+    {
+        public static void ClearConsole();
+        public static UnityEngine.WaitForSeconds GetWaitForSeconds(float seconds);
+    }
+
+    public enum HideIf
+    {
+        Equal = 0,
+        NotEqual = 1,
+    }
+
+    [System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = true)] public class HideIfAttribute : HidingAttribute
+    {
+        public readonly bool state;
+        public readonly string variable;
+        public HideIfAttribute(string variable, bool state, int order = 0) {}
+    }
+
+    [System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = true)] public class HideIfEnumValueAttribute : HidingAttribute
+    {
+        public readonly bool hideIfEqual;
+        public readonly int[] states;
+        public readonly string variable;
+        public HideIfEnumValueAttribute(string variable, HideIf hideIf, params int[] states) {}
+    }
+
+    [System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = true)] public class HideIfNotNullAttribute : HidingAttribute
+    {
+        public readonly string variable;
+        public HideIfNotNullAttribute(string variable, int order = 0) {}
+    }
+
+    [System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = true)] public class HideIfNullAttribute : HidingAttribute
+    {
+        public readonly string variable;
+        public HideIfNullAttribute(string variable, int order = 0) {}
+    }
+
+    public class HidingAttribute : UnityEngine.PropertyAttribute
+    {
+        public HidingAttribute() {}
+    }
+
+    public class HorizontalLineAttribute : UnityEngine.PropertyAttribute
+    {
+        public float Padding { get; set; }
+        public float Thickness { get; set; }
+        public HorizontalLineAttribute() {}
+    }
+
+    public interface ICommand
+    {
+        public void Execute();
+        public void Redo();
+        public void Undo();
+    }
+
+    public interface IHaveQueryData
+    {
+        public string BaseURL { get; }
+        public string QueryStringURL { get; set; }
+        public System.Collections.Generic.List<string> QueryStringVariables { get; }
+        public void ClearQuery();
+        public void ModifyVariables(string value);
+        public void UpdateQuery();
+    }
+
+    public interface ILoadQueryURL
+    {
+        public bool IsReady { get; }
+        public void LoadURL(string url);
+    }
+
+    public class ImageFader : UnityEngine.MonoBehaviour
+    {
+        public ImageFader() {}
+        [UnityEngine.ContextMenu(@"FadeIn")] public void FadeIn();
+        public void FadeIn(float duration);
+        [UnityEngine.ContextMenu(@"FadeOut")] public void FadeOut();
+        public void FadeOut(float duration);
+        [UnityEngine.ContextMenu(@"FadeRound")] public void FadeRound();
+        public void FadeRound(float totalFadeRoundDuration);
+    }
+
+    [System.AttributeUsage(System.AttributeTargets.All, AllowMultiple = true)] [System.Diagnostics.Conditional(@"UNITY_EDITOR")] public class InfoAttribute : UnityEngine.PropertyAttribute
+    {
+        public readonly string InfoText;
+        public SOSXRMessageType MessageType { get; set; }
+        public InfoAttribute(string infoText) {}
+    }
+
+    public class InProductionBuild : UnityEngine.MonoBehaviour
+    {
+        public InProductionBuild() {}
+    }
+
+    public class InterfaceAttribute : UnityEngine.PropertyAttribute
+    {
+        public System.Type requiredType { get; }
+        public InterfaceAttribute(System.Type type) {}
+    }
+
+    public interface ITargetReceiver
+    {
+        public UnityEngine.GameObject Target { get; set; }
+    }
+
+    public interface ITargetsReceiver
+    {
+        public UnityEngine.GameObject[] Targets { get; set; }
+    }
+
+    [UnityEngine.RequireComponent(typeof(UnityEngine.UI.Button))] public class KeyboardButtonButton : UnityEngine.MonoBehaviour
+    {
+        public KeyboardButtonButton() {}
+        [UnityEngine.ContextMenu(@"Click")] public void Click();
+    }
+
+    public class KeyStrokeManager : UnityEngine.MonoBehaviour
+    {
+        public UnityEngine.Events.UnityEvent<string> KeyCodeEntered;
+        public KeyStrokeManager() {}
+        public void EnterKeyCode();
+    }
+
+    public class LabelSearchAttribute : UnityEngine.PropertyAttribute
+    {
+        public static readonly System.Collections.Generic.Dictionary<string, System.Type> assetTypes = new();
+        public readonly bool canPrintLabelName;
+        public readonly LabelSearchAttribute.Direction direction;
+        public bool foldout;
+        public bool init;
+        public readonly string labelName;
+        public readonly int limit = int.MaxValue; // warning: this initializer is overridden in at least one ctor
+        public bool search = true;
+        public LabelSearchAttribute(string labelName) {}
+        public LabelSearchAttribute(string labelName, LabelSearchAttribute.Direction direction) {}
+        public LabelSearchAttribute(string labelName, int limit) {}
+        public LabelSearchAttribute(string labelName, int limit, LabelSearchAttribute.Direction direction) {}
+        public enum Direction
+        {
+            ASC = 0,
+            DESC = 1,
+        }
+    }
+
+    public static class LayerMaskExtensions
+    {
+        public static bool Contains(this UnityEngine.LayerMask mask, int layerNumber);
+    }
+
+    public enum LifeCycleTriggerType
+    {
+        Awake = 0,
+        OnEnable = 1,
+        Start = 2,
+        Update = 3,
+        TriggerEnter = 4,
+        TriggerExit = 5,
+        CollisionEnter = 6,
+        CollisionExit = 7,
+        OnDisable = 8,
+        InputAction = 9,
+        Never = 10,
+    }
+
+    [UnityEngine.RequireComponent(typeof(UnityEngine.LineRenderer))] public class LineRendererController : UnityEngine.MonoBehaviour
+    {
+        public LineRendererController() {}
+    }
+
+    public static class ListExtensions
+    {
+        public static System.Collections.Generic.List<T> Clone<T>(this System.Collections.Generic.IList<T> list);
+        public static System.Collections.Generic.IList<T> Filter<T>(this System.Collections.Generic.IList<T> source, System.Predicate<T> predicate);
+        public static System.Collections.Generic.IList<T> Shuffle<T>(this System.Collections.Generic.IList<T> list);
+        public static void Swap<T>(this System.Collections.Generic.IList<T> list, int indexA, int indexB);
+    }
+
+    [UnityEngine.RequireComponent(typeof(ILoadQueryURL))] public class LoadQueryURL : UnityEngine.MonoBehaviour
+    {
+        [UnityEngine.SerializeField] protected ILoadQueryURL m_webViewPrefab;
+        public LoadQueryURL() {}
+    }
+
+    public enum LoopType
+    {
+        Restart = 0,
+        Yoyo = 1,
+    }
+
+    public class ManageAdditionalScenesAsync : UnityEngine.MonoBehaviour
+    {
+        public ManageAdditionalScenesAsync() {}
+    }
+
+    public struct MapMaker
+    {
+        [UnityEngine.Tooltip(@"X probably needs to be 90 to make it face up to the camera.")] public UnityEngine.Vector3 Rotation;
+        [UnityEngine.Range(0f, 5f)] public float Scale;
+        public UnityEngine.Sprite Sprite;
+        [TagSelector] public string Tag;
+    }
+
+    public class MatchAudioSpeedToTimeSpeed : UnityEngine.MonoBehaviour
+    {
+        public MatchAudioSpeedToTimeSpeed() {}
+        [UnityEngine.ContextMenu(@"AdjustPitchToTimeScale")] public void AdjustPitchToTimeScale();
+        public void AdjustPitchToTimeScale(float timeScale);
+    }
+
+    public static class MathfExtension
+    {
+        public static double Max(params double[] values);
+        public static double Max(double a, double b);
+        public static double Min(params double[] values);
+        public static double Min(double a, double b);
+    }
+
+    public static class Mediator
+    {
+        public static System.Collections.Generic.Dictionary<string, System.Action<Medium>> Mediations { get; }
+        public static void Publish(Medium medium, [System.Runtime.CompilerServices.CallerMemberName] string methodName = @"", [System.Runtime.CompilerServices.CallerFilePath] string filePath = @"");
+        public static void Subscribe(Medium medium, System.Action<Medium> listener);
+        public static void Unsubscribe(Medium medium, System.Action<Medium> listener);
+    }
+
+    [System.AttributeUsage(System.AttributeTargets.Field)] public class MediatorAttribute : UnityEngine.PropertyAttribute
+    {
+        public bool EditableChannel { get; }
+        public MediatorAttribute(bool editableChannel = false) {}
+    }
+
+    [UnityEngine.CreateAssetMenu(fileName = @"MediatorRegistry", menuName = @"SOSXR/Patterns/MediatorRegistry")] public class MediatorRegistry : UnityEngine.ScriptableObject
+    {
+        public static string EmptyName { get; }
+        public System.Collections.Generic.List<MediumInfo> Registry { get; set; }
+        public MediatorRegistry() {}
+        [UnityEngine.ContextMenu(@"CheckMediatorForOrphanMediums")] public void CheckMediatorForOrphanMediums();
+        public void ClearDataList(Medium medium);
+        public void ClearDataLists();
+        [UnityEngine.ContextMenu(@"ClearRegistryButNotMediums")] public void ClearRegistryButNotMediums();
+        public void RegisterCaller(Medium medium, string callerName);
+        public void RegisterListener(Medium medium, string listenerString);
+        public void UnregisterCaller(Medium medium, string callerName);
+        public void UnregisterListener(Medium medium, string listenerString);
+        public void UpdateData(Medium medium);
+    }
+
+    public class Medium
+    {
+        public string Channel;
+        public string DataString;
+        public string TypeName;
+        public object Data { get; set; }
+        public Medium(string channel, object data = default(object)) {}
+        public string GetDataString();
+        public string GetTypeName();
+    }
+
+    public class MediumInfo
+    {
+        public System.Collections.Generic.List<string> Callers = new();
+        public System.Collections.Generic.List<string> DataList = new();
+        public System.Collections.Generic.List<string> Listeners = new();
+        [Mediator(true)] public Medium Medium;
+        public MediumInfo() {}
+    }
+
+    public class Move : UnityEngine.MonoBehaviour, ITargetReceiver
+    {
+        public bool m_bezierLoop = true;
+        [UnityEngine.SerializeField] public UnityEngine.Vector3[] m_bezierPoints;
+        public UnityEngine.GameObject Target { get; set; }
+        public Move() {}
+        public static UnityEngine.Vector3 GetCubicBezierPoint(UnityEngine.Vector3[] points, float t);
+        public void LookAtTarget();
+        public void MoveAlongPath();
+        public void MoveByOffset();
+        public void MoveInCircle();
+        public void MoveInLocalSpace();
+        public void MoveSinusoidally();
+        public void MoveTowards();
+        public void MoveWithElasticity();
+        public void ParentTo();
+        [UnityEngine.ContextMenu(@"ResetBezier")] public void ResetBezier();
+        public void SmoothBounceBackAndForth();
+        public void SmoothLookAtTarget();
+        public void SmoothMoveTowards();
+        public void SyncTransform();
+    }
+
+    public class NoFoldOutAttribute : UnityEngine.PropertyAttribute
+    {
+        public NoFoldOutAttribute() {}
+    }
+
+    public static class NumberExtensions
+    {
+        public static bool Approx(this float f1, float f2);
+        public static double AtLeast(this double value, double min);
+        public static int AtLeast(this int value, int min);
+        public static float AtLeast(this float value, float min);
+        public static double AtMost(this double value, double min);
+        public static int AtMost(this int value, int max);
+        public static float AtMost(this float value, float max);
+        public static bool IsEven(this int i);
+        public static bool IsOdd(this int i);
+        public static float PercentageOf(this int part, int whole);
+    }
+
+    public class ObserveAttribute : UnityEngine.PropertyAttribute
+    {
+        public readonly string[] callbackNames;
+        public ObserveAttribute(params string[] callbackNames) {}
+    }
+
+    public class OptionalAttribute : UnityEngine.PropertyAttribute
+    {
+        public OptionalType Type { get; }
+        public OptionalAttribute() {}
+        public OptionalAttribute(OptionalType type) {}
+    }
+
+    public enum OptionalType
+    {
+        WillAdd = 0,
+        WillGet = 1,
+        WillFind = 2,
+        Optional = 3,
+    }
+
+    public class PasswordAttribute : UnityEngine.PropertyAttribute
+    {
+        public char mask = 42;
+        public readonly int maxLength = int.MaxValue; // warning: this initializer is overridden in at least one ctor
+        public readonly int minLength;
+        public readonly bool useMask = true; // warning: this initializer is overridden in at least one ctor
+        public PasswordAttribute() {}
+        public PasswordAttribute(int minLength, bool useMask) {}
+        public PasswordAttribute(int minLength, int maxLength) {}
+        public PasswordAttribute(int minLength, int maxLength, bool useMask) {}
+    }
+
+    public class PersistentSingleton<T> : UnityEngine.MonoBehaviour where T : UnityEngine.Component
+    {
+        public bool AutoUnparentOnAwake = true;
+        protected static T instance;
+        public static bool HasInstance { get; }
+        public static T Instance { get; }
+        public PersistentSingleton() {}
+        protected virtual void Awake();
+        protected virtual void InitializeSingleton();
+        public static T TryGetInstance();
+    }
+
+    [UnityEngine.ExecuteAlways] public class PlaceObjectsOnFloor : UnityEngine.MonoBehaviour
+    {
+        public PlaceObjectsOnFloor() {}
+    }
+
+    public class PlatformDependentSpawner : UnityEngine.MonoBehaviour
+    {
+        public bool IsValid { get; }
+        public bool SpawnRigPrefab { set; }
+        public PlatformDependentSpawner() {}
+        public void DestroyAllObjects();
+        public void DestroyEventSystem();
+        public void DestroyRig();
+        public void DestroySpawnedObject();
+        public void OnEnable();
+        public void OnValidate();
+        [UnityEngine.ContextMenu(@"SelectCorrectUIToSpawn")] public void SelectCorrectUIToSpawn();
+    }
+
+    public class PopupAttribute : UnityEngine.PropertyAttribute
+    {
+        public readonly object[] list;
+        public PopupAttribute(params object[] list) {}
+    }
+
+    public class PreviewAttribute : UnityEngine.PropertyAttribute
+    {
+        public readonly int Height;
+        public PreviewAttribute(int height = 100) {}
+    }
+
+    public class QualityLevel : UnityEngine.MonoBehaviour
+    {
+        public bool IsValid { get; }
+        public QualityLevel() {}
+        public void OnValidate();
+    }
+
+    public static class QuaternionConversionExtensions
+    {
+        public static System.Numerics.Quaternion ToSystemQuaternion(this UnityEngine.Quaternion quaternion);
+        public static UnityEngine.Quaternion ToUnityQuaternion(this System.Numerics.Quaternion quaternion);
+    }
+
+    public static class QuaternionUtils
+    {
+        public static readonly UnityEngine.Quaternion Zero;
+        public static UnityEngine.Quaternion Add(this UnityEngine.Quaternion rhs, UnityEngine.Quaternion lhs);
+        public static UnityEngine.Quaternion Blend(this UnityEngine.Quaternion q1, UnityEngine.Quaternion q2, float weight);
+        public static UnityEngine.Quaternion NormalizeSafe(this UnityEngine.Quaternion q);
+        public static UnityEngine.Quaternion Scale(this UnityEngine.Quaternion q, float scale);
+    }
+
+    public class QueryConfigData : UnityEngine.MonoBehaviour, IHaveQueryData
+    {
+        public float Number;
+        public bool Testes;
+        public string Text;
+        public string BaseURL { get; }
+        public float PropNumber { get; set; }
+        public bool PropTest { get; set; }
+        public string QueryStringURL { get; set; }
+        public System.Collections.Generic.List<string> QueryStringVariables { get; set; }
+        public QueryConfigData() {}
+    }
+
+    [UnityEngine.CreateAssetMenu(fileName = @"QueryTest", menuName = @"SOSXR/WebHelpers/QueryTest")] public class QueryTestSO : UnityEngine.ScriptableObject, IHaveQueryData
+    {
+        public string BaseURL { get; }
+        public string ClipDirectory { get; set; }
+        public string DebugUpdateInterval { get; set; }
+        public string Maarten { get; set; }
+        public float Maarten2 { get; set; }
+        public string Maarten3 { get; set; }
+        public string PPNString { get; set; }
+        public string QueryStringURL { get; set; }
+        public System.Collections.Generic.List<string> QueryStringVariables { get; set; }
+        public UnityEngine.AnimationCurve TestAnimationCurve { get; set; }
+        public bool TestBool { get; set; }
+        public UnityEngine.Color TestColor { get; set; }
+        public float TestFloat { get; set; }
+        public int TestInt { get; set; }
+        public string TestString { get; set; }
+        public UnityEngine.Vector2 TestVector2 { get; set; }
+        public UnityEngine.Vector3 TestVector3 { get; set; }
+        public bool UpdateJsonOnValueChange { get; set; }
+        public QueryTestSO() {}
+    }
+
+    public static class QueryURL
+    {
+        public static string BuildQueryURL(this object source, string baseURL, params string[] paramNames);
+    }
+
+    public class QueryWrapper : UnityEngine.MonoBehaviour
+    {
+        [Interface(typeof(IHaveQueryData))] [UnityEngine.SerializeReference] public UnityEngine.Object DataObject;
+        public IHaveQueryData QueryData { get; }
+        public QueryWrapper() {}
+        [UnityEngine.ContextMenu(@"ClearQueryData")] public void ClearQueryData();
+        [UnityEngine.ContextMenu(@"UpdateQuery")] public void UpdateQuery();
+    }
+
+    public class QuitApplication : UnityEngine.MonoBehaviour
+    {
+        public QuitApplication() {}
+        [UnityEngine.ContextMenu(@"DelayedQuit")] public void DelayedQuit();
+        [UnityEngine.ContextMenu(@"Quit")] public void Quit();
+    }
+
+    public class RaycastUnityEventTrigger : UnityEngine.MonoBehaviour
+    {
+        public UnityEngine.Events.UnityEvent<UnityEngine.RaycastHit> OnRaycastHit;
+        public UnityEngine.Events.UnityEvent OnRaycastMiss;
+        public float RaycastDistance = 1f;
+        public UnityEngine.RaycastHit Hit { get; }
+        public RaycastUnityEventTrigger() {}
+    }
+
+    public class ReadOnlyAttribute : UnityEngine.PropertyAttribute
+    {
+        public ReadOnlyAttribute() {}
+    }
+
+    public class ReadOnlyGroupBeginAttribute : UnityEngine.PropertyAttribute
+    {
+        public ReadOnlyGroupBeginAttribute() {}
+    }
+
+    public class ReadOnlyGroupEndAttribute : UnityEngine.PropertyAttribute
+    {
+        public ReadOnlyGroupEndAttribute() {}
+    }
+
+    public static class ReflectionExtensions
+    {
+        public static bool AreMethodsEqual(System.Reflection.MethodInfo a, System.Reflection.MethodInfo b);
+        public static object Cast(this System.Type type, object data);
+        public static object Default(this System.Type type);
+        public static string GetDisplayName(this System.Type type, bool includeNamespace = false);
+        public static bool HasAttribute<T>(this System.Reflection.ICustomAttributeProvider provider, bool searchInherited = true) where T : System.Attribute;
+        public static bool Is<T>(this System.Type type);
+        public static bool IsCastableTo(this System.Type from, System.Type to, bool implicitly = false);
+        public static bool IsDelegate(this System.Reflection.FieldInfo fieldInfo);
+        public static bool IsDelegate(this System.Type type);
+        public static bool IsDerivedTypeOf(this System.Type type, System.Type baseType);
+        public static bool IsGenericTypeOf(this System.Type genericType, System.Type nonGenericType);
+        public static bool IsOverride(this System.Reflection.MethodInfo methodInfo);
+        public static bool IsStrongDelegate(this System.Reflection.FieldInfo fieldInfo);
+        public static bool IsStrongDelegate(this System.Type type);
+        public static System.Reflection.MethodInfo RebaseMethod(this System.Reflection.MethodInfo method, System.Type newBase);
+    }
+
+    public class RegulatorSingleton<T> : UnityEngine.MonoBehaviour where T : UnityEngine.Component
+    {
+        protected static T instance;
+        public static bool HasInstance { get; }
+        public float InitializationTime { get; }
+        public static T Instance { get; }
+        public RegulatorSingleton() {}
+        protected virtual void Awake();
+        protected virtual void InitializeSingleton();
+    }
+
+    public enum RemovalAction
+    {
+        Disable = 0,
+        Destroy = 1,
+    }
+
+    public class RemoveAllOthersOfType : UnityEngine.MonoBehaviour
+    {
+        public RemoveAllOthersOfType() {}
+        [UnityEngine.ContextMenu(@"RemoveAllOthersOfType")] public void RemoveOtherObjects();
+    }
+
+    public class RemoveGameObject : UnityEngine.MonoBehaviour, ITargetReceiver
+    {
+        public UnityEngine.GameObject Target { get; set; }
+        public RemoveGameObject() {}
+        [UnityEngine.ContextMenu(@"RemoveAfterDelay")] public void RemoveAfterDelay();
+    }
+
+    public static class RendererExtensions
+    {
+        public static void DisableZWrite(this UnityEngine.Renderer renderer);
+        public static void EnableZWrite(this UnityEngine.Renderer renderer);
+    }
+
+    [System.AttributeUsage(System.AttributeTargets.Field)] public class RequiredAttribute : UnityEngine.PropertyAttribute
+    {
+        public RequiredAttribute() {}
+    }
+
+    [UnityEngine.RequireComponent(typeof(Unity.XR.CoreUtils.XROrigin))] public class ResetXROrigin : UnityEngine.MonoBehaviour
+    {
+        public ResetXROrigin() {}
+        [Button(null, null, 0, false)] public void ResetOrigin();
+        [Button(null, null, 0, false)] public void ResetPosition();
+        [Button(null, null, 0, false)] public void ResetRotation();
+    }
+
+    public static class ResourcesUtils
+    {
+    }
+
+    public class RigidbodySpeedLimiter : UnityEngine.MonoBehaviour
+    {
+        public RigidbodySpeedLimiter() {}
+    }
+
+    public class SceneNameAttribute : UnityEngine.PropertyAttribute
+    {
+        public readonly bool enableOnly = true; // warning: this initializer is overridden in at least one ctor
+        public int selectedValue;
+        public SceneNameAttribute(bool enableOnly = true) {}
+    }
+
+    public class SelectableLabelAttribute : UnityEngine.PropertyAttribute
+    {
+        public readonly string text;
+        public SelectableLabelAttribute(string text) {}
+    }
+
+    [UnityEngine.RequireComponent(typeof(UnityEngine.Canvas))] public class SetMainCameraAsCanvasWorldCam : UnityEngine.MonoBehaviour
+    {
+        public SetMainCameraAsCanvasWorldCam() {}
+    }
+
+    [System.AttributeUsage(System.AttributeTargets.Field)] public class ShowIfAttribute : UnityEngine.PropertyAttribute
+    {
+        public readonly string ConditionField;
+        public ShowIfAttribute(string conditionField) {}
+    }
+
+    public static class SimpleTween
+    {
+        public static TweenSequence Sequence();
+    }
+
+    public class Singleton<T> : UnityEngine.MonoBehaviour where T : UnityEngine.Component
+    {
+        protected static T instance;
+        public static bool HasInstance { get; }
+        public static T Instance { get; }
+        public Singleton() {}
+        protected virtual void Awake();
+        protected virtual void InitializeSingleton();
+        public static T TryGetInstance();
+    }
+
+    public enum SOSXRMessageType
+    {
+        None = 0,
+        Info = 1,
+        Warning = 2,
+        Error = 3,
+    }
+
+    public static class StringExtensions
+    {
+        public static string ConvertToAlphanumeric(this string input, bool allowPeriods = false);
+        public static bool IsBlank(this string val);
+        public static bool IsNullOrEmpty(this string value);
+        public static bool IsNullOrWhiteSpace(this string val);
+        public static string OrEmpty(this string val);
+        public static string RichAlign(this string text, string align);
+        public static string RichBold(this string text);
+        public static string RichColor(this string text, string color);
+        public static string RichFont(this string text, string font);
+        public static string RichGradient(this string text, string color1, string color2);
+        public static string RichItalic(this string text);
+        public static string RichRotation(this string text, float angle);
+        public static string RichSize(this string text, int size);
+        public static string RichSpace(this string text, float space);
+        public static string RichStrikethrough(this string text);
+        public static string RichUnderline(this string text);
+        public static string Shorten(this string val, int maxLength);
+        public static string Slice(this string val, int startIndex, int endIndex);
+    }
+
+    public class SuffixAttribute : UnityEngine.PropertyAttribute
+    {
+        public readonly string Suffix;
+        public SuffixAttribute(string suffix) {}
+    }
+
+    public class TagSelectorAttribute : UnityEngine.PropertyAttribute
+    {
+        public bool UseDefaultTagFieldDrawer;
+        public TagSelectorAttribute() {}
+    }
+
+    public static class TaskExtensions
+    {
+        public static System.Threading.Tasks.Task<T> AsCompletedTask<T>(this T obj);
+        public static System.Collections.IEnumerator AsCoroutine(this System.Threading.Tasks.Task task);
+        public static async void Forget(this System.Threading.Tasks.Task task, System.Action<System.Exception> onException = default(System.Action<System.Exception>));
+    }
+
+    public class TimeAttribute : UnityEngine.PropertyAttribute
+    {
+        public readonly bool DisplayHours;
+        public TimeAttribute(bool displayHours = false) {}
+    }
+
+    public class TimeController : UnityEngine.MonoBehaviour
+    {
+        public UnityEngine.Events.UnityAction<float> OnTimeScaleChanged;
+        public TimeController() {}
+    }
+
+    public class ToggleGameObjectOnPlatforms : UnityEngine.MonoBehaviour
+    {
+        public ToggleGameObjectOnPlatforms() {}
+    }
+
+    public enum TransformDirections
+    {
+        Forward = 0,
+        Back = 1,
+        Up = 2,
+        Down = 3,
+        Right = 4,
+        Left = 5,
+    }
+
+    public static class TransformExtensions
+    {
+        public static System.Collections.Generic.IEnumerable<UnityEngine.Transform> Children(this UnityEngine.Transform parent);
+        public static void DestroyChildren(this UnityEngine.Transform parent);
+        public static void DestroyChildrenImmediate(this UnityEngine.Transform parent);
+        public static void DisableChildren(this UnityEngine.Transform parent);
+        public static void EnableChildren(this UnityEngine.Transform parent);
+        public static void ForEveryChild(this UnityEngine.Transform parent, System.Action<UnityEngine.Transform> action);
+        public static bool InRangeOf(this UnityEngine.Transform source, UnityEngine.Transform target, float maxDistance, float maxAngle = 360f);
+        public static void Reset(this UnityEngine.Transform transform);
+    }
+
+    public class TriggerInteraction : ColliderInteractionBase
+    {
+        public TriggerInteraction() {}
+        protected override bool ValidateColliders();
+    }
+
+    public class Tween
+    {
+        public Tween SetEase(UnityEngine.AnimationCurve curve);
+    }
+
+    public static class TweenExtensions
+    {
+        public static Tween DOColor(this UnityEngine.Material m, UnityEngine.Color target, int propertyId, float duration);
+        public static Tween DOLocalMove(this UnityEngine.Transform t, UnityEngine.Vector3 target, float duration);
+        public static Tween DOLocalRotate(this UnityEngine.Transform t, UnityEngine.Vector3 eulerTarget, float duration);
+        public static Tween DOScale(this UnityEngine.Transform t, UnityEngine.Vector3 target, float duration);
+    }
+
+    public class TweenSequence
+    {
+        public event System.Action onComplete;
+        public event System.Action onStepComplete;
+        public float position { get; }
+        public TweenSequence() {}
+        public int CompletedLoops();
+        public TweenSequence Insert(float atTime, Tween tween);
+        public TweenSequence InsertCallback(float atTime, System.Action callback);
+        public bool IsActive();
+        public void Kill();
+        public TweenSequence OnStepComplete(System.Action action);
+        public TweenSequence SetLoops(int loops, LoopType loopType);
+    }
+
+    public enum TypeOfCollider
+    {
+        MeshCollider = 0,
+        BoxCollider = 1,
+        SphereCollider = 2,
+        CapsuleCollider = 3,
+        Collider = 4,
+    }
+
+    public class UnloadUnusedAssets : UnityEngine.MonoBehaviour
+    {
+        public UnloadUnusedAssets() {}
+        [UnityEngine.ContextMenu(@"UnloadNow")] public void UnloadNow();
+    }
+
+    public static class UQueryBuilderExtensions
+    {
+        public static int CountWhere<T>(this UnityEngine.UIElements.UQueryBuilder<T> query, System.Func<T, bool> predicate) where T : UnityEngine.UIElements.VisualElement;
+        public static T FirstOrDefault<T>(this UnityEngine.UIElements.UQueryBuilder<T> query) where T : UnityEngine.UIElements.VisualElement;
+        public static System.Collections.Generic.IEnumerable<T> OrderBy<T, TKey>(this UnityEngine.UIElements.UQueryBuilder<T> query, System.Func<T, TKey> keySelector, System.Collections.Generic.Comparer<TKey> @default) where T : UnityEngine.UIElements.VisualElement;
+        public static System.Collections.Generic.IEnumerable<T> SortByNumericValue<T>(this UnityEngine.UIElements.UQueryBuilder<T> query, System.Func<T, float> keySelector) where T : UnityEngine.UIElements.VisualElement;
+    }
+
+    public static class Vector2Extensions
+    {
+        public static UnityEngine.Vector2 Add(this UnityEngine.Vector2 vector2, float x = 0f, float y = 0f);
+        public static bool InRangeOf(this UnityEngine.Vector2 current, UnityEngine.Vector2 target, float range);
+        public static UnityEngine.Vector2 RandomPointInAnnulus(this UnityEngine.Vector2 origin, float minRadius, float maxRadius);
+        public static UnityEngine.Vector2 With(this UnityEngine.Vector2 vector2, System.Nullable<float> x = default(System.Nullable<float>), System.Nullable<float> y = default(System.Nullable<float>));
+    }
+
+    public static class Vector3Extensions
+    {
+        public static UnityEngine.Vector3 Add(this UnityEngine.Vector3 vector, float x = 0f, float y = 0f, float z = 0f);
+        public static UnityEngine.Vector3 ComponentDivide(this UnityEngine.Vector3 v0, UnityEngine.Vector3 v1);
+        public static bool InRangeOf(this UnityEngine.Vector3 current, UnityEngine.Vector3 target, float range);
+        public static UnityEngine.Vector3 RandomOffset(this UnityEngine.Vector3 vector, float range);
+        public static UnityEngine.Vector3 RandomPointInAnnulus(this UnityEngine.Vector3 origin, float minRadius, float maxRadius);
+        public static UnityEngine.Vector3 ToVector3(this UnityEngine.Vector2 v2);
+        public static UnityEngine.Vector3 With(this UnityEngine.Vector3 vector, System.Nullable<float> x = default(System.Nullable<float>), System.Nullable<float> y = default(System.Nullable<float>), System.Nullable<float> z = default(System.Nullable<float>));
+    }
+
+    public static class VectorConversionExtensions
+    {
+        public static System.Numerics.Vector2 ToSystemVector(this UnityEngine.Vector2 vector);
+        public static System.Numerics.Vector3 ToSystemVector(this UnityEngine.Vector3 vector);
+        public static UnityEngine.Vector2 ToUnityVector(this System.Numerics.Vector2 vector);
+        public static UnityEngine.Vector3 ToUnityVector(this System.Numerics.Vector3 vector);
+    }
+
+    public class VectorMath
+    {
+        public VectorMath() {}
+        public static UnityEngine.Vector3 ExtractDotVector(UnityEngine.Vector3 vector, UnityEngine.Vector3 direction);
+        public static float GetAngle(UnityEngine.Vector3 vector1, UnityEngine.Vector3 vector2, UnityEngine.Vector3 planeNormal);
+        public static float GetDotProduct(UnityEngine.Vector3 vector, UnityEngine.Vector3 direction);
+        public static UnityEngine.Vector3 IncrementVectorTowardTargetVector(UnityEngine.Vector3 currentVector, float speed, float deltaTime, UnityEngine.Vector3 targetVector);
+        public static UnityEngine.Vector3 ProjectPointOntoLine(UnityEngine.Vector3 lineStartPosition, UnityEngine.Vector3 lineDirection, UnityEngine.Vector3 point);
+        public static UnityEngine.Vector3 RemoveDotVector(UnityEngine.Vector3 vector, UnityEngine.Vector3 direction);
+        public static UnityEngine.Vector3 RotateVectorOntoPlane(UnityEngine.Vector3 vector, UnityEngine.Vector3 planeNormal, UnityEngine.Vector3 upDirection);
+    }
+
+    [UnityEngine.RequireComponent(typeof(UnityEngine.Video.VideoPlayer))] public class VideoPlayerManager : UnityEngine.MonoBehaviour
+    {
+        [UnityEngine.SerializeField] public System.Collections.Generic.List<VideoSettingsCustom> Clips;
+        [UnityEngine.SerializeField] public float CurrentClipDuration;
+        [Header(@"Info")] [UnityEngine.SerializeField] public string CurrentClipName;
+        [UnityEngine.SerializeField] public float CurrentClipTime;
+        public UnityEngine.Vector2Int Dimensions;
+        public UnityEngine.AudioSource AudioSource { get; }
+        public UnityEngine.Video.VideoPlayer VideoPlayer { get; }
+        public VideoPlayerManager() {}
+        [UnityEngine.ContextMenu(@"ReshuffleVideos")] public void ReshuffleVideos();
+        public void StartPlayer(string unused);
+    }
+
+    public class VideoSettingsCustom
+    {
+        public UnityEngine.Vector3 AudioLocation;
+        [UnityEngine.Tooltip(@"Full name, without path, but with extension. E.g. 'myVideo.mp4'")] public string ClipName;
+        public VideoSettingsCustom() {}
+    }
+
+    public static class VisualElementExtensions
+    {
+        public static T AddClass<T>(this T visualElement, params string[] classes) where T : UnityEngine.UIElements.VisualElement;
+        public static T AddTo<T>(this T child, UnityEngine.UIElements.VisualElement parent) where T : UnityEngine.UIElements.VisualElement;
+        public static T CreateChild<T>(this UnityEngine.UIElements.VisualElement parent, params string[] classes) where T : UnityEngine.UIElements.VisualElement, new();
+        public static UnityEngine.UIElements.VisualElement CreateChild(this UnityEngine.UIElements.VisualElement parent, params string[] classes);
+        public static void RemoveClass<T>(this T visualElement, params string[] classes) where T : UnityEngine.UIElements.VisualElement;
+        public static void RemoveFrom<T>(this T child, UnityEngine.UIElements.VisualElement parent) where T : UnityEngine.UIElements.VisualElement;
+        public static void SetImageFromSprite(this UnityEngine.UIElements.VisualElement imageContainer, UnityEngine.Sprite sprite);
+        public static T WithManipulator<T>(this T visualElement, UnityEngine.UIElements.IManipulator manipulator) where T : UnityEngine.UIElements.VisualElement;
+    }
+
+    public static class WaitFor
+    {
+        public static UnityEngine.WaitForEndOfFrame EndOfFrame { get; }
+        public static UnityEngine.WaitForFixedUpdate FixedUpdate { get; }
+        public static UnityEngine.WaitForSeconds Seconds(float seconds);
+    }
+
+    public class Whiteboard : UnityEngine.MonoBehaviour
+    {
+        public UnityEngine.Collider Collider { get; }
+        public UnityEngine.Texture2D Texture { get; }
+        public UnityEngine.Vector2 TextureSize { get; }
+        public Whiteboard() {}
+        public void OnValidate();
+        [UnityEngine.ContextMenu(@"SetTextureToRenderer")] public void SetTextureToRenderer();
+    }
+
+    public class WhiteboardMarker : UnityEngine.MonoBehaviour
+    {
+        public static System.Action<float> DrawingPressure;
+        public WhiteboardMarker() {}
+        [UnityEngine.ContextMenu(@"StartDrawing")] public void StartDrawing();
+        [UnityEngine.ContextMenu(@"StopDrawing")] public void StopDrawing();
+    }
+
+    public class WrapConfigData : UnityEngine.MonoBehaviour
+    {
+        [UnityEngine.HideInInspector] public BaseConfigData ConfigData;
+        public WrapConfigData() {}
+    }
+}
+
+namespace SOSXR.SeaShark.Excessives
+{
+    public static class ColorHex
+    {
+        public static readonly string Aqua = @"#00ffffff";
+        public static readonly string Black = @"#000000ff";
+        public static readonly string Brown = @"#a52a2aff";
+        public static readonly string DarkBlue = @"#0000a0ff";
+        public static readonly string Green = @"#008000ff";
+        public static readonly string Grey = @"#808080ff";
+        public static readonly string LightBlue = @"#add8e6ff";
+        public static readonly string Lime = @"#00ff00ff";
+        public static readonly string Magenta = @"#ff00ffff";
+        public static readonly string Maroon = @"#800000ff";
+        public static readonly string Navy = @"#000080ff";
+        public static readonly string Olive = @"#808000ff";
+        public static readonly string Orange = @"#ffa500ff";
+        public static readonly string Purple = @"#800080ff";
+        public static readonly string Red = @"#ff0000ff";
+        public static readonly string Silver = @"#c0c0c0ff";
+        public static readonly string Teal = @"#008080ff";
+        public static readonly string White = @"#ffffffff";
+        public static readonly string Yellow = @"#ffff00ff";
+    }
+
+    public static class CryptoRand
+    {
+        public static bool Chance(double n);
+        public static byte[] GetBytes(byte[] byteArray);
+        public static byte[] GetBytes(int byteCount);
+        public static T Pick<T>(params T[] array);
+        public static double Range();
+        public static double Range(double min, double max);
+        public static float Range(float min, float max);
+    }
+
+    public static class CryptoSymmetric
+    {
+        public static byte[] Decrypt(byte[] data, byte[] key);
+        public static byte[] Encrypt(byte[] data, byte[] key);
+    }
+
+    public static class ExtensionsE
+    {
+        public static void InvokeNull(this System.Action action);
+        public static void InvokeNull(this System.Action action, System.Action ifNull);
+        public static bool IsNull<T>(this T instance);
+        public static bool IsNull<T>(this T instance, System.Action<T> actionIfNull);
+        public static bool NotNull<T>(this T instance);
+        public static bool NotNull<T>(this T instance, System.Action<T> actionIfNotNull);
+        public static string ToElementsString<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, string splitter = @", ");
+        public static string ToElementsString<TSource1, TSource2>(this System.Collections.Generic.Dictionary<TSource1, TSource2> dict, string keyValueSeparator = @" => ", string elementSeparator = @"");
+        public static void Write<T>(this T message);
+        public static void WriteArrayElements<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, string splitter = @", ");
+        public static void WriteElements<TSource1, TSource2>(this System.Collections.Generic.Dictionary<TSource1, TSource2> dict, string keyValueSeparator = @" => ", string elementSeparator = @"");
+        public static void WriteLine<T>(this T message);
+        public static void WriteLineArrayElements<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, string splitter = @", ");
+    }
+
+    public class GetSet<T>
+    {
+        public T value { get; set; }
+        public GetSet(System.Func<T> getter, System.Action<T> setter) {}
+    }
+
+    public class GlobalEvent<T> where T : SOSXR.SeaShark.Excessives.GlobalEvent<T>, System.IDisposable, new()
+    {
+        public static bool InUse { get; }
+        public GlobalEvent() {}
+        public void Dispose();
+        protected virtual void Dispose(bool disposing);
+        public void FireEvent();
+        public static T Get();
+        public static void RegisterListener(EventListener listener);
+        protected virtual void Reset();
+        public static void UnregisterListener(EventListener listener);
+        public delegate void EventListener(T info);
+    }
+
+    public static class LinqE
+    {
+        public static System.Collections.Generic.IEnumerable<TSource> Combination<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, System.Action<TSource, TSource> action);
+        public static int FindIndex<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, TSource instance);
+        public static System.Collections.Generic.IEnumerable<TSource> For<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, System.Action<TSource, int> action);
+        public static System.Collections.Generic.IEnumerable<TSource> ForBack<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, System.Action<TSource, int> action);
+        public static System.Collections.Generic.IEnumerable<TSource> ForEach<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, System.Action<TSource> action);
+        public static System.Collections.Generic.IEnumerable<TSource> ForEachBack<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, System.Action<TSource> action);
+        public static TSource Maximum<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, System.Func<TSource, System.IComparable> selector);
+        public static TSource Minimum<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, System.Func<TSource, System.IComparable> selector);
+        public static TSource Nth<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, int n);
+        public static System.Collections.Generic.IEnumerable<TSource> Permuation<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, System.Action<TSource, TSource> action);
+        public static TSource Pick<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable);
+        public static System.Collections.Generic.IEnumerable<TSource> SetAt<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, TSource value, int index);
+        public static System.Collections.Generic.IEnumerable<TSource> Shuffle<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable);
+        public static System.Collections.Generic.IEnumerable<TSource> SubArray<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, int startIndex, int length);
+        public static System.Collections.Generic.IEnumerable<TSource> SubArraySmart<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, int startIndex, int cycles, int stepsize = 1);
+        public static System.Collections.Generic.IEnumerable<TSource> Swap<TSource>(this System.Collections.Generic.IEnumerable<TSource> enumerable, int index1, int index2);
+    }
+
+    public static class MathE
+    {
+        public const double GOLDENRATIO = 1.61803398874989d;
+        public const double GRAVITATIONALCONSTANT = -6.6740831d;
+        public const double LIGHTYEAR = 9.4607304725808E+15d;
+        public const double PLANCKLENGTH = -565.680283d;
+        public const double PLANCKMASS = -13.023d;
+        public const double PLANCKSCONSTANT = -291.28d;
+        public const double PLANCKTEMPERATURE = 59.50594986d;
+        public const double PLANCKTIME = -183.2994842d;
+        public const double PLASTICNUMBER = 1.32471795724475d;
+        public const double SPEEDOFLIGHT = 299792458d;
+        public const double TAU = 6.28318530717959d;
+        public static double AddTowardsObstructed(double value1, double value2, double target);
+        public static int AddTowardsObstructed(int value1, int value2, int target);
+        public static float AddTowardsObstructed(float value1, float value2, float target);
+        public static float AddTowardsOverFlow(float value1, float value2, float target);
+        public static double AddTowardsRebound(double value1, double value2, double target);
+        public static int AddTowardsRebound(int value1, int value2, int target);
+        public static float AddTowardsRebound(float value1, float value2, float target);
+        public static float Ceil(float val);
+        public static double CeilToN(double val, double n);
+        public static float CeilToN(float val, float n);
+        public static T Clamp<T>(T value, T max, T min) where T : System.IComparable<T>;
+        public static double ClampWrap(double value, double min, double max);
+        public static int ClampWrap(int value, int min, int max);
+        public static float ClampWrap(float value, float min, float max);
+        public static float Floor(float val);
+        public static double FloorToN(double val, double n);
+        public static float FloorToN(float val, float n);
+        public static double Lerp(double a, double b, double t);
+        public static float Lerp(float a, float b, float t);
+        public static double PosFromDerivatives(double velocity, double acceleration, double jerk, double jounce, double time);
+        public static double QuadLerp(double a, double b, double t);
+        public static float QuadLerp(float a, float b, float t);
+        public static double ReMap(double value, double inMin, double inMax, double outMin, double outMax);
+        public static float ReMap(float value, float inMin, float inMax, float outMin, float outMax);
+        public static double ReMapClamped(double value, double inMin, double inMax, double outMin, double outMax, bool clampIn = true, bool clampOut = true);
+        public static float ReMapClamped(float value, float inMin, float inMax, float outMin, float outMax, bool clampIn = true, bool clampOut = true);
+        public static float Round(float val);
+        public static double RoundToN(double val, double n);
+        public static float RoundToN(float val, float n);
+        public static double SineLerp(double a, double b, double t);
+        public static float SineLerp(float a, float b, float t);
+        public static double ToDeg(this double v);
+        public static float ToDeg(this float v);
+        public static float ToFloat(this bool boolean);
+        public static int ToInt(this bool boolean);
+        public static double ToRad(this double v);
+        public static float ToRad(this float v);
+        public static double UnLerp(double a, double b, double lerped);
+        public static float UnLerp(float a, float b, float lerped);
+        public static double UnQuadLerp(double a, double b, double lerped);
+        public static float UnQuadLerp(float a, float b, float lerped);
+    }
+
+    public class PID
+    {
+        public double D { get; set; }
+        public double I { get; set; }
+        public double kD { get; set; }
+        public double kI { get; set; }
+        public double kP { get; set; }
+        public double P { get; set; }
+        public PID(double kP, double kI, double kD) {}
+        public double Step(double error);
+    }
+
+    public class Ref<T>
+    {
+        public virtual T Value { get; set; }
+        public Ref(T value) {}
+    }
+
+    public static class ReflectionE
+    {
+        public static bool HasField(this object target, string fieldName);
+        public static bool HasMethod(this object target, string methodName);
+        public static bool HasProperty(this object target, string propertyName);
+    }
+
+    public static class StatementsE
+    {
+        public static void ForEach<T>(T[] objects, System.Action<T> action);
+        public static void IfConditions(bool condition1, bool condition2, System.Action only1, System.Action only2, System.Action both = default(System.Action), System.Action neither = default(System.Action));
+        public static long PerfTestInvoke(this System.Action action);
+        public static void Repeat(ulong cycles, System.Action action);
+        public static long SpeedTest(System.Action action);
+    }
+
+    public static class ZciencE
+    {
+        public static double GammaMod(double velocity, double speedOfLight = 6d);
+        public static double LengthContraction(double originalLength, double velocity, double speedOfLight = 6d);
+        public static double MassDilation(double originalMass, double velocity, double speedOfLight = 6d);
+        public static double TimeDilation(double originalTime, double velocity, double speedOfLight = 6d);
+    }
+}
+
+namespace SOSXR.SeaShark.Statics
+{
+    public static class Epoch
+    {
+        public static string FormatEpoch(double epoch, string format = @"dd/MM/yyyy HH:mm:ss.fff");
+        public static string FormatEpoch(long epoch, string format = @"dd/MM/yyyy HH:mm:ss.fff");
+        public static string GetCurrentTimeAsString(string format = @"dd/MM/yyyy HH:mm:ss.fff");
+        public static long GetCurrentTimeInMilliseconds();
+    }
+
+    public static class FileHelpers
+    {
+        public static string GetArborXRPath();
+        public static string GetDocumentsPath();
+        public static string[] GetFileNamesFromDirectory(string[] extensions = default(string[]), bool excludeExtensions = false, bool excludeHidden = false, string basePath = default(string), string subFolder = default(string));
+        public static string GetHomePath();
+        public static string GetMoviesPath();
+    }
+}

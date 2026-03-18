@@ -1,0 +1,147 @@
+// This file is generated. Do not modify by hand.
+// XML documentation file not found. To check if public methods have XML comments,
+// make sure the XML doc file is present and located next to the scraped dll
+public class AngleExample : UnityEngine.MonoBehaviour
+{
+    [SOSXR.SeaShark.Angle(0f, 360f)] public float angle;
+    [SOSXR.SeaShark.Angle(0f, 360f, knobSize = 64f)] public float angle2;
+    public AngleExample() {}
+}
+
+[UnityEngine.RequireComponent(typeof(UnityEngine.Animator))] public class AnimatorParameterExample : UnityEngine.MonoBehaviour
+{
+    [SOSXR.SeaShark.AnimatorParameter(SOSXR.SeaShark.AnimatorParameterAttribute.ParameterType.Bool)] public string boolParam;
+    [SOSXR.SeaShark.AnimatorParameter(SOSXR.SeaShark.AnimatorParameterAttribute.ParameterType.Float)] public string floatParam;
+    [SOSXR.SeaShark.AnimatorParameter(SOSXR.SeaShark.AnimatorParameterAttribute.ParameterType.Int)] public string intParam;
+    [SOSXR.SeaShark.AnimatorParameter] public string param;
+    [SOSXR.SeaShark.AnimatorParameter(SOSXR.SeaShark.AnimatorParameterAttribute.ParameterType.Trigger)] public string triggerParam;
+    public AnimatorParameterExample() {}
+}
+
+public class DisableExample : UnityEngine.MonoBehaviour
+{
+    [SOSXR.SeaShark.DisableEditing] public UnityEngine.AudioType audioType = UnityEngine.AudioType.ACC;
+    [SOSXR.SeaShark.DisableEditing] public int fuga = 1;
+    [SOSXR.SeaShark.DisableEditing] public string hoge = @"hoge";
+    public DisableExample() {}
+}
+
+public class LabelSearchExample : UnityEngine.MonoBehaviour
+{
+    [SOSXR.SeaShark.LabelSearch(@"Sky", SOSXR.SeaShark.LabelSearchAttribute.Direction.DESC)] public UnityEngine.Material materials;
+    [SOSXR.SeaShark.LabelSearch(@"Test")] public UnityEngine.Material materials2;
+    [SOSXR.SeaShark.LabelSearch(@"Test", 3)] public UnityEngine.GameObject[] prefab;
+    [SOSXR.SeaShark.LabelSearch(@"Test", 3, SOSXR.SeaShark.LabelSearchAttribute.Direction.DESC)] public UnityEngine.GameObject prefab2;
+    [SOSXR.SeaShark.LabelSearch(@"Test", 3)] public UnityEngine.Texture2D[] textures;
+    public LabelSearchExample() {}
+}
+
+public class ObserveExample : UnityEngine.MonoBehaviour
+{
+    [SOSXR.SeaShark.Observe(new[] {@"Callback"})] public string hoge;
+    [SOSXR.SeaShark.Observe(new[] {@"Callback", @"Callback2"})] public ObserveExample.Test test;
+    public ObserveExample() {}
+    public void Callback();
+    public enum Test
+    {
+        Hoge = 0,
+        Fuga = 1,
+    }
+}
+
+public class PasswordExample : UnityEngine.MonoBehaviour
+{
+    [SOSXR.SeaShark.Password] public string pass;
+    [SOSXR.SeaShark.Password(3, 6)] public string pass2;
+    [SOSXR.SeaShark.Password(3, false)] public string pass3;
+    [SOSXR.SeaShark.Password(5, 6, false)] public string pass4;
+    public PasswordExample() {}
+}
+
+public class PopupExample : UnityEngine.MonoBehaviour
+{
+    [SOSXR.SeaShark.Popup(new[] {@"Hoge", @"Fuga", @"Foo", @"Bar"})] public string popup;
+    [SOSXR.SeaShark.Popup(new[] {1, 2, 3, 4, 5, 6})] public int popup2;
+    [SOSXR.SeaShark.Popup(new[] {1.5f, 2.3f, 3.4f, 4.5f, 5.6f, 6.7f})] public float popup3;
+    public PopupExample() {}
+}
+
+public class SceneNameExample : UnityEngine.MonoBehaviour
+{
+    [SOSXR.SeaShark.SceneName(true)] public string sceneName;
+    [SOSXR.SeaShark.SceneName(false)] public string sceneName2;
+    public SceneNameExample() {}
+}
+
+public class SelectableLabelExample : UnityEngine.MonoBehaviour
+{
+    [SOSXR.SeaShark.SelectableLabel(@"ラベルを選択できるようになりますhttps://github.com/anchan828/property-drawer-collectionこのようにURLをコピペすると気に便利")] public string hoge;
+    public SelectableLabelExample() {}
+}
+
+namespace SOSXR.SeaShark
+{
+    public class HeaderTest : UnityEngine.MonoBehaviour
+    {
+        [Header(@"Yet Another Header")] public float TestFloat;
+        [Header(@"Another Header")] public int TestInt;
+        [Header(@"Test Header")] public string TestString;
+        public HeaderTest() {}
+    }
+}
+
+namespace SOSXR.SeaShark.Samples
+{
+    public class ButtonExampleClass : UnityEngine.MonoBehaviour
+    {
+        public ButtonExampleClass() {}
+        [Button(null, null, 0, false, Tooltip = @"Don't eat yellow snow")] public void Testes(int value, string payload = @"No", float lala = 10f);
+    }
+
+    public class MediatorAudioListenerExample : UnityEngine.MonoBehaviour
+    {
+        public MediatorAudioListenerExample() {}
+    }
+
+    public class MediatorTruthExample : UnityEngine.MonoBehaviour
+    {
+        public MediatorTruthExample() {}
+    }
+
+    public class MediatorUIExample : UnityEngine.MonoBehaviour
+    {
+        public System.Collections.Generic.Stack<string> Stacking;
+        public MediatorUIExample() {}
+    }
+
+    public class RequiredDemo : UnityEngine.MonoBehaviour
+    {
+        [Required] public UnityEngine.GameObject m_gameObject;
+        [Optional(OptionalType.WillFind)] public int m_int;
+        [Optional] public string m_string;
+        [Optional(OptionalType.WillGet)] public UnityEngine.Transform m_transform;
+        public RequiredDemo() {}
+    }
+
+    public class SeaSharkSettingsSample : UnityEngine.ScriptableObject
+    {
+        public string Name = @"Default Name";
+        public int Value = 42;
+        public SeaSharkSettingsSample() {}
+    }
+
+    public class SuffixDemo : UnityEngine.MonoBehaviour
+    {
+        [Suffix(@"s")] public int Duration;
+        [Suffix(@"m")] public float Length;
+        [Suffix(@"First name")] public string Name;
+        [Suffix(@"Bush placement")] public UnityEngine.Vector2 Trees;
+        [Suffix(@"SOSXR CAN MAKE LONG SUFFIX")] public float Weight;
+        public SuffixDemo() {}
+    }
+
+    public class TagSelectorDemo : UnityEngine.MonoBehaviour
+    {
+        public TagSelectorDemo() {}
+    }
+}

@@ -1,6 +1,5 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
-
 
 namespace SOSXR.SeaShark.EditorScripts
 {
@@ -10,20 +9,15 @@ namespace SOSXR.SeaShark.EditorScripts
         private Editor configDataEditor;
         private SerializedProperty configDataProp;
 
-
-        private void OnEnable()
-        {
-            configDataProp = serializedObject.FindProperty(nameof(WrapConfigData.ConfigData));
-        }
-
+        private void OnEnable() => configDataProp = serializedObject.FindProperty(nameof(WrapConfigData.ConfigData));
 
         public override void OnInspectorGUI()
         {
-            DrawDefaultInspector();
+            _ = DrawDefaultInspector();
 
             serializedObject.Update();
 
-            EditorGUILayout.PropertyField(configDataProp); // Allow assigning/removing
+            _ = EditorGUILayout.PropertyField(configDataProp); // Allow assigning/removing
 
             if (configDataProp.objectReferenceValue != null)
             {
@@ -38,7 +32,7 @@ namespace SOSXR.SeaShark.EditorScripts
                 configDataEditor?.OnInspectorGUI();
             }
 
-            serializedObject.ApplyModifiedProperties();
+            _ = serializedObject.ApplyModifiedProperties();
         }
     }
 }

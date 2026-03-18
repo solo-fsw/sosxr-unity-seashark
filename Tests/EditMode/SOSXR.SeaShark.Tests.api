@@ -1,0 +1,267 @@
+// This file is generated. Do not modify by hand.
+// XML documentation file not found. To check if public methods have XML comments,
+// make sure the XML doc file is present and located next to the scraped dll
+namespace SOSXR.SeaShark.Tests
+{
+    [NUnit.Framework.TestFixture] public class ColorExtensionsTests
+    {
+        public ColorExtensionsTests() {}
+        [NUnit.Framework.Test] public void Add_ClampedAt1_NeverExceeds1();
+        [NUnit.Framework.Test] public void Add_RedAndGreen_YieldsYellow();
+        [NUnit.Framework.Test] public void Blend_At0_ReturnsFirstColor();
+        [NUnit.Framework.Test] public void Blend_At05_ReturnsMidpoint();
+        [NUnit.Framework.Test] public void Blend_At1_ReturnsSecondColor();
+        [NUnit.Framework.Test] public void Blend_RatioClampedAbove1_StillReturnsSecondColor();
+        [NUnit.Framework.Test] public void Invert_Red_ReturnsInvertedRGB();
+        [NUnit.Framework.Test] public void Invert_White_ReturnsBlack();
+        [NUnit.Framework.Test] public void SetAlpha_SetsAlphaComponent();
+        [NUnit.Framework.Test] public void SetAlpha_ZeroAlpha_MakesTransparent();
+        [NUnit.Framework.Test] public void Subtract_ClampedAt0_NeverGoesNegative();
+    }
+
+    [NUnit.Framework.TestFixture] public class CommandQueueTests
+    {
+        public CommandQueueTests() {}
+        [NUnit.Framework.Test] public void Clear_PreventsUndo();
+        [NUnit.Framework.Test] public void Execute_AfterUndo_ClearsRedoStack();
+        [NUnit.Framework.Test] public void Execute_CallsCommandExecute();
+        [NUnit.Framework.Test] public void MultipleUndoRedo_MaintainsCorrectOrder();
+        [NUnit.Framework.Test] public void Queue_IsFIFO_UndoesFirstExecutedFirst();
+        [NUnit.Framework.Test] public void Redo_AfterUndo_ReExecutesCommand();
+        [NUnit.Framework.Test] public void Redo_OnEmptyRedoStack_DoesNotThrow();
+        [NUnit.Framework.SetUp] public void SetUp();
+        [NUnit.Framework.Test] public void Undo_AfterExecute_CallsCommandUndo();
+        [NUnit.Framework.Test] public void Undo_OnEmpty_DoesNotThrowOrCallUndo();
+    }
+
+    [NUnit.Framework.TestFixture] public class CommandStackTests
+    {
+        public CommandStackTests() {}
+        [NUnit.Framework.Test] public void Clear_PreventsUndo();
+        [NUnit.Framework.Test] public void Execute_AfterUndo_ClearsRedoQueue();
+        [NUnit.Framework.Test] public void Execute_CallsCommandExecute();
+        [NUnit.Framework.Test] public void MultipleUndoRedo_MaintainsLIFOOrder();
+        [NUnit.Framework.Test] public void Redo_AfterUndo_ReExecutesCommand();
+        [NUnit.Framework.Test] public void Redo_OnEmptyRedoQueue_DoesNotThrow();
+        [NUnit.Framework.SetUp] public void SetUp();
+        [NUnit.Framework.Test] public void Stack_IsLIFO_UndoesMostRecentFirst();
+        [NUnit.Framework.Test] public void Undo_AfterExecute_CallsCommandUndo();
+        [NUnit.Framework.Test] public void Undo_OnEmpty_DoesNotThrow();
+    }
+
+    [NUnit.Framework.TestFixture] public class DateTimeExtensionsTests
+    {
+        public DateTimeExtensionsTests() {}
+        [NUnit.Framework.Test] public void WithDate_ChangeDay_OnlyDayChanges();
+        [NUnit.Framework.Test] public void WithDate_ChangeMonth_OnlyMonthChanges();
+        [NUnit.Framework.Test] public void WithDate_ChangeYear_OnlyYearChanges();
+        [NUnit.Framework.Test] public void WithDate_DayExceedsMonthDays_ClampsToDaysInMonth();
+        [NUnit.Framework.Test] public void WithDate_LeapYear_AllowsDay29InFebruary();
+        [NUnit.Framework.Test] public void WithDate_NoParams_PreservesEntireDate();
+        [NUnit.Framework.Test] public void WithDate_PreservesTimeComponents();
+    }
+
+    [NUnit.Framework.TestFixture] public class EnumerableExtensionsTests
+    {
+        public EnumerableExtensionsTests() {}
+        [NUnit.Framework.Test] public void ForEach_CallsActionOnEachElement();
+        [NUnit.Framework.Test] public void ForEach_EmptySequence_ActionNeverCalled();
+        [NUnit.Framework.Test] public void Random_EmptyList_ThrowsInvalidOperationException();
+        [NUnit.Framework.Test] public void Random_NonListEnumerable_ReturnElementFromSequence();
+        [NUnit.Framework.Test] public void Random_NullSequence_ThrowsArgumentNullException();
+        [NUnit.Framework.Test] public void Random_ReturnElementFromSequence();
+        [NUnit.Framework.Test] public void Random_SingleElement_ReturnsThatElement();
+    }
+
+    [NUnit.Framework.TestFixture] public class EpochTests
+    {
+        public EpochTests() {}
+        [NUnit.Framework.Test] public void FormatEpoch_CustomFormat_ReturnsFormattedString();
+        [NUnit.Framework.Test] public void FormatEpoch_Double_ProducesSameResultAsLong();
+        [NUnit.Framework.Test] public void FormatEpoch_Long_KnownTimestamp_ReturnsExpectedString();
+        [NUnit.Framework.Test] public void GetCurrentTimeInMilliseconds_IsCloseToSystemTime();
+        [NUnit.Framework.Test] public void GetCurrentTimeInMilliseconds_ReturnsPositiveValue();
+    }
+
+    [NUnit.Framework.TestFixture] public class ListExtensionsTests
+    {
+        public ListExtensionsTests() {}
+        [NUnit.Framework.Test] public void Clone_EmptyList_ReturnsEmptyList();
+        [NUnit.Framework.Test] public void Clone_ModifyingOriginal_DoesNotAffectClone();
+        [NUnit.Framework.Test] public void Clone_ReturnsNewListWithSameElements();
+        [NUnit.Framework.Test] public void Filter_AllMatch_ReturnsAllElements();
+        [NUnit.Framework.Test] public void Filter_MatchingPredicate_ReturnsMatchingElements();
+        [NUnit.Framework.Test] public void Filter_NoMatch_ReturnsEmptyList();
+        [NUnit.Framework.Test] public void Shuffle_RetainsAllElements();
+        [NUnit.Framework.Test] public void Shuffle_ReturnsSameListReference();
+        [NUnit.Framework.Test] public void Swap_SameIndex_ListUnchanged();
+        [NUnit.Framework.Test] public void Swap_SwapsElementsAtGivenIndices();
+    }
+
+    [NUnit.Framework.TestFixture] public class MathfExtensionTests
+    {
+        public MathfExtensionTests() {}
+        [NUnit.Framework.Test] public void Max_EmptyArray_ReturnsZero();
+        [NUnit.Framework.Test] public void Max_EqualValues_ReturnsValue();
+        [NUnit.Framework.Test] public void Max_FirstIsLarger_ReturnsFirst();
+        [NUnit.Framework.Test] public void Max_MultipleDoubles_ReturnsLargest();
+        [NUnit.Framework.Test] public void Max_NegativeValues_ReturnsLeastNegative();
+        [NUnit.Framework.Test] public void Max_TwoDoubles_ReturnsLarger();
+        [NUnit.Framework.Test] public void Min_EmptyArray_ReturnsZero();
+        [NUnit.Framework.Test] public void Min_EqualValues_ReturnsValue();
+        [NUnit.Framework.Test] public void Min_FirstIsSmaller_ReturnsFirst();
+        [NUnit.Framework.Test] public void Min_MultipleDoubles_ReturnsSmallest();
+        [NUnit.Framework.Test] public void Min_SingleElement_ReturnsThatElement();
+        [NUnit.Framework.Test] public void Min_TwoDoubles_ReturnsSmaller();
+    }
+
+    [NUnit.Framework.TestFixture] public class MediumTests
+    {
+        public MediumTests() {}
+        [NUnit.Framework.Test] public void Constructor_NullData_DataStringIsUnknown();
+        [NUnit.Framework.Test] public void Constructor_NullData_TypeNameIsUnknown();
+        [NUnit.Framework.Test] public void Constructor_SetsChannelCorrectly();
+        [NUnit.Framework.Test] public void Data_Reassigned_TypeAndDataStringUpdated();
+        [NUnit.Framework.Test] public void Data_SetToInt_DataStringReturnsIntString();
+        [NUnit.Framework.Test] public void Data_SetToInt_TypeNameReflectsIntType();
+        [NUnit.Framework.Test] public void Data_SetToSameValue_TypeNamePreserved();
+        [NUnit.Framework.Test] public void Data_SetToString_DataStringReturnsToString();
+        [NUnit.Framework.Test] public void Data_SetToString_TypeNameReflectsStringType();
+    }
+
+    [NUnit.Framework.TestFixture] public class NumberExtensionsTests
+    {
+        public NumberExtensionsTests() {}
+        [NUnit.Framework.Test] public void AtLeast_Double_ValueBelowMin_ReturnsMin();
+        [NUnit.Framework.Test] public void AtLeast_Float_ValueBelowMin_ReturnsMin();
+        [NUnit.Framework.Test] public void AtLeast_Int_ValueAboveMin_ReturnsValue();
+        [NUnit.Framework.Test] public void AtLeast_Int_ValueBelowMin_ReturnsMin();
+        [NUnit.Framework.Test] public void AtMost_Double_ValueAboveMax_ReturnsMax();
+        [NUnit.Framework.Test] public void AtMost_Float_ValueAboveMax_ReturnsMax();
+        [NUnit.Framework.Test] public void AtMost_Int_ValueAboveMax_ReturnsMax();
+        [NUnit.Framework.Test] public void AtMost_Int_ValueBelowMax_ReturnsValue();
+        [NUnit.Framework.Test] public void IsEven_EvenNumber_ReturnsTrue();
+        [NUnit.Framework.Test] public void IsEven_OddNumber_ReturnsFalse();
+        [NUnit.Framework.Test] public void IsOdd_EvenNumber_ReturnsFalse();
+        [NUnit.Framework.Test] public void IsOdd_OddNumber_ReturnsTrue();
+        [NUnit.Framework.Test] public void PercentageOf_PartEqualsWhole_Returns1();
+        [NUnit.Framework.Test] public void PercentageOf_PartGreaterThanWhole_ReturnsGreaterThan1();
+        [NUnit.Framework.Test] public void PercentageOf_ValidValues_ReturnsCorrectFraction();
+        [NUnit.Framework.Test] public void PercentageOf_WholeIsZero_ReturnsZero();
+    }
+
+    [NUnit.Framework.TestFixture] public class QueryURLTests
+    {
+        public QueryURLTests() {}
+        [NUnit.Framework.Test] public void BuildQueryURL_MissingParam_OmittedFromResult();
+        [NUnit.Framework.Test] public void BuildQueryURL_MultipleFields_AppendsAll();
+        [NUnit.Framework.Test] public void BuildQueryURL_NoParamNames_ReturnsBaseURL();
+        [NUnit.Framework.Test] public void BuildQueryURL_NormalizesUnityPrivateFieldName();
+        [NUnit.Framework.Test] public void BuildQueryURL_NullBaseURL_ReturnsEmpty();
+        [NUnit.Framework.Test] public void BuildQueryURL_PublicProperty_Included();
+        [NUnit.Framework.Test] public void BuildQueryURL_SinglePublicField_AppendsToURL();
+        [NUnit.Framework.Test] public void BuildQueryURL_SpecialCharactersInValue_AreURIEncoded();
+        [NUnit.Framework.Test] public void BuildQueryURL_WhitespaceBaseURL_ReturnsEmpty();
+    }
+
+    [NUnit.Framework.TestFixture] public class StringExtensionsTests
+    {
+        public StringExtensionsTests() {}
+        [NUnit.Framework.Test] public void ConvertToAlphanumeric_AllowPeriods_KeepsPeriods();
+        [NUnit.Framework.Test] public void ConvertToAlphanumeric_EmptyInput_ReturnsEmpty();
+        [NUnit.Framework.Test] public void ConvertToAlphanumeric_LeadingDigit_Stripped();
+        [NUnit.Framework.Test] public void ConvertToAlphanumeric_NullInput_ReturnsEmpty();
+        [NUnit.Framework.Test] public void ConvertToAlphanumeric_PeriodsDisallowed_RemovesPeriods();
+        [NUnit.Framework.Test] public void ConvertToAlphanumeric_RemovesSpecialChars();
+        [NUnit.Framework.Test] public void ConvertToAlphanumeric_TrailingPeriod_Removed();
+        [NUnit.Framework.Test] public void IsBlank_Empty_ReturnsTrue();
+        [NUnit.Framework.Test] public void IsBlank_NonEmpty_ReturnsFalse();
+        [NUnit.Framework.Test] public void IsBlank_Null_ReturnsTrue();
+        [NUnit.Framework.Test] public void IsBlank_Whitespace_ReturnsTrue();
+        [NUnit.Framework.Test] public void IsNullOrEmpty_Empty_ReturnsTrue();
+        [NUnit.Framework.Test] public void IsNullOrEmpty_NonEmpty_ReturnsFalse();
+        [NUnit.Framework.Test] public void IsNullOrEmpty_Null_ReturnsTrue();
+        [NUnit.Framework.Test] public void IsNullOrEmpty_WhitespaceOnly_ReturnsFalse();
+        [NUnit.Framework.Test] public void IsNullOrWhiteSpace_NonEmpty_ReturnsFalse();
+        [NUnit.Framework.Test] public void IsNullOrWhiteSpace_Null_ReturnsTrue();
+        [NUnit.Framework.Test] public void IsNullOrWhiteSpace_Whitespace_ReturnsTrue();
+        [NUnit.Framework.Test] public void OrEmpty_EmptyString_ReturnsEmptyString();
+        [NUnit.Framework.Test] public void OrEmpty_NonNull_ReturnsSameString();
+        [NUnit.Framework.Test] public void OrEmpty_Null_ReturnsEmptyString();
+        [NUnit.Framework.Test] public void RichBold_ReturnsBoldTag();
+        [NUnit.Framework.Test] public void RichColor_ReturnsColorTag();
+        [NUnit.Framework.Test] public void RichItalic_ReturnsItalicTag();
+        [NUnit.Framework.Test] public void RichSize_ReturnsSizeTag();
+        [NUnit.Framework.Test] public void RichStrikethrough_ReturnsStrikethroughTag();
+        [NUnit.Framework.Test] public void RichUnderline_ReturnsUnderlineTag();
+        [NUnit.Framework.Test] public void Shorten_BlankInput_ReturnsBlankUnchanged();
+        [NUnit.Framework.Test] public void Shorten_StringEqualToMax_ReturnsFullString();
+        [NUnit.Framework.Test] public void Shorten_StringLongerThanMax_TruncatesAtMax();
+        [NUnit.Framework.Test] public void Shorten_StringShorterThanMax_ReturnsFullString();
+        [NUnit.Framework.Test] public void Slice_BlankInput_ThrowsArgumentNullException();
+        [NUnit.Framework.Test] public void Slice_EndBeforeStart_ThrowsArgumentOutOfRange();
+        [NUnit.Framework.Test] public void Slice_NegativeEndIndex_CountsFromEnd();
+        [NUnit.Framework.Test] public void Slice_NegativeStartIndex_ThrowsArgumentOutOfRange();
+        [NUnit.Framework.Test] public void Slice_StartZero_ReturnsFromBeginning();
+        [NUnit.Framework.Test] public void Slice_ValidRange_ReturnsSubstring();
+    }
+
+    [NUnit.Framework.TestFixture] public class Vector2ExtensionsTests
+    {
+        public Vector2ExtensionsTests() {}
+        [NUnit.Framework.Test] public void Add_AddsToXAndY();
+        [NUnit.Framework.Test] public void Add_DefaultsToZero_LeavesComponentsUnchanged();
+        [NUnit.Framework.Test] public void InRangeOf_OutsideRange_ReturnsFalse();
+        [NUnit.Framework.Test] public void InRangeOf_SamePoint_IsInRange();
+        [NUnit.Framework.Test] public void InRangeOf_WithinRange_ReturnsTrue();
+        [NUnit.Framework.Test] public void With_BothNull_ReturnsUnchanged();
+        [NUnit.Framework.Test] public void With_OnlyX_ChangesXPreservesY();
+        [NUnit.Framework.Test] public void With_OnlyY_ChangesYPreservesX();
+    }
+
+    [NUnit.Framework.TestFixture] public class Vector3ExtensionsTests
+    {
+        public Vector3ExtensionsTests() {}
+        [NUnit.Framework.Test] public void Add_AddsToEachComponent();
+        [NUnit.Framework.Test] public void Add_DefaultsToZero_LeavesComponentsUnchanged();
+        [NUnit.Framework.Test] public void ComponentDivide_DividesEachComponent();
+        [NUnit.Framework.Test] public void ComponentDivide_DivisionByZero_PreservesOriginalComponent();
+        [NUnit.Framework.Test] public void InRangeOf_OutsideRange_ReturnsFalse();
+        [NUnit.Framework.Test] public void InRangeOf_SamePoint_IsInRange();
+        [NUnit.Framework.Test] public void InRangeOf_WithinRange_ReturnsTrue();
+        [NUnit.Framework.Test] public void ToVector3_ConvertsV2ToV3WithZeroY();
+        [NUnit.Framework.Test] public void With_AllComponents_SetsAll();
+        [NUnit.Framework.Test] public void With_OnlyX_ChangesXPreservesYZ();
+        [NUnit.Framework.Test] public void With_OnlyY_ChangesYPreservesXZ();
+        [NUnit.Framework.Test] public void With_OnlyZ_ChangesZPreservesXY();
+    }
+
+    [NUnit.Framework.TestFixture] public class VectorConversionExtensionsTests
+    {
+        public VectorConversionExtensionsTests() {}
+        [NUnit.Framework.Test] public void RoundTrip_V2_SystemToUnityToSystem_PreservesValues();
+        [NUnit.Framework.Test] public void RoundTrip_V3_SystemToUnityToSystem_PreservesValues();
+        [NUnit.Framework.Test] public void ToSystemVector_V2_ConvertsXAndY();
+        [NUnit.Framework.Test] public void ToSystemVector_V3_ConvertsXYAndZ();
+        [NUnit.Framework.Test] public void ToUnityVector_V2_ConvertsXAndY();
+        [NUnit.Framework.Test] public void ToUnityVector_V3_ConvertsXYAndZ();
+    }
+
+    [NUnit.Framework.TestFixture] public class VectorMathTests
+    {
+        public VectorMathTests() {}
+        [NUnit.Framework.Test] public void ExtractDotVector_ExtractsDirectionComponent();
+        [NUnit.Framework.Test] public void GetAngle_PerpendicularVectorsOnPlane_Returns90Degrees();
+        [NUnit.Framework.Test] public void GetAngle_SameVectors_ReturnsZero();
+        [NUnit.Framework.Test] public void GetDotProduct_OppositeVectors_ReturnsNegative();
+        [NUnit.Framework.Test] public void GetDotProduct_ParallelVectors_ReturnsPositive();
+        [NUnit.Framework.Test] public void GetDotProduct_PerpendicularVectors_ReturnsZero();
+        [NUnit.Framework.Test] public void IncrementVectorTowardTargetVector_DoesNotOvershoot();
+        [NUnit.Framework.Test] public void IncrementVectorTowardTargetVector_MovesCloser();
+        [NUnit.Framework.Test] public void ProjectPointOntoLine_PointAboveLine_ProjectsOntoLine();
+        [NUnit.Framework.Test] public void ProjectPointOntoLine_PointOnLine_ReturnsSamePoint();
+        [NUnit.Framework.Test] public void RemoveAndExtract_SumToOriginal();
+        [NUnit.Framework.Test] public void RemoveDotVector_PerpendicularDirection_LeavesVectorUnchanged();
+        [NUnit.Framework.Test] public void RemoveDotVector_RemovesDirectionComponent();
+    }
+}

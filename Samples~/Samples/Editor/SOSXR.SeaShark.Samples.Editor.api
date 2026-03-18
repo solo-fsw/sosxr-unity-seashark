@@ -1,0 +1,11 @@
+// This file is generated. Do not modify by hand.
+// XML documentation file not found. To check if public methods have XML comments,
+// make sure the XML doc file is present and located next to the scraped dll
+namespace SOSXR.SeaShark.Samples.EditorScripts
+{
+    [UnityEditor.CustomEditor(typeof(ButtonExampleClass), true)] public class ButtonClassExampleEditor : SOSXR.SeaShark.EditorScripts.SOSXRBaseEditor<ButtonExampleClass>
+    {
+        public ButtonClassExampleEditor() {}
+        public override void OnInspectorGUI();
+    }
+}
