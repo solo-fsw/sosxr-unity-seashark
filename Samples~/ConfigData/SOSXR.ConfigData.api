@@ -1,0 +1,42 @@
+// This file is generated. Do not modify by hand.
+// XML documentation file not found. To check if public methods have XML comments,
+// make sure the XML doc file is present and located next to the scraped dll
+namespace SOSXR.SeaShark
+{
+    public class BuildQueryURL : UnityEngine.MonoBehaviour
+    {
+        public BuildQueryURL() {}
+        [UnityEngine.ContextMenu(@"BuildQuery")] public void BuildQuery();
+    }
+
+    [UnityEngine.CreateAssetMenu(fileName = @"Demo Config Data", menuName = @"SOSXR/Config Data/Demo Config Data")] public class DemoConfigData : BaseConfigData
+    {
+        public string BaseURL { get; set; }
+        public string ClipDirectory { get; set; }
+        public int DebugUpdateInterval { get; set; }
+        public string[] Extensions { get; set; }
+        public DemoConfigData.Ordering Order { get; set; }
+        public UnityEngine.Vector3 Position { get; set; }
+        public int PPN { get; set; }
+        public string PPNStr { set; }
+        public string QueryStringURL { get; set; }
+        public bool Repeat { get; set; }
+        public bool ShowDebug { get; set; }
+        public bool ShowKeyboard { get; set; }
+        public string TaskName { get; set; }
+        public string VideoName { get; set; }
+        public DemoConfigData() {}
+        public enum Ordering
+        {
+            InOrder = 0,
+            Random = 1,
+            Permutation = 2,
+            Counterbalanced = 3,
+        }
+    }
+
+    public static class QueryURL
+    {
+        public static string BuildQueryStringURL(this object source, string baseURL, params object[] values);
+    }
+}

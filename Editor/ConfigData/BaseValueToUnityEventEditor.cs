@@ -1,9 +1,8 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-
 
 namespace SOSXR.SeaShark.EditorScripts
 {
@@ -21,7 +20,6 @@ namespace SOSXR.SeaShark.EditorScripts
 
         private SerializedProperty invertProp;
 
-
         private void OnEnable()
         {
             runOnStartProp = serializedObject.FindProperty(nameof(ConfigValueToUnityEvent<object>.RunOnStart));
@@ -35,24 +33,23 @@ namespace SOSXR.SeaShark.EditorScripts
             UpdateFieldList();
         }
 
-
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
 
-            EditorGUILayout.PropertyField(configDataProp);
+            _ = EditorGUILayout.PropertyField(configDataProp);
 
             if (configDataProp.objectReferenceValue == null)
             {
                 EditorGUILayout.HelpBox("Assign a ConfigData instance to select a field.", MessageType.Info);
-                serializedObject.ApplyModifiedProperties();
+                _ = serializedObject.ApplyModifiedProperties();
 
                 return;
             }
 
             UpdateFieldList(); // Always update field list after assigning a ConfigData
 
-            var selectedIndex = Array.IndexOf(validValueNames, valueNameProp.stringValue);
+            int selectedIndex = Array.IndexOf(validValueNames, valueNameProp.stringValue);
 
             if (validValueNames.Length > 0)
             {
@@ -60,7 +57,7 @@ namespace SOSXR.SeaShark.EditorScripts
             }
             else
             {
-                var typeName = fieldType.Name;
+                string typeName = fieldType.Name;
 
                 if (typeName == "Single")
                 {
@@ -68,7 +65,7 @@ namespace SOSXR.SeaShark.EditorScripts
                 }
 
                 EditorGUILayout.HelpBox($"No properties or fields of type {typeName} found on {configDataProp.objectReferenceValue.GetType().Name}.", MessageType.Warning);
-                serializedObject.ApplyModifiedProperties();
+                _ = serializedObject.ApplyModifiedProperties();
 
                 return;
             }
@@ -78,25 +75,24 @@ namespace SOSXR.SeaShark.EditorScripts
                 valueNameProp.stringValue = validValueNames[selectedIndex];
             }
 
-            EditorGUILayout.PropertyField(runOnStartProp);
+            _ = EditorGUILayout.PropertyField(runOnStartProp);
 
-            EditorGUILayout.PropertyField(subscribeToChangesProp);
+            _ = EditorGUILayout.PropertyField(subscribeToChangesProp);
 
             if (invertProp != null)
             {
-                EditorGUILayout.PropertyField(invertProp);
+                _ = EditorGUILayout.PropertyField(invertProp);
             }
 
-            EditorGUILayout.PropertyField(eventToFireProp);
+            _ = EditorGUILayout.PropertyField(eventToFireProp);
 
             if (GUILayout.Button("Find Values and Fire Event"))
             {
-                ((ConfigValueToUnityEvent<object>) target).FireCurrentValue();
+                ((ConfigValueToUnityEvent<object>)target).FireCurrentValue();
             }
 
-            serializedObject.ApplyModifiedProperties();
+            _ = serializedObject.ApplyModifiedProperties();
         }
-
 
         private void UpdateFieldList()
         {

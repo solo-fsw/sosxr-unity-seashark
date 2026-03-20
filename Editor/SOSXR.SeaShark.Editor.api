@@ -1,0 +1,288 @@
+// This file is generated. Do not modify by hand.
+// XML documentation file not found. To check if public methods have XML comments,
+// make sure the XML doc file is present and located next to the scraped dll
+public static class SOSXRDefaultValues
+{
+    public static bool Bool { get; }
+    public static UnityEngine.Bounds Bounds { get; }
+    public static byte Byte { get; }
+    public static char Char { get; }
+    public static UnityEngine.Color Color { get; }
+    public static UnityEngine.AnimationCurve Curve { get; }
+    public static double Double { get; }
+    public static float Float { get; }
+    public static UnityEngine.GameObject GameObject { get; }
+    public static int Int { get; }
+    public static UnityEngine.LayerMask LayerMask { get; }
+    public static UnityEngine.Quaternion Quaternion { get; }
+    public static UnityEngine.Rect Rect { get; }
+    public static string String { get; }
+    public static UnityEngine.Transform Transform { get; }
+    public static UnityEngine.Vector2 Vector2 { get; }
+    public static UnityEngine.Vector3 Vector3 { get; }
+    public static UnityEngine.Vector4 Vector4 { get; }
+    public static T Get<T>();
+}
+
+namespace SOSXR.SeaShark.EditorScripts
+{
+    [UnityEditor.CustomPropertyDrawer(typeof(AngleAttribute))] public class AngleDrawer : UnityEditor.PropertyDrawer
+    {
+        public AngleDrawer() {}
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(AnimatorParameterAttribute))] public class AnimatorParameterDrawer : UnityEditor.PropertyDrawer
+    {
+        public AnimatorParameterDrawer() {}
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CanEditMultipleObjects] [UnityEditor.CustomEditor(typeof(ConfigValueToUnityEvent<>), true)] public class BaseValueToUnityEventEditor : UnityEditor.Editor
+    {
+        public BaseValueToUnityEventEditor() {}
+        public override void OnInspectorGUI();
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(BoxRangeAttribute))] public class BoxRangeDrawer : UnityEditor.PropertyDrawer
+    {
+        public BoxRangeDrawer() {}
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomEditor(typeof(BaseConfigData), true)] public class ConfigDataEditor : UnityEditor.Editor
+    {
+        public ConfigDataEditor() {}
+        public override void OnInspectorGUI();
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(DecimalsAttribute))] public class DecimalsDrawer : UnityEditor.PropertyDrawer
+    {
+        public DecimalsDrawer() {}
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(DisableEditingAttribute))] public class DisableEditingDrawer : UnityEditor.PropertyDrawer
+    {
+        public DisableEditingDrawer() {}
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomEditor(typeof(DrawGizmo))] public class DrawGizmoEditor : UnityEditor.Editor
+    {
+        public DrawGizmoEditor() {}
+        public override void OnInspectorGUI();
+    }
+
+    public static class EditorOnlyExtensionMethods
+    {
+        public static void RemoveCurveBindingsExcept(this UnityEngine.AnimationClip animationClip, string bindingContains = @"blendShape");
+        public static void RemoveObjectReferenceBindingsContaining(this UnityEngine.AnimationClip animationClip, string bindingContains = @"Material");
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(EnableIfAttribute))] public class EnableIfDrawer : UnityEditor.PropertyDrawer
+    {
+        public EnableIfDrawer() {}
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomEditor(typeof(GeometryPainter))] public class GeometryPainterEditor : UnityEditor.Editor
+    {
+        public static bool EditorActive;
+        public GeometryPainterEditor() {}
+        public override void OnInspectorGUI();
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(HeaderAttribute), true)] public class HeaderDecoratorDrawer : UnityEditor.DecoratorDrawer
+    {
+        public HeaderDecoratorDrawer() {}
+        public override float GetHeight();
+        public override void OnGUI(UnityEngine.Rect position);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(HorizontalLineAttribute))] public class HorizontalLineDrawer : UnityEditor.DecoratorDrawer
+    {
+        public HorizontalLineDrawer() {}
+        public override float GetHeight();
+        public override void OnGUI(UnityEngine.Rect position);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(InfoAttribute))] public class InfoDrawer : UnityEditor.DecoratorDrawer
+    {
+        public InfoDrawer() {}
+        public override float GetHeight();
+        public override void OnGUI(UnityEngine.Rect position);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(InterfaceAttribute))] public class InterfaceDrawer : UnityEditor.PropertyDrawer
+    {
+        public InterfaceDrawer() {}
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(LabelSearchAttribute))] public class LabelSearchDrawer : UnityEditor.PropertyDrawer
+    {
+        public LabelSearchDrawer() {}
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(Medium))] public class MediatorDrawer : UnityEditor.PropertyDrawer
+    {
+        public MediatorDrawer() {}
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomEditor(typeof(Move))] public class MoveEditor : UnityEditor.Editor
+    {
+        public UnityEditor.SerializedProperty vector3OptionsProp;
+        public MoveEditor() {}
+        public override void OnInspectorGUI();
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(NoFoldOutAttribute))] public class NoFoldOutPropertyDrawer : UnityEditor.PropertyDrawer
+    {
+        public NoFoldOutPropertyDrawer() {}
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomEditor(typeof(UnityEngine.Object), true)] public class ObjectEditor : SOSXR.SeaShark.EditorScripts.SOSXRBaseEditor<UnityEngine.Object>
+    {
+        public ObjectEditor() {}
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(ObserveAttribute))] public class ObserveDrawer : UnityEditor.PropertyDrawer
+    {
+        public ObserveDrawer() {}
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(OptionalAttribute))] public class OptionalDrawer : UnityEditor.PropertyDrawer
+    {
+        public OptionalDrawer() {}
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(PasswordAttribute))] public class PasswordDrawer : UnityEditor.PropertyDrawer
+    {
+        public PasswordDrawer() {}
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(PopupAttribute))] public class PopupDrawer : UnityEditor.PropertyDrawer
+    {
+        public PopupDrawer() {}
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(PostfixAttribute))] public class PostfixDrawer : UnityEditor.PropertyDrawer
+    {
+        public PostfixDrawer() {}
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(PreviewAttribute))] public class PreviewDrawer : UnityEditor.PropertyDrawer
+    {
+        public PreviewDrawer() {}
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomEditor(typeof(QueryWrapper), true)] public class QueryWrapperEditor : UnityEditor.Editor
+    {
+        public QueryWrapperEditor() {}
+        public override void OnInspectorGUI();
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(ReadOnlyAttribute))] public class ReadOnlyDrawer : UnityEditor.PropertyDrawer
+    {
+        public ReadOnlyDrawer() {}
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(ReadOnlyGroupBeginAttribute))] public class ReadOnlyGroupBeginDrawer : UnityEditor.DecoratorDrawer
+    {
+        public ReadOnlyGroupBeginDrawer() {}
+        public override float GetHeight();
+        public override void OnGUI(UnityEngine.Rect position);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(ReadOnlyGroupEndAttribute))] public class ReadOnlyGroupEndDrawer : UnityEditor.DecoratorDrawer
+    {
+        public ReadOnlyGroupEndDrawer() {}
+        public override float GetHeight();
+        public override void OnGUI(UnityEngine.Rect position);
+    }
+
+    public static class ReflectionExtensions
+    {
+        public static bool IsUnityBaseMember(this System.Reflection.MemberInfo member);
+        public static bool IsWrongType(this System.Reflection.MemberInfo member);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(RequiredAttribute))] public class RequiredAttributeDrawer : UnityEditor.PropertyDrawer
+    {
+        public RequiredAttributeDrawer() {}
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(SceneNameAttribute))] public class SceneNameDrawer : UnityEditor.PropertyDrawer
+    {
+        public SceneNameDrawer() {}
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(SelectableLabelAttribute))] public class SelectableLabelDrawer : UnityEditor.PropertyDrawer
+    {
+        public SelectableLabelDrawer() {}
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(ShowIfAttribute))] public class ShowIfDrawer : UnityEditor.PropertyDrawer
+    {
+        public ShowIfDrawer() {}
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    public class SOSXRBaseEditor<T> : UnityEditor.Editor where T : UnityEngine.Object
+    {
+        public SOSXRBaseEditor() {}
+        public override void OnInspectorGUI();
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(SuffixAttribute))] public class SuffixDrawer : UnityEditor.PropertyDrawer
+    {
+        public SuffixDrawer() {}
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(TagSelectorAttribute))] public class TagSelectorDrawer : UnityEditor.PropertyDrawer
+    {
+        public TagSelectorDrawer() {}
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(TimeAttribute))] public class TimeDrawer : UnityEditor.PropertyDrawer
+    {
+        public TimeDrawer() {}
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+
+    [UnityEditor.CustomEditor(typeof(WrapConfigData), true)] public class WrapConfigDataEditor : UnityEditor.Editor
+    {
+        public WrapConfigDataEditor() {}
+        public override void OnInspectorGUI();
+    }
+}

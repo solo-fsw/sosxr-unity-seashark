@@ -1,20 +1,18 @@
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-
 
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(BaseConfigData), true)]
     public class ConfigDataEditor : Editor
     {
-        private readonly string[] _excludedNames = {"name", "hideFlags", "UpdateJsonOnValueChange"};
+        private readonly string[] _excludedNames = { "name", "hideFlags", "UpdateJsonOnValueChange" };
         private string[] _validValueNames;
         private SerializedProperty _updateJsonOnValueChangeProp;
         private bool[] _selectedValues;
-
 
         private void OnEnable()
         {
@@ -22,7 +20,6 @@ namespace SOSXR.SeaShark.EditorScripts
 
             UpdateFieldsAndPropertiesList();
         }
-
 
         private void UpdateFieldsAndPropertiesList()
         {
@@ -41,14 +38,13 @@ namespace SOSXR.SeaShark.EditorScripts
             _validValueNames = properties.Concat(fields).ToArray();
         }
 
-
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
 
-            var configData = (BaseConfigData) target;
+            BaseConfigData configData = (BaseConfigData)target;
 
-            DrawDefaultInspector();
+            _ = DrawDefaultInspector();
 
             EditorGUILayout.Space();
 
@@ -67,9 +63,8 @@ namespace SOSXR.SeaShark.EditorScripts
 
             DrawButtons(configData);
 
-            serializedObject.ApplyModifiedProperties();
+            _ = serializedObject.ApplyModifiedProperties();
         }
-
 
         private void DrawCheckBoxes()
         {
@@ -96,13 +91,11 @@ namespace SOSXR.SeaShark.EditorScripts
             }
         }
 
-
         private void AddToJsonUpdateList(string value)
         {
             _updateJsonOnValueChangeProp.arraySize++;
             _updateJsonOnValueChangeProp.GetArrayElementAtIndex(_updateJsonOnValueChangeProp.arraySize - 1).stringValue = value;
         }
-
 
         private void RemoveFromJsonUpdateList(string value)
         {
@@ -116,7 +109,6 @@ namespace SOSXR.SeaShark.EditorScripts
                 }
             }
         }
-
 
         private static void DrawButtons(BaseConfigData configData)
         {
@@ -145,12 +137,12 @@ namespace SOSXR.SeaShark.EditorScripts
                 HandleConfigData.DeleteConfigJson();
             }
 
-            #if !UNITY_EDITOR_LINUX
+#if !UNITY_EDITOR_LINUX
             if (GUILayout.Button("Reveal in Finder"))
             {
                 EditorUtility.RevealInFinder(HandleConfigData.ConfigPath);
             }
-            #endif
+#endif
         }
     }
 }
