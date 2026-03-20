@@ -1,6 +1,4 @@
-using NUnit.Framework;
-using SOSXR.SeaShark;
-
+﻿using NUnit.Framework;
 
 namespace SOSXR.SeaShark.Tests
 {
@@ -10,9 +8,9 @@ namespace SOSXR.SeaShark.Tests
         // Simple test object with public fields and properties
         private class SampleData
         {
-            public string  Name     = "Alice";
-            public int     Age      = 30;
-            public string  Country  = "Netherlands";
+            public string Name = "Alice";
+            public int Age = 30;
+            public string Country = "Netherlands";
 
             public float Score { get; } = 9.5f;
         }
@@ -21,7 +19,7 @@ namespace SOSXR.SeaShark.Tests
         private class PrivateFieldData
         {
             private string m_username = "bob";
-            public  string PublicName = "Bob";
+            public string PublicName = "Bob";
         }
 
         private const string BaseURL = "https://api.example.com/query";
@@ -29,58 +27,58 @@ namespace SOSXR.SeaShark.Tests
         [Test]
         public void BuildQueryURL_NullBaseURL_ReturnsEmpty()
         {
-            var data   = new SampleData();
-            var result = data.BuildQueryURL(null, "Name");
+            SampleData data = new();
+            string result = data.BuildQueryURL(null, "Name");
             Assert.AreEqual(string.Empty, result);
         }
 
         [Test]
         public void BuildQueryURL_WhitespaceBaseURL_ReturnsEmpty()
         {
-            var data   = new SampleData();
-            var result = data.BuildQueryURL("   ", "Name");
+            SampleData data = new();
+            string result = data.BuildQueryURL("   ", "Name");
             Assert.AreEqual(string.Empty, result);
         }
 
         [Test]
         public void BuildQueryURL_NoParamNames_ReturnsBaseURL()
         {
-            var data   = new SampleData();
-            var result = data.BuildQueryURL(BaseURL);
+            SampleData data = new();
+            string result = data.BuildQueryURL(BaseURL);
             Assert.AreEqual(BaseURL, result);
         }
 
         [Test]
         public void BuildQueryURL_SinglePublicField_AppendsToURL()
         {
-            var data   = new SampleData();
-            var result = data.BuildQueryURL(BaseURL, "Name");
+            SampleData data = new();
+            string result = data.BuildQueryURL(BaseURL, "Name");
             Assert.AreEqual($"{BaseURL}?Name=Alice", result);
         }
 
         [Test]
         public void BuildQueryURL_MultipleFields_AppendsAll()
         {
-            var data   = new SampleData();
-            var result = data.BuildQueryURL(BaseURL, "Name", "Age");
+            SampleData data = new();
+            string result = data.BuildQueryURL(BaseURL, "Name", "Age");
             StringAssert.Contains("Name=Alice", result);
-            StringAssert.Contains("Age=30",     result);
+            StringAssert.Contains("Age=30", result);
             StringAssert.StartsWith(BaseURL + "?", result);
         }
 
         [Test]
         public void BuildQueryURL_PublicProperty_Included()
         {
-            var data   = new SampleData();
-            var result = data.BuildQueryURL(BaseURL, "Score");
+            SampleData data = new();
+            string result = data.BuildQueryURL(BaseURL, "Score");
             StringAssert.Contains("Score=", result);
         }
 
         [Test]
         public void BuildQueryURL_MissingParam_OmittedFromResult()
         {
-            var data   = new SampleData();
-            var result = data.BuildQueryURL(BaseURL, "NonExistent");
+            SampleData data = new();
+            string result = data.BuildQueryURL(BaseURL, "NonExistent");
             // No query param appended; returns base URL as no valid params were found
             Assert.AreEqual(BaseURL, result);
         }
@@ -89,16 +87,16 @@ namespace SOSXR.SeaShark.Tests
         public void BuildQueryURL_SpecialCharactersInValue_AreURIEncoded()
         {
             var obj = new { Value = "hello world & more" };
-            var result = obj.BuildQueryURL(BaseURL, "Value");
+            string result = obj.BuildQueryURL(BaseURL, "Value");
             StringAssert.Contains("hello%20world", result);
         }
 
         [Test]
         public void BuildQueryURL_NormalizesUnityPrivateFieldName()
         {
-            var data   = new PrivateFieldData();
+            PrivateFieldData data = new();
             // m_username normalized to "username" during lookup
-            var result = data.BuildQueryURL(BaseURL, "username");
+            string result = data.BuildQueryURL(BaseURL, "username");
             StringAssert.Contains("username=bob", result);
         }
     }
