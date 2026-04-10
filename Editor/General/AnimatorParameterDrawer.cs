@@ -27,6 +27,12 @@ namespace SOSXR.SeaShark.EditorScripts
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            if (property?.serializedObject?.targetObject == null)
+            {
+                DefaultInspector(position, property, label);
+                return;
+            }
+
             var animatorController = GetAnimatorController(property);
 
             if (animatorController == null)

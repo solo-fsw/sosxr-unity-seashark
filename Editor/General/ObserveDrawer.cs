@@ -13,6 +13,12 @@ namespace SOSXR.SeaShark.EditorScripts
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            if (property?.serializedObject?.targetObject == null)
+            {
+                EditorGUI.PropertyField(position, property, label);
+                return;
+            }
+
             EditorGUI.BeginChangeCheck();
             EditorGUI.PropertyField(position, property, label);
 
@@ -33,6 +39,11 @@ namespace SOSXR.SeaShark.EditorScripts
 
         private bool IsMonoBehaviour(SerializedProperty property)
         {
+            if (property?.serializedObject?.targetObject == null)
+            {
+                return false;
+            }
+
             return property.serializedObject.targetObject.GetType().IsSubclassOf(typeof(MonoBehaviour));
         }
     }

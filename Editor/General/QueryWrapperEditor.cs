@@ -26,6 +26,11 @@ namespace SOSXR.SeaShark.EditorScripts
 
         private void OnEnable()
         {
+            if (serializedObject?.targetObject == null)
+            {
+                return;
+            }
+
             _queryWrapper = serializedObject.targetObject as QueryWrapper;
 
             _dataObjectProp = serializedObject.FindProperty(nameof(_queryWrapper.DataObject));

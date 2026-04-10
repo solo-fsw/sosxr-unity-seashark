@@ -1,16 +1,15 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-
 
 namespace SOSXR.SeaShark
 {
     public class ImageFader : MonoBehaviour
     {
-        [SerializeField] private bool m_fadeOnAwake = true;
-        [SerializeField] [Range(0f, 10f)] private float m_preFadeInDuration = 2f;
-        [SerializeField] [Range(0, 10)] private float m_defaultFadeDuration = 4f;
-        [SerializeField] [Range(0f, 10f)] private float m_preFadeOutDuration;
+        [SerializeField] private bool m_fadeOnAwake = false;
+        [SerializeField][Range(0f, 10f)] private float m_preFadeInDuration = 0f;
+        [SerializeField][Range(0, 10)] private float m_defaultFadeDuration = 4f;
+        [SerializeField][Range(0f, 10f)] private float m_preFadeOutDuration = 0f;
         [SerializeField] private AnimationCurve m_fadeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
         private Image _fadeImage;
@@ -33,6 +32,13 @@ namespace SOSXR.SeaShark
         {
             if (!m_fadeOnAwake)
             {
+                return;
+            }
+
+            if (_fadeImage == null)
+            {
+                Debug.LogWarning("We don't have an image to fade. Did you add one? (UI (Canvas) - Image)");
+
                 return;
             }
 
@@ -96,6 +102,9 @@ namespace SOSXR.SeaShark
 
         private IEnumerator FadeInCR(float duration)
         {
+            _fadeImage.gameObject.SetActive(true);
+            _fadeImage.enabled = true;
+
             if (_fadeOutCoroutine != null)
             {
                 yield return new WaitUntil(() => _fadeOutCoroutine == null);

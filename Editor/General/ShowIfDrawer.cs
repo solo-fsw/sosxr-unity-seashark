@@ -15,6 +15,11 @@ namespace SOSXR.SeaShark.EditorScripts
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
+            if (property?.serializedObject?.targetObject == null)
+            {
+                return EditorGUI.GetPropertyHeight(property, label, true);
+            }
+
             if (!ShouldShow(property))
             {
                 return 0;
@@ -26,6 +31,12 @@ namespace SOSXR.SeaShark.EditorScripts
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            if (property?.serializedObject?.targetObject == null)
+            {
+                EditorGUI.PropertyField(position, property, label, true);
+                return;
+            }
+
             if (!ShouldShow(property))
             {
                 return;
@@ -37,6 +48,11 @@ namespace SOSXR.SeaShark.EditorScripts
 
         private bool ShouldShow(SerializedProperty property)
         {
+            if (property?.serializedObject?.targetObject == null)
+            {
+                return true;
+            }
+
             var showIf = (ShowIfAttribute) attribute;
             var target = property.serializedObject.targetObject;
 

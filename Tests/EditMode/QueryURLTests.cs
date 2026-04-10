@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using UnityEngine.TestTools;
 
 namespace SOSXR.SeaShark.Tests
 {
@@ -18,7 +19,9 @@ namespace SOSXR.SeaShark.Tests
         // Object with Unity-style private backing fields
         private class PrivateFieldData
         {
+#pragma warning disable CS0414 // Field assigned but never used - intentional for testing field filtering
             private string m_username = "bob";
+#pragma warning restore CS0414
             public string PublicName = "Bob";
         }
 
@@ -27,6 +30,7 @@ namespace SOSXR.SeaShark.Tests
         [Test]
         public void BuildQueryURL_NullBaseURL_ReturnsEmpty()
         {
+            LogAssert.Expect(UnityEngine.LogType.Error, "BaseURL is null or empty.");
             SampleData data = new();
             string result = data.BuildQueryURL(null, "Name");
             Assert.AreEqual(string.Empty, result);
@@ -35,6 +39,7 @@ namespace SOSXR.SeaShark.Tests
         [Test]
         public void BuildQueryURL_WhitespaceBaseURL_ReturnsEmpty()
         {
+            LogAssert.Expect(UnityEngine.LogType.Error, "BaseURL is null or empty.");
             SampleData data = new();
             string result = data.BuildQueryURL("   ", "Name");
             Assert.AreEqual(string.Empty, result);

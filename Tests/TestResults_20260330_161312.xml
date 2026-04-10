@@ -1,0 +1,1232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="181" result="Failed(Child)" total="181" passed="179" failed="2" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.0793143">
+  <test-suite type="TestSuite" id="1408" name="PackageManager" fullname="PackageManager" runstate="Runnable" testcasecount="181" result="Failed" site="Child" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.079314" total="181" passed="179" failed="2" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1389" name="SOSXR.SeaShark.Tests.dll" fullname="/Users/mrstruijk/Current_Coding_Projects/PackageManager/Library/ScriptAssemblies/SOSXR.SeaShark.Tests.dll" runstate="Runnable" testcasecount="180" result="Failed" site="Child" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.073391" total="180" passed="178" failed="2" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="98908" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1390" name="SOSXR" fullname="SOSXR" runstate="Runnable" testcasecount="180" result="Failed" site="Child" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.073136" total="180" passed="178" failed="2" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1391" name="SeaShark" fullname="SOSXR.SeaShark" runstate="Runnable" testcasecount="180" result="Failed" site="Child" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.072918" total="180" passed="178" failed="2" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1392" name="Tests" fullname="SOSXR.SeaShark.Tests" runstate="Runnable" testcasecount="180" result="Failed" site="Child" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.072538" total="180" passed="178" failed="2" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1193" name="ColorExtensionsTests" fullname="SOSXR.SeaShark.Tests.ColorExtensionsTests" classname="SOSXR.SeaShark.Tests.ColorExtensionsTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.003768" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1198" name="Add_ClampedAt1_NeverExceeds1" fullname="SOSXR.SeaShark.Tests.ColorExtensionsTests.Add_ClampedAt1_NeverExceeds1" methodname="Add_ClampedAt1_NeverExceeds1" classname="SOSXR.SeaShark.Tests.ColorExtensionsTests" runstate="Runnable" seed="1431112049" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000304" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1199" name="Add_RedAndGreen_YieldsYellow" fullname="SOSXR.SeaShark.Tests.ColorExtensionsTests.Add_RedAndGreen_YieldsYellow" methodname="Add_RedAndGreen_YieldsYellow" classname="SOSXR.SeaShark.Tests.ColorExtensionsTests" runstate="Runnable" seed="21215148" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000101" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1201" name="Blend_At0_ReturnsFirstColor" fullname="SOSXR.SeaShark.Tests.ColorExtensionsTests.Blend_At0_ReturnsFirstColor" methodname="Blend_At0_ReturnsFirstColor" classname="SOSXR.SeaShark.Tests.ColorExtensionsTests" runstate="Runnable" seed="203696826" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000117" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1203" name="Blend_At05_ReturnsMidpoint" fullname="SOSXR.SeaShark.Tests.ColorExtensionsTests.Blend_At05_ReturnsMidpoint" methodname="Blend_At05_ReturnsMidpoint" classname="SOSXR.SeaShark.Tests.ColorExtensionsTests" runstate="Runnable" seed="395970593" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000067" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1202" name="Blend_At1_ReturnsSecondColor" fullname="SOSXR.SeaShark.Tests.ColorExtensionsTests.Blend_At1_ReturnsSecondColor" methodname="Blend_At1_ReturnsSecondColor" classname="SOSXR.SeaShark.Tests.ColorExtensionsTests" runstate="Runnable" seed="630894857" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000060" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1204" name="Blend_RatioClampedAbove1_StillReturnsSecondColor" fullname="SOSXR.SeaShark.Tests.ColorExtensionsTests.Blend_RatioClampedAbove1_StillReturnsSecondColor" methodname="Blend_RatioClampedAbove1_StillReturnsSecondColor" classname="SOSXR.SeaShark.Tests.ColorExtensionsTests" runstate="Runnable" seed="1413272683" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000056" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1196" name="Invert_Red_ReturnsInvertedRGB" fullname="SOSXR.SeaShark.Tests.ColorExtensionsTests.Invert_Red_ReturnsInvertedRGB" methodname="Invert_Red_ReturnsInvertedRGB" classname="SOSXR.SeaShark.Tests.ColorExtensionsTests" runstate="Runnable" seed="1870591563" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000111" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1197" name="Invert_White_ReturnsBlack" fullname="SOSXR.SeaShark.Tests.ColorExtensionsTests.Invert_White_ReturnsBlack" methodname="Invert_White_ReturnsBlack" classname="SOSXR.SeaShark.Tests.ColorExtensionsTests" runstate="Runnable" seed="1529095619" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000060" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1194" name="SetAlpha_SetsAlphaComponent" fullname="SOSXR.SeaShark.Tests.ColorExtensionsTests.SetAlpha_SetsAlphaComponent" methodname="SetAlpha_SetsAlphaComponent" classname="SOSXR.SeaShark.Tests.ColorExtensionsTests" runstate="Runnable" seed="1396299466" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000084" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1195" name="SetAlpha_ZeroAlpha_MakesTransparent" fullname="SOSXR.SeaShark.Tests.ColorExtensionsTests.SetAlpha_ZeroAlpha_MakesTransparent" methodname="SetAlpha_ZeroAlpha_MakesTransparent" classname="SOSXR.SeaShark.Tests.ColorExtensionsTests" runstate="Runnable" seed="1706695623" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000047" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1200" name="Subtract_ClampedAt0_NeverGoesNegative" fullname="SOSXR.SeaShark.Tests.ColorExtensionsTests.Subtract_ClampedAt0_NeverGoesNegative" methodname="Subtract_ClampedAt0_NeverGoesNegative" classname="SOSXR.SeaShark.Tests.ColorExtensionsTests" runstate="Runnable" seed="455836263" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000152" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1205" name="CommandQueueTests" fullname="SOSXR.SeaShark.Tests.CommandQueueTests" classname="SOSXR.SeaShark.Tests.CommandQueueTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.003844" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1212" name="Clear_PreventsUndo" fullname="SOSXR.SeaShark.Tests.CommandQueueTests.Clear_PreventsUndo" methodname="Clear_PreventsUndo" classname="SOSXR.SeaShark.Tests.CommandQueueTests" runstate="Runnable" seed="1762642888" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000405" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1211" name="Execute_AfterUndo_ClearsRedoStack" fullname="SOSXR.SeaShark.Tests.CommandQueueTests.Execute_AfterUndo_ClearsRedoStack" methodname="Execute_AfterUndo_ClearsRedoStack" classname="SOSXR.SeaShark.Tests.CommandQueueTests" runstate="Runnable" seed="2061031589" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000133" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1206" name="Execute_CallsCommandExecute" fullname="SOSXR.SeaShark.Tests.CommandQueueTests.Execute_CallsCommandExecute" methodname="Execute_CallsCommandExecute" classname="SOSXR.SeaShark.Tests.CommandQueueTests" runstate="Runnable" seed="515911263" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000064" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1214" name="MultipleUndoRedo_MaintainsCorrectOrder" fullname="SOSXR.SeaShark.Tests.CommandQueueTests.MultipleUndoRedo_MaintainsCorrectOrder" methodname="MultipleUndoRedo_MaintainsCorrectOrder" classname="SOSXR.SeaShark.Tests.CommandQueueTests" runstate="Runnable" seed="949327447" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000092" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1213" name="Queue_IsFIFO_UndoesFirstExecutedFirst" fullname="SOSXR.SeaShark.Tests.CommandQueueTests.Queue_IsFIFO_UndoesFirstExecutedFirst" methodname="Queue_IsFIFO_UndoesFirstExecutedFirst" classname="SOSXR.SeaShark.Tests.CommandQueueTests" runstate="Runnable" seed="1258255450" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000087" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1210" name="Redo_AfterUndo_ReExecutesCommand" fullname="SOSXR.SeaShark.Tests.CommandQueueTests.Redo_AfterUndo_ReExecutesCommand" methodname="Redo_AfterUndo_ReExecutesCommand" classname="SOSXR.SeaShark.Tests.CommandQueueTests" runstate="Runnable" seed="2083875771" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000063" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1209" name="Redo_OnEmptyRedoStack_DoesNotThrow" fullname="SOSXR.SeaShark.Tests.CommandQueueTests.Redo_OnEmptyRedoStack_DoesNotThrow" methodname="Redo_OnEmptyRedoStack_DoesNotThrow" classname="SOSXR.SeaShark.Tests.CommandQueueTests" runstate="Runnable" seed="2116438644" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000093" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1208" name="Undo_AfterExecute_CallsCommandUndo" fullname="SOSXR.SeaShark.Tests.CommandQueueTests.Undo_AfterExecute_CallsCommandUndo" methodname="Undo_AfterExecute_CallsCommandUndo" classname="SOSXR.SeaShark.Tests.CommandQueueTests" runstate="Runnable" seed="1951033645" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000127" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1207" name="Undo_OnEmpty_DoesNotThrowOrCallUndo" fullname="SOSXR.SeaShark.Tests.CommandQueueTests.Undo_OnEmpty_DoesNotThrowOrCallUndo" methodname="Undo_OnEmpty_DoesNotThrowOrCallUndo" classname="SOSXR.SeaShark.Tests.CommandQueueTests" runstate="Runnable" seed="1758263784" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000102" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1215" name="CommandStackTests" fullname="SOSXR.SeaShark.Tests.CommandStackTests" classname="SOSXR.SeaShark.Tests.CommandStackTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.003287" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1222" name="Clear_PreventsUndo" fullname="SOSXR.SeaShark.Tests.CommandStackTests.Clear_PreventsUndo" methodname="Clear_PreventsUndo" classname="SOSXR.SeaShark.Tests.CommandStackTests" runstate="Runnable" seed="1148997238" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000212" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1221" name="Execute_AfterUndo_ClearsRedoQueue" fullname="SOSXR.SeaShark.Tests.CommandStackTests.Execute_AfterUndo_ClearsRedoQueue" methodname="Execute_AfterUndo_ClearsRedoQueue" classname="SOSXR.SeaShark.Tests.CommandStackTests" runstate="Runnable" seed="1023339996" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000102" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1216" name="Execute_CallsCommandExecute" fullname="SOSXR.SeaShark.Tests.CommandStackTests.Execute_CallsCommandExecute" methodname="Execute_CallsCommandExecute" classname="SOSXR.SeaShark.Tests.CommandStackTests" runstate="Runnable" seed="1746611851" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000060" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1224" name="MultipleUndoRedo_MaintainsLIFOOrder" fullname="SOSXR.SeaShark.Tests.CommandStackTests.MultipleUndoRedo_MaintainsLIFOOrder" methodname="MultipleUndoRedo_MaintainsLIFOOrder" classname="SOSXR.SeaShark.Tests.CommandStackTests" runstate="Runnable" seed="511485552" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000089" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1220" name="Redo_AfterUndo_ReExecutesCommand" fullname="SOSXR.SeaShark.Tests.CommandStackTests.Redo_AfterUndo_ReExecutesCommand" methodname="Redo_AfterUndo_ReExecutesCommand" classname="SOSXR.SeaShark.Tests.CommandStackTests" runstate="Runnable" seed="430553684" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000060" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1219" name="Redo_OnEmptyRedoQueue_DoesNotThrow" fullname="SOSXR.SeaShark.Tests.CommandStackTests.Redo_OnEmptyRedoQueue_DoesNotThrow" methodname="Redo_OnEmptyRedoQueue_DoesNotThrow" classname="SOSXR.SeaShark.Tests.CommandStackTests" runstate="Runnable" seed="698181884" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000090" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1223" name="Stack_IsLIFO_UndoesMostRecentFirst" fullname="SOSXR.SeaShark.Tests.CommandStackTests.Stack_IsLIFO_UndoesMostRecentFirst" methodname="Stack_IsLIFO_UndoesMostRecentFirst" classname="SOSXR.SeaShark.Tests.CommandStackTests" runstate="Runnable" seed="407587176" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000088" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1218" name="Undo_AfterExecute_CallsCommandUndo" fullname="SOSXR.SeaShark.Tests.CommandStackTests.Undo_AfterExecute_CallsCommandUndo" methodname="Undo_AfterExecute_CallsCommandUndo" classname="SOSXR.SeaShark.Tests.CommandStackTests" runstate="Runnable" seed="595591572" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000060" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1217" name="Undo_OnEmpty_DoesNotThrow" fullname="SOSXR.SeaShark.Tests.CommandStackTests.Undo_OnEmpty_DoesNotThrow" methodname="Undo_OnEmpty_DoesNotThrow" classname="SOSXR.SeaShark.Tests.CommandStackTests" runstate="Runnable" seed="1854030543" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000072" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1225" name="DateTimeExtensionsTests" fullname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests" classname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.003264" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1228" name="WithDate_ChangeDay_OnlyDayChanges" fullname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests.WithDate_ChangeDay_OnlyDayChanges" methodname="WithDate_ChangeDay_OnlyDayChanges" classname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests" runstate="Runnable" seed="657737965" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000302" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1227" name="WithDate_ChangeMonth_OnlyMonthChanges" fullname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests.WithDate_ChangeMonth_OnlyMonthChanges" methodname="WithDate_ChangeMonth_OnlyMonthChanges" classname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests" runstate="Runnable" seed="512424316" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000113" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1226" name="WithDate_ChangeYear_OnlyYearChanges" fullname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests.WithDate_ChangeYear_OnlyYearChanges" methodname="WithDate_ChangeYear_OnlyYearChanges" classname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests" runstate="Runnable" seed="1990255029" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000108" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1231" name="WithDate_DayExceedsMonthDays_ClampsToDaysInMonth" fullname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests.WithDate_DayExceedsMonthDays_ClampsToDaysInMonth" methodname="WithDate_DayExceedsMonthDays_ClampsToDaysInMonth" classname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests" runstate="Runnable" seed="952394156" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000098" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1232" name="WithDate_LeapYear_AllowsDay29InFebruary" fullname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests.WithDate_LeapYear_AllowsDay29InFebruary" methodname="WithDate_LeapYear_AllowsDay29InFebruary" classname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests" runstate="Runnable" seed="554669962" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000081" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1229" name="WithDate_NoParams_PreservesEntireDate" fullname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests.WithDate_NoParams_PreservesEntireDate" methodname="WithDate_NoParams_PreservesEntireDate" classname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests" runstate="Runnable" seed="672332501" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000103" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1230" name="WithDate_PreservesTimeComponents" fullname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests.WithDate_PreservesTimeComponents" methodname="WithDate_PreservesTimeComponents" classname="SOSXR.SeaShark.Tests.DateTimeExtensionsTests" runstate="Runnable" seed="1527814297" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000148" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1233" name="EnumerableExtensionsTests" fullname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests" classname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.004689" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1234" name="ForEach_CallsActionOnEachElement" fullname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests.ForEach_CallsActionOnEachElement" methodname="ForEach_CallsActionOnEachElement" classname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests" runstate="Runnable" seed="978535384" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000326" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1235" name="ForEach_EmptySequence_ActionNeverCalled" fullname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests.ForEach_EmptySequence_ActionNeverCalled" methodname="ForEach_EmptySequence_ActionNeverCalled" classname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests" runstate="Runnable" seed="587034540" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000080" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1237" name="Random_EmptyList_ThrowsInvalidOperationException" fullname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests.Random_EmptyList_ThrowsInvalidOperationException" methodname="Random_EmptyList_ThrowsInvalidOperationException" classname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests" runstate="Runnable" seed="1391643125" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000341" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1240" name="Random_NonListEnumerable_ReturnElementFromSequence" fullname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests.Random_NonListEnumerable_ReturnElementFromSequence" methodname="Random_NonListEnumerable_ReturnElementFromSequence" classname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests" runstate="Runnable" seed="934180192" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000634" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1236" name="Random_NullSequence_ThrowsArgumentNullException" fullname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests.Random_NullSequence_ThrowsArgumentNullException" methodname="Random_NullSequence_ThrowsArgumentNullException" classname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests" runstate="Runnable" seed="949359747" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000137" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1239" name="Random_ReturnElementFromSequence" fullname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests.Random_ReturnElementFromSequence" methodname="Random_ReturnElementFromSequence" classname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests" runstate="Runnable" seed="1190767139" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000228" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1238" name="Random_SingleElement_ReturnsThatElement" fullname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests.Random_SingleElement_ReturnsThatElement" methodname="Random_SingleElement_ReturnsThatElement" classname="SOSXR.SeaShark.Tests.EnumerableExtensionsTests" runstate="Runnable" seed="289191841" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000613" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1241" name="EpochTests" fullname="SOSXR.SeaShark.Tests.EpochTests" classname="SOSXR.SeaShark.Tests.EpochTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.002862" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1246" name="FormatEpoch_CustomFormat_ReturnsFormattedString" fullname="SOSXR.SeaShark.Tests.EpochTests.FormatEpoch_CustomFormat_ReturnsFormattedString" methodname="FormatEpoch_CustomFormat_ReturnsFormattedString" classname="SOSXR.SeaShark.Tests.EpochTests" runstate="Runnable" seed="1352201315" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000249" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1245" name="FormatEpoch_Double_ProducesSameResultAsLong" fullname="SOSXR.SeaShark.Tests.EpochTests.FormatEpoch_Double_ProducesSameResultAsLong" methodname="FormatEpoch_Double_ProducesSameResultAsLong" classname="SOSXR.SeaShark.Tests.EpochTests" runstate="Runnable" seed="892639584" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000079" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1244" name="FormatEpoch_Long_KnownTimestamp_ReturnsExpectedString" fullname="SOSXR.SeaShark.Tests.EpochTests.FormatEpoch_Long_KnownTimestamp_ReturnsExpectedString" methodname="FormatEpoch_Long_KnownTimestamp_ReturnsExpectedString" classname="SOSXR.SeaShark.Tests.EpochTests" runstate="Runnable" seed="1232798430" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000207" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1243" name="GetCurrentTimeInMilliseconds_IsCloseToSystemTime" fullname="SOSXR.SeaShark.Tests.EpochTests.GetCurrentTimeInMilliseconds_IsCloseToSystemTime" methodname="GetCurrentTimeInMilliseconds_IsCloseToSystemTime" classname="SOSXR.SeaShark.Tests.EpochTests" runstate="Runnable" seed="879667000" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000195" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1242" name="GetCurrentTimeInMilliseconds_ReturnsPositiveValue" fullname="SOSXR.SeaShark.Tests.EpochTests.GetCurrentTimeInMilliseconds_ReturnsPositiveValue" methodname="GetCurrentTimeInMilliseconds_ReturnsPositiveValue" classname="SOSXR.SeaShark.Tests.EpochTests" runstate="Runnable" seed="1039740924" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000064" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1247" name="ListExtensionsTests" fullname="SOSXR.SeaShark.Tests.ListExtensionsTests" classname="SOSXR.SeaShark.Tests.ListExtensionsTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.007767" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1250" name="Clone_EmptyList_ReturnsEmptyList" fullname="SOSXR.SeaShark.Tests.ListExtensionsTests.Clone_EmptyList_ReturnsEmptyList" methodname="Clone_EmptyList_ReturnsEmptyList" classname="SOSXR.SeaShark.Tests.ListExtensionsTests" runstate="Runnable" seed="1090836213" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000806" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1249" name="Clone_ModifyingOriginal_DoesNotAffectClone" fullname="SOSXR.SeaShark.Tests.ListExtensionsTests.Clone_ModifyingOriginal_DoesNotAffectClone" methodname="Clone_ModifyingOriginal_DoesNotAffectClone" classname="SOSXR.SeaShark.Tests.ListExtensionsTests" runstate="Runnable" seed="708128885" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000241" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1248" name="Clone_ReturnsNewListWithSameElements" fullname="SOSXR.SeaShark.Tests.ListExtensionsTests.Clone_ReturnsNewListWithSameElements" methodname="Clone_ReturnsNewListWithSameElements" classname="SOSXR.SeaShark.Tests.ListExtensionsTests" runstate="Runnable" seed="1825073667" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000293" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1255" name="Filter_AllMatch_ReturnsAllElements" fullname="SOSXR.SeaShark.Tests.ListExtensionsTests.Filter_AllMatch_ReturnsAllElements" methodname="Filter_AllMatch_ReturnsAllElements" classname="SOSXR.SeaShark.Tests.ListExtensionsTests" runstate="Runnable" seed="1485146705" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000372" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1253" name="Filter_MatchingPredicate_ReturnsMatchingElements" fullname="SOSXR.SeaShark.Tests.ListExtensionsTests.Filter_MatchingPredicate_ReturnsMatchingElements" methodname="Filter_MatchingPredicate_ReturnsMatchingElements" classname="SOSXR.SeaShark.Tests.ListExtensionsTests" runstate="Runnable" seed="1555164541" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000245" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1254" name="Filter_NoMatch_ReturnsEmptyList" fullname="SOSXR.SeaShark.Tests.ListExtensionsTests.Filter_NoMatch_ReturnsEmptyList" methodname="Filter_NoMatch_ReturnsEmptyList" classname="SOSXR.SeaShark.Tests.ListExtensionsTests" runstate="Runnable" seed="1948541534" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000136" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1257" name="Shuffle_RetainsAllElements" fullname="SOSXR.SeaShark.Tests.ListExtensionsTests.Shuffle_RetainsAllElements" methodname="Shuffle_RetainsAllElements" classname="SOSXR.SeaShark.Tests.ListExtensionsTests" runstate="Runnable" seed="54651606" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000567" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1256" name="Shuffle_ReturnsSameListReference" fullname="SOSXR.SeaShark.Tests.ListExtensionsTests.Shuffle_ReturnsSameListReference" methodname="Shuffle_ReturnsSameListReference" classname="SOSXR.SeaShark.Tests.ListExtensionsTests" runstate="Runnable" seed="1013559652" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000184" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1252" name="Swap_SameIndex_ListUnchanged" fullname="SOSXR.SeaShark.Tests.ListExtensionsTests.Swap_SameIndex_ListUnchanged" methodname="Swap_SameIndex_ListUnchanged" classname="SOSXR.SeaShark.Tests.ListExtensionsTests" runstate="Runnable" seed="958770028" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000263" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1251" name="Swap_SwapsElementsAtGivenIndices" fullname="SOSXR.SeaShark.Tests.ListExtensionsTests.Swap_SwapsElementsAtGivenIndices" methodname="Swap_SwapsElementsAtGivenIndices" classname="SOSXR.SeaShark.Tests.ListExtensionsTests" runstate="Runnable" seed="959032854" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000164" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1258" name="MathfExtensionTests" fullname="SOSXR.SeaShark.Tests.MathfExtensionTests" classname="SOSXR.SeaShark.Tests.MathfExtensionTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.004347" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1268" name="Max_EmptyArray_ReturnsZero" fullname="SOSXR.SeaShark.Tests.MathfExtensionTests.Max_EmptyArray_ReturnsZero" methodname="Max_EmptyArray_ReturnsZero" classname="SOSXR.SeaShark.Tests.MathfExtensionTests" runstate="Runnable" seed="139771756" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000187" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1267" name="Max_EqualValues_ReturnsValue" fullname="SOSXR.SeaShark.Tests.MathfExtensionTests.Max_EqualValues_ReturnsValue" methodname="Max_EqualValues_ReturnsValue" classname="SOSXR.SeaShark.Tests.MathfExtensionTests" runstate="Runnable" seed="980234593" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000062" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1266" name="Max_FirstIsLarger_ReturnsFirst" fullname="SOSXR.SeaShark.Tests.MathfExtensionTests.Max_FirstIsLarger_ReturnsFirst" methodname="Max_FirstIsLarger_ReturnsFirst" classname="SOSXR.SeaShark.Tests.MathfExtensionTests" runstate="Runnable" seed="612245864" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000051" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1269" name="Max_MultipleDoubles_ReturnsLargest" fullname="SOSXR.SeaShark.Tests.MathfExtensionTests.Max_MultipleDoubles_ReturnsLargest" methodname="Max_MultipleDoubles_ReturnsLargest" classname="SOSXR.SeaShark.Tests.MathfExtensionTests" runstate="Runnable" seed="1443460171" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000062" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1270" name="Max_NegativeValues_ReturnsLeastNegative" fullname="SOSXR.SeaShark.Tests.MathfExtensionTests.Max_NegativeValues_ReturnsLeastNegative" methodname="Max_NegativeValues_ReturnsLeastNegative" classname="SOSXR.SeaShark.Tests.MathfExtensionTests" runstate="Runnable" seed="814507499" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000050" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1265" name="Max_TwoDoubles_ReturnsLarger" fullname="SOSXR.SeaShark.Tests.MathfExtensionTests.Max_TwoDoubles_ReturnsLarger" methodname="Max_TwoDoubles_ReturnsLarger" classname="SOSXR.SeaShark.Tests.MathfExtensionTests" runstate="Runnable" seed="781517938" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000050" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1262" name="Min_EmptyArray_ReturnsZero" fullname="SOSXR.SeaShark.Tests.MathfExtensionTests.Min_EmptyArray_ReturnsZero" methodname="Min_EmptyArray_ReturnsZero" classname="SOSXR.SeaShark.Tests.MathfExtensionTests" runstate="Runnable" seed="1768064225" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000090" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1261" name="Min_EqualValues_ReturnsValue" fullname="SOSXR.SeaShark.Tests.MathfExtensionTests.Min_EqualValues_ReturnsValue" methodname="Min_EqualValues_ReturnsValue" classname="SOSXR.SeaShark.Tests.MathfExtensionTests" runstate="Runnable" seed="858677265" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000058" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1260" name="Min_FirstIsSmaller_ReturnsFirst" fullname="SOSXR.SeaShark.Tests.MathfExtensionTests.Min_FirstIsSmaller_ReturnsFirst" methodname="Min_FirstIsSmaller_ReturnsFirst" classname="SOSXR.SeaShark.Tests.MathfExtensionTests" runstate="Runnable" seed="2115029683" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000049" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1263" name="Min_MultipleDoubles_ReturnsSmallest" fullname="SOSXR.SeaShark.Tests.MathfExtensionTests.Min_MultipleDoubles_ReturnsSmallest" methodname="Min_MultipleDoubles_ReturnsSmallest" classname="SOSXR.SeaShark.Tests.MathfExtensionTests" runstate="Runnable" seed="1350392706" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000053" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1264" name="Min_SingleElement_ReturnsThatElement" fullname="SOSXR.SeaShark.Tests.MathfExtensionTests.Min_SingleElement_ReturnsThatElement" methodname="Min_SingleElement_ReturnsThatElement" classname="SOSXR.SeaShark.Tests.MathfExtensionTests" runstate="Runnable" seed="175681904" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000051" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1259" name="Min_TwoDoubles_ReturnsSmaller" fullname="SOSXR.SeaShark.Tests.MathfExtensionTests.Min_TwoDoubles_ReturnsSmaller" methodname="Min_TwoDoubles_ReturnsSmaller" classname="SOSXR.SeaShark.Tests.MathfExtensionTests" runstate="Runnable" seed="1258257764" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000067" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1271" name="MediumTests" fullname="SOSXR.SeaShark.Tests.MediumTests" classname="SOSXR.SeaShark.Tests.MediumTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.003012" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1274" name="Constructor_NullData_DataStringIsUnknown" fullname="SOSXR.SeaShark.Tests.MediumTests.Constructor_NullData_DataStringIsUnknown" methodname="Constructor_NullData_DataStringIsUnknown" classname="SOSXR.SeaShark.Tests.MediumTests" runstate="Runnable" seed="1917545452" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000105" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1273" name="Constructor_NullData_TypeNameIsUnknown" fullname="SOSXR.SeaShark.Tests.MediumTests.Constructor_NullData_TypeNameIsUnknown" methodname="Constructor_NullData_TypeNameIsUnknown" classname="SOSXR.SeaShark.Tests.MediumTests" runstate="Runnable" seed="920961313" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000082" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1272" name="Constructor_SetsChannelCorrectly" fullname="SOSXR.SeaShark.Tests.MediumTests.Constructor_SetsChannelCorrectly" methodname="Constructor_SetsChannelCorrectly" classname="SOSXR.SeaShark.Tests.MediumTests" runstate="Runnable" seed="1302759880" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000058" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1279" name="Data_Reassigned_TypeAndDataStringUpdated" fullname="SOSXR.SeaShark.Tests.MediumTests.Data_Reassigned_TypeAndDataStringUpdated" methodname="Data_Reassigned_TypeAndDataStringUpdated" classname="SOSXR.SeaShark.Tests.MediumTests" runstate="Runnable" seed="172826099" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000087" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1278" name="Data_SetToInt_DataStringReturnsIntString" fullname="SOSXR.SeaShark.Tests.MediumTests.Data_SetToInt_DataStringReturnsIntString" methodname="Data_SetToInt_DataStringReturnsIntString" classname="SOSXR.SeaShark.Tests.MediumTests" runstate="Runnable" seed="45480505" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000051" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1276" name="Data_SetToInt_TypeNameReflectsIntType" fullname="SOSXR.SeaShark.Tests.MediumTests.Data_SetToInt_TypeNameReflectsIntType" methodname="Data_SetToInt_TypeNameReflectsIntType" classname="SOSXR.SeaShark.Tests.MediumTests" runstate="Runnable" seed="267932442" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000054" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1280" name="Data_SetToSameValue_TypeNamePreserved" fullname="SOSXR.SeaShark.Tests.MediumTests.Data_SetToSameValue_TypeNamePreserved" methodname="Data_SetToSameValue_TypeNamePreserved" classname="SOSXR.SeaShark.Tests.MediumTests" runstate="Runnable" seed="1149692928" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000055" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1277" name="Data_SetToString_DataStringReturnsToString" fullname="SOSXR.SeaShark.Tests.MediumTests.Data_SetToString_DataStringReturnsToString" methodname="Data_SetToString_DataStringReturnsToString" classname="SOSXR.SeaShark.Tests.MediumTests" runstate="Runnable" seed="1706765415" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000048" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1275" name="Data_SetToString_TypeNameReflectsStringType" fullname="SOSXR.SeaShark.Tests.MediumTests.Data_SetToString_TypeNameReflectsStringType" methodname="Data_SetToString_TypeNameReflectsStringType" classname="SOSXR.SeaShark.Tests.MediumTests" runstate="Runnable" seed="1533479707" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000051" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1281" name="NumberExtensionsTests" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.003943" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1296" name="AtLeast_Double_ValueBelowMin_ReturnsMin" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.AtLeast_Double_ValueBelowMin_ReturnsMin" methodname="AtLeast_Double_ValueBelowMin_ReturnsMin" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="108723018" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000083" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1294" name="AtLeast_Float_ValueBelowMin_ReturnsMin" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.AtLeast_Float_ValueBelowMin_ReturnsMin" methodname="AtLeast_Float_ValueBelowMin_ReturnsMin" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="1302725977" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000076" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1291" name="AtLeast_Int_ValueAboveMin_ReturnsValue" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.AtLeast_Int_ValueAboveMin_ReturnsValue" methodname="AtLeast_Int_ValueAboveMin_ReturnsValue" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="1584519273" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000061" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1290" name="AtLeast_Int_ValueBelowMin_ReturnsMin" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.AtLeast_Int_ValueBelowMin_ReturnsMin" methodname="AtLeast_Int_ValueBelowMin_ReturnsMin" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="391355642" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000053" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1297" name="AtMost_Double_ValueAboveMax_ReturnsMax" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.AtMost_Double_ValueAboveMax_ReturnsMax" methodname="AtMost_Double_ValueAboveMax_ReturnsMax" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="880790589" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000056" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1295" name="AtMost_Float_ValueAboveMax_ReturnsMax" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.AtMost_Float_ValueAboveMax_ReturnsMax" methodname="AtMost_Float_ValueAboveMax_ReturnsMax" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="1888078548" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000055" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1292" name="AtMost_Int_ValueAboveMax_ReturnsMax" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.AtMost_Int_ValueAboveMax_ReturnsMax" methodname="AtMost_Int_ValueAboveMax_ReturnsMax" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="72912810" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000054" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1293" name="AtMost_Int_ValueBelowMax_ReturnsValue" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.AtMost_Int_ValueBelowMax_ReturnsValue" methodname="AtMost_Int_ValueBelowMax_ReturnsValue" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="126775044" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000052" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1288" name="IsEven_EvenNumber_ReturnsTrue" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.IsEven_EvenNumber_ReturnsTrue" methodname="IsEven_EvenNumber_ReturnsTrue" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="510005584" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000053" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1289" name="IsEven_OddNumber_ReturnsFalse" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.IsEven_OddNumber_ReturnsFalse" methodname="IsEven_OddNumber_ReturnsFalse" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="1597284909" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000049" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1287" name="IsOdd_EvenNumber_ReturnsFalse" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.IsOdd_EvenNumber_ReturnsFalse" methodname="IsOdd_EvenNumber_ReturnsFalse" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="877805026" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000043" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1286" name="IsOdd_OddNumber_ReturnsTrue" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.IsOdd_OddNumber_ReturnsTrue" methodname="IsOdd_OddNumber_ReturnsTrue" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="1464240628" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000038" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1284" name="PercentageOf_PartEqualsWhole_Returns1" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.PercentageOf_PartEqualsWhole_Returns1" methodname="PercentageOf_PartEqualsWhole_Returns1" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="2102127649" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000055" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1285" name="PercentageOf_PartGreaterThanWhole_ReturnsGreaterThan1" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.PercentageOf_PartGreaterThanWhole_ReturnsGreaterThan1" methodname="PercentageOf_PartGreaterThanWhole_ReturnsGreaterThan1" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="571009639" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000087" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1282" name="PercentageOf_ValidValues_ReturnsCorrectFraction" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.PercentageOf_ValidValues_ReturnsCorrectFraction" methodname="PercentageOf_ValidValues_ReturnsCorrectFraction" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="578901225" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000051" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1283" name="PercentageOf_WholeIsZero_ReturnsZero" fullname="SOSXR.SeaShark.Tests.NumberExtensionsTests.PercentageOf_WholeIsZero_ReturnsZero" methodname="PercentageOf_WholeIsZero_ReturnsZero" classname="SOSXR.SeaShark.Tests.NumberExtensionsTests" runstate="Runnable" seed="281326313" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000052" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1298" name="QueryURLTests" fullname="SOSXR.SeaShark.Tests.QueryURLTests" classname="SOSXR.SeaShark.Tests.QueryURLTests" runstate="Runnable" testcasecount="9" result="Failed" site="Child" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.007127" total="9" passed="7" failed="2" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1305" name="BuildQueryURL_MissingParam_OmittedFromResult" fullname="SOSXR.SeaShark.Tests.QueryURLTests.BuildQueryURL_MissingParam_OmittedFromResult" methodname="BuildQueryURL_MissingParam_OmittedFromResult" classname="SOSXR.SeaShark.Tests.QueryURLTests" runstate="Runnable" seed="769601162" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.001250" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Query parameter 'NonExistent' not found in fields or properties of SampleData.
+]]></output>
+              </test-case>
+              <test-case id="1303" name="BuildQueryURL_MultipleFields_AppendsAll" fullname="SOSXR.SeaShark.Tests.QueryURLTests.BuildQueryURL_MultipleFields_AppendsAll" methodname="BuildQueryURL_MultipleFields_AppendsAll" classname="SOSXR.SeaShark.Tests.QueryURLTests" runstate="Runnable" seed="1697766866" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000482" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1301" name="BuildQueryURL_NoParamNames_ReturnsBaseURL" fullname="SOSXR.SeaShark.Tests.QueryURLTests.BuildQueryURL_NoParamNames_ReturnsBaseURL" methodname="BuildQueryURL_NoParamNames_ReturnsBaseURL" classname="SOSXR.SeaShark.Tests.QueryURLTests" runstate="Runnable" seed="148147127" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000443" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[ParamNames are null or empty.
+]]></output>
+              </test-case>
+              <test-case id="1307" name="BuildQueryURL_NormalizesUnityPrivateFieldName" fullname="SOSXR.SeaShark.Tests.QueryURLTests.BuildQueryURL_NormalizesUnityPrivateFieldName" methodname="BuildQueryURL_NormalizesUnityPrivateFieldName" classname="SOSXR.SeaShark.Tests.QueryURLTests" runstate="Runnable" seed="1339791286" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000089" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1299" name="BuildQueryURL_NullBaseURL_ReturnsEmpty" fullname="SOSXR.SeaShark.Tests.QueryURLTests.BuildQueryURL_NullBaseURL_ReturnsEmpty" methodname="BuildQueryURL_NullBaseURL_ReturnsEmpty" classname="SOSXR.SeaShark.Tests.QueryURLTests" runstate="Runnable" seed="799445515" result="Failed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.001355" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[Unhandled log message: '[Error] BaseURL is null or empty.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                  <stack-trace><![CDATA[SOSXR.SeaShark.QueryURL:BuildQueryURL (object,string,string[]) (at Assets/_SOSXR/sosxr-unity-seashark/Runtime/QueryData/QueryURL.cs:29)
+SOSXR.SeaShark.Tests.QueryURLTests:BuildQueryURL_NullBaseURL_ReturnsEmpty () (at Assets/_SOSXR/sosxr-unity-seashark/Tests/EditMode/QueryURLTests.cs:31)
+System.Reflection.MethodBase:Invoke (object,object[])
+NUnit.Framework.Internal.Reflect:InvokeMethod (System.Reflection.MethodInfo,object,object[])
+NUnit.Framework.Internal.MethodWrapper:Invoke (object,object[])
+NUnit.Framework.Internal.Commands.TestMethodCommand:RunNonAsyncTestMethod (NUnit.Framework.Internal.ITestExecutionContext)
+NUnit.Framework.Internal.Commands.TestMethodCommand:RunTestMethod (NUnit.Framework.Internal.ITestExecutionContext)
+NUnit.Framework.Internal.Commands.TestMethodCommand:Execute (NUnit.Framework.Internal.ITestExecutionContext)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions () (at /Users/bokken/build/output/unity/unity/Editor/Mono/EditorApplication.cs:392)
+
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[BaseURL is null or empty.
+]]></output>
+              </test-case>
+              <test-case id="1304" name="BuildQueryURL_PublicProperty_Included" fullname="SOSXR.SeaShark.Tests.QueryURLTests.BuildQueryURL_PublicProperty_Included" methodname="BuildQueryURL_PublicProperty_Included" classname="SOSXR.SeaShark.Tests.QueryURLTests" runstate="Runnable" seed="455605288" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000253" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1302" name="BuildQueryURL_SinglePublicField_AppendsToURL" fullname="SOSXR.SeaShark.Tests.QueryURLTests.BuildQueryURL_SinglePublicField_AppendsToURL" methodname="BuildQueryURL_SinglePublicField_AppendsToURL" classname="SOSXR.SeaShark.Tests.QueryURLTests" runstate="Runnable" seed="833534565" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000062" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1306" name="BuildQueryURL_SpecialCharactersInValue_AreURIEncoded" fullname="SOSXR.SeaShark.Tests.QueryURLTests.BuildQueryURL_SpecialCharactersInValue_AreURIEncoded" methodname="BuildQueryURL_SpecialCharactersInValue_AreURIEncoded" classname="SOSXR.SeaShark.Tests.QueryURLTests" runstate="Runnable" seed="1547806461" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000228" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1300" name="BuildQueryURL_WhitespaceBaseURL_ReturnsEmpty" fullname="SOSXR.SeaShark.Tests.QueryURLTests.BuildQueryURL_WhitespaceBaseURL_ReturnsEmpty" methodname="BuildQueryURL_WhitespaceBaseURL_ReturnsEmpty" classname="SOSXR.SeaShark.Tests.QueryURLTests" runstate="Runnable" seed="303354513" result="Failed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000469" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[Unhandled log message: '[Error] BaseURL is null or empty.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                  <stack-trace><![CDATA[SOSXR.SeaShark.QueryURL:BuildQueryURL (object,string,string[]) (at Assets/_SOSXR/sosxr-unity-seashark/Runtime/QueryData/QueryURL.cs:29)
+SOSXR.SeaShark.Tests.QueryURLTests:BuildQueryURL_WhitespaceBaseURL_ReturnsEmpty () (at Assets/_SOSXR/sosxr-unity-seashark/Tests/EditMode/QueryURLTests.cs:39)
+System.Reflection.MethodBase:Invoke (object,object[])
+NUnit.Framework.Internal.Reflect:InvokeMethod (System.Reflection.MethodInfo,object,object[])
+NUnit.Framework.Internal.MethodWrapper:Invoke (object,object[])
+NUnit.Framework.Internal.Commands.TestMethodCommand:RunNonAsyncTestMethod (NUnit.Framework.Internal.ITestExecutionContext)
+NUnit.Framework.Internal.Commands.TestMethodCommand:RunTestMethod (NUnit.Framework.Internal.ITestExecutionContext)
+NUnit.Framework.Internal.Commands.TestMethodCommand:Execute (NUnit.Framework.Internal.ITestExecutionContext)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions () (at /Users/bokken/build/output/unity/unity/Editor/Mono/EditorApplication.cs:392)
+
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[BaseURL is null or empty.
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1308" name="StringExtensionsTests" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" testcasecount="37" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.008183" total="37" passed="37" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1337" name="ConvertToAlphanumeric_AllowPeriods_KeepsPeriods" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.ConvertToAlphanumeric_AllowPeriods_KeepsPeriods" methodname="ConvertToAlphanumeric_AllowPeriods_KeepsPeriods" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1898865985" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000785" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1334" name="ConvertToAlphanumeric_EmptyInput_ReturnsEmpty" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.ConvertToAlphanumeric_EmptyInput_ReturnsEmpty" methodname="ConvertToAlphanumeric_EmptyInput_ReturnsEmpty" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1595783296" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000053" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1336" name="ConvertToAlphanumeric_LeadingDigit_Stripped" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.ConvertToAlphanumeric_LeadingDigit_Stripped" methodname="ConvertToAlphanumeric_LeadingDigit_Stripped" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="597822917" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000047" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1335" name="ConvertToAlphanumeric_NullInput_ReturnsEmpty" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.ConvertToAlphanumeric_NullInput_ReturnsEmpty" methodname="ConvertToAlphanumeric_NullInput_ReturnsEmpty" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="908192704" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000043" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1339" name="ConvertToAlphanumeric_PeriodsDisallowed_RemovesPeriods" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.ConvertToAlphanumeric_PeriodsDisallowed_RemovesPeriods" methodname="ConvertToAlphanumeric_PeriodsDisallowed_RemovesPeriods" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="54709300" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000045" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1333" name="ConvertToAlphanumeric_RemovesSpecialChars" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.ConvertToAlphanumeric_RemovesSpecialChars" methodname="ConvertToAlphanumeric_RemovesSpecialChars" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1625592451" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000045" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1338" name="ConvertToAlphanumeric_TrailingPeriod_Removed" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.ConvertToAlphanumeric_TrailingPeriod_Removed" methodname="ConvertToAlphanumeric_TrailingPeriod_Removed" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="499466591" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000057" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1317" name="IsBlank_Empty_ReturnsTrue" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.IsBlank_Empty_ReturnsTrue" methodname="IsBlank_Empty_ReturnsTrue" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1074771225" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000089" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1319" name="IsBlank_NonEmpty_ReturnsFalse" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.IsBlank_NonEmpty_ReturnsFalse" methodname="IsBlank_NonEmpty_ReturnsFalse" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="679882753" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000046" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1316" name="IsBlank_Null_ReturnsTrue" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.IsBlank_Null_ReturnsTrue" methodname="IsBlank_Null_ReturnsTrue" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1509279216" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000043" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1318" name="IsBlank_Whitespace_ReturnsTrue" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.IsBlank_Whitespace_ReturnsTrue" methodname="IsBlank_Whitespace_ReturnsTrue" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="792408575" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000041" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1313" name="IsNullOrEmpty_Empty_ReturnsTrue" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.IsNullOrEmpty_Empty_ReturnsTrue" methodname="IsNullOrEmpty_Empty_ReturnsTrue" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1323797269" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000048" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1314" name="IsNullOrEmpty_NonEmpty_ReturnsFalse" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.IsNullOrEmpty_NonEmpty_ReturnsFalse" methodname="IsNullOrEmpty_NonEmpty_ReturnsFalse" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="324839583" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000046" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1312" name="IsNullOrEmpty_Null_ReturnsTrue" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.IsNullOrEmpty_Null_ReturnsTrue" methodname="IsNullOrEmpty_Null_ReturnsTrue" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1019170319" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000043" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1315" name="IsNullOrEmpty_WhitespaceOnly_ReturnsFalse" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.IsNullOrEmpty_WhitespaceOnly_ReturnsFalse" methodname="IsNullOrEmpty_WhitespaceOnly_ReturnsFalse" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="841928315" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000044" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1311" name="IsNullOrWhiteSpace_NonEmpty_ReturnsFalse" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.IsNullOrWhiteSpace_NonEmpty_ReturnsFalse" methodname="IsNullOrWhiteSpace_NonEmpty_ReturnsFalse" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1441693925" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000042" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1309" name="IsNullOrWhiteSpace_Null_ReturnsTrue" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.IsNullOrWhiteSpace_Null_ReturnsTrue" methodname="IsNullOrWhiteSpace_Null_ReturnsTrue" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1612395294" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000040" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1310" name="IsNullOrWhiteSpace_Whitespace_ReturnsTrue" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.IsNullOrWhiteSpace_Whitespace_ReturnsTrue" methodname="IsNullOrWhiteSpace_Whitespace_ReturnsTrue" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1367643723" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000038" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1322" name="OrEmpty_EmptyString_ReturnsEmptyString" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.OrEmpty_EmptyString_ReturnsEmptyString" methodname="OrEmpty_EmptyString_ReturnsEmptyString" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="640176652" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000050" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1321" name="OrEmpty_NonNull_ReturnsSameString" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.OrEmpty_NonNull_ReturnsSameString" methodname="OrEmpty_NonNull_ReturnsSameString" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="305988025" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000043" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1320" name="OrEmpty_Null_ReturnsEmptyString" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.OrEmpty_Null_ReturnsEmptyString" methodname="OrEmpty_Null_ReturnsEmptyString" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1118825352" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000049" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1342" name="RichBold_ReturnsBoldTag" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.RichBold_ReturnsBoldTag" methodname="RichBold_ReturnsBoldTag" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="771038577" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000057" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1340" name="RichColor_ReturnsColorTag" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.RichColor_ReturnsColorTag" methodname="RichColor_ReturnsColorTag" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="723091122" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000077" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1343" name="RichItalic_ReturnsItalicTag" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.RichItalic_ReturnsItalicTag" methodname="RichItalic_ReturnsItalicTag" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="840528591" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000133" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1341" name="RichSize_ReturnsSizeTag" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.RichSize_ReturnsSizeTag" methodname="RichSize_ReturnsSizeTag" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="785221682" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000074" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1345" name="RichStrikethrough_ReturnsStrikethroughTag" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.RichStrikethrough_ReturnsStrikethroughTag" methodname="RichStrikethrough_ReturnsStrikethroughTag" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="711624116" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000056" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1344" name="RichUnderline_ReturnsUnderlineTag" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.RichUnderline_ReturnsUnderlineTag" methodname="RichUnderline_ReturnsUnderlineTag" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1216813457" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000057" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1326" name="Shorten_BlankInput_ReturnsBlankUnchanged" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.Shorten_BlankInput_ReturnsBlankUnchanged" methodname="Shorten_BlankInput_ReturnsBlankUnchanged" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="657247697" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000106" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1325" name="Shorten_StringEqualToMax_ReturnsFullString" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.Shorten_StringEqualToMax_ReturnsFullString" methodname="Shorten_StringEqualToMax_ReturnsFullString" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1171586447" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000042" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1323" name="Shorten_StringLongerThanMax_TruncatesAtMax" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.Shorten_StringLongerThanMax_TruncatesAtMax" methodname="Shorten_StringLongerThanMax_TruncatesAtMax" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1615113526" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000045" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1324" name="Shorten_StringShorterThanMax_ReturnsFullString" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.Shorten_StringShorterThanMax_ReturnsFullString" methodname="Shorten_StringShorterThanMax_ReturnsFullString" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1487264450" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000039" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1330" name="Slice_BlankInput_ThrowsArgumentNullException" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.Slice_BlankInput_ThrowsArgumentNullException" methodname="Slice_BlankInput_ThrowsArgumentNullException" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="212849364" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000179" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1332" name="Slice_EndBeforeStart_ThrowsArgumentOutOfRange" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.Slice_EndBeforeStart_ThrowsArgumentOutOfRange" methodname="Slice_EndBeforeStart_ThrowsArgumentOutOfRange" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1016728922" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000193" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1329" name="Slice_NegativeEndIndex_CountsFromEnd" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.Slice_NegativeEndIndex_CountsFromEnd" methodname="Slice_NegativeEndIndex_CountsFromEnd" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1770689359" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000044" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1331" name="Slice_NegativeStartIndex_ThrowsArgumentOutOfRange" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.Slice_NegativeStartIndex_ThrowsArgumentOutOfRange" methodname="Slice_NegativeStartIndex_ThrowsArgumentOutOfRange" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="384958881" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000081" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1328" name="Slice_StartZero_ReturnsFromBeginning" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.Slice_StartZero_ReturnsFromBeginning" methodname="Slice_StartZero_ReturnsFromBeginning" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1731742886" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000043" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1327" name="Slice_ValidRange_ReturnsSubstring" fullname="SOSXR.SeaShark.Tests.StringExtensionsTests.Slice_ValidRange_ReturnsSubstring" methodname="Slice_ValidRange_ReturnsSubstring" classname="SOSXR.SeaShark.Tests.StringExtensionsTests" runstate="Runnable" seed="1906122267" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000046" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1346" name="Vector2ExtensionsTests" fullname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests" classname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.003128" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1347" name="Add_AddsToXAndY" fullname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests.Add_AddsToXAndY" methodname="Add_AddsToXAndY" classname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests" runstate="Runnable" seed="1028941392" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000121" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1348" name="Add_DefaultsToZero_LeavesComponentsUnchanged" fullname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests.Add_DefaultsToZero_LeavesComponentsUnchanged" methodname="Add_DefaultsToZero_LeavesComponentsUnchanged" classname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests" runstate="Runnable" seed="347275145" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000065" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1354" name="InRangeOf_OutsideRange_ReturnsFalse" fullname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests.InRangeOf_OutsideRange_ReturnsFalse" methodname="InRangeOf_OutsideRange_ReturnsFalse" classname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests" runstate="Runnable" seed="1479928283" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000103" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1352" name="InRangeOf_SamePoint_IsInRange" fullname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests.InRangeOf_SamePoint_IsInRange" methodname="InRangeOf_SamePoint_IsInRange" classname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests" runstate="Runnable" seed="146190220" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000050" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1353" name="InRangeOf_WithinRange_ReturnsTrue" fullname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests.InRangeOf_WithinRange_ReturnsTrue" methodname="InRangeOf_WithinRange_ReturnsTrue" classname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests" runstate="Runnable" seed="709641454" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000057" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1351" name="With_BothNull_ReturnsUnchanged" fullname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests.With_BothNull_ReturnsUnchanged" methodname="With_BothNull_ReturnsUnchanged" classname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests" runstate="Runnable" seed="2030586377" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000129" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1349" name="With_OnlyX_ChangesXPreservesY" fullname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests.With_OnlyX_ChangesXPreservesY" methodname="With_OnlyX_ChangesXPreservesY" classname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests" runstate="Runnable" seed="490182986" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000071" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1350" name="With_OnlyY_ChangesYPreservesX" fullname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests.With_OnlyY_ChangesYPreservesX" methodname="With_OnlyY_ChangesYPreservesX" classname="SOSXR.SeaShark.Tests.Vector2ExtensionsTests" runstate="Runnable" seed="1062438628" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000070" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1355" name="Vector3ExtensionsTests" fullname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests" classname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.003879" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1360" name="Add_AddsToEachComponent" fullname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests.Add_AddsToEachComponent" methodname="Add_AddsToEachComponent" classname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests" runstate="Runnable" seed="826404733" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000120" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1361" name="Add_DefaultsToZero_LeavesComponentsUnchanged" fullname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests.Add_DefaultsToZero_LeavesComponentsUnchanged" methodname="Add_DefaultsToZero_LeavesComponentsUnchanged" classname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests" runstate="Runnable" seed="1818678035" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000075" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1365" name="ComponentDivide_DividesEachComponent" fullname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests.ComponentDivide_DividesEachComponent" methodname="ComponentDivide_DividesEachComponent" classname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests" runstate="Runnable" seed="756577969" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000133" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1366" name="ComponentDivide_DivisionByZero_PreservesOriginalComponent" fullname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests.ComponentDivide_DivisionByZero_PreservesOriginalComponent" methodname="ComponentDivide_DivisionByZero_PreservesOriginalComponent" classname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests" runstate="Runnable" seed="1230503248" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000105" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1364" name="InRangeOf_OutsideRange_ReturnsFalse" fullname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests.InRangeOf_OutsideRange_ReturnsFalse" methodname="InRangeOf_OutsideRange_ReturnsFalse" classname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests" runstate="Runnable" seed="424885167" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000106" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1362" name="InRangeOf_SamePoint_IsInRange" fullname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests.InRangeOf_SamePoint_IsInRange" methodname="InRangeOf_SamePoint_IsInRange" classname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests" runstate="Runnable" seed="1100050933" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000048" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1363" name="InRangeOf_WithinRange_ReturnsTrue" fullname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests.InRangeOf_WithinRange_ReturnsTrue" methodname="InRangeOf_WithinRange_ReturnsTrue" classname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests" runstate="Runnable" seed="665825285" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000053" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1367" name="ToVector3_ConvertsV2ToV3WithZeroY" fullname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests.ToVector3_ConvertsV2ToV3WithZeroY" methodname="ToVector3_ConvertsV2ToV3WithZeroY" classname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests" runstate="Runnable" seed="91514970" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000093" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1359" name="With_AllComponents_SetsAll" fullname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests.With_AllComponents_SetsAll" methodname="With_AllComponents_SetsAll" classname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests" runstate="Runnable" seed="8215476" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000165" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1356" name="With_OnlyX_ChangesXPreservesYZ" fullname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests.With_OnlyX_ChangesXPreservesYZ" methodname="With_OnlyX_ChangesXPreservesYZ" classname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests" runstate="Runnable" seed="724059990" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000077" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1357" name="With_OnlyY_ChangesYPreservesXZ" fullname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests.With_OnlyY_ChangesYPreservesXZ" methodname="With_OnlyY_ChangesYPreservesXZ" classname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests" runstate="Runnable" seed="1618775285" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000075" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1358" name="With_OnlyZ_ChangesZPreservesXY" fullname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests.With_OnlyZ_ChangesZPreservesXY" methodname="With_OnlyZ_ChangesZPreservesXY" classname="SOSXR.SeaShark.Tests.Vector3ExtensionsTests" runstate="Runnable" seed="1505086285" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000072" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1368" name="VectorConversionExtensionsTests" fullname="SOSXR.SeaShark.Tests.VectorConversionExtensionsTests" classname="SOSXR.SeaShark.Tests.VectorConversionExtensionsTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.002771" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1371" name="RoundTrip_V2_SystemToUnityToSystem_PreservesValues" fullname="SOSXR.SeaShark.Tests.VectorConversionExtensionsTests.RoundTrip_V2_SystemToUnityToSystem_PreservesValues" methodname="RoundTrip_V2_SystemToUnityToSystem_PreservesValues" classname="SOSXR.SeaShark.Tests.VectorConversionExtensionsTests" runstate="Runnable" seed="1158403389" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000154" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1374" name="RoundTrip_V3_SystemToUnityToSystem_PreservesValues" fullname="SOSXR.SeaShark.Tests.VectorConversionExtensionsTests.RoundTrip_V3_SystemToUnityToSystem_PreservesValues" methodname="RoundTrip_V3_SystemToUnityToSystem_PreservesValues" classname="SOSXR.SeaShark.Tests.VectorConversionExtensionsTests" runstate="Runnable" seed="861489974" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000165" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1370" name="ToSystemVector_V2_ConvertsXAndY" fullname="SOSXR.SeaShark.Tests.VectorConversionExtensionsTests.ToSystemVector_V2_ConvertsXAndY" methodname="ToSystemVector_V2_ConvertsXAndY" classname="SOSXR.SeaShark.Tests.VectorConversionExtensionsTests" runstate="Runnable" seed="109796004" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000077" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1373" name="ToSystemVector_V3_ConvertsXYAndZ" fullname="SOSXR.SeaShark.Tests.VectorConversionExtensionsTests.ToSystemVector_V3_ConvertsXYAndZ" methodname="ToSystemVector_V3_ConvertsXYAndZ" classname="SOSXR.SeaShark.Tests.VectorConversionExtensionsTests" runstate="Runnable" seed="753476032" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000078" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1369" name="ToUnityVector_V2_ConvertsXAndY" fullname="SOSXR.SeaShark.Tests.VectorConversionExtensionsTests.ToUnityVector_V2_ConvertsXAndY" methodname="ToUnityVector_V2_ConvertsXAndY" classname="SOSXR.SeaShark.Tests.VectorConversionExtensionsTests" runstate="Runnable" seed="293575372" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000062" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1372" name="ToUnityVector_V3_ConvertsXYAndZ" fullname="SOSXR.SeaShark.Tests.VectorConversionExtensionsTests.ToUnityVector_V3_ConvertsXYAndZ" methodname="ToUnityVector_V3_ConvertsXYAndZ" classname="SOSXR.SeaShark.Tests.VectorConversionExtensionsTests" runstate="Runnable" seed="1258718880" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000082" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1375" name="VectorMathTests" fullname="SOSXR.SeaShark.Tests.VectorMathTests" classname="SOSXR.SeaShark.Tests.VectorMathTests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.004282" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1381" name="ExtractDotVector_ExtractsDirectionComponent" fullname="SOSXR.SeaShark.Tests.VectorMathTests.ExtractDotVector_ExtractsDirectionComponent" methodname="ExtractDotVector_ExtractsDirectionComponent" classname="SOSXR.SeaShark.Tests.VectorMathTests" runstate="Runnable" seed="1751825451" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000175" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1388" name="GetAngle_PerpendicularVectorsOnPlane_Returns90Degrees" fullname="SOSXR.SeaShark.Tests.VectorMathTests.GetAngle_PerpendicularVectorsOnPlane_Returns90Degrees" methodname="GetAngle_PerpendicularVectorsOnPlane_Returns90Degrees" classname="SOSXR.SeaShark.Tests.VectorMathTests" runstate="Runnable" seed="2097984473" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000188" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1387" name="GetAngle_SameVectors_ReturnsZero" fullname="SOSXR.SeaShark.Tests.VectorMathTests.GetAngle_SameVectors_ReturnsZero" methodname="GetAngle_SameVectors_ReturnsZero" classname="SOSXR.SeaShark.Tests.VectorMathTests" runstate="Runnable" seed="1348997317" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000060" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1377" name="GetDotProduct_OppositeVectors_ReturnsNegative" fullname="SOSXR.SeaShark.Tests.VectorMathTests.GetDotProduct_OppositeVectors_ReturnsNegative" methodname="GetDotProduct_OppositeVectors_ReturnsNegative" classname="SOSXR.SeaShark.Tests.VectorMathTests" runstate="Runnable" seed="646294184" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000100" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1376" name="GetDotProduct_ParallelVectors_ReturnsPositive" fullname="SOSXR.SeaShark.Tests.VectorMathTests.GetDotProduct_ParallelVectors_ReturnsPositive" methodname="GetDotProduct_ParallelVectors_ReturnsPositive" classname="SOSXR.SeaShark.Tests.VectorMathTests" runstate="Runnable" seed="1279845676" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000087" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1378" name="GetDotProduct_PerpendicularVectors_ReturnsZero" fullname="SOSXR.SeaShark.Tests.VectorMathTests.GetDotProduct_PerpendicularVectors_ReturnsZero" methodname="GetDotProduct_PerpendicularVectors_ReturnsZero" classname="SOSXR.SeaShark.Tests.VectorMathTests" runstate="Runnable" seed="726725820" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000081" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1386" name="IncrementVectorTowardTargetVector_DoesNotOvershoot" fullname="SOSXR.SeaShark.Tests.VectorMathTests.IncrementVectorTowardTargetVector_DoesNotOvershoot" methodname="IncrementVectorTowardTargetVector_DoesNotOvershoot" classname="SOSXR.SeaShark.Tests.VectorMathTests" runstate="Runnable" seed="919438557" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000154" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1385" name="IncrementVectorTowardTargetVector_MovesCloser" fullname="SOSXR.SeaShark.Tests.VectorMathTests.IncrementVectorTowardTargetVector_MovesCloser" methodname="IncrementVectorTowardTargetVector_MovesCloser" classname="SOSXR.SeaShark.Tests.VectorMathTests" runstate="Runnable" seed="655966346" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000081" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1384" name="ProjectPointOntoLine_PointAboveLine_ProjectsOntoLine" fullname="SOSXR.SeaShark.Tests.VectorMathTests.ProjectPointOntoLine_PointAboveLine_ProjectsOntoLine" methodname="ProjectPointOntoLine_PointAboveLine_ProjectsOntoLine" classname="SOSXR.SeaShark.Tests.VectorMathTests" runstate="Runnable" seed="727361046" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000150" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1383" name="ProjectPointOntoLine_PointOnLine_ReturnsSamePoint" fullname="SOSXR.SeaShark.Tests.VectorMathTests.ProjectPointOntoLine_PointOnLine_ReturnsSamePoint" methodname="ProjectPointOntoLine_PointOnLine_ReturnsSamePoint" classname="SOSXR.SeaShark.Tests.VectorMathTests" runstate="Runnable" seed="2057053145" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000072" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1382" name="RemoveAndExtract_SumToOriginal" fullname="SOSXR.SeaShark.Tests.VectorMathTests.RemoveAndExtract_SumToOriginal" methodname="RemoveAndExtract_SumToOriginal" classname="SOSXR.SeaShark.Tests.VectorMathTests" runstate="Runnable" seed="99200573" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000174" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1380" name="RemoveDotVector_PerpendicularDirection_LeavesVectorUnchanged" fullname="SOSXR.SeaShark.Tests.VectorMathTests.RemoveDotVector_PerpendicularDirection_LeavesVectorUnchanged" methodname="RemoveDotVector_PerpendicularDirection_LeavesVectorUnchanged" classname="SOSXR.SeaShark.Tests.VectorMathTests" runstate="Runnable" seed="1950018801" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000068" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1379" name="RemoveDotVector_RemovesDirectionComponent" fullname="SOSXR.SeaShark.Tests.VectorMathTests.RemoveDotVector_RemovesDirectionComponent" methodname="RemoveDotVector_RemovesDirectionComponent" classname="SOSXR.SeaShark.Tests.VectorMathTests" runstate="Runnable" seed="2119604434" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000077" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1395" name="Unity.Addressables.DocExampleCode.Editor.Tests.dll" fullname="/Users/mrstruijk/Current_Coding_Projects/PackageManager/Library/ScriptAssemblies/Unity.Addressables.DocExampleCode.Editor.Tests.dll" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.003925" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="98908" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1396" name="AddressableAssets" fullname="AddressableAssets" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.002050" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1397" name="DocExampleCode" fullname="AddressableAssets.DocExampleCode" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000842" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1393" name="TestStub" fullname="AddressableAssets.DocExampleCode.TestStub" classname="AddressableAssets.DocExampleCode.TestStub" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000609" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1394" name="RequiredTest" fullname="AddressableAssets.DocExampleCode.TestStub.RequiredTest" methodname="RequiredTest" classname="AddressableAssets.DocExampleCode.TestStub" runstate="Runnable" seed="1741129860" result="Passed" start-time="2026-03-30 14:13:01Z" end-time="2026-03-30 14:13:01Z" duration="0.000051" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: /Users/mrstruijk/Library/Application Support/SOSXR/PackageManager/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

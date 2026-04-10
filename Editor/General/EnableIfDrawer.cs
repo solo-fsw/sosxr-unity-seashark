@@ -22,6 +22,12 @@ namespace SOSXR.SeaShark.EditorScripts
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            if (property?.serializedObject?.targetObject == null)
+            {
+                EditorGUI.PropertyField(position, property, label, true);
+                return;
+            }
+
             var enableIf = (EnableIfAttribute) attribute;
             var target = property.serializedObject.targetObject;
 
