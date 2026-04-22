@@ -13,7 +13,7 @@ using UnityEngine;
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(GeometryPainter))]
-    public class GeometryPainterEditor : Editor
+    public class GeometryPainterEditor : UnityEditor.Editor
     {
         public static bool EditorActive;
 
@@ -31,7 +31,7 @@ namespace SOSXR.SeaShark.EditorScripts
         private void OnUndo()
         {
             var painters = FindObjectsByType<GeometryPainter>(
-                FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+                FindObjectsInactive.Exclude);
 
             for (var i = 0; i < painters.Length; ++i)
             {

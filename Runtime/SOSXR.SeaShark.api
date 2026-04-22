@@ -1,10 +1,39 @@
 // This file is generated. Do not modify by hand.
 // XML documentation file not found. To check if public methods have XML comments,
 // make sure the XML doc file is present and located next to the scraped dll
+[UnityEngine.RequireComponent(typeof(UnityEngine.AudioSource))] public class AudioSourcePlayer : UnityEngine.MonoBehaviour
+{
+    public AudioSourcePlayer() {}
+}
+
+public class ChangeLayer : UnityEngine.MonoBehaviour
+{
+    public ChangeLayer() {}
+    [UnityEngine.ContextMenu(@"Change")] public void Change();
+    [UnityEngine.ContextMenu(@"Original")] public void Original();
+    public void Toggle(bool original);
+}
+
 [System.AttributeUsage(System.AttributeTargets.Field)] public class PostfixAttribute : UnityEngine.PropertyAttribute
 {
     public readonly string Postfix;
     public PostfixAttribute(string postfix) {}
+}
+
+[UnityEngine.RequireComponent(typeof(UnityEngine.AudioSource))] public class SimpleToneGenerator : UnityEngine.MonoBehaviour
+{
+    public SimpleToneGenerator() {}
+    [SOSXR.SeaShark.Button(null, null, 0, false)] public void GenerateAndSaveWav();
+    [SOSXR.SeaShark.Button(null, null, 0, false)] public void GenerateRangeOfTones();
+    [SOSXR.SeaShark.Button(null, null, 0, false)] public void PlayForDuration();
+    public void PlayForDuration(float duration);
+    [SOSXR.SeaShark.Button(null, null, 0, false)] public void StartTone();
+    [SOSXR.SeaShark.Button(null, null, 0, false)] public void StopTone();
+}
+
+public static class ToneExporter
+{
+    public static void GenerateAndSaveWav(int frequency, float amplitude, int duration, string path);
 }
 
 namespace DitzelGames.FastIK
@@ -112,6 +141,11 @@ namespace SOSXR.SeaShark
         public AngleAttribute(float min, float max, string unit, UnityEngine.Color backgroundColor, UnityEngine.Color activeColor, bool showValue, float knobSize) {}
     }
 
+    public class AnimatorHelpers : UnityEngine.MonoBehaviour
+    {
+        public AnimatorHelpers() {}
+    }
+
     public class AnimatorParameterAttribute : UnityEngine.PropertyAttribute
     {
         public readonly AnimatorParameterAttribute.ParameterType parameterType = AnimatorParameterAttribute.ParameterType.None; // warning: this initializer is overridden in at least one ctor
@@ -146,6 +180,13 @@ namespace SOSXR.SeaShark
     public class AutoCycleBuildScenes : UnityEngine.MonoBehaviour
     {
         public AutoCycleBuildScenes() {}
+    }
+
+    public enum Axis
+    {
+        X = 0,
+        Y = 1,
+        Z = 2,
     }
 
     public abstract class BaseConfigData : UnityEngine.ScriptableObject
@@ -941,6 +982,11 @@ namespace SOSXR.SeaShark
         Optional = 3,
     }
 
+    public class Parental : UnityEngine.MonoBehaviour
+    {
+        public Parental() {}
+    }
+
     public class PasswordAttribute : UnityEngine.PropertyAttribute
     {
         public char mask = 42;
@@ -1265,6 +1311,13 @@ namespace SOSXR.SeaShark
         public static async void Forget(this System.Threading.Tasks.Task task, System.Action<System.Exception> onException = default(System.Action<System.Exception>));
     }
 
+    [UnityEngine.RequireComponent(typeof(TMPro.TextMeshProUGUI))] public class TextMeshProSetText : UnityEngine.MonoBehaviour
+    {
+        public TextMeshProSetText() {}
+        public void ClearText();
+        public void SetText(int input);
+    }
+
     public class TimeAttribute : UnityEngine.PropertyAttribute
     {
         public readonly bool DisplayHours;
@@ -1280,6 +1333,18 @@ namespace SOSXR.SeaShark
     public class ToggleGameObjectOnPlatforms : UnityEngine.MonoBehaviour
     {
         public ToggleGameObjectOnPlatforms() {}
+    }
+
+    public class ToggleMultipleRenderers : UnityEngine.MonoBehaviour
+    {
+        public ToggleMultipleRenderers() {}
+        [Button(null, null, 0, false)] public void Toggle(bool setEnabled);
+    }
+
+    public class ToggleMultipleTogglers : UnityEngine.MonoBehaviour
+    {
+        public ToggleMultipleTogglers() {}
+        [Button(null, null, 0, false)] public void Toggle(bool setEnabled);
     }
 
     public enum TransformDirections

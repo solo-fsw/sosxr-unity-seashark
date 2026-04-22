@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 
 namespace SOSXR.SeaShark
@@ -55,7 +55,7 @@ namespace SOSXR.SeaShark
             InitializationTime = Time.time;
             DontDestroyOnLoad(gameObject);
 
-            var oldInstances = FindObjectsByType<T>(FindObjectsSortMode.None);
+            var oldInstances = FindObjectsByType<T>(FindObjectsInactive.Exclude);
 
             foreach (var old in oldInstances)
             {

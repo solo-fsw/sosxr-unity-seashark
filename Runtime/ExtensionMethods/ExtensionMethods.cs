@@ -1412,7 +1412,7 @@ namespace SOSXR.SeaShark
         )
             where T : MonoBehaviour
         {
-            foundObject = Object.FindFirstObjectByType<T>();
+            foundObject = Object.FindAnyObjectByType<T>();
 
             if (foundObject == null)
             {

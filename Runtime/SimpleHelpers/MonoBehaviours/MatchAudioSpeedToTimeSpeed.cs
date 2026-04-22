@@ -16,7 +16,7 @@ namespace SOSXR.SeaShark
 
         private void Awake()
         {
-            _sources = FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+            _sources = FindObjectsByType<AudioSource>(FindObjectsInactive.Exclude);
         }
 
 

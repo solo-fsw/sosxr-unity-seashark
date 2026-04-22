@@ -1,11 +1,11 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(Move))]
-    public class MoveEditor : Editor
+    public class MoveEditor : UnityEditor.Editor
     {
         // Cached SerializedProperties
         private SerializedProperty actionToTakeProp;

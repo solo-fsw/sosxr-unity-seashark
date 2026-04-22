@@ -24,6 +24,16 @@ public static class SOSXRDefaultValues
     public static T Get<T>();
 }
 
+namespace SOSXR.SeaShark.Editor
+{
+    [UnityEditor.CustomPropertyDrawer(typeof(HidingAttribute), true)] public class HidingDrawer : UnityEditor.PropertyDrawer
+    {
+        public HidingDrawer() {}
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+        public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label);
+    }
+}
+
 namespace SOSXR.SeaShark.EditorScripts
 {
     [UnityEditor.CustomPropertyDrawer(typeof(AngleAttribute))] public class AngleDrawer : UnityEditor.PropertyDrawer

@@ -73,7 +73,7 @@ namespace SOSXR.SeaShark
         {
             if (m_whiteboard == null)
             {
-                m_whiteboard = FindFirstObjectByType<Whiteboard>();
+                m_whiteboard = FindAnyObjectByType<Whiteboard>();
             }
 
             _renderer = m_drawPart.GetComponent<Renderer>();
@@ -104,7 +104,7 @@ namespace SOSXR.SeaShark
                 return true;
             }
 
-            m_whiteboard = FindFirstObjectByType<Whiteboard>();
+            m_whiteboard = FindAnyObjectByType<Whiteboard>();
 
             return m_whiteboard != null;
         }

@@ -4,9 +4,9 @@ using UnityEngine;
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(WrapConfigData), true)]
-    public class WrapConfigDataEditor : Editor
+    public class WrapConfigDataEditor : UnityEditor.Editor
     {
-        private Editor configDataEditor;
+        private UnityEditor.Editor configDataEditor;
         private SerializedProperty configDataProp;
 
         private void OnEnable() => configDataProp = serializedObject.FindProperty(nameof(WrapConfigData.ConfigData));

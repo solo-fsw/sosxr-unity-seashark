@@ -8,7 +8,7 @@ namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(ConfigValueToUnityEvent<>), true)] // Supports subclasses
     [CanEditMultipleObjects]
-    public class BaseValueToUnityEventEditor : Editor
+    public class BaseValueToUnityEventEditor : UnityEditor.Editor
     {
         private string[] validValueNames;
         private Type fieldType;

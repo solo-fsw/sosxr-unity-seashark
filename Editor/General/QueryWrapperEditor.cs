@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(QueryWrapper), true)]
-    public class QueryWrapperEditor : Editor
+    public class QueryWrapperEditor : UnityEditor.Editor
     {
         private readonly string[] _excludedNamesTwo =
         {

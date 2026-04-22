@@ -7,7 +7,7 @@ using UnityEngine;
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(BaseConfigData), true)]
-    public class ConfigDataEditor : Editor
+    public class ConfigDataEditor : UnityEditor.Editor
     {
         private readonly string[] _excludedNames = { "name", "hideFlags", "UpdateJsonOnValueChange" };
         private string[] _validValueNames;

@@ -1,11 +1,11 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 
 namespace SOSXR.SeaShark.EditorScripts
 {
     [CustomEditor(typeof(DrawGizmo))]
-    public class DrawGizmoEditor : Editor
+    public class DrawGizmoEditor : UnityEditor.Editor
     {
         private SerializedProperty m_gizmoType;
         private SerializedProperty m_endTransform;

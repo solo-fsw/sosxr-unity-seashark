@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace SOSXR.SeaShark.EditorScripts
 {
-    public class SOSXRBaseEditor<T> : Editor where T : Object
+    public class SOSXRBaseEditor<T> : UnityEditor.Editor where T : Object
     {
         private readonly string _textureName = "SOSXR_editor_icon";
         private readonly Dictionary<MethodInfo, object[]> _methodArgs = new();
@@ -70,7 +70,7 @@ namespace SOSXR.SeaShark.EditorScripts
 
                     // Cache attributes
                     _cachedButtonAttrs[m] = buttonAttr;
-                    _cachedInfoAttrs[m] = (InfoAttribute[]) m.GetCustomAttributes(typeof(InfoAttribute), true);
+                    _cachedInfoAttrs[m] = (InfoAttribute[])m.GetCustomAttributes(typeof(InfoAttribute), true);
 
                     if (!_methodArgs.ContainsKey(m))
                     {
@@ -125,12 +125,12 @@ namespace SOSXR.SeaShark.EditorScripts
             {
                 var buttonAttr = _cachedButtonAttrs[method];
 
-                if (buttonAttr is {Space: > 0})
+                if (buttonAttr is { Space: > 0 })
                 {
                     y += buttonAttr.Space;
                 }
 
-                if (buttonAttr is {HorizontalLine: true})
+                if (buttonAttr is { HorizontalLine: true })
                 {
                     EditorGUI.DrawRect(new Rect(0, y, width, 1), new Color(0.3f, 0.3f, 0.3f));
                     y += 4;
@@ -198,7 +198,7 @@ namespace SOSXR.SeaShark.EditorScripts
 
             if (type.IsEnum)
             {
-                return EditorGUI.EnumPopup(rect, (Enum) (value ?? Activator.CreateInstance(type)));
+                return EditorGUI.EnumPopup(rect, (Enum)(value ?? Activator.CreateInstance(type)));
             }
 
             return value;
@@ -221,7 +221,7 @@ namespace SOSXR.SeaShark.EditorScripts
             {
                 var content = new GUIContent(info.InfoText);
                 var height = _infoStyle.CalcHeight(content, availableWidth);
-                EditorGUI.HelpBox(new Rect(0, y, availableWidth, height), info.InfoText, (MessageType) info.MessageType);
+                EditorGUI.HelpBox(new Rect(0, y, availableWidth, height), info.InfoText, (MessageType)info.MessageType);
                 y += height + 8;
             }
 
@@ -242,7 +242,7 @@ namespace SOSXR.SeaShark.EditorScripts
                 return;
             }
 
-            var id = target.GetInstanceID();
+            var id = target.GetEntityId();
 
             foreach (var method in _cachedMethods)
             {
@@ -268,7 +268,7 @@ namespace SOSXR.SeaShark.EditorScripts
                 return;
             }
 
-            var id = target.GetInstanceID();
+            var id = target.GetEntityId();
 
             foreach (var kvp in _methodArgs)
             {
