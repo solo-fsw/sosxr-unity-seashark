@@ -27,6 +27,7 @@ namespace DitzelGames.FastIK
         protected Quaternion[] StartRotationBone;
         protected Quaternion StartRotationTarget;
         protected Transform Root;
+        private Vector3[] _animatedPositionsBuffer;
 
 
         private void Awake()
@@ -105,12 +106,15 @@ namespace DitzelGames.FastIK
                 Init();
             }
 
-            var animatedPositions = new Vector3[Positions.Length];
+            if (_animatedPositionsBuffer == null || _animatedPositionsBuffer.Length != Positions.Length)
+            {
+                _animatedPositionsBuffer = new Vector3[Positions.Length];
+            }
 
             for (var i = 0; i < Bones.Length; i++)
             {
                 Positions[i] = GetPositionRootSpace(Bones[i]);
-                animatedPositions[i] = Positions[i];
+                _animatedPositionsBuffer[i] = Positions[i];
             }
 
             var targetPosition = GetPositionRootSpace(Target);
@@ -169,7 +173,7 @@ namespace DitzelGames.FastIK
 
             for (var i = 0; i < Positions.Length; i++)
             {
-                var blendedPos = Vector3.Lerp(animatedPositions[i], Positions[i], PositionWeight);
+                var blendedPos = Vector3.Lerp(_animatedPositionsBuffer[i], Positions[i], PositionWeight);
                 SetPositionRootSpace(Bones[i], blendedPos);
 
                 if (i == Positions.Length - 1)
