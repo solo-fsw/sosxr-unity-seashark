@@ -95,7 +95,7 @@ public class SimpleToneGenerator : MonoBehaviour
     [Button]
     public void GenerateAndSaveWav()
     {
-        var fileName = $"Tone_{m_frequency}Hz_{m_amplitude * 100f:0}pct_{m_durationMS}ms.wav";
+        var fileName = $"Tone_{m_frequency.ToString()}Hz_{(m_amplitude * 100f).ToString("0")}pct_{m_durationMS.ToString()}ms.wav";
 
         if (!Directory.Exists(m_saveDirectory))
         {

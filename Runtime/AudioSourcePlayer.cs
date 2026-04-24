@@ -50,7 +50,7 @@ public class AudioSourcePlayer : MonoBehaviour
         _audioSource.loop = !_audioSource.loop;
 
         m_looping = _audioSource.loop;
-        this.Verbose($"Looping is now {m_looping}");
+        this.Verbose($"Looping is now {m_looping.ToString()}");
     }
 
 
