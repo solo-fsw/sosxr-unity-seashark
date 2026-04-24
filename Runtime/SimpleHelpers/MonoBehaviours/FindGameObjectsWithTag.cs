@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 
 namespace SOSXR.SeaShark
@@ -54,24 +53,27 @@ namespace SOSXR.SeaShark
 
         private bool InvalidatedCache()
         {
-            if (
-                _foundGameObjects == null
-                || _foundGameObjects.Length == 0
-                || _foundGameObjects.All(go => go != null)
-            )
+            if (_foundGameObjects == null || _foundGameObjects.Length == 0)
             {
                 return false;
             }
 
-            _foundGameObjects = null;
+            // Check if any GameObject is null (destroyed)
+            for (int i = 0; i < _foundGameObjects.Length; i++)
+            {
+                if (_foundGameObjects[i] == null)
+                {
+                    _foundGameObjects = null;
 
-            Debug.Log(
-                "Invalidated cache because a GameObject with tag \""
-                    + m_tagToSearchFor
-                    + "\" was destroyed."
-            );
+                    Debug.Log(
+                        $"Invalidated cache because a GameObject with tag \"{m_tagToSearchFor}\" was destroyed."
+                    );
 
-            return true;
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void Awake()

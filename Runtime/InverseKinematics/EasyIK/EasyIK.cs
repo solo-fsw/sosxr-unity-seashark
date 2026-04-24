@@ -1,4 +1,3 @@
-using System.Linq;
 using SOSXR.SeaShark;
 using UnityEngine;
 using Header = SOSXR.SeaShark.HeaderAttribute;
@@ -170,7 +169,7 @@ namespace joaen
 
             // Let's constrain the rotation of the last joint to the IK target and maintain the offset.
             var offset = _lastJointStartRot * Quaternion.Inverse(_ikTargetStartRot);
-            _jointTransforms.Last().rotation = Target.rotation * offset;
+            _jointTransforms[_jointTransforms.Length - 1].rotation = Target.rotation * offset;
         }
 
 
