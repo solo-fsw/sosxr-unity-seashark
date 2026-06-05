@@ -1,0 +1,394 @@
+:root {
+    --leiden-blue: rgb(0, 17, 88);
+    --leiden-teal: rgb(100, 51, 171);
+    --leiden-orange: rgb(190, 69, 0);
+    --leiden-white: rgb(255, 255, 255);
+    --leiden-black: rgb(0, 0, 0);
+    --leiden-transparent-white: rgba(255, 255, 255, 0.2);
+    --leiden-transparent-dark: rgba(0, 0, 0, 0.3);
+    --leiden-humanities: rgb(77, 120, 31);
+    -unity-font-definition: var(--leiden-font);
+    color: var(--leiden-white);
+    --leiden-contrast: rgb(82, 79, 71);
+    --leiden-font: resource("Fonts/MapleMono-NF-Italic");
+}
+
+.panel {
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/kenney_ui-pack/PNG/Grey/Default/button_rectangle_flat.png?fileID=2800000&guid=77f51efe7a6104cf78f772febd7b5ff3&type=3#button_rectangle_flat");
+    -unity-background-image-tint-color: var(--leiden-blue);
+    padding: 40px;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+    border-bottom-left-radius: 24px;
+    opacity: 1;
+}
+
+.scroll-view {
+    flex-grow: 1;
+    opacity: 1;
+}
+
+.scroll-view > .unity-scroller {
+    background-color: var(--leiden-transparent-dark);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    opacity: 1;
+}
+
+.scroll-view > .unity-scroller__slider > .unity-slider__tracker {
+    background-color: var(--leiden-transparent-white);
+    opacity: 1;
+}
+
+.scroll-view > .unity-scroller__slider > .unity-slider__dragger {
+    background-color: var(--leiden-teal);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    opacity: 1;
+}
+
+.title {
+    font-size: 48px;
+    -unity-text-auto-size: best-fit 24px 72px;
+    -unity-text-generator: advanced;
+    -unity-font-definition: var(--leiden-font);
+    color: var(--leiden-white);
+    margin-bottom: 8px;
+    -unity-text-align: middle-left;
+}
+
+.subtitle {
+    font-size: 20px;
+    -unity-text-auto-size: best-fit 12px 28px;
+    -unity-text-generator: advanced;
+    -unity-font-definition: var(--leiden-font);
+    margin-bottom: 32px;
+    -unity-text-align: middle-left;
+    color: var(--leiden-orange);
+}
+
+.section-title {
+    font-size: 28px;
+    -unity-text-auto-size: best-fit 16px 36px;
+    -unity-text-generator: advanced;
+    -unity-font-definition: var(--leiden-font);
+    color: var(--leiden-teal);
+    margin-top: 24px;
+    margin-bottom: 12px;
+    -unity-text-align: middle-left;
+}
+
+.button {
+    font-size: 32px;
+    -unity-text-auto-size: best-fit 14px 48px;
+    -unity-text-generator: advanced;
+    -unity-font-definition: var(--leiden-font);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/kenney_ui-pack/PNG/Grey/Default/button_rectangle_depth_gloss.png?fileID=2800000&guid=b2877f2159cdc440a822baf5baea4a68&type=3#button_rectangle_depth_gloss");
+    -unity-background-image-tint-color: var(--leiden-blue);
+    color: var(--leiden-white);
+    padding: 20px 40px;
+    margin: 8px;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out-cubic;
+    align-items: center;
+    justify-content: center;
+    cursor: link;
+}
+
+.button:hover {
+    -unity-background-image-tint-color: var(--leiden-teal);
+    scale: 1.05 1.05 1.05;
+}
+
+.button:active {
+    -unity-background-image-tint-color: var(--leiden-orange);
+    scale: 0.97 0.97 0.97;
+}
+
+.button-secondary {
+    -unity-background-image-tint-color: var(--leiden-teal);
+}
+
+.button-secondary:hover {
+    -unity-background-image-tint-color: var(--leiden-blue);
+}
+
+.button-accent {
+    -unity-background-image-tint-color: var(--leiden-orange);
+}
+
+.button-accent:hover {
+    -unity-background-image-tint-color: var(--leiden-teal);
+}
+
+.button-outline {
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/kenney_ui-pack/PNG/Extra/Default/button_rectangle_line.png?fileID=2800000&guid=36671cf927c9b497fa411b6426af8dde&type=3#button_rectangle_line");
+    -unity-background-image-tint-color: var(--leiden-teal);
+    background-color: var(--leiden-transparent-dark);
+}
+
+.button-outline:hover {
+    -unity-background-image-tint-color: var(--leiden-white);
+    background-color: var(--leiden-transparent-white);
+}
+
+.toggle {
+    font-size: 28px;
+    -unity-text-auto-size: best-fit 14px 36px;
+    -unity-text-generator: advanced;
+    -unity-font-definition: var(--leiden-font);
+    color: var(--leiden-white);
+    margin: 8px 0;
+}
+
+.toggle > .unity-toggle__label {
+    color: var(--leiden-white);
+    font-size: 28px;
+    -unity-text-auto-size: best-fit 14px 36px;
+    -unity-text-generator: advanced;
+    -unity-font-definition: var(--leiden-font);
+    margin-left: 16px;
+}
+
+.toggle > .unity-toggle__input > #unity-checkmark {
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/kenney_ui-pack/PNG/Grey/Default/check_square_grey.png?fileID=2800000&guid=40e3058388b744fbe95f33c62964693e&type=3#check_square_grey");
+    -unity-background-image-tint-color: var(--leiden-blue);
+    width: 40px;
+    height: 40px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.toggle > .unity-toggle__input:checked > #unity-checkmark {
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/kenney_ui-pack/PNG/Grey/Default/icon_checkmark.png?fileID=2800000&guid=a728c1ed5cd5b4b9aace48babd4512f6&type=3#icon_checkmark");
+    -unity-background-image-tint-color: var(--leiden-teal);
+}
+
+.slider {
+    height: 60px;
+    margin: 8px 0;
+}
+
+.slider > .unity-base-field__label {
+    color: var(--leiden-white);
+    font-size: 24px;
+    -unity-text-auto-size: best-fit 12px 32px;
+    -unity-text-generator: advanced;
+    -unity-font-definition: var(--leiden-font);
+    min-width: 140px;
+}
+
+.slider > .unity-base-field__input > .unity-slider__tracker {
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/kenney_ui-pack/PNG/Grey/Default/slide_horizontal_grey.png?fileID=2800000&guid=d1f4a6e43468b4af18d5159105e49fd6&type=3#slide_horizontal_grey");
+    -unity-background-image-tint-color: var(--leiden-transparent-white);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    height: 16px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.slider > .unity-base-field__input > .unity-slider__dragger {
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/kenney_ui-pack/PNG/Grey/Default/slide_hangle.png?fileID=2800000&guid=eb280e8195fc9491abc5e5faa55b1b01&type=3#slide_hangle");
+    -unity-background-image-tint-color: var(--leiden-teal);
+    width: 36px;
+    height: 36px;
+    margin-top: -10px;
+}
+
+.slider > .unity-base-field__input > .unity-slider__dragger-border {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+.progress-bar {
+    height: 48px;
+    margin: 8px 0;
+}
+
+.progress-bar > .unity-progress-bar__container {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    height: 24px;
+}
+
+.progress-bar > .unity-progress-bar__background {
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/kenney_ui-pack/PNG/Grey/Default/slide_horizontal_grey.png?fileID=2800000&guid=d1f4a6e43468b4af18d5159105e49fd6&type=3#slide_horizontal_grey");
+    -unity-background-image-tint-color: var(--leiden-transparent-white);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.progress-bar > .unity-progress-bar__progress {
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/kenney_ui-pack/PNG/Grey/Default/slide_horizontal_grey_section.png?fileID=2800000&guid=5bacb6fd56ce64d99bbcf165bd5ef7f3&type=3#slide_horizontal_grey_section");
+    -unity-background-image-tint-color: var(--leiden-orange);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.progress-bar > .unity-progress-bar__title {
+    color: var(--leiden-white);
+    font-size: 18px;
+    -unity-text-auto-size: best-fit 10px 24px;
+    -unity-text-generator: advanced;
+    -unity-font-definition: var(--leiden-font);
+    position: absolute;
+    top: 2px;
+    left: 12px;
+}
+
+.dropdown {
+    font-size: 24px;
+    -unity-text-auto-size: best-fit 12px 32px;
+    -unity-text-generator: advanced;
+    -unity-font-definition: var(--leiden-font);
+    color: var(--leiden-white);
+    margin: 8px 0;
+}
+
+.dropdown > .unity-base-field__label {
+    color: var(--leiden-white);
+    font-size: 24px;
+    -unity-text-auto-size: best-fit 12px 32px;
+    -unity-text-generator: advanced;
+    -unity-font-definition: var(--leiden-font);
+    min-width: 140px;
+}
+
+.dropdown > .unity-base-field__input {
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/kenney_ui-pack/PNG/Extra/Default/input_rectangle.png?fileID=2800000&guid=a7f1ab6537ad147d8811f2f4c384d2e0&type=3#input_rectangle");
+    -unity-background-image-tint-color: var(--leiden-transparent-white);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-left-color: var(--leiden-teal);
+    border-right-color: var(--leiden-teal);
+    border-top-color: var(--leiden-teal);
+    border-bottom-color: var(--leiden-teal);
+    color: var(--leiden-white);
+    padding: 12px 16px;
+    font-size: 24px;
+    -unity-font-definition: var(--leiden-font);
+}
+
+.dropdown > .unity-base-field__input > .unity-dropdown__arrow {
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/kenney_ui-pack/PNG/Extra/Default/icon_arrow_down_light.png?fileID=2800000&guid=84389ddaa06cd4b28806f7feaca56f34&type=3#icon_arrow_down_light");
+    -unity-background-image-tint-color: var(--leiden-white);
+    width: 24px;
+    height: 24px;
+}
+
+.text-field {
+    font-size: 24px;
+    -unity-text-auto-size: best-fit 12px 32px;
+    -unity-text-generator: advanced;
+    -unity-font-definition: var(--leiden-font);
+    color: var(--leiden-white);
+    margin: 8px 0;
+}
+
+.text-field > .unity-base-field__label {
+    color: var(--leiden-white);
+    font-size: 24px;
+    -unity-text-auto-size: best-fit 12px 32px;
+    -unity-text-generator: advanced;
+    -unity-font-definition: var(--leiden-font);
+    min-width: 140px;
+}
+
+.text-field > .unity-base-field__input {
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/kenney_ui-pack/PNG/Extra/Default/input_rectangle.png?fileID=2800000&guid=a7f1ab6537ad147d8811f2f4c384d2e0&type=3#input_rectangle");
+    -unity-background-image-tint-color: var(--leiden-transparent-white);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-left-color: var(--leiden-teal);
+    border-right-color: var(--leiden-teal);
+    border-top-color: var(--leiden-teal);
+    border-bottom-color: var(--leiden-teal);
+    color: var(--leiden-white);
+    padding: 12px 16px;
+    font-size: 24px;
+    -unity-font-definition: var(--leiden-font);
+}
+
+.text-field > .unity-base-field__input > .unity-text-field__placeholder {
+    color: var(--leiden-transparent-white);
+}
+
+.divider {
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/kenney_ui-pack/PNG/Extra/Default/divider.png?fileID=2800000&guid=b34a0fde7d3cb425987593104e82064e&type=3#divider");
+    -unity-background-image-tint-color: var(--leiden-teal);
+    height: 4px;
+    margin: 16px 0;
+}
+
+.unity-scroll-view--vertical > #unity-content-and-vertical-scroll-container > .unity-scroll-view__vertical-scroller {
+    opacity: 1;
+}
+
+.scroll-view > #unity-content-and-vertical-scroll-container > .unity-scroll-view__vertical-scroller > #unity-low-button {
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/kenney_ui-pack/PNG/Grey/Default/arrow_decorative_n_small.png?fileID=2800000&guid=ede5df25af1324c68b26cd04d5c2599b&type=3#arrow_decorative_n_small");
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: var(--leiden-orange);
+    -unity-slice-scale: 0.9px;
+}
+
+.scroll-view > #unity-content-and-vertical-scroll-container > .unity-scroll-view__vertical-scroller > #unity-high-button {
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/kenney_ui-pack/PNG/Grey/Default/arrow_decorative_s.png?fileID=2800000&guid=3e6722f52883a477fba064b5fca63b68&type=3#arrow_decorative_s");
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: var(--leiden-orange);
+}
+
+.scroll-view > #unity-content-and-vertical-scroll-container > .unity-scroll-view__vertical-scroller > #unity-slider > .unity-slider__input > #unity-drag-container > #unity-dragger {
+    background-image: none;
+    background-color: var(--leiden-orange);
+}
+
+.scroll-view > #unity-content-and-vertical-scroll-container > .unity-scroll-view__vertical-scroller > #unity-slider > .unity-slider__input > #unity-drag-container > #unity-tracker {
+    background-color: var(--leiden-transparent-white);
+}
+
+#Full_Screen {
+    background-image: url("project://database/Assets/_SOSXR/sosxr-unity-editorspice/Editor/MarkdownViewer/Skin/border.png?fileID=2800000&guid=4ec7ec5bf442811418d06cafecb39012&type=3#border");
+    -unity-background-image-tint-color: var(--leiden-white);
+}

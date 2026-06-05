@@ -29,6 +29,9 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Finds the minimap camera and extracts its dedicated culling layer.
+        /// </summary>
         private void GetCamera()
         {
             _camera = GetComponentInChildren<Camera>();
@@ -103,11 +106,10 @@ namespace SOSXR.SeaShark
                 return;
             }
 
+            // Edit-mode only tooling path. Runtime hot paths stay unchanged.
             DestroyMap();
 
             GenerateMap();
-
-            Debug.Log("Regenerated map");
         }
 
 

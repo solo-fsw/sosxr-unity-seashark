@@ -21,6 +21,11 @@ namespace SOSXR.SeaShark
 
         private void Awake()
         {
+            if (m_player == null)
+            {
+                m_player = GetComponent<Player>();
+            }
+            
             _invoker = new CommandQueue();
         }
 

@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 
 namespace SOSXR.SeaShark
 {
+    /// <summary>
+    /// Base class for trigger/collision interactions that filter incoming colliders against a target set.
+    /// </summary>
     [RequireComponent(typeof(Collider))]
     public abstract class ColliderInteractionBase : MonoBehaviour, ITargetsReceiver
     {
@@ -22,6 +24,9 @@ namespace SOSXR.SeaShark
         private bool _initialized;
 
 
+        /// <summary>
+        /// Optional source objects from which target colliders are discovered.
+        /// </summary>
         public GameObject[] Targets { get; set; }
 
 
@@ -53,19 +58,37 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Validates component state and required collider references.
+        /// </summary>
         protected abstract bool ValidateColliders();
 
 
+        /// <summary>
+        /// Finds target colliders and caches them for fast membership checks.
+        /// </summary>
+        /// <returns><c>true</c> when this component and at least one target collider are available.</returns>
         protected bool FindOtherCollider()
         {
             if (m_targetColliders == null && Targets != null)
             {
-                m_targetColliders = Targets
-                                    .Where(go => go != null)
-                                    .SelectMany(go => go.GetComponents<Collider>())
-                                    .ToArray();
+                var colliders = new List<Collider>();
 
-                _targetColliderSet = new HashSet<Collider>(m_targetColliders);
+                for (var i = 0; i < Targets.Length; i++)
+                {
+                    var target = Targets[i];
+
+                    if (target == null)
+                    {
+                        continue;
+                    }
+
+                    // Init path only, but manual loops avoid LINQ iterator and closure allocations.
+                    colliders.AddRange(target.GetComponents<Collider>());
+                }
+
+                m_targetColliders = colliders.ToArray();
+                _targetColliderSet = m_targetColliders.Length > 0 ? new HashSet<Collider>(m_targetColliders) : null;
             }
 
             return m_thisCollider != null && m_targetColliders?.Length > 0;

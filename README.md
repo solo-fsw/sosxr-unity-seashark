@@ -149,6 +149,15 @@ The GlobalEvent system provides a garbage-free, disposal-based event mechanism f
 
 ## Advanced Features
 
+### Performance Notes
+
+Recent Project Auditor fixes focused on runtime allocation hot paths and now document the intent inline:
+
+- `AdditionalUnityEvent` uses `CompareTag` loops instead of `.tag` string reads and LINQ-based tag checks in trigger/collision callbacks.
+- `AudioSourcePlayer` avoids interpolated logger strings for value types and reuses coroutine waits where safe.
+- `ColliderInteractionBase` no longer expands target colliders through LINQ.
+- `FastIKFabric` documents its cached working buffer so `LateUpdate` stays allocation-free unless chain size changes.
+
 ### Fader
 
 The Fader utility provides smooth fade transitions for UI and scene-related elements, typically by adjusting CanvasGroup alpha or material/color properties.

@@ -22,6 +22,10 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 ### Fixed
 
 - Optimised the SOSXR Base Editor
+- Reduced runtime allocations in `AdditionalUnityEvent` by replacing `.tag` reads and LINQ tag matching with `CompareTag` loops.
+- Reduced coroutine and logging allocations in `AudioSourcePlayer` by caching the fixed wait and removing interpolated logger strings for value types.
+- Removed LINQ allocations from `ColliderInteractionBase` target collider discovery.
+- Added XML documentation and inline optimization notes for audited runtime components.
 
 ## [0.3.0] - 22-07-2025
 
@@ -102,4 +106,3 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - [Extension Methods v2.0.1](https://github.com/solo-fsw/sosxr-unity-extensionmethods)
 - [SimpleHelpers v2.0.1](https://github.com/solo-fsw/sosxr-unity-simplehelpers)
 - [Device Dependent Helper v2.0.0](https://github.com/solo-fsw/sosxr-unity-devicedependenthelpers)
-

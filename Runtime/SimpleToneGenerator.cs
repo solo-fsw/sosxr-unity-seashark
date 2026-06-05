@@ -1,19 +1,21 @@
-using System.IO;
-using SOSXR.EnhancedLogger;
+﻿using System.IO;
 using SOSXR.SeaShark;
 using UnityEngine;
 
 
+/// <summary>
+/// Generates simple tones for preview playback and WAV export.
+/// </summary>
 [RequireComponent(typeof(AudioSource))]
 public class SimpleToneGenerator : MonoBehaviour
 {
-    [Range(1, 500)] [SerializeField] private int m_frequency = 120;
-    [Range(0, 1)] [SerializeField] private float m_amplitude = 0.1f;
-    [SerializeField] [Range(100, 5000)] private int m_durationMS = 500;
+    [Range(1, 500)][SerializeField] private int m_frequency = 120;
+    [Range(0, 1)][SerializeField] private float m_amplitude = 0.1f;
+    [SerializeField][Range(100, 5000)] private int m_durationMS = 500;
 
-    [SerializeField] [DisableEditing] private AudioSource _audioSource;
-    [SerializeField] [DisableEditing] private int _sampleRate;
-    [SerializeField] [DisableEditing] private float _currentAmplitude;
+    [SerializeField][DisableEditing] private AudioSource _audioSource;
+    [SerializeField][DisableEditing] private int _sampleRate;
+    [SerializeField][DisableEditing] private float _currentAmplitude;
 
     [SerializeField] private Vector3Int m_rangeFrequency = new(40, 100, 5);
     [SerializeField] private string m_saveDirectory = "Assets/_SOSXR/Audio/Generated/";
@@ -27,6 +29,9 @@ public class SimpleToneGenerator : MonoBehaviour
     private float _timeRemaining;
 
 
+    /// <summary>
+    /// Refreshes cached audio settings and inspector references.
+    /// </summary>
     private void OnValidate()
     {
         if (_audioSource == null)
@@ -41,6 +46,9 @@ public class SimpleToneGenerator : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Starts continuous tone playback.
+    /// </summary>
     [Button]
     public void StartTone()
     {
@@ -55,6 +63,10 @@ public class SimpleToneGenerator : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Plays the tone for a caller-provided duration.
+    /// </summary>
+    /// <param name="duration">Playback duration.</param>
     public void PlayForDuration(float duration)
     {
         if (_playing)
@@ -67,6 +79,9 @@ public class SimpleToneGenerator : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Plays the tone for the configured serialized duration.
+    /// </summary>
     [Button]
     public void PlayForDuration()
     {
@@ -74,6 +89,9 @@ public class SimpleToneGenerator : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Stops tone playback.
+    /// </summary>
     [Button]
     public void StopTone()
     {
@@ -81,6 +99,9 @@ public class SimpleToneGenerator : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Exports a batch of tones across the configured frequency range.
+    /// </summary>
     [Button]
     public void GenerateRangeOfTones()
     {
@@ -92,6 +113,9 @@ public class SimpleToneGenerator : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Exports the current tone settings to a WAV file.
+    /// </summary>
     [Button]
     public void GenerateAndSaveWav()
     {
@@ -104,10 +128,13 @@ public class SimpleToneGenerator : MonoBehaviour
 
         var fullPath = Path.Combine(m_saveDirectory, fileName);
         ToneExporter.GenerateAndSaveWav(m_frequency, m_amplitude, m_durationMS, fullPath);
-        this.Info($"Tone saved to: {fullPath}");
+        Debug.Log(string.Concat("Tone saved to: ", fullPath));
     }
 
 
+    /// <summary>
+    /// Updates playback state for timed tones.
+    /// </summary>
     private void Update()
     {
         if (_playing && _timeRemaining > 0f)
@@ -122,8 +149,14 @@ public class SimpleToneGenerator : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Generates audio samples on Unity's audio thread.
+    /// </summary>
+    /// <param name="data">Output sample buffer.</param>
+    /// <param name="channels">Channel count for the current output device.</param>
     private void OnAudioFilterRead(float[] data, int channels)
     {
+        // Keep audio callback allocation-free; no managed allocations inside this loop.
         _increment = m_frequency * 2.0 * Mathf.PI / _sampleRate;
 
         var targetAmplitude = _playing ? m_amplitude : 0f;
@@ -143,7 +176,7 @@ public class SimpleToneGenerator : MonoBehaviour
 
             _currentAmplitude = Mathf.Clamp01(_currentAmplitude);
 
-            var sample = Mathf.Sin((float) _phase) * _currentAmplitude;
+            var sample = Mathf.Sin((float)_phase) * _currentAmplitude;
 
             for (var c = 0; c < channels; c++)
             {

@@ -1,0 +1,54 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/_SOSXR/sosxr-unity-seashark/UI/SOSXR.uss?fileID=7433441132597879392&amp;guid=fa6ebd9480a58400d949274108776d95&amp;type=3#SOSXR"/>
+    <ui:VisualElement name="Full_Screen" enabled="true" class="panel" style="padding: 40px;">
+        <ui:ScrollView enabled="true" class="scroll-view" style="opacity: 1;">
+            <ui:Label text="Leiden University UI Kit" class="title"/>
+            <ui:Label text="Brand-compliant components for sosxr-unity-seashark" class="subtitle"/>
+            <ui:VisualElement class="divider"/>
+            <ui:Label text="Buttons" class="section-title"/>
+            <ui:VisualElement style="flex-direction: row; flex-wrap: wrap; margin-bottom: 16px;">
+                <ui:Button text="Primary" name="Button_Primary" class="button"/>
+                <ui:Button text="Secondary" name="Button_Secondary" class="button button-secondary"/>
+                <ui:Button text="Accent" name="Button_Accent" class="button button-accent"/>
+                <ui:Button text="Outline" name="Button_Outline" class="button button-outline"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="divider"/>
+            <ui:Label text="Toggles" class="section-title"/>
+            <ui:VisualElement style="margin-bottom: 16px;">
+                <ui:Toggle label="Enable Haptics" name="Toggle_Haptics" value="true" class="toggle"/>
+                <ui:Toggle label="Show Diagnostics" name="Toggle_Diagnostics" class="toggle"/>
+                <ui:Toggle label="Auto-Save Session" name="Toggle_Autosave" value="true" class="toggle"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="divider"/>
+            <ui:Label text="Sliders" class="section-title"/>
+            <ui:VisualElement style="margin-bottom: 16px;">
+                <ui:Slider label="Volume" name="Slider_Volume" low-value="0" high-value="100" value="75" class="slider"/>
+                <ui:Slider label="Sensitivity" name="Slider_Sensitivity" low-value="0.1" high-value="5" value="1.5" class="slider"/>
+                <ui:SliderInt label="Quality" name="Slider_Quality" low-value="0" high-value="3" value="2" class="slider"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="divider"/>
+            <ui:Label text="Progress" class="section-title"/>
+            <ui:VisualElement style="margin-bottom: 16px;">
+                <ui:ProgressBar title="Loading Assets..." name="Progress_Loading" low-value="0" high-value="100" value="66" class="progress-bar"/>
+                <ui:ProgressBar title="Syncing Data" name="Progress_Sync" low-value="0" high-value="100" value="33" class="progress-bar"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="divider"/>
+            <ui:Label text="Dropdown" class="section-title"/>
+            <ui:VisualElement style="margin-bottom: 16px;">
+                <ui:DropdownField label="Difficulty" name="Dropdown_Difficulty" choices="Easy,Medium,Hard,Expert" class="dropdown"/>
+                <ui:DropdownField label="Language" name="Dropdown_Language" choices="English,Nederlands,Deutsch,Français" class="dropdown"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="divider"/>
+            <ui:Label text="Text Input" class="section-title"/>
+            <ui:VisualElement style="margin-bottom: 16px;">
+                <ui:TextField label="Participant ID" name="Text_ParticipantID" max-length="20" class="text-field"/>
+                <ui:TextField label="Session Notes" name="Text_Notes" multiline="true" class="text-field" style="height: 120px;"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="divider"/>
+            <ui:VisualElement name="Bottom" style="flex-direction: row; justify-content: center; margin-top: 24px;">
+                <ui:Button text="Start" name="Button_Start" class="button" style="flex-basis: 40%;"/>
+                <ui:Button text="Stop" name="Button_Stop" class="button button-accent" style="flex-basis: 40%;"/>
+            </ui:VisualElement>
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>

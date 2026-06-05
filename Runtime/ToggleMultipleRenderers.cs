@@ -1,5 +1,4 @@
-using SOSXR.EnhancedLogger;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 namespace SOSXR.SeaShark
@@ -25,7 +24,7 @@ namespace SOSXR.SeaShark
         {
             if (m_renderers == null || m_renderers.Length == 0)
             {
-                this.Warning("No renderers found. Should this be the case?");
+                Debug.LogWarning("No renderers found. Should this be the case?");
 
                 enabled = false;
 
@@ -36,7 +35,7 @@ namespace SOSXR.SeaShark
             {
                 if (setEnabled && !rend.gameObject.activeInHierarchy)
                 {
-                    this.Info("You will not see the result of this toggle at this moment, because this GameObject has not been enabled. This toggle will only affect the mesh renderer.");
+                    Debug.Log("You will not see the result of this toggle at this moment, because this GameObject has not been enabled. This toggle will only affect the mesh renderer.");
                 }
 
                 rend.enabled = setEnabled;

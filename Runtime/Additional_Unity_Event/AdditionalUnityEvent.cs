@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -7,6 +6,10 @@ using UnityEngine.InputSystem;
 
 namespace SOSXR.SeaShark
 {
+    /// <summary>
+    /// Fires a configured <see cref="UnityEvent"/> from Unity lifecycle callbacks, physics callbacks,
+    /// or an input action.
+    /// </summary>
     public class AdditionalUnityEvent : MonoBehaviour
     {
         [SerializeField] private UnityEvent m_eventToFire;
@@ -19,6 +22,8 @@ namespace SOSXR.SeaShark
         [SerializeField] [Optional(OptionalType.WillGet)] private InputActionProperty m_inputAction;
 
         private Coroutine _activeCoroutine;
+        private WaitForSeconds _cachedDelayWait;
+        private float _cachedDelaySeconds = -1f;
 
 
         private void Awake()
@@ -35,7 +40,7 @@ namespace SOSXR.SeaShark
             if (m_triggerType == LifeCycleTriggerType.InputAction && m_inputAction.action != null)
             {
                 m_inputAction.action.Enable();
-                m_inputAction.action.performed += context => SafeFireEvent();
+                m_inputAction.action.performed += HandleInputActionPerformed;
             }
 
             if (m_triggerType == LifeCycleTriggerType.OnEnable)
@@ -54,6 +59,16 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Handles the configured input action without allocating a per-enable lambda.
+        /// </summary>
+        /// <param name="context">Input action callback context.</param>
+        private void HandleInputActionPerformed(InputAction.CallbackContext context)
+        {
+            SafeFireEvent();
+        }
+
+
         private void Update()
         {
             if (m_triggerType == LifeCycleTriggerType.Update)
@@ -65,7 +80,7 @@ namespace SOSXR.SeaShark
 
         private void OnTriggerEnter(Collider other)
         {
-            if (m_triggerType == LifeCycleTriggerType.TriggerEnter && ShouldFireForTag(other.tag))
+            if (m_triggerType == LifeCycleTriggerType.TriggerEnter && ShouldFireForTag(other.gameObject))
             {
                 SafeFireEvent();
             }
@@ -74,7 +89,7 @@ namespace SOSXR.SeaShark
 
         private void OnTriggerExit(Collider other)
         {
-            if (m_triggerType == LifeCycleTriggerType.TriggerExit && ShouldFireForTag(other.tag))
+            if (m_triggerType == LifeCycleTriggerType.TriggerExit && ShouldFireForTag(other.gameObject))
             {
                 SafeFireEvent();
             }
@@ -83,7 +98,7 @@ namespace SOSXR.SeaShark
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (m_triggerType == LifeCycleTriggerType.CollisionEnter && ShouldFireForTag(collision.gameObject.tag))
+            if (m_triggerType == LifeCycleTriggerType.CollisionEnter && ShouldFireForTag(collision.gameObject))
             {
                 SafeFireEvent();
             }
@@ -92,21 +107,47 @@ namespace SOSXR.SeaShark
 
         private void OnCollisionExit(Collision collision)
         {
-            if (m_triggerType == LifeCycleTriggerType.CollisionExit && ShouldFireForTag(collision.gameObject.tag))
+            if (m_triggerType == LifeCycleTriggerType.CollisionExit && ShouldFireForTag(collision.gameObject))
             {
                 SafeFireEvent();
             }
         }
 
 
-        private bool ShouldFireForTag(string tagName)
+        /// <summary>
+        /// Checks optional tag filters for trigger/collision callbacks.
+        /// </summary>
+        /// <param name="otherGameObject">GameObject received by the physics callback.</param>
+        /// <returns><c>true</c> when the event may fire for this object.</returns>
+        private bool ShouldFireForTag(GameObject otherGameObject)
         {
-            return m_tags.Length == 0 || m_tags.Contains(tagName);
+            if (m_tags == null || m_tags.Length == 0)
+            {
+                return true;
+            }
+
+            // CompareTag avoids the string allocation caused by reading .tag in hot callbacks.
+            for (var i = 0; i < m_tags.Length; i++)
+            {
+                var configuredTag = m_tags[i];
+
+                if (string.IsNullOrEmpty(configuredTag))
+                {
+                    continue;
+                }
+
+                if (otherGameObject.CompareTag(configuredTag))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
 
         /// <summary>
-        ///     This checks with the ShouldFire whether this event should fire given the circumstances
+        /// Fires the event only when the current build filter allows it.
         /// </summary>
         [Button]
         public void SafeFireEvent()
@@ -121,7 +162,7 @@ namespace SOSXR.SeaShark
 
 
         /// <summary>
-        ///     Only the timing checks && no-duplicate-coroutine checks are done here, but no "ShouldFire" check.
+        /// Fires the event immediately or starts the delayed invocation coroutine.
         /// </summary>
         [Button]
         public void FireEvent()
@@ -149,9 +190,12 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Delays the configured event invocation.
+        /// </summary>
         private IEnumerator FireEventCR()
         {
-            yield return new WaitForSeconds(m_delayInSeconds);
+            yield return GetDelayWaitInstruction();
 
             m_eventToFire?.Invoke();
 
@@ -159,6 +203,25 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Reuses the same wait instruction while the configured delay stays unchanged.
+        /// </summary>
+        /// <returns>Cached wait instruction for the current delay.</returns>
+        private WaitForSeconds GetDelayWaitInstruction()
+        {
+            if (_cachedDelayWait == null || !Mathf.Approximately(_cachedDelaySeconds, m_delayInSeconds))
+            {
+                _cachedDelaySeconds = m_delayInSeconds;
+                _cachedDelayWait = new WaitForSeconds(m_delayInSeconds);
+            }
+
+            return _cachedDelayWait;
+        }
+
+
+        /// <summary>
+        /// Cancels a pending delayed invocation, if one exists.
+        /// </summary>
         public void CancelEvent()
         {
             if (_activeCoroutine == null)
@@ -186,6 +249,7 @@ namespace SOSXR.SeaShark
 
             if (m_triggerType == LifeCycleTriggerType.InputAction && m_inputAction.action != null)
             {
+                m_inputAction.action.performed -= HandleInputActionPerformed;
                 m_inputAction.action.Disable();
             }
 
@@ -193,6 +257,10 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Checks whether this event is allowed in the current build/runtime context.
+        /// </summary>
+        /// <returns><c>true</c> when the configured build filter matches.</returns>
         public bool ShouldFire()
         {
             if (m_buildTriggerType == BuildTriggerType.Always)
@@ -235,6 +303,9 @@ namespace SOSXR.SeaShark
     }
 
 
+    /// <summary>
+    /// Filters when an <see cref="AdditionalUnityEvent"/> may fire based on build type.
+    /// </summary>
     public enum BuildTriggerType
     {
         Always,
@@ -245,6 +316,9 @@ namespace SOSXR.SeaShark
     }
 
 
+    /// <summary>
+    /// Defines which Unity callback should trigger the event.
+    /// </summary>
     public enum LifeCycleTriggerType
     {
         Awake,

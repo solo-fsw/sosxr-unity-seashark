@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
@@ -11,7 +11,7 @@ namespace SOSXR.SeaShark.EditorScripts
     [CustomPropertyDrawer(typeof(LabelSearchAttribute))]
     public class LabelSearchDrawer : PropertyDrawer
     {
-        private LabelSearchAttribute labelSearchAttribute => (LabelSearchAttribute) attribute;
+        private LabelSearchAttribute labelSearchAttribute => (LabelSearchAttribute)attribute;
         private const int CONTENT_HEIGHT = 16;
 
 
@@ -231,8 +231,19 @@ namespace SOSXR.SeaShark.EditorScripts
 
         private Type GetType(SerializedProperty property)
         {
-            return Assembly.Load("UnityEngine.dll")
-                           .GetType("UnityEngine." + property.type.Replace("PPtr<$", "").Replace(">", ""));
+            try
+            {
+                var assembly = Assembly.Load("UnityEngine");
+                if (assembly == null)
+                    return null;
+
+                return assembly.GetType("UnityEngine." + property.type.Replace("PPtr<$", "").Replace(">", ""));
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Couldn't get type due to {e}");
+                return null;
+            }
         }
     }
 }

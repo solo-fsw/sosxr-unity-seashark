@@ -1,7 +1,4 @@
-//using Avaturn.Core.Runtime.Scripts.Avatar;
-
-using SOSXR.EnhancedLogger;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 namespace SOSXR.SeaShark
@@ -30,7 +27,7 @@ namespace SOSXR.SeaShark
         {
             // return HumanoidAvatarBuilder.Build(gameObject);
 
-            this.Error("Currently not implemented. Needs Avaturn package.");
+            Debug.LogError("Currently not implemented. Needs Avaturn package.");
 
             return null;
         }

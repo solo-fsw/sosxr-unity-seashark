@@ -6,6 +6,9 @@ using UnityEditor;
 
 namespace DitzelGames.FastIK
 {
+    /// <summary>
+    /// Solves a transform chain with a FABRIK-style inverse kinematics pass.
+    /// </summary>
     public class FastIKFabric : MonoBehaviour
     {
         public int ChainLength = 2;
@@ -36,6 +39,9 @@ namespace DitzelGames.FastIK
         }
 
 
+        /// <summary>
+        /// Builds solver state and one-time working buffers for the current chain length.
+        /// </summary>
         private void Init()
         {
             Bones = new Transform[ChainLength + 1];
@@ -88,12 +94,18 @@ namespace DitzelGames.FastIK
         }
 
 
+        /// <summary>
+        /// Runs the IK solve after animation has updated the source transforms.
+        /// </summary>
         private void LateUpdate()
         {
             ResolveIK();
         }
 
 
+        /// <summary>
+        /// Resolves the chain toward the target and blends the result with the animated pose.
+        /// </summary>
         private void ResolveIK()
         {
             if (Target == null)
@@ -108,6 +120,7 @@ namespace DitzelGames.FastIK
 
             if (_animatedPositionsBuffer == null || _animatedPositionsBuffer.Length != Positions.Length)
             {
+                // Reallocate only when chain size changes so LateUpdate remains allocation-free.
                 _animatedPositionsBuffer = new Vector3[Positions.Length];
             }
 
