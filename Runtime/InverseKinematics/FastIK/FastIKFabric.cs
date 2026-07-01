@@ -64,7 +64,7 @@ namespace DitzelGames.FastIK
 
             if (Target == null)
             {
-                Target = new GameObject($"{transform.name} Target").transform;
+                Target = new GameObject("FastIK Target").transform;
                 SetPositionRootSpace(Target, GetPositionRootSpace(transform));
             }
 

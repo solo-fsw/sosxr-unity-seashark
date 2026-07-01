@@ -102,7 +102,7 @@ namespace SOSXR.SeaShark
     [Serializable]
     public class ButtonMap
     {
-        public Button Button;
+        [NonSerialized] public Button Button;
         public string UIName; // Use naming from UI Builder, but without #
         public UnityEvent OnClicked;
     }

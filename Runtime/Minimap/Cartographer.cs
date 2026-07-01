@@ -82,7 +82,7 @@ namespace SOSXR.SeaShark
                     continue;
                 }
 
-                var spriteGo = new GameObject(string.Concat("miniMap: ", mapMaker.Sprite.name));
+                var spriteGo = new GameObject(string.Concat("miniMap: ", mapMaker.Tag));
                 spriteGo.transform.SetParent(go.transform);
                 spriteGo.ZeroOutLocalTransform();
                 spriteGo.transform.localEulerAngles = mapMaker.Rotation;
@@ -93,6 +93,8 @@ namespace SOSXR.SeaShark
                 spriteGo.layer = _layer;
                 spriteGo.tag = m_minimapObjectsTag;
 
+                // Edit-mode only tooling path: this AddComponent runs when the minimap is generated in
+                // the editor (or via ExecuteAlways). It is not in a per-frame runtime hot path.
                 var sprite = spriteGo.AddComponent<SpriteRenderer>();
                 sprite.sprite = mapMaker.Sprite;
             }
