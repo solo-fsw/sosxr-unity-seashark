@@ -1,8 +1,7 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
-using Header = SOSXR.SeaShark.HeaderAttribute;
 using Object = UnityEngine.Object;
 
 namespace SOSXR.SeaShark
@@ -20,7 +19,7 @@ namespace SOSXR.SeaShark
         /// <summary>
         ///     Object payload sent through <see cref="m_onClipPlay"/> when the clip first begins playback.
         /// </summary>
-        [SOSXR.SeaShark.Header("On Clip Play")]
+        [Header("On Clip Play")]
         [SerializeField]
         private Object m_thing;
 
@@ -36,7 +35,7 @@ namespace SOSXR.SeaShark
         ///     String payload continuously sent through <see cref="m_whileClipPlaying"/> while the director time
         ///     remains within this clip's start/end range.
         /// </summary>
-        [SOSXR.SeaShark.Header("While Clip Playing")]
+        [Header("While Clip Playing")]
         [SerializeField]
         private string m_thingWhileClipPlaying;
 
@@ -51,7 +50,7 @@ namespace SOSXR.SeaShark
         /// <summary>
         ///     Boolean payload sent through <see cref="m_onClipEnd"/> when playback exits the clip after it has started.
         /// </summary>
-        [SOSXR.SeaShark.Header("On Clip End")]
+        [Header("On Clip End")]
         [SerializeField]
         private bool m_thingOnClipEnd;
 

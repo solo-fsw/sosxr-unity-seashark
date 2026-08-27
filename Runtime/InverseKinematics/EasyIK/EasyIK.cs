@@ -1,7 +1,5 @@
-using SOSXR.SeaShark;
+﻿using SOSXR.SeaShark;
 using UnityEngine;
-using Header = SOSXR.SeaShark.HeaderAttribute;
-
 
 namespace joaen
 {
@@ -12,14 +10,21 @@ namespace joaen
     {
         public Transform Target;
 
-        [Range(0, 6)] public int NumberOfJoints = 2;
-        [Range(0f, 1f)] public float Weight = 1.0f; // Set this value between 0 (animation) and 1 (full IK)
-        [Range(0, 20)] public int Iterations = 10;
-        [Range(0f, 0.25f)] public float Tolerance = 0.0025f;
+        [Range(0, 6)]
+        public int NumberOfJoints = 2;
 
-        [Header("Pole target (3 joint chain)")] [Optional]
+        [Range(0f, 1f)]
+        public float Weight = 1.0f; // Set this value between 0 (animation) and 1 (full IK)
+
+        [Range(0, 20)]
+        public int Iterations = 10;
+
+        [Range(0f, 0.25f)]
+        public float Tolerance = 0.0025f;
+
+        [Header("Pole target (3 joint chain)")]
+        [Optional]
         public Transform PoleTarget;
-
 
         private Transform[] _jointTransforms;
         private Vector3 _startPosition;
@@ -32,7 +37,6 @@ namespace joaen
         private Quaternion _ikTargetStartRot;
         private Quaternion _lastJointStartRot;
 
-
         private void Reset()
         {
             if (gameObject.GetComponent<EasyIKVisuals>() == null)
@@ -40,7 +44,6 @@ namespace joaen
                 gameObject.AddComponent<EasyIKVisuals>();
             }
         }
-
 
         private void Awake()
         {
@@ -79,7 +82,6 @@ namespace joaen
             }
         }
 
-
         private void PoleConstraint()
         {
             if (PoleTarget != null && NumberOfJoints < 4)
@@ -103,12 +105,10 @@ namespace joaen
             }
         }
 
-
         private void LateUpdate()
         {
             SolveIK();
         }
-
 
         private void SolveIK()
         {
@@ -172,7 +172,6 @@ namespace joaen
             _jointTransforms[_jointTransforms.Length - 1].rotation = Target.rotation * offset;
         }
 
-
         private void Backward()
         {
             // Iterate through every position in the list until we reach the start of the chain
@@ -194,7 +193,6 @@ namespace joaen
                 _jointPositions[i] = Vector3.Lerp(_jointPositions[i], targetPosition, Weight / 2);
             }
         }
-
 
         private void Forward()
         {

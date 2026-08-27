@@ -1,8 +1,7 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-
 
 namespace SOSXR.SeaShark
 {
@@ -12,19 +11,32 @@ namespace SOSXR.SeaShark
     /// </summary>
     public class AdditionalUnityEvent : MonoBehaviour
     {
-        [SerializeField] private UnityEvent m_eventToFire;
-        [SerializeField] private LifeCycleTriggerType m_triggerType = LifeCycleTriggerType.Awake;
-        [SerializeField] private BuildTriggerType m_buildTriggerType = BuildTriggerType.Always;
-        [SerializeField] [Range(0f, 10f)] private float m_delayInSeconds;
+        [SerializeField]
+        private UnityEvent m_eventToFire;
+
+        [SerializeField]
+        private LifeCycleTriggerType m_triggerType = LifeCycleTriggerType.Awake;
+
+        [SerializeField]
+        private BuildTriggerType m_buildTriggerType = BuildTriggerType.Always;
+
+        [SerializeField]
+        [Range(0f, 10f)]
+        private float m_delayInSeconds;
 
         [Header("Optional")]
-        [SerializeField] [Optional(OptionalType.WillFind)] [TagSelector] private string[] m_tags = { };
-        [SerializeField] [Optional(OptionalType.WillGet)] private InputActionProperty m_inputAction;
+        [SerializeField]
+        [Optional(OptionalType.WillFind)]
+        // [TagSelector]
+        private string[] m_tags = { };
+
+        [SerializeField]
+        [Optional(OptionalType.WillGet)]
+        private InputActionProperty m_inputAction;
 
         private Coroutine _activeCoroutine;
         private WaitForSeconds _cachedDelayWait;
         private float _cachedDelaySeconds = -1f;
-
 
         private void Awake()
         {
@@ -33,7 +45,6 @@ namespace SOSXR.SeaShark
                 SafeFireEvent();
             }
         }
-
 
         private void OnEnable()
         {
@@ -49,7 +60,6 @@ namespace SOSXR.SeaShark
             }
         }
 
-
         private void Start()
         {
             if (m_triggerType == LifeCycleTriggerType.Start)
@@ -57,7 +67,6 @@ namespace SOSXR.SeaShark
                 SafeFireEvent();
             }
         }
-
 
         /// <summary>
         /// Handles the configured input action without allocating a per-enable lambda.
@@ -68,7 +77,6 @@ namespace SOSXR.SeaShark
             SafeFireEvent();
         }
 
-
         private void Update()
         {
             if (m_triggerType == LifeCycleTriggerType.Update)
@@ -76,7 +84,6 @@ namespace SOSXR.SeaShark
                 SafeFireEvent();
             }
         }
-
 
         private void OnTriggerEnter(Collider other)
         {
@@ -86,7 +93,6 @@ namespace SOSXR.SeaShark
             }
         }
 
-
         private void OnTriggerExit(Collider other)
         {
             if (m_triggerType == LifeCycleTriggerType.TriggerExit && ShouldFireForTag(other.gameObject))
@@ -94,7 +100,6 @@ namespace SOSXR.SeaShark
                 SafeFireEvent();
             }
         }
-
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -104,7 +109,6 @@ namespace SOSXR.SeaShark
             }
         }
 
-
         private void OnCollisionExit(Collision collision)
         {
             if (m_triggerType == LifeCycleTriggerType.CollisionExit && ShouldFireForTag(collision.gameObject))
@@ -112,7 +116,6 @@ namespace SOSXR.SeaShark
                 SafeFireEvent();
             }
         }
-
 
         /// <summary>
         /// Checks optional tag filters for trigger/collision callbacks.
@@ -145,7 +148,6 @@ namespace SOSXR.SeaShark
             return false;
         }
 
-
         /// <summary>
         /// Fires the event only when the current build filter allows it.
         /// </summary>
@@ -159,7 +161,6 @@ namespace SOSXR.SeaShark
 
             FireEvent();
         }
-
 
         /// <summary>
         /// Fires the event immediately or starts the delayed invocation coroutine.
@@ -189,7 +190,6 @@ namespace SOSXR.SeaShark
             }
         }
 
-
         /// <summary>
         /// Delays the configured event invocation.
         /// </summary>
@@ -201,7 +201,6 @@ namespace SOSXR.SeaShark
 
             _activeCoroutine = null;
         }
-
 
         /// <summary>
         /// Reuses the same wait instruction while the configured delay stays unchanged.
@@ -218,7 +217,6 @@ namespace SOSXR.SeaShark
             return _cachedDelayWait;
         }
 
-
         /// <summary>
         /// Cancels a pending delayed invocation, if one exists.
         /// </summary>
@@ -233,7 +231,6 @@ namespace SOSXR.SeaShark
             StopCoroutine(_activeCoroutine);
             _activeCoroutine = null;
         }
-
 
         private void OnDisable()
         {
@@ -256,7 +253,6 @@ namespace SOSXR.SeaShark
             CancelEvent();
         }
 
-
         /// <summary>
         /// Checks whether this event is allowed in the current build/runtime context.
         /// </summary>
@@ -268,40 +264,39 @@ namespace SOSXR.SeaShark
                 return true;
             }
 
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             if (m_buildTriggerType == BuildTriggerType.OnlyInEditor && Application.isPlaying)
             {
                 return true;
             }
-            #endif
+#endif
 
-            #if !UNITY_EDITOR
+#if !UNITY_EDITOR
             if (m_buildTriggerType == BuildTriggerType.OnlyInBuilds && !Application.isPlaying)
             {
                 return true;
             }
-            #endif
+#endif
 
-            #if !UNITY_EDITOR && DEVELOPMENT_BUILD
+#if !UNITY_EDITOR && DEVELOPMENT_BUILD
             if (m_buildTriggerType == BuildTriggerType.OnlyInDevelopmentBuilds)
             {
                 return true;
             }
-            #endif
+#endif
 
-            #if !UNITY_EDITOR && !DEVELOPMENT_BUILD
+#if !UNITY_EDITOR && !DEVELOPMENT_BUILD
             if (m_buildTriggerType == BuildTriggerType.OnlyInProductionBuilds)
             {
                 return true;
             }
-            #endif
+#endif
 
             Debug.LogError("BuildTriggerType is not set correctly. Please check the settings.");
 
             return false;
         }
     }
-
 
     /// <summary>
     /// Filters when an <see cref="AdditionalUnityEvent"/> may fire based on build type.
@@ -312,9 +307,8 @@ namespace SOSXR.SeaShark
         OnlyInEditor,
         OnlyInBuilds,
         OnlyInDevelopmentBuilds,
-        OnlyInProductionBuilds
+        OnlyInProductionBuilds,
     }
-
 
     /// <summary>
     /// Defines which Unity callback should trigger the event.
@@ -331,6 +325,6 @@ namespace SOSXR.SeaShark
         CollisionExit,
         OnDisable,
         InputAction,
-        Never
+        Never,
     }
 }
