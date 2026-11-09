@@ -9,6 +9,7 @@ namespace SOSXR.SeaShark.EditorScripts
     ///     It allows for the use of the ButtonAttribute.
     /// </summary>
     [CustomEditor(typeof(Object), true)]
+    [CanEditMultipleObjects]
     public class ObjectEditor : SOSXRBaseEditor<Object>
     {
     }

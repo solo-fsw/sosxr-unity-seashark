@@ -70,8 +70,12 @@ namespace SOSXR.SeaShark.Tests
         public void Data_SetToSameValue_TypeNamePreserved()
         {
             var medium = new Medium("ch", "same");
-            medium.Data = "same"; // same reference value — setter should return early
-            Assert.AreEqual(typeof(string).FullName, medium.GetTypeName());
+            medium.TypeName = "sentinel"; // cached fields are only recomputed when Data actually changes
+
+            medium.Data = "same"; // same (interned) reference — setter should return early
+
+            Assert.AreEqual("sentinel", medium.TypeName);
+            Assert.AreEqual("same", medium.DataString);
         }
     }
 }

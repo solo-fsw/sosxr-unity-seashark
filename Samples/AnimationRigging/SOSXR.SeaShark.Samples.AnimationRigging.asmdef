@@ -1,0 +1,39 @@
+{
+    "name": "SOSXR.SeaShark.Samples.AnimationRigging",
+    "rootNamespace": "",
+    "references": [
+        "SOSXR.SeaShark",
+        "SOSXR.EnhancedLogger",
+        "ScriptableObject-Architecture",
+        "Unity.Animation.Rigging"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "SOSXR_HAS_ENHANCEDLOGGER",
+        "SOSXR_HAS_SOARCHITECTURE",
+        "SOSXR_HAS_ANIMATION_RIGGING"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.sosxr.enhancedlogger",
+            "expression": "",
+            "define": "SOSXR_HAS_ENHANCEDLOGGER"
+        },
+        {
+            "name": "com.danieleverland.scriptableobjectarchitecture",
+            "expression": "",
+            "define": "SOSXR_HAS_SOARCHITECTURE"
+        },
+        {
+            "name": "com.unity.animation.rigging",
+            "expression": "",
+            "define": "SOSXR_HAS_ANIMATION_RIGGING"
+        }
+    ],
+    "noEngineReferences": false
+}

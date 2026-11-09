@@ -1,50 +1,66 @@
 using System;
-using System.Text;
 using UnityEditor;
 using UnityEngine;
 
 
 namespace SOSXR.SeaShark.EditorScripts
 {
+    /// <summary>
+    ///     Rounds a float to <see cref="DecimalsAttribute.Decimals" /> decimals.
+    ///     Uses rect-based EditorGUI only (EditorGUILayout is not supported inside PropertyDrawers).
+    /// </summary>
     [CustomPropertyDrawer(typeof(DecimalsAttribute))]
     public class DecimalsDrawer : PropertyDrawer
     {
-        private readonly GUIStyle _style = GUI.skin.box;
-        private DecimalsAttribute _attribute;
+        private static float Line => EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return property.propertyType == SerializedPropertyType.Float ? Line * 2f : Line;
+        }
 
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            _attribute = attribute as DecimalsAttribute;
+            var decimals = ((DecimalsAttribute) attribute).Decimals;
 
-            if (_attribute == null)
+            if (property.propertyType != SerializedPropertyType.Float)
             {
+                EditorGUI.LabelField(position, label.text, "Use Decimals with float.");
+
                 return;
             }
 
-            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            var labelText = new StringBuilder("Round to: " + _attribute.Decimals).ToString();
-            EditorGUILayout.LabelField(labelText, _style);
+            EditorGUI.BeginProperty(position, label, property);
 
-            if (property.propertyType == SerializedPropertyType.Float)
+            var row = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
+            EditorGUI.LabelField(row, "Round to: " + decimals, EditorStyles.miniLabel);
+            row.y += Line;
+
+            EditorGUI.BeginChangeCheck();
+            var value = EditorGUI.FloatField(row, label, Round(property.floatValue, decimals));
+
+            if (EditorGUI.EndChangeCheck())
             {
-                var roundedValue = (float) Math.Round((decimal) property.floatValue, _attribute.Decimals, MidpointRounding.AwayFromZero);
-                property.floatValue = EditorGUILayout.FloatField(new GUIContent(property.name), roundedValue);
-            }
-            else if (property.propertyType is SerializedPropertyType.Vector2 or SerializedPropertyType.Vector3)
-            {
-                EditorGUI.LabelField(position, label.text, "Currently Decimals only works with floats. Vector2 / Vector3 is yet to be implemented.");
-            }
-            else
-            {
-                EditorGUI.LabelField(position, label.text, "Use Decimals with float.");
+                property.floatValue = Round(value, decimals);
             }
 
-            EditorGUILayout.EndVertical();
+            EditorGUI.EndProperty();
+        }
 
-            var editorGUI = new SerializedObject(Selection.activeObject);
 
-            editorGUI.ApplyModifiedProperties();
+        /// <summary>
+        ///     Double-based rounding: unlike a (decimal) cast it cannot overflow and passes NaN/Infinity through.
+        /// </summary>
+        private static float Round(float value, int decimals)
+        {
+            if (float.IsNaN(value) || float.IsInfinity(value))
+            {
+                return value;
+            }
+
+            return (float) Math.Round(value, Mathf.Clamp(decimals, 0, 15), MidpointRounding.AwayFromZero);
         }
     }
 }

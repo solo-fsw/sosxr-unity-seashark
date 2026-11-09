@@ -74,6 +74,8 @@ namespace SOSXR.SeaShark.EditorScripts
                 return;
             }
 
+            serializedObject.Update(); // Otherwise actionToTakeProp reflects a stale value
+
             var move = (Move) target;
 
             // Ensure ActionToTake is MoveAlongPath and there are enough points
@@ -117,7 +119,15 @@ namespace SOSXR.SeaShark.EditorScripts
 
             for (var i = 0; i < move.m_bezierPoints.Length; i++)
             {
-                move.m_bezierPoints[i] = Handles.PositionHandle(move.m_bezierPoints[i], Quaternion.identity);
+                EditorGUI.BeginChangeCheck();
+                var newPoint = Handles.PositionHandle(move.m_bezierPoints[i], Quaternion.identity);
+
+                if (EditorGUI.EndChangeCheck())
+                {
+                    Undo.RecordObject(move, "Move Bezier Point");
+                    move.m_bezierPoints[i] = newPoint;
+                    EditorUtility.SetDirty(move);
+                }
 
                 if (i > 0)
                 {
@@ -125,11 +135,6 @@ namespace SOSXR.SeaShark.EditorScripts
                 }
             }
 
-            // Save changes
-            if (GUI.changed)
-            {
-                EditorUtility.SetDirty(move);
-            }
         }
 
 
@@ -141,6 +146,8 @@ namespace SOSXR.SeaShark.EditorScripts
 
                 return;
             }
+
+            serializedObject.Update();
 
             // Begin checking for changes
             EditorGUI.BeginChangeCheck();

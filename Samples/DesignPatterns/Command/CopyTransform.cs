@@ -1,6 +1,7 @@
+// Requires optional packages; compiled only when they are installed (see the asmdef's Version Defines).
+#if SOSXR_HAS_SOARCHITECTURE
 using System.Collections.Generic;
 using ScriptableObjectArchitecture;
-using SOSXR.EnhancedLogger;
 using UnityEngine;
 
 
@@ -142,3 +143,4 @@ namespace SOSXR.SeaShark
         }
     }
 }
+#endif

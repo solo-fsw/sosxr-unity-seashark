@@ -21,7 +21,7 @@ namespace SOSXR.SeaShark
         /// <summary>
         /// Stores undone commands for potential redo operations.
         /// </summary>
-        private readonly Queue<ICommand> _redoQueue = new();
+        private readonly Stack<ICommand> _redoStack = new();
 
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace SOSXR.SeaShark
         {
             command.Execute();
             _stack.Push(command); // Puts at the 0 position of the 'list'
-            _redoQueue.Clear();
+            _redoStack.Clear();
         }
 
 
@@ -51,7 +51,7 @@ namespace SOSXR.SeaShark
             var latestCommand = _stack.Pop();
             latestCommand.Undo();
 
-            _redoQueue.Enqueue(latestCommand);
+            _redoStack.Push(latestCommand);
         }
 
 
@@ -62,12 +62,12 @@ namespace SOSXR.SeaShark
         /// </summary>
         public override void Redo()
         {
-            if (_redoQueue.Count <= 0)
+            if (_redoStack.Count <= 0)
             {
                 return;
             }
 
-            var latestCommand = _redoQueue.Dequeue();
+            var latestCommand = _redoStack.Pop();
             latestCommand.Execute();
 
             _stack.Push(latestCommand);

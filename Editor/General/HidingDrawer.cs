@@ -69,12 +69,18 @@ namespace SOSXR.SeaShark.Editor
                 if (element.StartsWith("Array"))
                 {
                     var index = int.Parse(elements[i + 1].Replace("data[", "").Replace("]", ""));
-                    obj = ((IList) obj)[index];
+
+                    if (obj is not IList list || index < 0 || index >= list.Count)
+                    {
+                        return null;
+                    }
+
+                    obj = list[index];
                     i++;
                 }
                 else
                 {
-                    var field = obj.GetType().GetField(element, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                    var field = FindField(obj?.GetType(), element);
 
                     if (field == null)
                     {
@@ -89,9 +95,30 @@ namespace SOSXR.SeaShark.Editor
         }
 
 
+        /// <summary>
+        ///     Type.GetField does not return private fields declared on base classes, so walk the hierarchy.
+        /// </summary>
+        private static FieldInfo FindField(Type type, string name)
+        {
+            const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
+
+            for (var current = type; current != null; current = current.BaseType)
+            {
+                var field = current.GetField(name, flags);
+
+                if (field != null)
+                {
+                    return field;
+                }
+            }
+
+            return null;
+        }
+
+
         private bool GetBoolValue(object obj, string variable)
         {
-            var field = obj.GetType().GetField(variable, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var field = FindField(obj?.GetType(), variable);
 
             if (field != null && field.FieldType == typeof(bool))
             {
@@ -104,7 +131,7 @@ namespace SOSXR.SeaShark.Editor
 
         private Object GetObjectValue(object obj, string variable)
         {
-            var field = obj.GetType().GetField(variable, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var field = FindField(obj?.GetType(), variable);
 
             if (field != null && typeof(Object).IsAssignableFrom(field.FieldType))
             {
@@ -117,11 +144,11 @@ namespace SOSXR.SeaShark.Editor
 
         private int GetEnumValue(object obj, string variable)
         {
-            var field = obj.GetType().GetField(variable, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var field = FindField(obj?.GetType(), variable);
 
             if (field != null && field.FieldType.IsEnum)
             {
-                return (int) field.GetValue(obj);
+                return Convert.ToInt32(field.GetValue(obj)); // (int) unboxing a boxed enum throws
             }
 
             return -1;

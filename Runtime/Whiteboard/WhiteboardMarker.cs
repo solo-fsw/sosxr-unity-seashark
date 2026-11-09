@@ -364,6 +364,9 @@ namespace SOSXR.SeaShark
         private void OnDisable()
         {
             StopAllCoroutines();
+            _drawCR = null;
+            _saveTextureLocallyCR = null;
+            _saveTextureOnServerCR = null;
         }
     }
 }

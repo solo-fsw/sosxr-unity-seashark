@@ -212,10 +212,10 @@ namespace SOSXR.SeaShark
             // Determine the current segment based on m_bezierT
             var segmentT = m_bezierT * segmentCount;
             var currentSegment = Mathf.FloorToInt(segmentT);
-            var localT = segmentT - currentSegment;
 
-            // Clamp to avoid out-of-bounds
+            // Clamp to avoid out-of-bounds, then derive localT so t == 1 maps to the end of the last segment
             currentSegment = Mathf.Clamp(currentSegment, 0, segmentCount - 1);
+            var localT = Mathf.Clamp01(segmentT - currentSegment);
 
             // Get the control points for the current segment
             var startPointIndex = currentSegment * 3;
@@ -269,7 +269,8 @@ namespace SOSXR.SeaShark
             }
 
             m_orbitAngle = (m_orbitAngle + m_orbitSpeed * Time.deltaTime) % 360f;
-            transform.position = new Vector3(Mathf.Cos(Mathf.Deg2Rad * m_orbitAngle) * m_orbitRadius, transform.position.y, Mathf.Sin(Mathf.Deg2Rad * m_orbitAngle) * m_orbitRadius) + m_target.transform.position;
+            var center = m_target.transform.position;
+            transform.position = new Vector3(center.x + Mathf.Cos(Mathf.Deg2Rad * m_orbitAngle) * m_orbitRadius, transform.position.y, center.z + Mathf.Sin(Mathf.Deg2Rad * m_orbitAngle) * m_orbitRadius);
         }
 
 
@@ -291,9 +292,11 @@ namespace SOSXR.SeaShark
 
         public void SmoothBounceBackAndForth()
         {
-            transform.position = Vector3.Lerp(transform.position, m_bouncingTowardsEnd ? m_bounceEndPoint : m_bounceStartPoint, m_bounceSpeed * Time.deltaTime);
+            var destination = m_bouncingTowardsEnd ? m_bounceEndPoint : m_bounceStartPoint;
+            transform.position = Vector3.Lerp(transform.position, destination, m_bounceSpeed * Time.deltaTime);
 
-            if (Vector3.Distance(transform.position, m_bounceEndPoint) < 0.1f || Vector3.Distance(transform.position, m_bounceStartPoint) < 0.1f)
+            // Only flip once the point we are heading to is reached, otherwise we toggle every frame near either end.
+            if (Vector3.Distance(transform.position, destination) < 0.1f)
             {
                 m_bouncingTowardsEnd = !m_bouncingTowardsEnd;
             }

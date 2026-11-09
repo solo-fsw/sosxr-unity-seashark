@@ -24,16 +24,55 @@ namespace SOSXR.SeaShark.EditorScripts
 
             if (EditorGUI.EndChangeCheck())
             {
-                if (IsMonoBehaviour(property))
-                {
-                    var mono = (MonoBehaviour) property.serializedObject.targetObject;
+                // Apply first so the callback sees the new value. MonoBehaviour.Invoke only runs in Play mode,
+                // so call the (parameterless) method directly via reflection on every selected object.
+                property.serializedObject.ApplyModifiedProperties();
 
+                foreach (var t in property.serializedObject.targetObjects)
+                {
                     foreach (var callbackName in observeAttribute.callbackNames)
                     {
-                        mono.Invoke(callbackName, 0);
+                        var method = FindMethod(t.GetType(), callbackName);
+
+                        if (method == null)
+                        {
+                            Debug.LogWarning($"[Observe] No parameterless method '{callbackName}' on {t.GetType().Name}", t);
+
+                            continue;
+                        }
+
+                        try
+                        {
+                            method.Invoke(t, null);
+                        }
+                        catch (System.Reflection.TargetInvocationException exception)
+                        {
+                            Debug.LogException(exception.InnerException ?? exception, t);
+                        }
                     }
                 }
+
+                property.serializedObject.Update();
             }
+        }
+
+
+        private static System.Reflection.MethodInfo FindMethod(System.Type type, string name)
+        {
+            const System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public |
+                                                         System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.DeclaredOnly;
+
+            for (var current = type; current != null; current = current.BaseType)
+            {
+                var method = current.GetMethod(name, flags, null, System.Type.EmptyTypes, null);
+
+                if (method != null)
+                {
+                    return method;
+                }
+            }
+
+            return null;
         }
 
 

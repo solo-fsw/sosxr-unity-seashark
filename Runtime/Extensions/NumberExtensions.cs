@@ -47,7 +47,7 @@ namespace SOSXR.SeaShark
         /// <returns>True if the value is odd.</returns>
         public static bool IsOdd(this int i)
         {
-            return i % 2 == 1;
+            return i % 2 != 0; // -3 % 2 == -1 in C#, so don't compare with 1
         }
 
 

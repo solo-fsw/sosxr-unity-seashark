@@ -45,6 +45,12 @@ namespace SOSXR.SeaShark.Tests
         }
 
         [Test]
+        public void IsOdd_NegativeOddNumber_ReturnsTrue()
+        {
+            Assert.IsTrue((-3).IsOdd());
+        }
+
+        [Test]
         public void IsOdd_EvenNumber_ReturnsFalse()
         {
             Assert.IsFalse(4.IsOdd());

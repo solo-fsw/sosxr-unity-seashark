@@ -1,0 +1,32 @@
+{
+    "name": "SOSXR.SeaShark.Samples.PokeDeformation",
+    "rootNamespace": "",
+    "references": [
+        "SOSXR.SeaShark",
+        "SOSXR.EnhancedLogger",
+        "ScriptableObject-Architecture"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "SOSXR_HAS_ENHANCEDLOGGER",
+        "SOSXR_HAS_SOARCHITECTURE"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.sosxr.enhancedlogger",
+            "expression": "",
+            "define": "SOSXR_HAS_ENHANCEDLOGGER"
+        },
+        {
+            "name": "com.danieleverland.scriptableobjectarchitecture",
+            "expression": "",
+            "define": "SOSXR_HAS_SOARCHITECTURE"
+        }
+    ],
+    "noEngineReferences": false
+}

@@ -1,4 +1,3 @@
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,53 +15,64 @@ namespace SOSXR.SeaShark.EditorScripts
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+            return EditorGUI.GetPropertyHeight(property, label, true);
         }
 
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            if (property?.serializedObject?.targetObject == null)
-            {
-                EditorGUI.PropertyField(position, property, label, true);
-                return;
-            }
-
             var enableIf = (EnableIfAttribute) attribute;
-            var target = property.serializedObject.targetObject;
+            var condition = FindSiblingProperty(property, enableIf.ConditionField);
 
-            var conditionField = target.GetType().GetField(enableIf.ConditionField,
-                BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-
-            if (conditionField == null || conditionField.FieldType != typeof(bool))
+            // The condition must be a serialized bool, so edits go through SerializedProperty:
+            // Undo, prefab overrides and multi-object editing then work.
+            if (condition == null || condition.propertyType != SerializedPropertyType.Boolean)
             {
                 EditorGUI.PropertyField(position, property, label, true);
 
                 return;
             }
 
-            var currentValue = (bool) conditionField.GetValue(target);
+            const float toggleWidth = 18f;
+            const float spacing = 6f;
 
-            var toggleWidth = 18f;
-            var spacing = 6f;
+            var toggleRect = new Rect(position.x, position.y, toggleWidth, EditorGUIUtility.singleLineHeight);
+            var fieldRect = new Rect(position.x + toggleWidth + spacing, position.y, position.width - toggleWidth - spacing, position.height);
 
-            var toggleRect = new Rect(position.x, position.y, toggleWidth, position.height);
-
-            var fieldRect = new Rect(position.x + toggleWidth + spacing, position.y,
-                position.width - toggleWidth - spacing, position.height);
-
+            EditorGUI.BeginProperty(toggleRect, GUIContent.none, condition);
+            EditorGUI.showMixedValue = condition.hasMultipleDifferentValues;
             EditorGUI.BeginChangeCheck();
-            var newValue = EditorGUI.Toggle(toggleRect, currentValue);
+            var newValue = EditorGUI.Toggle(toggleRect, condition.boolValue);
 
             if (EditorGUI.EndChangeCheck())
             {
-                conditionField.SetValue(target, newValue);
-                EditorUtility.SetDirty(target);
+                condition.boolValue = newValue;
             }
 
-            EditorGUI.BeginDisabledGroup(!newValue);
+            EditorGUI.showMixedValue = false;
+            EditorGUI.EndProperty();
+
+            EditorGUI.BeginDisabledGroup(!condition.boolValue);
             EditorGUI.PropertyField(fieldRect, property, label, true);
             EditorGUI.EndDisabledGroup();
+        }
+
+
+        /// <summary>
+        ///     Finds the condition field next to <paramref name="property" /> (also inside nested classes/arrays).
+        /// </summary>
+        private static SerializedProperty FindSiblingProperty(SerializedProperty property, string name)
+        {
+            if (property == null || string.IsNullOrEmpty(name))
+            {
+                return null;
+            }
+
+            var path = property.propertyPath;
+            var lastDot = path.LastIndexOf('.');
+            var siblingPath = lastDot >= 0 ? path.Substring(0, lastDot + 1) + name : name;
+
+            return property.serializedObject.FindProperty(siblingPath);
         }
     }
 }

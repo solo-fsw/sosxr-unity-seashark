@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -40,7 +41,8 @@ namespace SOSXR.SeaShark.EditorScripts
 
             if (_monoFont == null)
             {
-                _monoFont = Resources.Load<Font>("Fonts/Maple Mono/Maple Mono");
+                // Ships in the Fonts sample (Samples~/Fonts/Resources); null until that sample is imported.
+                _monoFont = Resources.Load<Font>("Fonts & Materials/Maple Mono/Maple Mono");
             }
 
             _cachedMethods = new List<MethodInfo>();
@@ -143,7 +145,7 @@ namespace SOSXR.SeaShark.EditorScripts
 
                 if (GUI.Button(buttonRect, _cachedContent[method], _style))
                 {
-                    method.Invoke(target, _methodArgs[method]);
+                    InvokeOnTargets(method, _methodArgs[method]);
                 }
 
                 // Draw parameter fields
@@ -164,6 +166,35 @@ namespace SOSXR.SeaShark.EditorScripts
             }
 
             GUILayout.Space(y);
+        }
+
+
+        private void InvokeOnTargets(MethodInfo method, object[] args)
+        {
+            foreach (var t in targets)
+            {
+                if (t == null)
+                {
+                    continue;
+                }
+
+                Undo.RecordObject(t, method.Name);
+
+                try
+                {
+                    method.Invoke(t, args);
+                }
+                catch (TargetInvocationException exception)
+                {
+                    Debug.LogException(exception.InnerException ?? exception, t);
+                }
+                catch (Exception exception)
+                {
+                    Debug.LogException(exception, t);
+                }
+
+                EditorUtility.SetDirty(t);
+            }
         }
 
 
@@ -242,7 +273,7 @@ namespace SOSXR.SeaShark.EditorScripts
                 return;
             }
 
-            var id = target.GetEntityId();
+            var id = GetPrefsId();
 
             foreach (var method in _cachedMethods)
             {
@@ -268,19 +299,44 @@ namespace SOSXR.SeaShark.EditorScripts
                 return;
             }
 
-            var id = target.GetEntityId();
+            var id = GetPrefsId();
 
             foreach (var kvp in _methodArgs)
             {
                 var method = kvp.Key;
-                var parameters = _cachedParams[method];
+
+                if (!_cachedParams.TryGetValue(method, out var parameters))
+                {
+                    continue;
+                }
 
                 for (var i = 0; i < parameters.Length; i++)
                 {
                     var key = $"{id}_{method.Name}_{i}";
-                    EditorPrefs.SetString(key, Serialize(kvp.Value[i]));
+                    var value = kvp.Value[i];
+                    var type = parameters[i].ParameterType;
+                    var isDefault = value == null || (type.IsValueType && value.Equals(Activator.CreateInstance(type)));
+
+                    // Only persist non-default values, so EditorPrefs does not grow with every object ever inspected.
+                    if (isDefault)
+                    {
+                        EditorPrefs.DeleteKey(key);
+                    }
+                    else
+                    {
+                        EditorPrefs.SetString(key, Serialize(value));
+                    }
                 }
             }
+        }
+
+
+        /// <summary>
+        ///     Stable across sessions (unlike instance/entity ids), so stored parameter values survive editor restarts.
+        /// </summary>
+        private string GetPrefsId()
+        {
+            return "SOSXR_Button_" + GlobalObjectId.GetGlobalObjectIdSlow(target);
         }
 
 
@@ -291,12 +347,13 @@ namespace SOSXR.SeaShark.EditorScripts
                 return "";
             }
 
+            // Invariant culture: with e.g. nl-NL, 1.5 would become "1,5" and clash with the "," separator.
             if (value is Vector3 v)
             {
-                return $"{v.x},{v.y},{v.z}";
+                return string.Join(",", v.x.ToString("R", CultureInfo.InvariantCulture), v.y.ToString("R", CultureInfo.InvariantCulture), v.z.ToString("R", CultureInfo.InvariantCulture));
             }
 
-            return value.ToString();
+            return Convert.ToString(value, CultureInfo.InvariantCulture);
         }
 
 
@@ -316,12 +373,12 @@ namespace SOSXR.SeaShark.EditorScripts
 
                 if (type == typeof(int))
                 {
-                    return int.Parse(str);
+                    return int.Parse(str, CultureInfo.InvariantCulture);
                 }
 
                 if (type == typeof(float))
                 {
-                    return float.Parse(str);
+                    return float.Parse(str, CultureInfo.InvariantCulture);
                 }
 
                 if (type == typeof(string))
@@ -338,7 +395,7 @@ namespace SOSXR.SeaShark.EditorScripts
                 {
                     var p = str.Split(',');
 
-                    return new Vector3(float.Parse(p[0]), float.Parse(p[1]), float.Parse(p[2]));
+                    return new Vector3(float.Parse(p[0], CultureInfo.InvariantCulture), float.Parse(p[1], CultureInfo.InvariantCulture), float.Parse(p[2], CultureInfo.InvariantCulture));
                 }
             }
             catch

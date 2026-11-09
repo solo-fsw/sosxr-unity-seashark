@@ -31,6 +31,11 @@ namespace SOSXR.SeaShark
         private string _keyCode = "";
         private const string ClearedPhrase = "== Cleared ==";
 
+        // Cached so the exact same delegate instances can be removed again.
+        private readonly Dictionary<Button, UnityAction> _keyCapListeners = new();
+        private UnityAction _backSpaceAudioListener;
+        private UnityAction _okAudioListener;
+
 
         /// <summary>
         /// Initializes the keycode entry system. Implementation details are environment-specific.
@@ -63,14 +68,21 @@ namespace SOSXR.SeaShark
 
         private void AddButtonsClickListener()
         {
+            UnsubscribeButtons(); // Never stack listeners when re-enabled.
+
             foreach (var keyCap in m_keyCaps)
             {
-                keyCap.onClick.AddListener(() => OnKeyPressed(keyCap));
+                UnityAction listener = () => OnKeyPressed(keyCap);
+                _keyCapListeners[keyCap] = listener;
+                keyCap.onClick.AddListener(listener);
             }
 
+            _backSpaceAudioListener = () => PlayAudio(m_backSpace.transform.position);
+            _okAudioListener = () => PlayAudio(m_ok.transform.position);
+
             m_backSpace.onClick.AddListener(RemoveCharacter);
-            m_backSpace.onClick.AddListener(() => PlayAudio(m_backSpace.transform.position));
-            m_ok.onClick.AddListener(() => PlayAudio(m_ok.transform.position));
+            m_backSpace.onClick.AddListener(_backSpaceAudioListener);
+            m_ok.onClick.AddListener(_okAudioListener);
         }
 
 
@@ -104,6 +116,13 @@ namespace SOSXR.SeaShark
 
         private void RemoveCharacter()
         {
+            if (_keyCode.Length == 0)
+            {
+                m_backSpace.interactable = false;
+
+                return;
+            }
+
             m_backSpace.interactable = true;
             m_ok.interactable = false;
 
@@ -199,14 +218,39 @@ namespace SOSXR.SeaShark
 
         private void UnsubscribeButtons()
         {
-            foreach (var keyCap in m_keyCaps)
+            foreach (var pair in _keyCapListeners)
             {
-                keyCap.onClick.RemoveListener(() => OnKeyPressed(keyCap));
+                if (pair.Key != null)
+                {
+                    pair.Key.onClick.RemoveListener(pair.Value);
+                }
             }
 
-            m_backSpace.onClick.RemoveListener(RemoveCharacter);
-            m_backSpace.onClick.RemoveListener(() => PlayAudio(m_backSpace.transform.position));
-            m_ok.onClick.RemoveListener(() => PlayAudio(m_ok.transform.position));
+            _keyCapListeners.Clear();
+
+            if (m_backSpace != null)
+            {
+                m_backSpace.onClick.RemoveListener(RemoveCharacter);
+
+                if (_backSpaceAudioListener != null)
+                {
+                    m_backSpace.onClick.RemoveListener(_backSpaceAudioListener);
+                }
+            }
+
+            if (m_ok != null && _okAudioListener != null)
+            {
+                m_ok.onClick.RemoveListener(_okAudioListener);
+            }
+
+            _backSpaceAudioListener = null;
+            _okAudioListener = null;
+        }
+
+
+        private void OnDisable()
+        {
+            UnsubscribeButtons();
         }
 
 

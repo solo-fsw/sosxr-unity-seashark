@@ -84,7 +84,7 @@ namespace joaen
 
         private void PoleConstraint()
         {
-            if (PoleTarget != null && NumberOfJoints < 4)
+            if (PoleTarget != null && NumberOfJoints == 3)
             {
                 // Get the limb axis direction
                 var limbAxis = (_jointPositions[2] - _jointPositions[0]).normalized;

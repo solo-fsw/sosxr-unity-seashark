@@ -43,6 +43,14 @@ namespace SOSXR.SeaShark
         private void SetDefaultQualityLevel()
         {
             var index = Array.IndexOf(m_availableQualityLevels, m_defaultQualityLevel);
+
+            if (index == -1)
+            {
+                Debug.LogWarning($"Quality level '{m_defaultQualityLevel}' not found in QualitySettings; keeping current level.");
+
+                return;
+            }
+
             QualitySettings.SetQualityLevel(index);
             m_currentQualityLevel = "DEFAULT: " + m_defaultQualityLevel;
         }

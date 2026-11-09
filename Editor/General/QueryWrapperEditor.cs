@@ -135,7 +135,14 @@ namespace SOSXR.SeaShark.EditorScripts
 
         private void DrawCheckBoxes()
         {
-            var stringVars = _queryWrapper.QueryData.QueryStringVariables;
+            var stringVars = _queryWrapper?.QueryData?.QueryStringVariables;
+
+            if (stringVars == null)
+            {
+                EditorGUILayout.HelpBox("QueryStringVariables is not initialised on the data object.", MessageType.Warning);
+
+                return;
+            }
 
             for (var i = 0; i < _validValueNames.Length; i++)
             {
@@ -159,9 +166,20 @@ namespace SOSXR.SeaShark.EditorScripts
         {
             serializedObject.ApplyModifiedProperties();
 
+            var dataObject = _queryWrapper != null ? _queryWrapper.DataObject : null;
+
+            if (dataObject != null)
+            {
+                Undo.RecordObject(dataObject, "Modify Query Variables");
+            }
+
             _queryWrapper?.QueryData?.ModifyVariables(value); // Remove if exists, add if not
 
-            EditorUtility.SetDirty(target);
+            // The data lives on DataObject, not on the QueryWrapper being inspected.
+            if (dataObject != null)
+            {
+                EditorUtility.SetDirty(dataObject);
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 
 using System;
+using System.Globalization;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,9 +11,10 @@ namespace SOSXR.SeaShark.EditorScripts
     [CustomPropertyDrawer(typeof(PopupAttribute))]
     public class PopupDrawer : PropertyDrawer
     {
-        private Action<int> setValue;
-        private Func<int, int> validateValue;
         private string[] _list;
+
+        private PopupAttribute popupAttribute => (PopupAttribute) attribute;
+
 
         private string[] list
         {
@@ -20,11 +22,12 @@ namespace SOSXR.SeaShark.EditorScripts
             {
                 if (_list == null)
                 {
-                    _list = new string[popupAttribute.list.Length];
+                    var source = popupAttribute.list ?? Array.Empty<object>();
+                    _list = new string[source.Length];
 
-                    for (var i = 0; i < popupAttribute.list.Length; i++)
+                    for (var i = 0; i < source.Length; i++)
                     {
-                        _list[i] = popupAttribute.list[i].ToString();
+                        _list[i] = Convert.ToString(source[i], CultureInfo.InvariantCulture);
                     }
                 }
 
@@ -33,66 +36,66 @@ namespace SOSXR.SeaShark.EditorScripts
         }
 
 
-        private PopupAttribute popupAttribute => (PopupAttribute) attribute;
-
-        private Type variableType => popupAttribute.list[0].GetType();
-
-
+        // No cached closures: a PropertyDrawer instance is shared by every element of an array/list,
+        // so the property must always come from the OnGUI argument.
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            if (validateValue == null && setValue == null)
+            if (list.Length == 0 || !IsSupported(property))
             {
-                SetUp(property);
-            }
-
-
-            if (validateValue == null && setValue == null)
-            {
-                base.OnGUI(position, property, label);
+                EditorGUI.PropertyField(position, property, label);
 
                 return;
             }
 
-            var selectedIndex = 0;
+            var currentIndex = Array.IndexOf(list, GetValueAsString(property));
 
-            for (var i = 0; i < list.Length; i++)
-            {
-                selectedIndex = validateValue(i);
-
-                if (selectedIndex != 0)
-                {
-                    break;
-                }
-            }
-
+            EditorGUI.BeginProperty(position, label, property);
             EditorGUI.BeginChangeCheck();
-            selectedIndex = EditorGUI.Popup(position, label.text, selectedIndex, list);
+            var selectedIndex = EditorGUI.Popup(position, label.text, Mathf.Max(currentIndex, 0), list);
 
             if (EditorGUI.EndChangeCheck())
             {
-                setValue(selectedIndex);
+                SetValue(property, list[selectedIndex]);
             }
+
+            EditorGUI.EndProperty();
         }
 
 
-        private void SetUp(SerializedProperty property)
+        private static bool IsSupported(SerializedProperty property)
         {
-            if (variableType == typeof(string))
-            {
-                validateValue = index => { return property.stringValue == list[index] ? index : 0; };
+            return property.propertyType is SerializedPropertyType.String or SerializedPropertyType.Integer or SerializedPropertyType.Float;
+        }
 
-                setValue = index => { property.stringValue = list[index]; };
-            }
-            else if (variableType == typeof(int))
-            {
-                validateValue = index => { return property.intValue == Convert.ToInt32(list[index]) ? index : 0; };
 
-                setValue = index => { property.intValue = Convert.ToInt32(list[index]); };
-            }
-            else if (variableType == typeof(float))
+        private static string GetValueAsString(SerializedProperty property)
+        {
+            return property.propertyType switch
             {
-                validateValue = index => { return property.floatValue == Convert.ToSingle(list[index]) ? index : 0; };
-                setValue = index => { property.floatValue = Convert.ToSingle(list[index]); };
+                SerializedPropertyType.String => property.stringValue,
+                SerializedPropertyType.Integer => property.intValue.ToString(CultureInfo.InvariantCulture),
+                SerializedPropertyType.Float => property.floatValue.ToString(CultureInfo.InvariantCulture),
+                _ => null
+            };
+        }
+
+
+        private static void SetValue(SerializedProperty property, string value)
+        {
+            switch (property.propertyType)
+            {
+                case SerializedPropertyType.String:
+                    property.stringValue = value;
+
+                    break;
+                case SerializedPropertyType.Integer:
+                    property.intValue = Convert.ToInt32(value, CultureInfo.InvariantCulture);
+
+                    break;
+                case SerializedPropertyType.Float:
+                    property.floatValue = Convert.ToSingle(value, CultureInfo.InvariantCulture);
+
+                    break;
             }
         }
     }

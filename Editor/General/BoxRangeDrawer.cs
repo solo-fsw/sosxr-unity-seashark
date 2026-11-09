@@ -1,5 +1,4 @@
 using System;
-using System.Text;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,108 +7,117 @@ namespace SOSXR.SeaShark.EditorScripts
 {
     /// <summary>
     ///     From: https://docs.unity3d.com/ScriptReference/PropertyDrawer.html
+    ///     Uses rect-based EditorGUI only (EditorGUILayout is not supported inside PropertyDrawers) and
+    ///     reports its height through GetPropertyHeight.
     /// </summary>
     [CustomPropertyDrawer(typeof(BoxRangeAttribute))]
     public class BoxRangeDrawer : PropertyDrawer
     {
-        private readonly GUIStyle _style = GUI.skin.box;
-        private BoxRangeAttribute _attribute;
+        private const float Padding = 4f;
+
+        private BoxRangeAttribute Attribute => (BoxRangeAttribute) attribute;
+
+        private static float Line => EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+
+
+        private static int SliderCount(SerializedProperty property)
+        {
+            return property.propertyType switch
+            {
+                SerializedPropertyType.Integer => 1,
+                SerializedPropertyType.Float => 1,
+                SerializedPropertyType.Vector2 => 2,
+                SerializedPropertyType.Vector3 => 3,
+                SerializedPropertyType.Vector3Int => 3,
+                _ => 1 // Room for the "unsupported type" message
+            };
+        }
+
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return (1 + SliderCount(property)) * Line + Padding * 2f;
+        }
 
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            _attribute = attribute as BoxRangeAttribute;
+            var previousLabelWidth = EditorGUIUtility.labelWidth;
 
-            if (_attribute == null)
+            EditorGUI.BeginProperty(position, label, property);
+            GUI.Box(position, GUIContent.none, EditorStyles.helpBox);
+
+            var row = new Rect(position.x + Padding, position.y + Padding, position.width - Padding * 2f, EditorGUIUtility.singleLineHeight);
+            EditorGUI.LabelField(row, $"{label.text} - Range: [{Attribute.Min}, {Attribute.Max}]", EditorStyles.boldLabel);
+            row.y += Line;
+
+            EditorGUIUtility.labelWidth = 20f;
+
+            switch (property.propertyType)
             {
-                return;
+                case SerializedPropertyType.Integer:
+                    property.intValue = IntSlider(ref row, "", property.intValue);
+
+                    break;
+                case SerializedPropertyType.Float:
+                    property.floatValue = Slider(ref row, "", property.floatValue);
+
+                    break;
+                case SerializedPropertyType.Vector2:
+                {
+                    var v = property.vector2Value;
+                    v.x = Slider(ref row, "X", v.x);
+                    v.y = Slider(ref row, "Y", v.y);
+                    property.vector2Value = v;
+
+                    break;
+                }
+                case SerializedPropertyType.Vector3:
+                {
+                    var v = property.vector3Value;
+                    v.x = Slider(ref row, "X", v.x);
+                    v.y = Slider(ref row, "Y", v.y);
+                    v.z = Slider(ref row, "Z", v.z);
+                    property.vector3Value = v;
+
+                    break;
+                }
+                case SerializedPropertyType.Vector3Int:
+                {
+                    var v = property.vector3IntValue;
+                    v.x = IntSlider(ref row, "X", v.x);
+                    v.y = IntSlider(ref row, "Y", v.y);
+                    v.z = IntSlider(ref row, "Z", v.z);
+                    property.vector3IntValue = v;
+
+                    break;
+                }
+                default:
+                    EditorGUI.LabelField(row, "Use BoxRange with int, float, Vector2, Vector3, or Vector3Int.");
+
+                    break;
             }
 
-            EditorGUIUtility.labelWidth = 15;
-
-            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            var newLabel = new StringBuilder(label + " - " + "Range: [" + _attribute.Min + ", " + _attribute.Max + "]").ToString();
-            EditorGUILayout.LabelField(newLabel, _style);
-
-            if (property.propertyType == SerializedPropertyType.Integer)
-            {
-                property.intValue = CreateIntSlider("", property.intValue);
-            }
-            else if (property.propertyType == SerializedPropertyType.Float)
-            {
-                property.floatValue = CreateSlider("", property.floatValue);
-            }
-            else if (property.propertyType == SerializedPropertyType.Vector2)
-            {
-                CreateVector2Sliders(property);
-            }
-            else if (property.propertyType == SerializedPropertyType.Vector3)
-            {
-                CreateVector3Sliders(property);
-            }
-            else if (property.propertyType == SerializedPropertyType.Vector3Int)
-            {
-                CreateVector3IntSliders(property);
-            }
-            else
-            {
-                EditorGUI.LabelField(position, label.text, "Use BoxRange with int, float, Vector2, Vector3, or Vector3Int.");
-            }
-
-            EditorGUILayout.EndVertical();
-
-            var editorGUI = new SerializedObject(Selection.activeObject);
-
-            editorGUI.ApplyModifiedProperties();
+            EditorGUIUtility.labelWidth = previousLabelWidth;
+            EditorGUI.EndProperty();
         }
 
 
-        private void CreateVector2Sliders(SerializedProperty property)
+        private float Slider(ref Rect row, string name, float value)
         {
-            var temp = property.vector2Value;
-            temp = new Vector2(CreateSlider(nameof(temp.x), temp.x), temp.y);
-            temp = new Vector2(temp.x, CreateSlider(nameof(temp.y), temp.y));
-            property.vector2Value = temp;
+            var result = EditorGUI.Slider(row, new GUIContent(name), value, Attribute.Min, Attribute.Max);
+            row.y += Line;
+
+            return result;
         }
 
 
-        private void CreateVector3Sliders(SerializedProperty property)
+        private int IntSlider(ref Rect row, string name, int value)
         {
-            var temp = property.vector3Value;
-            temp = new Vector3(CreateSlider(nameof(temp.x), temp.x), temp.y, temp.z);
-            temp = new Vector3(temp.x, CreateSlider(nameof(temp.y), temp.y), temp.z);
-            temp = new Vector3(temp.x, temp.y, CreateSlider(nameof(temp.z), temp.z));
-            property.vector3Value = temp;
-        }
+            var result = EditorGUI.IntSlider(row, new GUIContent(name), value, Convert.ToInt32(Attribute.Min), Convert.ToInt32(Attribute.Max));
+            row.y += Line;
 
-
-        private void CreateVector3IntSliders(SerializedProperty property)
-        {
-            var temp = property.vector3IntValue;
-            temp = new Vector3Int(CreateIntSlider(nameof(temp.x), temp.x), temp.y, temp.z);
-            temp = new Vector3Int(temp.x, CreateIntSlider(nameof(temp.y), temp.y), temp.z);
-            temp = new Vector3Int(temp.x, temp.y, CreateIntSlider(nameof(temp.z), temp.z));
-            property.vector3IntValue = temp;
-        }
-
-
-        private float CreateSlider(string name, float value)
-        {
-            return EditorGUILayout.Slider(new GUIContent(name.ToUpper()), value, _attribute.Min, _attribute.Max);
-        }
-
-
-        private int CreateIntSlider(string name, float value)
-        {
-            var intValue = Convert.ToInt32(value);
-            var intRange = new Vector2Int(Convert.ToInt32(_attribute.Min), Convert.ToInt32(_attribute.Max));
-
-            return EditorGUILayout.IntSlider(new GUIContent(name.ToUpper()), intValue, intRange.x, intRange.y);
+            return result;
         }
     }
-}
-
-
-namespace SOSXR.SeaShark.EditorScripts
-{
 }

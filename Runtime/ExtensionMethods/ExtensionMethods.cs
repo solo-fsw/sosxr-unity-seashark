@@ -692,7 +692,9 @@ namespace SOSXR.SeaShark
         /// </summary>
         public static Transform FindAncestorByTag(this Transform transform, string tag)
         {
-            return FindAncestorByTag(transform.gameObject, tag).transform;
+            var ancestor = FindAncestorByTag(transform.gameObject, tag);
+
+            return ancestor != null ? ancestor.transform : null;
         }
 
         /// <summary>
@@ -701,23 +703,11 @@ namespace SOSXR.SeaShark
         /// </summary>
         public static GameObject FindAncestorByTag(this GameObject gameObject, string tag)
         {
-            if (gameObject.transform.parent == null)
+            for (var parent = gameObject.transform.parent; parent != null; parent = parent.parent)
             {
-                return null;
-            }
-
-            if (gameObject.transform.parent.tag.Equals(tag))
-            {
-                return gameObject;
-            }
-
-            foreach (GameObject parent in gameObject.transform)
-            {
-                var result = FindAncestorByTag(parent, tag);
-
-                if (result != null)
+                if (parent.CompareTag(tag))
                 {
-                    return result;
+                    return parent.gameObject;
                 }
             }
 
@@ -1000,7 +990,7 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static Vector3Int ToVector3Int(this Vector3 v3)
         {
-            return new Vector3Int((int)v3.x, (int)v3.y, (int)v3.y);
+            return new Vector3Int((int)v3.x, (int)v3.y, (int)v3.z);
         }
 
         /// <summary>
@@ -1104,9 +1094,9 @@ namespace SOSXR.SeaShark
         /// <param name="t"></param>
         public static void DestroyChildrenImmediately(this Transform t)
         {
-            foreach (Transform child in t)
+            for (var i = t.childCount - 1; i >= 0; i--)
             {
-                Object.DestroyImmediate(child.gameObject);
+                Object.DestroyImmediate(t.GetChild(i).gameObject);
             }
         }
 

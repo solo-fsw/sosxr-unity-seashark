@@ -22,9 +22,16 @@ namespace SOSXR.SeaShark.EditorScripts
         private float lastBevelRadius;
 
 
-        private void Awake()
+        private void OnEnable()
         {
+            Undo.undoRedoPerformed -= OnUndo; // guard against double subscription
             Undo.undoRedoPerformed += OnUndo;
+        }
+
+
+        private void OnDisable()
+        {
+            Undo.undoRedoPerformed -= OnUndo;
         }
 
 

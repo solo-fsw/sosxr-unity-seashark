@@ -16,7 +16,7 @@ namespace SOSXR.SeaShark
 
         public string BaseURL => "https://www.youtube.com";
 
-        public List<string> QueryStringVariables { get; set; }
+        public List<string> QueryStringVariables { get; set; } = new();
 
         public string QueryStringURL
         {

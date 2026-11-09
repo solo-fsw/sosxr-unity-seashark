@@ -29,6 +29,8 @@ namespace SOSXR.SeaShark.EditorScripts
                 label.text += $" ( Label = {labelSearchAttribute.labelName} )";
             }
 
+            var previousIndent = EditorGUI.indentLevel;
+
             if (property.isArray)
             {
                 EditorGUI.indentLevel = 0;
@@ -56,6 +58,7 @@ namespace SOSXR.SeaShark.EditorScripts
             }
 
             labelSearchAttribute.search = false;
+            EditorGUI.indentLevel = previousIndent;
         }
 
 
@@ -85,7 +88,7 @@ namespace SOSXR.SeaShark.EditorScripts
             {
                 position.y += CONTENT_HEIGHT;
                 EditorGUI.indentLevel = 2;
-                var type = GetType(property.GetArrayElementAtIndex(0));
+                var type = GetType(property);
                 EditorGUI.LabelField(position, "Size", property.arraySize.ToString());
 
                 for (var i = 0; i < property.arraySize; i++)
@@ -122,7 +125,7 @@ namespace SOSXR.SeaShark.EditorScripts
                     LabelSearchAttribute.assetTypes[path] = assetType;
                 }
 
-                if (type != assetType)
+                if (type == null || !type.IsAssignableFrom(assetType))
                 {
                     continue;
                 }
@@ -158,8 +161,7 @@ namespace SOSXR.SeaShark.EditorScripts
             }
 
             property.arraySize = 0;
-            property.InsertArrayElementAtIndex(0);
-            var type = GetType(property.GetArrayElementAtIndex(0));
+            var type = GetType(property); // From the field's declared type: works for empty arrays and leaves no stray null element
 
             foreach (var path in GetAllAssetPaths())
             {
@@ -178,7 +180,7 @@ namespace SOSXR.SeaShark.EditorScripts
                     LabelSearchAttribute.assetTypes[path] = assetType;
                 }
 
-                if (type != assetType)
+                if (type == null || !type.IsAssignableFrom(assetType))
                 {
                     continue;
                 }
@@ -229,21 +231,25 @@ namespace SOSXR.SeaShark.EditorScripts
         }
 
 
+        /// <summary>
+        ///     The element type of the field (T, T[] or List&lt;T&gt;). Taken from the field itself instead of the
+        ///     serialized type name, so it is not limited to UnityEngine.* types.
+        /// </summary>
         private Type GetType(SerializedProperty property)
         {
-            try
-            {
-                var assembly = Assembly.Load("UnityEngine");
-                if (assembly == null)
-                    return null;
+            var type = fieldInfo.FieldType;
 
-                return assembly.GetType("UnityEngine." + property.type.Replace("PPtr<$", "").Replace(">", ""));
-            }
-            catch (Exception e)
+            if (type.IsArray)
             {
-                Debug.LogError($"Couldn't get type due to {e}");
-                return null;
+                return type.GetElementType();
             }
+
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(System.Collections.Generic.List<>))
+            {
+                return type.GetGenericArguments()[0];
+            }
+
+            return type;
         }
     }
 }

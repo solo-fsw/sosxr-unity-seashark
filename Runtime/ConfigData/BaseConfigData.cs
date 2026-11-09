@@ -31,6 +31,9 @@ namespace SOSXR.SeaShark
 
         private event Action<string, object> _onAnyValueChanged;
 
+        private Action<object> _updateJsonCallback;
+        private bool _initialized;
+
 
         protected void SetValue<T>(ref T field, T value, string propertyName)
         {
@@ -46,12 +49,22 @@ namespace SOSXR.SeaShark
 
         public void Initialize()
         {
+            if (_initialized)
+            {
+                DeInitialize();
+            }
+
+            UpdateJsonOnValueChange ??= new List<string>();
+            _updateJsonCallback ??= _ => UpdateConfigJson();
+
             Debug.Log($"Initializing with values which trigger JSON update: {string.Join(", ", UpdateJsonOnValueChange)}");
 
             foreach (var propertyName in UpdateJsonOnValueChange)
             {
-                Subscribe(propertyName, _ => UpdateConfigJson());
+                Subscribe(propertyName, _updateJsonCallback);
             }
+
+            _initialized = true;
         }
 
 
@@ -177,7 +190,6 @@ namespace SOSXR.SeaShark
                         Debug.LogWarningFormat("Notified using Field name {0}, is this correct?", field.Name);
                     }
 
-                    _onAnyValueChanged?.Invoke(propertyName ?? field.Name, currentValue); // Always notify general listeners with the same name we used aboveeioc
                 }
             }
         }
@@ -206,10 +218,15 @@ namespace SOSXR.SeaShark
 
         public void DeInitialize()
         {
-            foreach (var change in UpdateJsonOnValueChange)
+            if (_updateJsonCallback != null && UpdateJsonOnValueChange != null)
             {
-                Unsubscribe(change, _ => UpdateConfigJson());
+                foreach (var change in UpdateJsonOnValueChange)
+                {
+                    Unsubscribe(change, _updateJsonCallback);
+                }
             }
+
+            _initialized = false;
         }
 
 
@@ -221,10 +238,5 @@ namespace SOSXR.SeaShark
             Debug.LogWarning("All listeners have been forcibly evicted.");
         }
 
-
-        private void OnDestroy()
-        {
-            HandleConfigData.DeleteConfigJson();
-        }
     }
 }

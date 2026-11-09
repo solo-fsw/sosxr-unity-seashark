@@ -17,6 +17,7 @@ namespace SOSXR.SeaShark
     {
         private readonly List<TweenSequence> _activeSequences = new();
         private readonly List<TweenSequence> _pendingRemovals = new();
+        private readonly List<TweenSequence> _iterationBuffer = new();
 
 
         private TweenRunner()
@@ -39,6 +40,8 @@ namespace SOSXR.SeaShark
         /// <returns>A freshly created, playing <see cref="TweenSequence" />.</returns>
         public TweenSequence CreateSequence()
         {
+            EnsureDriverExists();
+
             var sequence = new TweenSequence();
             sequence.ResetPlayback();
             _activeSequences.Add(sequence);
@@ -77,10 +80,31 @@ namespace SOSXR.SeaShark
 
             _pendingRemovals.Clear();
 
-            for (var i = 0; i < _activeSequences.Count; i++)
+            // Iterate a snapshot: callbacks may create or kill sequences while we advance.
+            _iterationBuffer.Clear();
+            _iterationBuffer.AddRange(_activeSequences);
+
+            for (var i = 0; i < _iterationBuffer.Count; i++)
             {
-                var sequence = _activeSequences[i];
-                sequence.Advance(deltaTime);
+                var sequence = _iterationBuffer[i];
+
+                if (!sequence.IsActive())
+                {
+                    _pendingRemovals.Add(sequence);
+
+                    continue;
+                }
+
+                try
+                {
+                    sequence.Advance(deltaTime);
+                }
+                catch (System.Exception exception)
+                {
+                    // E.g. the tween's target was destroyed. Kill only this sequence so the others keep running.
+                    Debug.LogException(exception);
+                    sequence.Kill();
+                }
 
                 if (!sequence.IsActive())
                 {
@@ -92,6 +116,8 @@ namespace SOSXR.SeaShark
             {
                 _activeSequences.Remove(_pendingRemovals[i]);
             }
+
+            _iterationBuffer.Clear();
         }
 
 

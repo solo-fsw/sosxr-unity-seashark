@@ -70,7 +70,8 @@ namespace SOSXR.SeaShark
         /// <returns><c>true</c> when this component and at least one target collider are available.</returns>
         protected bool FindOtherCollider()
         {
-            if (m_targetColliders == null && Targets != null)
+            // Unity deserializes arrays as empty (never null), so treat empty as "not yet found".
+            if ((m_targetColliders == null || m_targetColliders.Length == 0) && Targets != null && Targets.Length > 0)
             {
                 var colliders = new List<Collider>();
 
@@ -88,7 +89,11 @@ namespace SOSXR.SeaShark
                 }
 
                 m_targetColliders = colliders.ToArray();
-                _targetColliderSet = m_targetColliders.Length > 0 ? new HashSet<Collider>(m_targetColliders) : null;
+            }
+
+            if (_targetColliderSet == null && m_targetColliders != null && m_targetColliders.Length > 0)
+            {
+                _targetColliderSet = new HashSet<Collider>(m_targetColliders);
             }
 
             return m_thisCollider != null && m_targetColliders?.Length > 0;

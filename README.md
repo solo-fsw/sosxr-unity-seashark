@@ -22,12 +22,27 @@ A comprehensive collection of C# extensions, utilities, and design pattern imple
   - [Object Cue](#object-cue)
   - [Query Strings](#query-strings)
   - [Video Player](#video-player)
+- [Samples](#samples)
+- [Upgrading](#upgrading)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## Installation
 
 Add this package to your Unity project via the Package Manager or by cloning the repository into your Assets folder.
+
+SeaShark requires Unity 6 (6000.0). The Package Manager installs these dependencies with it: Input System (1.1.0), uGUI (2.0.0), XR Management (4.0.0), XR Core Utils (2.2.0), and the Animation and Video modules.
+
+## Samples
+
+Import samples from the Package Manager (SeaShark, Samples tab). The package ships ten samples: Android Runtime Permissions, Animation Rigging, BookPageCurl, ConfigData, Design Patterns, Fonts, Input Actions, Object Cue, Poke Deformation, and Basic Samples.
+
+Some samples need extra packages:
+
+- **Design Patterns:** the Mediator Timeline sample and CopyTransform need ScriptableObject-Architecture and Timeline.
+- **Animation Rigging:** needs `com.unity.animation.rigging`, `com.sosxr.enhancedlogger` and ScriptableObject-Architecture. The sample compiles only once all three are installed.
+- **Poke Deformation:** needs `com.sosxr.enhancedlogger` and ScriptableObject-Architecture. The sample compiles only once both are installed.
+- **Android Runtime Permissions:** needs [UnityAndroidRuntimePermissions](https://github.com/yasirkula/UnityAndroidRuntimePermissions).
 
 ## Quick Start
 
@@ -269,6 +284,18 @@ Video player utilities wrap Unity's VideoPlayer integration to streamline common
 **Basic usage pattern (conceptual):** Invoke VideoPlayerManager.Play(videoClip) to start playback, and subscribe to completion callbacks to trigger next steps. Use Pause/Resume/Seek for precise playback control as part of UI or gameplay flow.
 
 **Related resources:** `SOSXR.SeaShark.Video.Player`, VideoPlayerExtensions, VideoCueSystem.
+
+## Upgrading
+
+These unreleased changes break existing code or scenes:
+
+- `MathE.Clamp(value, min, max)` now takes its parameters in this order. It used to be `(value, max, min)`.
+- `Transform.Reset()` and `GameObject.ResetTransformation()` reset the local position. They used to reset the world position.
+- `SimpleToneGenerator.PlayForDuration` takes seconds. Check call sites that passed milliseconds.
+- `LoadQueryURL` stores its `m_webView` and `m_configData` fields as `Object` references. Reassign both in the Inspector after upgrading.
+- The sample `QueryURL` class is now `SampleQueryURL`.
+
+See [CHANGELOG.md](CHANGELOG.md) for the full list.
 
 ## Contributing
 

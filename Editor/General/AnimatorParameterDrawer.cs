@@ -42,43 +42,40 @@ namespace SOSXR.SeaShark.EditorScripts
                 return;
             }
 
-            var parameters = animatorController.parameters;
+            var eventNames = animatorController.parameters
+                                               .Where(t => CanAddEventName(t.type))
+                                               .Select(t => t.name).ToList();
 
-            if (parameters.Length == 0)
+            if (eventNames.Count == 0)
             {
-                Debug.LogWarning("AnimationParamater is 0");
-                property.stringValue = string.Empty;
+                // Don't wipe the stored value just because the controller currently has no matching parameter.
                 DefaultInspector(position, property, label);
 
                 return;
             }
 
-            var eventNames = parameters
-                             .Where(t => CanAddEventName(t.type))
-                             .Select(t => t.name).ToList();
+            // Selection is derived from the property on every call: the attribute instance is shared by all
+            // elements/objects using this drawer, so it must not hold per-property state.
+            var currentIndex = eventNames.IndexOf(property.stringValue);
 
-            if (eventNames.Count == 0)
+            if (currentIndex == -1 && !string.IsNullOrEmpty(property.stringValue))
             {
-                Debug.LogWarning(string.Format("{0} Parameter is 0", animatorParameterAttribute.parameterType));
-                property.stringValue = string.Empty;
-                DefaultInspector(position, property, label);
-
-                return;
+                eventNames.Insert(0, property.stringValue + " (missing)");
+                currentIndex = 0;
             }
 
             var eventNamesArray = eventNames.ToArray();
 
-            var matchIndex = eventNames
-                .FindIndex(eventName => eventName.Equals(property.stringValue));
+            EditorGUI.BeginProperty(position, label, property);
+            EditorGUI.BeginChangeCheck();
+            var selected = EditorGUI.Popup(position, label.text, Mathf.Max(currentIndex, 0), eventNamesArray);
 
-            if (matchIndex != -1)
+            if (EditorGUI.EndChangeCheck() && !eventNamesArray[selected].EndsWith(" (missing)"))
             {
-                animatorParameterAttribute.selectedValue = matchIndex;
+                property.stringValue = eventNamesArray[selected];
             }
 
-            animatorParameterAttribute.selectedValue = EditorGUI.IntPopup(position, label.text, animatorParameterAttribute.selectedValue, eventNamesArray, SetOptionValues(eventNamesArray));
-
-            property.stringValue = eventNamesArray[animatorParameterAttribute.selectedValue];
+            EditorGUI.EndProperty();
         }
 
 
@@ -93,23 +90,26 @@ namespace SOSXR.SeaShark.EditorScripts
         /// </param>
         private AnimatorController GetAnimatorController(SerializedProperty property)
         {
-            var component = property.serializedObject.targetObject as Component;
-
-            if (component == null)
+            // Non-Component targets (e.g. ScriptableObjects) have no Animator: fall back to the default field.
+            if (property.serializedObject.targetObject is not Component component)
             {
-                throw new InvalidCastException("Couldn't cast targetObject");
-            }
-
-            var anim = component.GetComponent<Animator>();
-
-            if (anim == null)
-            {
-                Debug.LogException(new MissingComponentException("Missing Aniamtor Component"));
-
                 return null;
             }
 
-            return anim.runtimeAnimatorController as AnimatorController;
+            if (!component.TryGetComponent<Animator>(out var anim))
+            {
+                return null;
+            }
+
+            var controller = anim.runtimeAnimatorController;
+
+            // Unwrap override controllers to reach the underlying AnimatorController
+            while (controller is AnimatorOverrideController overrideController)
+            {
+                controller = overrideController.runtimeAnimatorController;
+            }
+
+            return controller as AnimatorController;
         }
 
 

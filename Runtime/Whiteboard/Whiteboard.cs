@@ -20,6 +20,8 @@ namespace SOSXR.SeaShark
 
         public Texture2D Texture { get; private set; }
 
+        private Material _materialInstance;
+
         public Collider Collider
         {
             get => m_collider;
@@ -57,13 +59,58 @@ namespace SOSXR.SeaShark
                 return;
             }
 
+            ReleaseTexture(); // Calling this again must not leak the previous texture
+
             Texture = new Texture2D((int) TextureSize.x, (int) TextureSize.y);
-            m_renderer.material.mainTexture = Texture; // Is the same as: _renderer.material.SetTexture("_MainTex", Texture);
+
+            // .material creates a per-renderer instance once; we own it and destroy it in OnDestroy.
+            _materialInstance ??= m_renderer.material;
+            _materialInstance.mainTexture = Texture; // Is the same as: SetTexture("_MainTex", Texture);
 
             if (Math.Abs(transform.localScale.x - transform.localScale.y) > 0.01f ||
                 Math.Abs(transform.localScale.x - transform.localScale.z) > 0.01f)
             {
                 Debug.LogWarning("Whiteboard scale is not uniform. This may cause issues with the texture.");
+            }
+        }
+
+
+        private void ReleaseTexture()
+        {
+            if (Texture == null)
+            {
+                return;
+            }
+
+            if (Application.isPlaying)
+            {
+                Destroy(Texture);
+            }
+            else
+            {
+                DestroyImmediate(Texture);
+            }
+
+            Texture = null;
+        }
+
+
+        private void OnDestroy()
+        {
+            ReleaseTexture();
+
+            if (_materialInstance != null)
+            {
+                if (Application.isPlaying)
+                {
+                    Destroy(_materialInstance);
+                }
+                else
+                {
+                    DestroyImmediate(_materialInstance);
+                }
+
+                _materialInstance = null;
             }
         }
     }

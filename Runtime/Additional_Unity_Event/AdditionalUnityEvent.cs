@@ -172,12 +172,11 @@ namespace SOSXR.SeaShark
             {
                 if (_activeCoroutine != null)
                 {
-                    StopCoroutine(_activeCoroutine);
-
+                    // A delayed invocation is already pending; let it complete instead of cancelling it.
                     return;
                 }
 
-                if (!enabled)
+                if (!isActiveAndEnabled)
                 {
                     return;
                 }
@@ -247,7 +246,11 @@ namespace SOSXR.SeaShark
             if (m_triggerType == LifeCycleTriggerType.InputAction && m_inputAction.action != null)
             {
                 m_inputAction.action.performed -= HandleInputActionPerformed;
-                m_inputAction.action.Disable();
+
+                if (m_inputAction.reference == null)
+                {
+                    m_inputAction.action.Disable(); // Don't disable shared actions from an asset reference.
+                }
             }
 
             CancelEvent();
@@ -272,7 +275,7 @@ namespace SOSXR.SeaShark
 #endif
 
 #if !UNITY_EDITOR
-            if (m_buildTriggerType == BuildTriggerType.OnlyInBuilds && !Application.isPlaying)
+            if (m_buildTriggerType == BuildTriggerType.OnlyInBuilds)
             {
                 return true;
             }
@@ -292,8 +295,7 @@ namespace SOSXR.SeaShark
             }
 #endif
 
-            Debug.LogError("BuildTriggerType is not set correctly. Please check the settings.");
-
+            // The configured filter does not match the current context: don't fire.
             return false;
         }
     }

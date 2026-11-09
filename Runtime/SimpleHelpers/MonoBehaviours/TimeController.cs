@@ -46,28 +46,43 @@ namespace SOSXR.SeaShark
 
         private void SetActionsFromReference()
         {
-            _slowAction = m_slowActionReference?.action;
-            _pauseAction = m_pauseActionReference?.action;
-            _normalAction = m_normalActionReference?.action;
-            _fastAction = m_fastActionReference?.action;
+            _slowAction = m_slowActionReference != null ? m_slowActionReference.action : null;
+            _pauseAction = m_pauseActionReference != null ? m_pauseActionReference.action : null;
+            _normalAction = m_normalActionReference != null ? m_normalActionReference.action : null;
+            _fastAction = m_fastActionReference != null ? m_fastActionReference.action : null;
         }
 
 
         private void EnableActions()
         {
-            _slowAction.Enable();
-            _pauseAction.Enable();
-            _normalAction.Enable();
-            _fastAction.Enable();
+            _slowAction?.Enable();
+            _pauseAction?.Enable();
+            _normalAction?.Enable();
+            _fastAction?.Enable();
         }
 
 
         private void RegisterActionHandlers()
         {
-            _slowAction.performed += SlowTime;
-            _pauseAction.performed += PauseTime;
-            _normalAction.performed += NormalTime;
-            _fastAction.performed += SpeedUpTime;
+            if (_slowAction != null)
+            {
+                _slowAction.performed += SlowTime;
+            }
+
+            if (_pauseAction != null)
+            {
+                _pauseAction.performed += PauseTime;
+            }
+
+            if (_normalAction != null)
+            {
+                _normalAction.performed += NormalTime;
+            }
+
+            if (_fastAction != null)
+            {
+                _fastAction.performed += SpeedUpTime;
+            }
         }
 
 
@@ -120,19 +135,34 @@ namespace SOSXR.SeaShark
 
         private void UnregisterActionHandlers()
         {
-            _slowAction.performed -= SlowTime;
-            _pauseAction.performed -= PauseTime;
-            _normalAction.performed -= NormalTime;
-            _fastAction.performed -= SpeedUpTime;
+            if (_slowAction != null)
+            {
+                _slowAction.performed -= SlowTime;
+            }
+
+            if (_pauseAction != null)
+            {
+                _pauseAction.performed -= PauseTime;
+            }
+
+            if (_normalAction != null)
+            {
+                _normalAction.performed -= NormalTime;
+            }
+
+            if (_fastAction != null)
+            {
+                _fastAction.performed -= SpeedUpTime;
+            }
         }
 
 
         private void DisableActions()
         {
-            _slowAction.Disable();
-            _pauseAction.Disable();
-            _normalAction.Disable();
-            _fastAction.Disable();
+            _slowAction?.Disable();
+            _pauseAction?.Disable();
+            _normalAction?.Disable();
+            _fastAction?.Disable();
         }
     }
 }

@@ -64,12 +64,25 @@ namespace SOSXR.SeaShark
 
         private void OnValidate()
         {
+            ResolveReferences();
+        }
+
+        private void Awake()
+        {
+            ResolveReferences();
+        }
+
+        private void ResolveReferences()
+        {
             if (VideoPlayer == null)
             {
                 VideoPlayer = GetComponentInChildren<VideoPlayer>();
             }
 
-            VideoPlayer.source = VideoSource.Url;
+            if (VideoPlayer != null)
+            {
+                VideoPlayer.source = VideoSource.Url;
+            }
 
             if (AudioSource == null)
             {
@@ -108,7 +121,10 @@ namespace SOSXR.SeaShark
 
         private void OnEnable()
         {
-            VideoPlayer.errorReceived += ReceivedAnError;
+            if (VideoPlayer != null)
+            {
+                VideoPlayer.errorReceived += ReceivedAnError;
+            }
         }
 
         private void ReceivedAnError(VideoPlayer source, string message)
@@ -136,7 +152,15 @@ namespace SOSXR.SeaShark
 
             do
             {
-                //m_randomizedClipList
+                m_randomizedClipList = new List<VideoSettingsCustom>(Clips);
+                ListExtensions.Shuffle(m_randomizedClipList);
+
+                if (m_randomizedClipList.Count == 0)
+                {
+                    Debug.LogWarning("No clips to play.");
+
+                    yield break;
+                }
 
                 foreach (var clip in m_randomizedClipList)
                 {
@@ -199,6 +223,8 @@ namespace SOSXR.SeaShark
 
         private void CreateNewRenderTexture()
         {
+            ReleaseRenderTexture();
+
             Dimensions.x = (int)VideoPlayer.width;
             Dimensions.y = (int)VideoPlayer.height;
             _renderTexture = new RenderTexture(
@@ -226,11 +252,33 @@ namespace SOSXR.SeaShark
         {
             VideoPlayer.Stop();
             VideoPlayer.clip = null;
-            m_renderMaterial.mainTexture = new RenderTexture(0, 0, 0);
+            if (m_renderMaterial != null)
+            {
+                m_renderMaterial.mainTexture = null;
+            }
+
+            ReleaseRenderTexture();
             AudioSource.Stop();
             AudioSource.enabled = false;
 
             Debug.LogFormat("Stopping playing");
+        }
+
+        private void ReleaseRenderTexture()
+        {
+            if (_renderTexture == null)
+            {
+                return;
+            }
+
+            if (VideoPlayer != null && VideoPlayer.targetTexture == _renderTexture)
+            {
+                VideoPlayer.targetTexture = null;
+            }
+
+            _renderTexture.Release();
+            Destroy(_renderTexture);
+            _renderTexture = null;
         }
 
         [ContextMenu(nameof(ReshuffleVideos))]
@@ -255,9 +303,18 @@ namespace SOSXR.SeaShark
 
         private void OnDisable()
         {
-            VideoPlayer.errorReceived -= ReceivedAnError;
+            if (VideoPlayer != null)
+            {
+                VideoPlayer.errorReceived -= ReceivedAnError;
+            }
 
             StopAllCoroutines();
+            _playerCR = null;
+        }
+
+        private void OnDestroy()
+        {
+            ReleaseRenderTexture();
         }
     }
 }

@@ -104,5 +104,18 @@ namespace SOSXR.SeaShark.Tests
             string result = data.BuildQueryURL(BaseURL, "username");
             StringAssert.Contains("username=bob", result);
         }
+
+        private class LeadingMFieldData
+        {
+            public string mood = "happy";
+        }
+
+        [Test]
+        public void BuildQueryURL_DoesNotStripLeadingMFromRegularFieldName()
+        {
+            LeadingMFieldData data = new();
+            string result = data.BuildQueryURL(BaseURL, "mood");
+            StringAssert.Contains("mood=happy", result);
+        }
     }
 }

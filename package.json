@@ -1,6 +1,6 @@
 {
   "name": "com.sosxr.seashark",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "displayName": "SeaShark",
   "description": "A comprehensive collection of C# extensions, utilities, and design pattern implementations for Unity. Provides lightweight, reusable components for gameplay, UI, and system architecture.",
   "documentationUrl": "https://github.com/solo-fsw/sosxr-unity-seashark",
@@ -10,6 +10,7 @@
     "com.unity.inputsystem": "1.1.0",
     "com.unity.ugui": "2.0.0",
     "com.unity.xr.management": "4.0.0",
+    "com.unity.xr.core-utils": "2.2.0",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.video": "1.0.0"
   },
@@ -37,42 +38,52 @@
     {
       "displayName": "Android Runtime Permissions",
       "description": "Runtime permission handling for Android builds (requires https://github.com/yasirkula/UnityAndroidRuntimePermissions.git)",
-      "path": "Samples~/AndroidRuntimePermissions"
+      "path": "Samples/AndroidRuntimePermissions"
+    },
+    {
+      "displayName": "Animation Rigging",
+      "description": "Animation Rigging helpers. Requires com.unity.animation.rigging, com.sosxr.enhancedlogger and ScriptableObject-Architecture; the sample assembly is skipped until they are installed.",
+      "path": "Samples/AnimationRigging"
     },
     {
       "displayName": "BookPageCurl",
       "description": "Contains Book Page Curl (LGPL3.0)",
-      "path": "Samples~/BookPageCurl"
+      "path": "Samples/BookPageCurl"
     },
     {
       "displayName": "ConfigData",
       "description": "Sample configuration data using ScriptableObjects and lightweight data wrappers",
-      "path": "Samples~/ConfigData"
+      "path": "Samples/ConfigData"
     },
     {
       "displayName": "Design Patterns",
-      "description": "Design pattern samples demonstrating common solutions",
-      "path": "Samples~/DesignPatterns"
+      "description": "Design pattern samples demonstrating common solutions. The Mediator Timeline sample and CopyTransform need ScriptableObject-Architecture (and Timeline); they compile only when those are installed.",
+      "path": "Samples/DesignPatterns"
     },
     {
       "displayName": "Fonts",
       "description": "Contains Maple Mono and other fonts",
-      "path": "Samples~/Fonts"
+      "path": "Samples/Fonts"
     },
     {
       "displayName": "Input Actions",
       "description": "Contains Input System actions and helpers",
-      "path": "Samples~/InputActions"
+      "path": "Samples/InputActions"
+    },
+    {
+      "displayName": "Poke Deformation",
+      "description": "Shader Graph poke deformation. Requires com.sosxr.enhancedlogger and ScriptableObject-Architecture; the sample assembly is skipped until they are installed.",
+      "path": "Samples/Poke Deformation"
     },
     {
       "displayName": "Object Cue",
       "description": "Contains Object Cue",
-      "path": "Samples~/ObjectCue"
+      "path": "Samples/ObjectCue"
     },
     {
       "displayName": "Basic Samples",
       "description": "Contains samples of this package",
-      "path": "Samples~/Samples"
+      "path": "Samples/Samples"
     }
   ],
   "changelogUrl": "https://github.com/solo-fsw/sosxr-unity-seashark/blob/main/CHANGELOG.md"

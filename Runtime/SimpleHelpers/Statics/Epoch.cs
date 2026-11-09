@@ -30,9 +30,7 @@ namespace SOSXR.SeaShark.Statics
         /// <returns>The current local time as a formatted string.</returns>
         public static string GetCurrentTimeAsString(string format = "dd/MM/yyyy HH:mm:ss.fff")
         {
-            var timeString = GetCurrentTimeInMilliseconds().ToString(format);
-
-            return timeString;
+            return FormatEpoch(GetCurrentTimeInMilliseconds(), format);
         }
 
 

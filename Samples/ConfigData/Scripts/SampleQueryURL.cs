@@ -7,7 +7,10 @@ using UnityEngine;
 
 namespace SOSXR.SeaShark
 {
-    public static class QueryURL
+    /// <summary>
+    ///     Sample-only helper. Named differently from the runtime <c>SOSXR.SeaShark.QueryURL</c> to avoid duplicate type errors (CS0436/CS0433).
+    /// </summary>
+    public static class SampleQueryURL
     {
         /// <summary>
         ///     You can pass any number of values to this method, and it will build a query string URL using the values that match
@@ -34,7 +37,7 @@ namespace SOSXR.SeaShark
 
                 if (field != null)
                 {
-                    queryParams.Add($"{field.Name.TrimStart('m', '_')}={Uri.EscapeDataString(value.ToString())}");
+                    queryParams.Add($"{(field.Name.StartsWith("m_") ? field.Name.Substring(2) : field.Name.TrimStart('_'))}={Uri.EscapeDataString(value.ToString())}");
 
                     continue;
                 }

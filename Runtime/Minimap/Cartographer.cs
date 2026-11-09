@@ -39,6 +39,9 @@ namespace SOSXR.SeaShark
             if (_camera == null)
             {
                 Debug.LogWarning("We're missing our camera in the minimap, that can't be!");
+                _layer = -1;
+
+                return;
             }
 
             // Get mask of camera, to be able to set the layer of our objects
@@ -50,6 +53,7 @@ namespace SOSXR.SeaShark
             }
             else
             {
+                _layer = -1;
                 Debug.LogWarning("Our camera either has nothing selected on the culling mask, or multiple layers. This cannot be. Select only one layer on the minimap camera");
             }
         }
@@ -70,6 +74,14 @@ namespace SOSXR.SeaShark
         public void GenerateMap()
         {
             GetCamera();
+
+            if (_layer < 0)
+            {
+                return;
+            }
+
+            // Start also runs in Edit mode ([ExecuteAlways]); clear previous sprites so they never pile up.
+            DestroyMap();
 
             foreach (var mapMaker in m_map)
             {
@@ -108,9 +120,7 @@ namespace SOSXR.SeaShark
                 return;
             }
 
-            // Edit-mode only tooling path. Runtime hot paths stay unchanged.
-            DestroyMap();
-
+            // Edit-mode only tooling path. Runtime hot paths stay unchanged. GenerateMap clears the old map first.
             GenerateMap();
         }
 

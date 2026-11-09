@@ -57,7 +57,7 @@ namespace SOSXR.SeaShark.EditorScripts
             }
             else
             {
-                string typeName = fieldType.Name;
+                string typeName = fieldType != null ? fieldType.Name : "<unknown>";
 
                 if (typeName == "Single")
                 {
@@ -88,7 +88,12 @@ namespace SOSXR.SeaShark.EditorScripts
 
             if (GUILayout.Button("Find Values and Fire Event"))
             {
-                ((ConfigValueToUnityEvent<object>)target).FireCurrentValue();
+                // A cast to ConfigValueToUnityEvent<object> always fails (generic types are invariant), so use reflection.
+                foreach (var t in targets)
+                {
+                    var fire = t.GetType().GetMethod("FireCurrentValue", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, Type.EmptyTypes, null);
+                    fire?.Invoke(t, null);
+                }
             }
 
             _ = serializedObject.ApplyModifiedProperties();
@@ -109,7 +114,7 @@ namespace SOSXR.SeaShark.EditorScripts
             }
 
             var configType = configDataProp.objectReferenceValue.GetType();
-            var baseType = target.GetType().BaseType?.GetGenericArguments().FirstOrDefault();
+            var baseType = FindValueType(target.GetType());
 
             if (baseType == null)
             {
@@ -131,6 +136,22 @@ namespace SOSXR.SeaShark.EditorScripts
                          .Select(f => f.Name);
 
             validValueNames = properties.Concat(fields).ToArray();
+        }
+
+        /// <summary>
+        ///     Walks up the hierarchy to ConfigValueToUnityEvent&lt;T&gt; and returns T, so deeper subclasses work too.
+        /// </summary>
+        private static Type FindValueType(Type type)
+        {
+            for (var current = type; current != null; current = current.BaseType)
+            {
+                if (current.IsGenericType && current.GetGenericTypeDefinition() == typeof(ConfigValueToUnityEvent<>))
+                {
+                    return current.GetGenericArguments()[0];
+                }
+            }
+
+            return null;
         }
     }
 }

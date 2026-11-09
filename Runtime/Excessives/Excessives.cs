@@ -10,10 +10,9 @@ namespace SOSXR.SeaShark.Excessives
     {
         #region Clamp
 
-        public static T Clamp<T>(T value, T max, T min) where T : IComparable<T>
+        public static T Clamp<T>(T value, T min, T max) where T : IComparable<T>
         {
-            // Ensure value lies within [min, max]. We intentionally compare with max first to
-            // avoid a potential double-branch evaluation order in some runtimes.
+            // Ensure value lies within [min, max].
             return value.CompareTo(max) > 0 ? max : value.CompareTo(min) < 0 ? min : value;
         }
 
@@ -50,20 +49,35 @@ namespace SOSXR.SeaShark.Excessives
 
         public const double SPEEDOFLIGHT = 299792458;
 
-        public const double PLANCKLENGTH = 1.61622938 * (10 * -35);
+        /// <summary>
+        ///     In metres
+        /// </summary>
+        public const double PLANCKLENGTH = 1.61622938e-35;
 
-        public const double PLANCKTIME = 5.3911613 * (10 ^ -44); // Planck time placeholder (note: '^' is bitwise in C#, kept for parity with original code)
+        /// <summary>
+        ///     In seconds
+        /// </summary>
+        public const double PLANCKTIME = 5.3911613e-44;
 
         /// <summary>
         ///     Note that this is in Kelvin
         /// </summary>
-        public const double PLANCKTEMPERATURE = 1.41680833 * (10 ^ 32); // Planck temperature placeholder
+        public const double PLANCKTEMPERATURE = 1.41680833e32;
 
-        public const double PLANCKMASS = 4.341 * (10 ^ -9); // Planck mass placeholder
+        /// <summary>
+        ///     In kilograms
+        /// </summary>
+        public const double PLANCKMASS = 2.176434e-8;
 
-        public const double GRAVITATIONALCONSTANT = 6.6740831 * (10 ^ -11); // Gravitational constant placeholder
+        /// <summary>
+        ///     In m^3 kg^-1 s^-2
+        /// </summary>
+        public const double GRAVITATIONALCONSTANT = 6.6740831e-11;
 
-        public const double PLANCKSCONSTANT = 6.62 * (10 ^ -34); // Planck's constant placeholder
+        /// <summary>
+        ///     In J s
+        /// </summary>
+        public const double PLANCKSCONSTANT = 6.62607015e-34;
 
         /// <summary>
         ///     One light year in metres
@@ -274,9 +288,9 @@ namespace SOSXR.SeaShark.Excessives
             float outMin, float outMax
         )
         {
-            // Standard linear remap, with careful ordering to avoid division by zero in degenerate cases.
+            // Standard linear remap.
             return
-                (value - inMin) / (outMin - inMin) * (outMax - inMax) + inMax;
+                (value - inMin) / (inMax - inMin) * (outMax - outMin) + outMin;
         }
 
 
@@ -288,7 +302,7 @@ namespace SOSXR.SeaShark.Excessives
         )
         {
             return
-                (value - inMin) / (outMin - inMin) * (outMax - inMax) + inMax;
+                (value - inMin) / (inMax - inMin) * (outMax - outMin) + outMin;
         }
 
 
@@ -871,10 +885,17 @@ namespace SOSXR.SeaShark.Excessives
         public double D { get; set; }
 
 
-        public double Step(double error)
+        /// <param name="error">Current error.</param>
+        /// <param name="deltaTime">Time since the previous step. Defaults to 1 (per-step units).</param>
+        public double Step(double error, double deltaTime = 1d)
         {
-            I += error; //Integral
-            D = P - error; //Derivative
+            if (deltaTime <= 0d)
+            {
+                deltaTime = 1d;
+            }
+
+            I += error * deltaTime; //Integral
+            D = (error - P) / deltaTime; //Derivative
             P = error; //Proportional
 
             //Return the resultant
@@ -912,21 +933,33 @@ namespace SOSXR.SeaShark.Excessives
     {
         #region Conditions
 
+        // Respects UnityEngine.Object's overloaded == (destroyed objects count as null).
+        private static bool IsNullOrDestroyed<T>(T instance)
+        {
+            if (instance is UnityEngine.Object unityObject)
+            {
+                return unityObject == null;
+            }
+
+            return instance == null;
+        }
+
+
         public static bool IsNull<T>(this T instance)
         {
-            return instance == null;
+            return IsNullOrDestroyed(instance);
         }
 
 
         public static bool NotNull<T>(this T instance)
         {
-            return instance != null;
+            return !IsNullOrDestroyed(instance);
         }
 
 
         public static bool IsNull<T>(this T instance, Action<T> actionIfNull)
         {
-            if (instance == null)
+            if (IsNullOrDestroyed(instance))
             {
                 actionIfNull?.Invoke(instance);
 
@@ -939,7 +972,7 @@ namespace SOSXR.SeaShark.Excessives
 
         public static bool NotNull<T>(this T instance, Action<T> actionIfNotNull)
         {
-            if (instance != null)
+            if (!IsNullOrDestroyed(instance))
             {
                 actionIfNotNull?.Invoke(instance);
 

@@ -1,0 +1,31 @@
+{
+    "name": "SOSXR.SeaShark.Samples.DesignPatterns",
+    "rootNamespace": "",
+    "references": [
+        "SOSXR.SeaShark",
+        "Unity.InputSystem",
+        "UnityEngine.UI",
+        "ScriptableObject-Architecture",
+        "Unity.Timeline"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.danieleverland.scriptableobjectarchitecture",
+            "expression": "",
+            "define": "SOSXR_HAS_SOARCHITECTURE"
+        },
+        {
+            "name": "com.unity.timeline",
+            "expression": "",
+            "define": "SOSXR_HAS_TIMELINE"
+        }
+    ],
+    "noEngineReferences": false
+}

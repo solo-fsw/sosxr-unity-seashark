@@ -11,10 +11,18 @@ namespace SOSXR.SeaShark
     {
         [SerializeField] private DemoConfigData m_configData;
 
+        private System.Action<object> _onPpnChanged; // Cached so Unsubscribe removes the same delegate
+
 
         private void OnEnable()
         {
-            m_configData.Subscribe(nameof(m_configData.PPN), _ => BuildQuery());
+            if (m_configData == null)
+            {
+                return;
+            }
+
+            _onPpnChanged ??= _ => BuildQuery();
+            m_configData.Subscribe(nameof(m_configData.PPN), _onPpnChanged);
         }
 
 
@@ -34,7 +42,10 @@ namespace SOSXR.SeaShark
 
         private void OnDisable()
         {
-            m_configData.Unsubscribe(nameof(m_configData.PPN), _ => BuildQuery());
+            if (m_configData != null && _onPpnChanged != null)
+            {
+                m_configData.Unsubscribe(nameof(m_configData.PPN), _onPpnChanged);
+            }
         }
     }
 }

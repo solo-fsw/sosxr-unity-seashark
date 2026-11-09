@@ -100,10 +100,28 @@ namespace SOSXR.SeaShark.EditorScripts
         private static void DrawNameDropdown(Rect position, MediatorRegistry registry, SerializedProperty eventNameProperty, string propertyName)
         {
             var eventNames = registry.Registry.ConvertAll(m => m.Medium.Channel);
-            var selectedIndex = Mathf.Max(eventNames.IndexOf(eventNameProperty.stringValue), 0);
-            selectedIndex = EditorGUI.Popup(position, propertyName, selectedIndex, eventNames.ToArray());
+            var currentIndex = eventNames.IndexOf(eventNameProperty.stringValue);
+            var knownCount = eventNames.Count;
 
-            if (selectedIndex >= 0 && selectedIndex < eventNames.Count)
+            // Keep an unknown channel visible instead of silently replacing it with registry[0].
+            if (currentIndex == -1 && !string.IsNullOrEmpty(eventNameProperty.stringValue))
+            {
+                eventNames.Insert(0, eventNameProperty.stringValue + " (not in registry)");
+                currentIndex = 0;
+            }
+
+            if (eventNames.Count == 0)
+            {
+                DrawNameTextField(position, propertyName, eventNameProperty);
+
+                return;
+            }
+
+            EditorGUI.BeginChangeCheck();
+            var selectedIndex = EditorGUI.Popup(position, propertyName, Mathf.Max(currentIndex, 0), eventNames.ToArray());
+            var isPlaceholder = eventNames.Count > knownCount && selectedIndex == 0;
+
+            if (EditorGUI.EndChangeCheck() && !isPlaceholder)
             {
                 eventNameProperty.stringValue = eventNames[selectedIndex];
             }

@@ -30,6 +30,11 @@ namespace SOSXR.SeaShark
 
         private void Awake()
         {
+            if (_fadeImage == null)
+            {
+                _fadeImage = GetComponentInChildren<Image>();
+            }
+
             if (!m_fadeOnAwake)
             {
                 return;

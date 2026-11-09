@@ -35,7 +35,33 @@ namespace SOSXR.SeaShark
 
             if (_registry == null)
             {
-                Debug.LogErrorFormat("{0} not found in Resources!", nameof(MediatorRegistry));
+                Debug.LogErrorFormat("{0} not found in Resources! Mediator works, but listeners/callers are not tracked.", nameof(MediatorRegistry));
+            }
+        }
+
+
+        /// <summary>
+        /// Static state survives Play mode when Domain Reload is disabled. Clear stale delegates (which may point
+        /// at destroyed objects) and reload the registry at the start of every play session.
+        /// </summary>
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetStatics()
+        {
+            Mediations.Clear();
+            LoadRegistry();
+        }
+
+
+        private static MediatorRegistry Registry
+        {
+            get
+            {
+                if (_registry == null)
+                {
+                    _registry = Resources.Load<MediatorRegistry>(nameof(MediatorRegistry));
+                }
+
+                return _registry;
             }
         }
 
@@ -56,12 +82,6 @@ namespace SOSXR.SeaShark
             var listenerMethod = listener.Method.Name;
             var listenerString = $"{listenerGameObjectName}.{listenerClass}.{listenerMethod}";
 
-            // Initialize the medium's delegate chain if it doesn't exist yet
-            if (!Mediations.ContainsKey(medium.Channel))
-            {
-                Mediations[medium.Channel] = delegate { };
-            }
-
             // Guard against subscribing to the placeholder "empty" medium
             if (medium.Channel == MediatorRegistry.EmptyName)
             {
@@ -71,10 +91,14 @@ namespace SOSXR.SeaShark
             }
 
             // Add the listener to the delegate chain for this medium
-            Mediations[medium.Channel] += listener;
+            Mediations.TryGetValue(medium.Channel, out var existing);
+            Mediations[medium.Channel] = existing + listener;
 
             // Register the listener in the mediator registry for tracking/debugging
-            _registry.RegisterListener(medium, listenerString);
+            if (Registry != null)
+            {
+                Registry.RegisterListener(medium, listenerString);
+            }
         }
 
 
@@ -106,11 +130,14 @@ namespace SOSXR.SeaShark
             var callerName = $"{className}.{methodName}";
 
             // Register the caller in the mediator registry for tracking/debugging
-            _registry.RegisterCaller(medium, callerName);
-            _registry.UpdateData(medium);
+            if (Registry != null)
+            {
+                Registry.RegisterCaller(medium, callerName);
+                Registry.UpdateData(medium);
+            }
 
             // Retrieve the delegate chain for this medium
-            if (!Mediations.TryGetValue(medium.Channel, out var evt))
+            if (!Mediations.TryGetValue(medium.Channel, out var evt) || evt == null)
             {
                 Debug.LogWarning($"No listeners for Medium: {medium.Channel}");
 
@@ -138,7 +165,10 @@ namespace SOSXR.SeaShark
             var listenerString = $"{listenerGameObjectName}.{listenerClass}.{listenerMethod}";
 
             // Unregister from the mediator registry
-            _registry.UnregisterListener(medium, listenerString);
+            if (Registry != null)
+            {
+                Registry.UnregisterListener(medium, listenerString);
+            }
 
             // Remove the listener from the delegate chain
             if (Mediations.ContainsKey(medium.Channel))

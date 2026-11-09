@@ -34,6 +34,21 @@ public class SimpleToneGenerator : MonoBehaviour
     /// </summary>
     private void OnValidate()
     {
+        Initialize();
+    }
+
+
+    /// <summary>
+    /// OnValidate only runs in the Editor, so initialise again at runtime.
+    /// </summary>
+    private void Awake()
+    {
+        Initialize();
+    }
+
+
+    private void Initialize()
+    {
         if (_audioSource == null)
         {
             _audioSource = GetComponent<AudioSource>();
@@ -52,30 +67,30 @@ public class SimpleToneGenerator : MonoBehaviour
     [Button]
     public void StartTone()
     {
-        if (_playing)
-        {
-            return;
-        }
-
-        _playing = true;
-        _timeRemaining = m_durationMS;
-        _audioSource.Play();
+        StartPlayback(0f); // 0 = play until StopTone is called
     }
 
 
     /// <summary>
     /// Plays the tone for a caller-provided duration.
     /// </summary>
-    /// <param name="duration">Playback duration.</param>
-    public void PlayForDuration(float duration)
+    /// <param name="durationSeconds">Playback duration in seconds.</param>
+    public void PlayForDuration(float durationSeconds)
+    {
+        StartPlayback(Mathf.Max(durationSeconds, 0.001f));
+    }
+
+
+    private void StartPlayback(float durationSeconds)
     {
         if (_playing)
         {
             return;
         }
 
-        _timeRemaining = duration;
-        StartTone();
+        _timeRemaining = durationSeconds;
+        _playing = true;
+        _audioSource.Play();
     }
 
 
@@ -85,7 +100,7 @@ public class SimpleToneGenerator : MonoBehaviour
     [Button]
     public void PlayForDuration()
     {
-        PlayForDuration(m_durationMS);
+        PlayForDuration(m_durationMS / 1000f);
     }
 
 

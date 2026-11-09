@@ -57,18 +57,17 @@ namespace SOSXR.SeaShark
 
             var oldInstances = FindObjectsByType<T>(FindObjectsInactive.Exclude);
 
+            // Newest wins: every other instance was initialised before (or in the same frame as) this one.
+            // Destroying all others also resolves same-frame ties, so exactly one survives.
             foreach (var old in oldInstances)
             {
-                if (old.GetComponent<RegulatorSingleton<T>>().InitializationTime < InitializationTime)
+                if (old != null && old.gameObject != gameObject)
                 {
                     Destroy(old.gameObject);
                 }
             }
 
-            if (instance == null)
-            {
-                instance = this as T;
-            }
+            instance = this as T;
         }
     }
 }

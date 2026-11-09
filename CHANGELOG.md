@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 The changelog format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [Unreleased]
+
+### Added
+
+- `Tests/EditMode/RegressionTests.cs` with regression tests for the bugs fixed in this release (`MathE.Clamp`, `MathE.ReMap`, `Transform.Reset`, `CommandStack` redo order, `Mediator`, and others).
+- Animation Rigging and Poke Deformation samples are listed in `package.json`.
+
+### Changed (breaking)
+
+- `MathE.Clamp` parameter order is now `(value, min, max)` (was `(value, max, min)`).
+- `TransformExtensions.Reset` / `GameObject.ResetTransformation` reset the local position (was world position).
+- `SimpleToneGenerator.PlayForDuration(float)` takes seconds.
+- `LoadQueryURL` now serializes `Object` references (`m_webView`, `m_configData`) and casts them to `ILoadQueryURL` / `IHaveQueryData`. Reassign them in the Inspector.
+- `AdditionalUnityEvent`: a trigger during a pending delay no longer cancels it; a non-matching build filter no longer logs an error.
+- Sample `QueryURL` class renamed to `SampleQueryURL`.
+- Samples now live in `Samples~/` instead of `Samples/`, so Unity does not import them with the package. Import them from the Package Manager.
+- Runtime and Editor asmdefs no longer reference `SOSXR.EnhancedLogger`. Added dependency `com.unity.xr.core-utils`.
+
+### Fixed
+
+- Player builds: unguarded `using UnityEditor;` in `Helpers` and `EasyIKVisuals`.
+- Components that only resolved references in `OnValidate` (`VideoPlayerManager`, `ImageFader`, `SimpleToneGenerator`) now also do so in `Awake`.
+- `BaseConfigData` deleted `config.json` in `OnDestroy`; lambda unsubscribe leaks in `BaseConfigData`, `KeyStrokeManager`, `UIManager`, `BuildQueryURL` sample.
+- `MathE.ReMap`, physical constants, PID derivative, `FindAncestorByTag`, `ToVector3Int`, `DestroyChildrenImmediately`, `IsOdd` for negatives, `ExtensionsE.IsNull` for destroyed objects.
+- `EasyIK` pole constraint with fewer than 3 joints, `TweenRunner` stalling on a throwing tween, `CommandStack` redo order, `GlobalEvent` in-use guard, `RegulatorSingleton` ties, `Mediator` without registry and with domain reload disabled, `Move` path/orbit/bounce glitches, `Cartographer` duplicates, `Whiteboard`/`VideoPlayerManager` texture leaks, `DOLocalRotate` long-way spins.
+- Editor: multi-object editing re-enabled; button parameters use invariant culture and stable keys; property drawers fixed for lists, multi-edit and Undo.
+- Samples with optional dependencies compile only when those packages are installed. Optional sample code (Mediator Timeline, CopyTransform, Animation Rigging, Poke Deformation) is guarded by `#if SOSXR_HAS_*` symbols set in the sample asmdef `versionDefines`. Animation Rigging and Poke Deformation are skipped entirely until their packages are present (`defineConstraints`).
+- `CommandStack` redo is last-in-first-out, so the most recently undone command is redone first.
+- `QueryConfigData.QueryStringVariables` is initialised to an empty list instead of `null`.
+- `Mediator` static state is reset when Play starts, so it no longer carries over between play sessions.
+- `GlobalEvent.Get()` reuses one instance instead of allocating a new one per call. The in-use flag is released even if a listener throws.
+- `TimeController` skips unassigned Input Action references instead of throwing.
+
 ## [0.4.0] - In Progress
 
 ### Added

@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -25,18 +26,27 @@ namespace SOSXR.SeaShark.EditorScripts
                 return;
             }
 
-            var sceneNumbers = new int[sceneNames.Length];
+            // Derive the selection from the property each time; the attribute is shared between properties.
+            var options = sceneNames.ToList();
+            var currentIndex = options.IndexOf(property.stringValue);
 
-            SetSceneNambers(sceneNumbers, sceneNames);
-
-            if (!string.IsNullOrEmpty(property.stringValue))
+            if (currentIndex == -1 && !string.IsNullOrEmpty(property.stringValue))
             {
-                sceneNameAttribute.selectedValue = GetIndex(sceneNames, property.stringValue);
+                options.Insert(0, property.stringValue + " (not in Build Settings)");
+                currentIndex = 0;
             }
 
-            sceneNameAttribute.selectedValue = EditorGUI.IntPopup(position, label.text, sceneNameAttribute.selectedValue, sceneNames, sceneNumbers);
+            EditorGUI.BeginProperty(position, label, property);
+            EditorGUI.BeginChangeCheck();
+            var selected = EditorGUI.Popup(position, label.text, Mathf.Max(currentIndex, 0), options.ToArray());
 
-            property.stringValue = sceneNames[sceneNameAttribute.selectedValue];
+            // Only write when the user picks a real scene, never silently overwrite the stored value.
+            if (EditorGUI.EndChangeCheck() && Array.IndexOf(sceneNames, options[selected]) >= 0)
+            {
+                property.stringValue = options[selected];
+            }
+
+            EditorGUI.EndProperty();
         }
 
 
@@ -47,33 +57,6 @@ namespace SOSXR.SeaShark.EditorScripts
             scenes.ForEach(scene => { sceneNames.Add(scene.path.Substring(scene.path.LastIndexOf("/") + 1).Replace(".unity", string.Empty)); });
 
             return sceneNames.ToArray();
-        }
-
-
-        private void SetSceneNambers(int[] sceneNumbers, string[] sceneNames)
-        {
-            for (var i = 0; i < sceneNames.Length; i++)
-            {
-                sceneNumbers[i] = i;
-            }
-        }
-
-
-        private int GetIndex(string[] sceneNames, string sceneName)
-        {
-            var result = 0;
-
-            for (var i = 0; i < sceneNames.Length; i++)
-            {
-                if (sceneName == sceneNames[i])
-                {
-                    result = i;
-
-                    break;
-                }
-            }
-
-            return result;
         }
     }
 }

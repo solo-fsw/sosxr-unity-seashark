@@ -51,12 +51,12 @@ namespace SOSXR.SeaShark
 
 
         /// <summary>
-        ///     Resets transform's position, scale and rotation
+        ///     Resets transform's local position, scale and rotation (like the Inspector's Reset)
         /// </summary>
         /// <param name="transform">Transform to use</param>
         public static void Reset(this Transform transform)
         {
-            transform.position = Vector3.zero;
+            transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
             transform.localScale = Vector3.one;
         }

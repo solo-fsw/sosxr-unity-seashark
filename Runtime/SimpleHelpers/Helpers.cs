@@ -1,6 +1,8 @@
-﻿using System.Reflection;
+﻿using UnityEngine;
+#if UNITY_EDITOR
+using System.Reflection;
 using UnityEditor;
-using UnityEngine;
+#endif
 
 
 namespace SOSXR.SeaShark
@@ -25,7 +27,7 @@ namespace SOSXR.SeaShark
         /// <summary>
         /// Clears the console log in the Unity Editor.
         /// This method is only available in the editor and uses reflection to access internal Unity APIs.
-        /// </summary
+        /// </summary>
         #if UNITY_EDITOR
         public static void ClearConsole()
         {

@@ -29,14 +29,13 @@ namespace SOSXR.SeaShark.Excessives
         /// <summary>Returns the singleton instance of the event. Only one instance can be in use at a time—the InUse flag prevents concurrent access.</summary>
         public static T Get()
         {
-            // Always construct a fresh instance for ownership semantics. A previous instance,
-            // if any, should have been disposed and released via the pattern below.
-            instance = new T();
-
+            // Check before touching the instance: replacing it first would always reset the flag and defeat the guard.
             if (InUse)
             {
                 throw new Exception("Cannot get object twice! Please fire event before grabbing the instance again");
             }
+
+            // Reuse the single instance (garbage-free); Reset() cleared its data after the previous fire.
 
             instance.inUse = true;
 
@@ -70,10 +69,16 @@ namespace SOSXR.SeaShark.Excessives
                 throw new Exception("This event has already fired, to prevent infinite loops you can't refire an event");
             }
 
-            listeners?.Invoke(this as T);
-
-            inUse = false;
-            Reset();
+            try
+            {
+                listeners?.Invoke(this as T);
+            }
+            finally
+            {
+                // Release even if a listener throws, otherwise the event could never be fired again.
+                inUse = false;
+                Reset();
+            }
         }
 
 

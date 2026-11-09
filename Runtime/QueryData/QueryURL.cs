@@ -81,7 +81,18 @@ namespace SOSXR.SeaShark
         /// </summary>
         private static string NormalizeName(string name)
         {
-            return name.TrimStart('m', '_'); // Normalizing Unity-style private field names
+            // Strip only the Unity-style prefixes. TrimStart('m', '_') would also mangle names like "mood" -> "ood".
+            if (name.StartsWith("m_", StringComparison.Ordinal))
+            {
+                return name.Substring(2);
+            }
+
+            if (name.StartsWith("_", StringComparison.Ordinal))
+            {
+                return name.Substring(1);
+            }
+
+            return name;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace SOSXR.SeaShark.Statics
     {
         /// <summary>
         ///     Returns the home directory path based on the platform.
-        ///     - Android (Runtime, not Editor): External storage root (incorrect implementation, missing argument)
+        ///     - Android (Runtime, not Editor): External storage root
         ///     - macOS (Editor & Standalone): "/Users/{username}"
         ///     - Windows (Editor & Standalone): "C:\\Users\\{username}"
         ///     - Other platforms: Unsupported message
@@ -24,7 +24,7 @@ namespace SOSXR.SeaShark.Statics
 
             #if UNITY_ANDROID && !UNITY_EDITOR
             using var envClass = new UnityEngine.AndroidJavaClass("android.os.Environment");
-            using var dir = envClass.CallStatic<UnityEngine.AndroidJavaObject>("getExternalStoragePublicDirectory");
+            using var dir = envClass.CallStatic<UnityEngine.AndroidJavaObject>("getExternalStorageDirectory");
             path = dir.Call<string>("getAbsolutePath");
             #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
             path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));

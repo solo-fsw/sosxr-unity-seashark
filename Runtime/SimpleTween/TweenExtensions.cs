@@ -56,11 +56,13 @@ namespace SOSXR.SeaShark
                 throw new ArgumentNullException(nameof(t));
             }
 
-            return new Tween(() => t.localEulerAngles,
-                value => t.localEulerAngles = (Vector3) value, eulerTarget,
+            // Interpolate quaternions (shortest arc) instead of Euler angles, which can spin the long way round
+            // (e.g. 350 -> 10 degrees would rotate 340 degrees backwards).
+            return new Tween(() => t.localRotation,
+                value => t.localRotation = (Quaternion) value, Quaternion.Euler(eulerTarget),
                 duration,
                 (start, end, eased) =>
-                    Vector3.LerpUnclamped((Vector3) start, (Vector3) end, eased));
+                    Quaternion.SlerpUnclamped((Quaternion) start, (Quaternion) end, eased));
         }
 
 
