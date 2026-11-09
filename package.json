@@ -84,6 +84,11 @@
       "displayName": "Basic Samples",
       "description": "Contains samples of this package",
       "path": "Samples/Samples"
+    },
+    {
+      "displayName": "SOSXR UXF Tools",
+      "description": "Contains useful Unity Experiment Framework tools. Requires UXF to be installed. See https://github.com/immersivecognition/unity-experiment-framework",
+      "path": "Samples/UXF"
     }
   ],
   "changelogUrl": "https://github.com/solo-fsw/sosxr-unity-seashark/blob/main/CHANGELOG.md"
