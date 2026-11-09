@@ -1,14 +1,10 @@
-using System;
+﻿using System;
 using UnityEngine;
-
 
 // Original code from: BasteRainGames
 namespace SOSXR.SeaShark
 {
-    public class HidingAttribute : PropertyAttribute
-    {
-    }
-
+    public class HidingAttribute : PropertyAttribute { }
 
     /// <summary>
     ///     Hides a field if the bool 'variable' has the state 'state'
@@ -19,7 +15,6 @@ namespace SOSXR.SeaShark
         public readonly string variable;
         public readonly bool state;
 
-
         public HideIfAttribute(string variable, bool state, int order = 0)
         {
             this.variable = variable;
@@ -27,7 +22,6 @@ namespace SOSXR.SeaShark
             this.order = order;
         }
     }
-
 
     /// <summary>
     ///     Hides a field if the Object 'variable' is null
@@ -37,14 +31,12 @@ namespace SOSXR.SeaShark
     {
         public readonly string variable;
 
-
         public HideIfNullAttribute(string variable, int order = 0)
         {
             this.variable = variable;
             this.order = order;
         }
     }
-
 
     /// <summary>
     ///     Hides a field if the Object 'variable' is not null
@@ -54,14 +46,12 @@ namespace SOSXR.SeaShark
     {
         public readonly string variable;
 
-
         public HideIfNotNullAttribute(string variable, int order = 0)
         {
             this.variable = variable;
             this.order = order;
         }
     }
-
 
     /// <summary>
     ///     Hides a field based on it's enum value.
@@ -75,7 +65,6 @@ namespace SOSXR.SeaShark
         public readonly int[] states;
         public readonly bool hideIfEqual;
 
-
         public HideIfEnumValueAttribute(string variable, HideIf hideIf, params int[] states)
         {
             this.variable = variable;
@@ -85,10 +74,9 @@ namespace SOSXR.SeaShark
         }
     }
 
-
     public enum HideIf
     {
         Equal,
-        NotEqual
+        NotEqual,
     }
 }
