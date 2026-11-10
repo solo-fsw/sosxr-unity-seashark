@@ -1,0 +1,16 @@
+{
+    "name": "SOSXR.SeaShark.Samples.PokeDeformation",
+    "rootNamespace": "",
+    "references": [
+        "SOSXR.SeaShark"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

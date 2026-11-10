@@ -1,0 +1,17 @@
+{
+    "name": "SOSXR.SeaShark.Samples.UXF",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3d2c2e10f47a24e279eb7163f3b379e7",
+        "GUID:2e6d5f8f0d2d4b7bb4c8a2f0f3f4d9a1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

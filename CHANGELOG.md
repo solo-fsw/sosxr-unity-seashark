@@ -10,6 +10,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 ### Fixed
 
 - Dependency issue with DesignPatterns sample
+- Dependency issue in PokeDeformation sample
 
 ## [0.7.0]
 
