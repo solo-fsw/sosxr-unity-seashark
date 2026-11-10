@@ -1,28 +1,34 @@
-// Requires optional packages; compiled only when they are installed (see the asmdef's Version Defines).
-#if SOSXR_HAS_SOARCHITECTURE
-using System.Collections.Generic;
-using ScriptableObjectArchitecture;
+﻿using System.Collections.Generic;
 using UnityEngine;
-
 
 namespace SOSXR.SeaShark
 {
     public class CopyTransform : MonoBehaviour
     {
         [Tooltip("Only one of these is going to be used: the one that's active and enabled in Hierarchy")]
-        [SerializeField] private List<Transform> m_followTargets;
-        [SerializeField] [DisableEditing] private Transform _followTarget;
+        [SerializeField]
+        private List<Transform> m_followTargets;
+
+        [SerializeField]
+        [DisableEditing]
+        private Transform _followTarget;
 
         [Tooltip("I think this needs be root")]
-        [SerializeField] [Optional] private GameObject m_rotationOffset;
+        [SerializeField]
+        [Optional]
+        private GameObject m_rotationOffset;
 
-        [SerializeField] [Optional] [Postfix("ms")] private IntVariable m_delay;
-        [SerializeField] [Optional] private Vector3Variable m_positionOffset;
+        [SerializeField]
+        [Optional]
+        [Postfix("ms")]
+        private int m_delay;
 
+        [SerializeField]
+        [Optional]
+        private Vector3 m_positionOffset;
 
         private Transform _thisTransform;
         private Command _invoker;
-
 
         private void Awake()
         {
@@ -30,7 +36,6 @@ namespace SOSXR.SeaShark
 
             _invoker = new CommandStack();
         }
-
 
         private void Start()
         {
@@ -42,7 +47,6 @@ namespace SOSXR.SeaShark
             }
         }
 
-
         private void GetFirstActiveTargetFromList()
         {
             if (_followTarget != null && _followTarget.gameObject.activeInHierarchy)
@@ -52,7 +56,7 @@ namespace SOSXR.SeaShark
 
             if (m_followTargets == null || m_followTargets.Count == 0)
             {
-                this.Error("Follow targets list is null or empty");
+                Debug.LogError("Follow targets list is null or empty");
 
                 return;
             }
@@ -63,24 +67,24 @@ namespace SOSXR.SeaShark
                 if (target != null && target.gameObject.activeInHierarchy)
                 {
                     _followTarget = target;
-                    this.Verbose($"Current {nameof(_followTarget)} found");
 
                     break;
                 }
             }
         }
 
-
         private void Update()
         {
             if (m_followTargets == null)
             {
-                this.Error("m_followTargets is NULL");
+                Debug.LogError("m_followTargets is NULL");
+                return;
             }
 
             if (m_followTargets != null && m_followTargets.Count == 0)
             {
-                this.Error("m_followTargets is EMPTY");
+                Debug.LogError("m_followTargets is EMPTY");
+                return;
             }
 
             /// Don't set this to Linq, which could be stripped in build
@@ -88,7 +92,8 @@ namespace SOSXR.SeaShark
             {
                 if (t == null)
                 {
-                    this.Error("A follow target element is NULL");
+                    Debug.LogError("A follow target element is NULL");
+                    return;
                 }
             }
 
@@ -96,21 +101,21 @@ namespace SOSXR.SeaShark
 
             if (_followTarget == null)
             {
-                // this.Verbose($"We should never have no {nameof(_followTarget)} for {gameObject.name}");
+                Debug.Log($"We should never have no {nameof(_followTarget)} for {gameObject.name}");
 
                 return;
             }
 
             if (!_followTarget.gameObject.activeSelf)
             {
-                this.Warning($"The chosen {nameof(_followTarget)} is not active, this may be a problem for tracking!");
+                Debug.LogWarning($"The chosen {nameof(_followTarget)} is not active, this may be a problem for tracking!");
             }
 
             var delay = 0;
 
             if (m_delay != null)
             {
-                delay = m_delay.Value;
+                delay = m_delay;
             }
 
             var delaySec = delay / 1000f;
@@ -119,7 +124,7 @@ namespace SOSXR.SeaShark
 
             if (m_positionOffset != null)
             {
-                positionOffset = m_positionOffset.Value;
+                positionOffset = m_positionOffset;
             }
 
             var newPosition = _followTarget.position + m_rotationOffset.transform.rotation * positionOffset; // To make sure a parented object behaves when the parent rotates.
@@ -128,7 +133,7 @@ namespace SOSXR.SeaShark
 
             if (_invoker == null)
             {
-                this.Error("No invoker provided");
+                Debug.LogError("No invoker provided");
 
                 return;
             }
@@ -136,11 +141,9 @@ namespace SOSXR.SeaShark
             _invoker.Execute(new CopyTransformCommand(_thisTransform, newPosition, newRotation, delaySec));
         }
 
-
         private void OnDisable()
         {
             _invoker.Clear();
         }
     }
 }
-#endif

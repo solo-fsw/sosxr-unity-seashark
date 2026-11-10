@@ -1,6 +1,4 @@
-// Requires optional packages; compiled only when they are installed (see the asmdef's Version Defines).
-#if SOSXR_HAS_SOARCHITECTURE && SOSXR_HAS_TIMELINE
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
@@ -30,11 +28,7 @@ namespace SOSXR.SeaShark
         /// <returns>The created playable handle for the clip, or <see cref="Playable.Null"/> when unsupported.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="graph"/> is invalid.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="clip"/> is null.</exception>
-        protected override Playable CreatePlayable(
-            PlayableGraph graph,
-            GameObject gameObject,
-            TimelineClip clip
-        )
+        protected override Playable CreatePlayable(PlayableGraph graph, GameObject gameObject, TimelineClip clip)
         {
             if (!graph.IsValid())
             {
@@ -66,4 +60,3 @@ namespace SOSXR.SeaShark
         }
     }
 }
-#endif

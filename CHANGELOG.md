@@ -3,7 +3,15 @@
 All notable changes to this project will be documented in this file.
 The changelog format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased]
+## [Current]
+
+## [0.7.1]
+
+### Fixed
+
+- Dependency issue with DesignPatterns sample
+
+## [0.7.0]
 
 ### Added
 
@@ -36,7 +44,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - `GlobalEvent.Get()` reuses one instance instead of allocating a new one per call. The in-use flag is released even if a listener throws.
 - `TimeController` skips unassigned Input Action references instead of throwing.
 
-## [0.4.0] - In Progress
+## [0.4.0]
 
 ### Added
 
@@ -98,15 +106,16 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 ## [0.2.1] 02-04-2025
 
 > ### Package Numbering Change
-> #### Package will now be numbered starting with 0, to better reflect the current status in development (see the official semver information [here](https://semver.org/#spec-item-4)).
+>
+> #### Package will now be numbered starting with 0, to better reflect the current status in development (see the official semver information [here](https://semver.org/#spec-item-4))
 >
 > If any issues arise when updating from previous (and higher numbered versions), please delete the old version before updating to this version.
 
 ### Added
 
 - Patterns
-    - Command
-    - Mediator
+  - Command
+  - Mediator
 - Video Player
 - [Config Data 2.3.2](https://github.com/solo-fsw/sosxr-unity-configdata)
 - HorizontalLine attribute

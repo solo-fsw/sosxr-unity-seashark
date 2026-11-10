@@ -1,6 +1,4 @@
-// Requires optional packages; compiled only when they are installed (see the asmdef's Version Defines).
-#if SOSXR_HAS_SOARCHITECTURE && SOSXR_HAS_TIMELINE
-using System;
+﻿using System;
 using UnityEngine.Playables;
 
 namespace SOSXR.SeaShark
@@ -16,4 +14,3 @@ namespace SOSXR.SeaShark
     {
     }
 }
-#endif

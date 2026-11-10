@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace SOSXR.SeaShark
@@ -11,13 +11,19 @@ namespace SOSXR.SeaShark
     [AddComponentMenu("SOSXR/Design Patterns/Stimulus Pool Example")]
     public class StimulusPoolExample : MonoBehaviour
     {
-        [SerializeField] private GameObjectPool m_stimulusPool;
-        [SerializeField] private Transform m_presentationAnchor;
-        [SerializeField] private float m_presentationRate = 0.1f;
-        [SerializeField] private float m_stimulusDuration = 0.08f;
+        [SerializeField]
+        private GameObjectPool m_stimulusPool;
+
+        [SerializeField]
+        private Transform m_presentationAnchor;
+
+        [SerializeField]
+        private float m_presentationRate = 0.1f;
+
+        [SerializeField]
+        private float m_stimulusDuration = 0.08f;
 
         private float _nextPresentationTime;
-
 
         private void Update()
         {
@@ -40,7 +46,6 @@ namespace SOSXR.SeaShark
             _nextPresentationTime = Time.time + Mathf.Max(0.0001f, m_presentationRate);
         }
 
-
         /// <summary>
         ///     Retrieves a stimulus display from the pool, places it at the presentation anchor, and schedules its return after the configured display duration.
         /// </summary>
@@ -60,7 +65,6 @@ namespace SOSXR.SeaShark
 
             StartCoroutine(ReturnStimulusAfterDelay(stimulus, m_stimulusDuration));
         }
-
 
         private IEnumerator ReturnStimulusAfterDelay(GameObject stimulus, float delay)
         {
