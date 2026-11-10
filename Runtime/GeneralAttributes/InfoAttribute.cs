@@ -20,7 +20,11 @@ namespace SOSXR.SeaShark
         ///     Creates a new instance with the specified text.
         /// </summary>
         /// <param name="infoText">Text to display.</param>
-        public InfoAttribute(string infoText)
+        /// <remarks>
+        ///     Passes applyToCollection: true, so on a List or array the box is drawn once above the collection,
+        ///     instead of being applied to every element.
+        /// </remarks>
+        public InfoAttribute(string infoText) : base(true)
         {
             InfoText = infoText;
         }

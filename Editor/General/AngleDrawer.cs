@@ -25,8 +25,16 @@ namespace SOSXR.SeaShark.EditorScripts
                     var knobRect = new Rect(position);
                     knobRect.x += EditorGUIUtility.labelWidth;
 
-                    property.floatValue = Knob(knobRect, Vector2.one * angleAttribute.knobSize, property.floatValue, angleAttribute.min,
+                    // Only write on a real edit: writing every frame would copy one object's value to all selected objects.
+                    EditorGUI.BeginChangeCheck();
+
+                    var value = Knob(knobRect, Vector2.one * angleAttribute.knobSize, property.floatValue, angleAttribute.min,
                         angleAttribute.max, angleAttribute.unit, angleAttribute.backgroundColor, angleAttribute.activeColor, angleAttribute.showValue);
+
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        property.floatValue = value;
+                    }
                 }
             }
             else

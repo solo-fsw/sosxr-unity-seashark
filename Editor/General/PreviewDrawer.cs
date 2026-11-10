@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 
 namespace SOSXR.SeaShark.EditorScripts
@@ -7,69 +8,69 @@ namespace SOSXR.SeaShark.EditorScripts
     [CustomPropertyDrawer(typeof(PreviewAttribute))]
     public class PreviewDrawer : PropertyDrawer
     {
-        private float imageHeight;
+        private const float Spacing = 5f;
+
+
+        // Read the height from the attribute here: GetPropertyHeight runs before OnGUI, so a value cached in OnGUI is stale.
+        private float ImageHeight => ((PreviewAttribute) attribute).Height;
 
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            if (property.propertyType == SerializedPropertyType.ObjectReference &&
-                property.objectReferenceValue is Texture or Material or Sprite or GameObject)
-            {
-                return EditorGUI.GetPropertyHeight(property, label, true) + imageHeight + 10;
-            }
+            var height = EditorGUI.GetPropertyHeight(property, label, true);
 
-            return EditorGUI.GetPropertyHeight(property, label, true);
+            return GetPreviewTexture(property) != null ? height + ImageHeight + Spacing * 2 : height;
         }
 
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            EditorGUI.PropertyField(position, property, label, true);
+            var fieldHeight = EditorGUI.GetPropertyHeight(property, label, true);
+            EditorGUI.PropertyField(new Rect(position.x, position.y, position.width, fieldHeight), property, label, true);
 
-            if (attribute is PreviewAttribute previewAttribute)
-            {
-                imageHeight = previewAttribute.Height;
-            }
+            var textureToDraw = GetPreviewTexture(property);
 
-            Texture textureToDraw = null;
-
-            if (property.propertyType != SerializedPropertyType.ObjectReference)
+            if (textureToDraw == null)
             {
                 return;
             }
 
-            switch (property.objectReferenceValue)
+            var previewRect = new Rect(position.x, position.y + fieldHeight + Spacing, position.width, ImageHeight);
+            DrawTexturePreview(previewRect, textureToDraw);
+        }
+
+
+        private static Texture GetPreviewTexture(SerializedProperty property)
+        {
+            if (property.propertyType != SerializedPropertyType.ObjectReference || property.hasMultipleDifferentValues)
             {
-                case Texture texture:
-                    textureToDraw = texture;
-
-                    break;
-                case Material material:
-                    textureToDraw = material.mainTexture;
-
-                    break;
-                case Sprite sprite:
-                    textureToDraw = sprite.texture;
-
-                    break;
-                case GameObject gameObject:
-                {
-                    var renderer = gameObject.GetComponent<Renderer>();
-
-                    if (renderer != null)
-                    {
-                        textureToDraw = renderer.sharedMaterial.mainTexture;
-                    }
-
-                    break;
-                }
+                return null;
             }
 
-            if (textureToDraw != null)
+            return GetPreviewTexture(property.objectReferenceValue);
+        }
+
+
+        /// <summary>
+        ///     The texture to preview for an assigned object, or null if there is nothing to show.
+        /// </summary>
+        internal static Texture GetPreviewTexture(Object value)
+        {
+            switch (value)
             {
-                position.y += EditorGUI.GetPropertyHeight(property, label, true) + 5;
-                position.height = imageHeight;
-                DrawTexturePreview(position, textureToDraw);
+                case Texture texture:
+                    return texture;
+                case Material material:
+                    return material.mainTexture;
+                case Sprite sprite:
+                    return sprite.texture;
+                case GameObject gameObject:
+                    // A Renderer without a material is valid (e.g. a freshly added MeshRenderer): don't throw.
+                    return gameObject.TryGetComponent<Renderer>(out var renderer) && renderer.sharedMaterial != null
+                        ? renderer.sharedMaterial.mainTexture
+                        : null;
+                default:
+                    return null;
             }
         }
 

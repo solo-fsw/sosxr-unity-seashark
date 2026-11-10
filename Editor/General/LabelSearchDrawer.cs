@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
@@ -15,18 +16,42 @@ namespace SOSXR.SeaShark.EditorScripts
         private const int CONTENT_HEIGHT = 16;
 
 
+        /// <summary>
+        ///     Per-field state. The attribute instance is shared by every object that uses the field,
+        ///     so it must only provide the starting values, never hold state itself.
+        /// </summary>
+        private sealed class State
+        {
+            public bool Search;
+            public bool Foldout;
+        }
+
+
+        private static readonly Dictionary<(Object Target, string Path), State> States = new();
+        private State _state;
+
+
+        private State GetState(SerializedProperty property)
+        {
+            var key = (property.serializedObject.targetObject, property.propertyPath);
+
+            if (!States.TryGetValue(key, out var state))
+            {
+                state = new State {Search = labelSearchAttribute.search, Foldout = labelSearchAttribute.foldout};
+                States[key] = state;
+            }
+
+            return state;
+        }
+
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            if (!labelSearchAttribute.init)
-            {
-                labelSearchAttribute.init = true;
-
-                return;
-            }
+            _state = GetState(property);
 
             if (labelSearchAttribute.canPrintLabelName)
             {
-                label.text += $" ( Label = {labelSearchAttribute.labelName} )";
+                label = new GUIContent(label) {text = $"{label.text} ( Label = {labelSearchAttribute.labelName} )"};
             }
 
             var previousIndent = EditorGUI.indentLevel;
@@ -34,9 +59,10 @@ namespace SOSXR.SeaShark.EditorScripts
             if (property.isArray)
             {
                 EditorGUI.indentLevel = 0;
-                labelSearchAttribute.foldout = EditorGUI.Foldout(position, labelSearchAttribute.foldout, label);
+                var foldoutRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
+                _state.Foldout = EditorGUI.Foldout(foldoutRect, _state.Foldout, label, true);
 
-                if (labelSearchAttribute.search)
+                if (_state.Search)
                 {
                     DrawArrayProperty(position, property, label);
                 }
@@ -47,7 +73,7 @@ namespace SOSXR.SeaShark.EditorScripts
             }
             else
             {
-                if (labelSearchAttribute.search)
+                if (_state.Search)
                 {
                     DrawSingleProperty(position, property, label);
                 }
@@ -57,7 +83,7 @@ namespace SOSXR.SeaShark.EditorScripts
                 }
             }
 
-            labelSearchAttribute.search = false;
+            _state.Search = false;
             EditorGUI.indentLevel = previousIndent;
         }
 
@@ -66,7 +92,7 @@ namespace SOSXR.SeaShark.EditorScripts
         {
             float height = 0;
 
-            if (property.isArray && labelSearchAttribute.foldout)
+            if (property.isArray && GetState(property).Foldout)
             {
                 height = (property.arraySize + 1) * CONTENT_HEIGHT;
             }
@@ -77,14 +103,22 @@ namespace SOSXR.SeaShark.EditorScripts
 
         private void DrawCachedSingleProperty(Rect position, SerializedProperty property, GUIContent label)
         {
-            property.objectReferenceValue = EditorGUI.ObjectField(
-                position, label, property.objectReferenceValue, GetType(property), false);
+            EditorGUI.showMixedValue = property.hasMultipleDifferentValues;
+            EditorGUI.BeginChangeCheck();
+            var value = EditorGUI.ObjectField(position, label, property.objectReferenceValue, GetType(property), false);
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                property.objectReferenceValue = value;
+            }
+
+            EditorGUI.showMixedValue = false;
         }
 
 
         private void DrawCachedArrayProperty(Rect position, SerializedProperty property, GUIContent label)
         {
-            if (labelSearchAttribute.foldout)
+            if (_state.Foldout)
             {
                 position.y += CONTENT_HEIGHT;
                 EditorGUI.indentLevel = 2;
@@ -154,7 +188,7 @@ namespace SOSXR.SeaShark.EditorScripts
             var size = 0;
             EditorGUI.indentLevel = 2;
 
-            if (labelSearchAttribute.foldout)
+            if (_state.Foldout)
             {
                 position.y += CONTENT_HEIGHT;
                 EditorGUI.LabelField(position, "Size", property.arraySize.ToString());
@@ -197,7 +231,7 @@ namespace SOSXR.SeaShark.EditorScripts
                     property.arraySize = ++size;
                     property.GetArrayElementAtIndex(size - 1).objectReferenceValue = asset;
 
-                    if (labelSearchAttribute.foldout)
+                    if (_state.Foldout)
                     {
                         position.y += CONTENT_HEIGHT;
                         position.height = CONTENT_HEIGHT;

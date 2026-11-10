@@ -10,17 +10,14 @@ namespace SOSXR.SeaShark.EditorScripts
     [CustomPropertyDrawer(typeof(RequiredAttribute))]
     public class RequiredAttributeDrawer : PropertyDrawer
     {
+        private static float WarningHeight => EditorGUIUtility.singleLineHeight * 2f;
+
+
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            if (IsFieldEmpty(property))
-            {
-                var height = EditorGUIUtility.singleLineHeight * 2f;
-                height += base.GetPropertyHeight(property, label);
+            var height = EditorGUI.GetPropertyHeight(property, label, true);
 
-                return height;
-            }
-
-            return base.GetPropertyHeight(property, label);
+            return IsFieldSupported(property) && IsFieldEmpty(property) ? height + WarningHeight : height;
         }
 
 
@@ -35,22 +32,28 @@ namespace SOSXR.SeaShark.EditorScripts
 
             if (IsFieldEmpty(property))
             {
-                position.height = EditorGUIUtility.singleLineHeight * 2;
-                position.height += base.GetPropertyHeight(property, label);
-
-                EditorGUI.HelpBox(position, "Required", MessageType.Error);
+                var warningRect = new Rect(position.x, position.y, position.width, WarningHeight);
+                EditorGUI.HelpBox(warningRect, "Required", MessageType.Error);
                 EditorGUI.DrawRect(position, new Color(1f, 0f, 0f, 0.1f));
 
-                position.height = base.GetPropertyHeight(property, label);
-                position.y += EditorGUIUtility.singleLineHeight * 2;
+                position.y += WarningHeight;
+                position.height -= WarningHeight;
             }
 
-            EditorGUI.PropertyField(position, property, label);
+            EditorGUI.PropertyField(position, property, label, true);
         }
 
 
-        private bool IsFieldEmpty(SerializedProperty property)
+        /// <summary>
+        ///     True when the field has no value. A List or array counts as empty when it has no elements.
+        /// </summary>
+        internal static bool IsFieldEmpty(SerializedProperty property)
         {
+            if (IsCollection(property))
+            {
+                return property.arraySize == 0;
+            }
+
             switch (property.propertyType)
             {
                 case SerializedPropertyType.ObjectReference:
@@ -62,9 +65,6 @@ namespace SOSXR.SeaShark.EditorScripts
                 case SerializedPropertyType.Enum:
                     return property.enumValueIndex == 0; // Assuming index 0 is "None" or equivalent
 
-                case SerializedPropertyType.ArraySize:
-                    return property.arraySize == 0;
-
                 case SerializedPropertyType.Color:
                     return property.colorValue == Color.clear;
 
@@ -75,20 +75,31 @@ namespace SOSXR.SeaShark.EditorScripts
         }
 
 
-        private bool IsFieldSupported(SerializedProperty property)
+        internal static bool IsFieldSupported(SerializedProperty property)
         {
+            if (IsCollection(property))
+            {
+                return true;
+            }
+
             switch (property.propertyType)
             {
                 case SerializedPropertyType.ObjectReference:
                 case SerializedPropertyType.String:
                 case SerializedPropertyType.Enum:
-                case SerializedPropertyType.ArraySize:
                 case SerializedPropertyType.Color:
                     return true;
 
                 default:
                     return false;
             }
+        }
+
+
+        // A string is also an "array" to SerializedProperty: only treat real Lists and arrays as collections.
+        private static bool IsCollection(SerializedProperty property)
+        {
+            return property.isArray && property.propertyType != SerializedPropertyType.String;
         }
     }
 }

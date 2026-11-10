@@ -18,7 +18,8 @@ namespace SOSXR.SeaShark.EditorScripts
 
             var style = new GUIStyle(EditorStyles.miniLabel)
             {
-                normal = {textColor = new Color(1f, 1f, 1f, 0.55f)},
+                // Dimmed label colour of the current skin, so it is readable in both the light and dark theme.
+                normal = {textColor = DimmedLabelColor()},
                 alignment = TextAnchor.MiddleRight
             };
 
@@ -27,6 +28,15 @@ namespace SOSXR.SeaShark.EditorScripts
 
             var rect = new Rect(position.xMax - size.x - 20f, position.y, size.x, position.height);
             EditorGUI.LabelField(rect, text, style);
+        }
+
+
+        private static Color DimmedLabelColor()
+        {
+            var color = EditorStyles.label.normal.textColor;
+            color.a = 0.55f;
+
+            return color;
         }
 
 

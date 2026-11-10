@@ -11,5 +11,9 @@ namespace SOSXR.SeaShark
     /// <seealso cref="ReadOnlyAttribute" />
     public class ReadOnlyGroupEndAttribute : PropertyAttribute
     {
+        /// <summary>Applies to a List or array as a whole, not to each element.</summary>
+        public ReadOnlyGroupEndAttribute() : base(true)
+        {
+        }
     }
 }

@@ -4,7 +4,13 @@ using UnityEngine;
 // Original code from: BasteRainGames
 namespace SOSXR.SeaShark
 {
-    public class HidingAttribute : PropertyAttribute { }
+    public class HidingAttribute : PropertyAttribute
+    {
+        /// <summary>Applies to a List or array as a whole, not to each element.</summary>
+        protected HidingAttribute() : base(true)
+        {
+        }
+    }
 
     /// <summary>
     ///     Hides a field if the bool 'variable' has the state 'state'

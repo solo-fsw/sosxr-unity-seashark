@@ -8,6 +8,12 @@ namespace SOSXR.SeaShark
     /// </summary>
     public class HorizontalLineAttribute : PropertyAttribute
     {
+        /// <summary>Applies to a List or array as a whole, not to each element.</summary>
+        public HorizontalLineAttribute() : base(true)
+        {
+        }
+
+
         /// <summary>Thickness of the line in pixels.</summary>
         public float Thickness { get; set; } = 2.5f;
 

@@ -20,7 +20,7 @@ namespace SOSXR.SeaShark
         public readonly string ConditionField;
 
 
-        public EnableIfAttribute(string conditionField)
+        public EnableIfAttribute(string conditionField) : base(true)
         {
             ConditionField = conditionField;
         }

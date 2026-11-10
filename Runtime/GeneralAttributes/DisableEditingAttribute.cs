@@ -8,5 +8,9 @@ namespace SOSXR.SeaShark
     /// </summary>
     public class DisableEditingAttribute : PropertyAttribute
     {
+        /// <summary>Applies to a List or array as a whole, not to each element.</summary>
+        public DisableEditingAttribute() : base(true)
+        {
+        }
     }
 }

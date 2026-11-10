@@ -14,6 +14,7 @@ A comprehensive collection of C# extensions, utilities, and design pattern imple
 - [Advanced Features](#advanced-features)
   - [Fader](#fader)
   - [Fonts](#fonts)
+  - [Attributes on Lists](#attributes-on-lists)
   - [Interface Support](#interface-support)
   - [In Build](#in-build)
   - [Interfaces](#interfaces)
@@ -194,6 +195,12 @@ Font utilities surface and manage font assets (e.g., Maple Mono, LinBiolineum) u
 **Common scenarios:** Theming or accessibility changes that require font swaps, global font defaults for headings vs body text, and runtime font switching for localization or branding updates.
 
 **Related namespaces:** `SOSXR.SeaShark.Fonts`, `SOSXR.SeaShark.Fonts.MapleMono`, `SOSXR.SeaShark.Fonts.LinBiolineum`.
+
+### Attributes on Lists
+
+`[Info]` works on Lists and arrays (one box above the whole collection) and on private or non-serialized fields (boxes shown at the bottom of the Inspector). Classes with their own `[CustomEditor]` do not show these boxes.
+
+These attributes apply to a List or array as a whole: `[HorizontalLine]`, `[ReadOnlyGroupBegin]`/`[ReadOnlyGroupEnd]`, `[ReadOnly]`, `[DisableEditing]`, `[ShowIf]`, `[HideIf]`, `[EnableIf]`, `[Required]`, and `[LabelSearch]`. Other attributes still apply to each element. `[Required]` on a List means the List must not be empty.
 
 ### Interface Support
 

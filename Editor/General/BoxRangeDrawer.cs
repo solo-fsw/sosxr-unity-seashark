@@ -53,22 +53,44 @@ namespace SOSXR.SeaShark.EditorScripts
 
             EditorGUIUtility.labelWidth = 20f;
 
+            // Only write on a real edit: writing every frame would copy one object's value to all selected objects.
+            EditorGUI.showMixedValue = property.hasMultipleDifferentValues;
+            EditorGUI.BeginChangeCheck();
+
             switch (property.propertyType)
             {
                 case SerializedPropertyType.Integer:
-                    property.intValue = IntSlider(ref row, "", property.intValue);
+                {
+                    var value = IntSlider(ref row, "", property.intValue);
+
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        property.intValue = value;
+                    }
 
                     break;
+                }
                 case SerializedPropertyType.Float:
-                    property.floatValue = Slider(ref row, "", property.floatValue);
+                {
+                    var value = Slider(ref row, "", property.floatValue);
+
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        property.floatValue = value;
+                    }
 
                     break;
+                }
                 case SerializedPropertyType.Vector2:
                 {
                     var v = property.vector2Value;
                     v.x = Slider(ref row, "X", v.x);
                     v.y = Slider(ref row, "Y", v.y);
-                    property.vector2Value = v;
+
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        property.vector2Value = v;
+                    }
 
                     break;
                 }
@@ -78,7 +100,11 @@ namespace SOSXR.SeaShark.EditorScripts
                     v.x = Slider(ref row, "X", v.x);
                     v.y = Slider(ref row, "Y", v.y);
                     v.z = Slider(ref row, "Z", v.z);
-                    property.vector3Value = v;
+
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        property.vector3Value = v;
+                    }
 
                     break;
                 }
@@ -88,16 +114,22 @@ namespace SOSXR.SeaShark.EditorScripts
                     v.x = IntSlider(ref row, "X", v.x);
                     v.y = IntSlider(ref row, "Y", v.y);
                     v.z = IntSlider(ref row, "Z", v.z);
-                    property.vector3IntValue = v;
+
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        property.vector3IntValue = v;
+                    }
 
                     break;
                 }
                 default:
+                    EditorGUI.EndChangeCheck();
                     EditorGUI.LabelField(row, "Use BoxRange with int, float, Vector2, Vector3, or Vector3Int.");
 
                     break;
             }
 
+            EditorGUI.showMixedValue = false;
             EditorGUIUtility.labelWidth = previousLabelWidth;
             EditorGUI.EndProperty();
         }

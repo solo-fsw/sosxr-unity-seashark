@@ -17,7 +17,17 @@ namespace SOSXR.SeaShark.EditorScripts
         {
             if (property.propertyType == SerializedPropertyType.Integer)
             {
-                property.intValue = EditorGUI.IntField(new Rect(position.x, position.y, position.width, position.height / 2), label, Mathf.Max(0, property.intValue));
+                // Only write on a real edit: writing every frame would copy one object's value to all selected objects.
+                EditorGUI.showMixedValue = property.hasMultipleDifferentValues;
+                EditorGUI.BeginChangeCheck();
+                var value = EditorGUI.IntField(new Rect(position.x, position.y, position.width, position.height / 2), label, Mathf.Max(0, property.intValue));
+
+                if (EditorGUI.EndChangeCheck())
+                {
+                    property.intValue = Mathf.Max(0, value);
+                }
+
+                EditorGUI.showMixedValue = false;
 
                 EditorGUI.LabelField(new Rect(position.x, position.y + position.height / 2, position.width, position.height / 2), " ", TimeFormat(property.intValue));
             }

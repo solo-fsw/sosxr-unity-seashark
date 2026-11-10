@@ -1,4 +1,3 @@
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -48,24 +47,30 @@ namespace SOSXR.SeaShark.EditorScripts
 
         private bool ShouldShow(SerializedProperty property)
         {
+            return ShouldShow(property, ((ShowIfAttribute) attribute).ConditionField);
+        }
+
+
+        /// <summary>
+        ///     Looks the condition up on the object that declares the field, so it also works inside nested
+        ///     serializable classes and list elements, and finds private fields declared on base classes.
+        /// </summary>
+        internal static bool ShouldShow(SerializedProperty property, string conditionField)
+        {
             if (property?.serializedObject?.targetObject == null)
             {
                 return true;
             }
 
-            var showIf = (ShowIfAttribute) attribute;
-            var target = property.serializedObject.targetObject;
+            var parent = SerializedPropertyUtility.GetParentObject(property);
+            var field = SerializedPropertyUtility.FindField(parent?.GetType(), conditionField);
 
-            var conditionField = target.GetType().GetField(showIf.ConditionField, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-
-            if (conditionField == null)
+            if (field == null)
             {
                 return true; // fallback if field not found
             }
 
-            var value = conditionField.GetValue(target);
-
-            return value is true;
+            return field.GetValue(parent) is true;
         }
     }
 }

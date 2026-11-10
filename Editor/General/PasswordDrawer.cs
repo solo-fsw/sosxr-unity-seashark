@@ -15,6 +15,8 @@ namespace SOSXR.SeaShark.EditorScripts
         {
             if (!IsSupported(property))
             {
+                EditorGUI.PropertyField(position, property, label);
+
                 return;
             }
 
@@ -27,16 +29,22 @@ namespace SOSXR.SeaShark.EditorScripts
                 password = password.Substring(0, maxLength);
             }
 
-            if (!passwordAttribute.useMask)
+            // Only write on a real edit: writing every frame would copy one object's value to all selected objects.
+            EditorGUI.showMixedValue = property.hasMultipleDifferentValues;
+            EditorGUI.BeginChangeCheck();
+
+            var value = passwordAttribute.useMask
+                ? EditorGUI.PasswordField(position, label, password)
+                : EditorGUI.TextField(position, label, password);
+
+            if (EditorGUI.EndChangeCheck())
             {
-                property.stringValue = EditorGUI.TextField(position, label, password);
-            }
-            else
-            {
-                property.stringValue = EditorGUI.PasswordField(position, label, password);
+                property.stringValue = value.Length > maxLength ? value.Substring(0, maxLength) : value;
             }
 
-            if (IsValid(property))
+            EditorGUI.showMixedValue = false;
+
+            if (IsTooShort(property))
             {
                 DrawHelpBox(position);
             }
@@ -59,7 +67,7 @@ namespace SOSXR.SeaShark.EditorScripts
         }
 
 
-        private bool IsValid(SerializedProperty property)
+        private bool IsTooShort(SerializedProperty property)
         {
             return property.stringValue.Length < passwordAttribute.minLength;
         }

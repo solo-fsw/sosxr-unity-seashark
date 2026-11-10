@@ -4,7 +4,8 @@
   "references": [
     "UnityEngine.TestRunner",
     "UnityEditor.TestRunner",
-    "SOSXR.SeaShark"
+    "SOSXR.SeaShark",
+    "SOSXR.SeaShark.Editor"
   ],
   "includePlatforms": [
     "Editor"

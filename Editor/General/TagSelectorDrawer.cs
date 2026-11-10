@@ -29,6 +29,7 @@ namespace SOSXR.SeaShark.EditorScripts
             }
 
             EditorGUI.BeginProperty(position, label, property);
+            EditorGUI.showMixedValue = property.hasMultipleDifferentValues;
 
             // Check if we should use the default Unity tag field
             if (IsUsingDefaultTagField())
@@ -40,6 +41,7 @@ namespace SOSXR.SeaShark.EditorScripts
                 DrawCustomTagDropdown(position, property, label);
             }
 
+            EditorGUI.showMixedValue = false;
             EditorGUI.EndProperty();
         }
 
@@ -52,7 +54,13 @@ namespace SOSXR.SeaShark.EditorScripts
 
         private void DrawDefaultTagField(Rect position, SerializedProperty property, GUIContent label)
         {
-            property.stringValue = EditorGUI.TagField(position, label, property.stringValue);
+            EditorGUI.BeginChangeCheck();
+            var value = EditorGUI.TagField(position, label, property.stringValue);
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                property.stringValue = value;
+            }
         }
 
 
@@ -65,8 +73,14 @@ namespace SOSXR.SeaShark.EditorScripts
             var currentIndex = FindTagIndex(property.stringValue, tagList);
 
             // Draw dropdown and update property
+            // Only write on a real edit: writing every frame would copy one object's value to all selected objects.
+            EditorGUI.BeginChangeCheck();
             var newIndex = EditorGUI.Popup(position, label.text, currentIndex, tagList.ToArray());
-            UpdatePropertyValue(property, newIndex, tagList);
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                UpdatePropertyValue(property, newIndex, tagList);
+            }
         }
 
 

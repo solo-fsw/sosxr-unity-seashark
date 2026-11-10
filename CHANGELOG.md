@@ -5,6 +5,32 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 ## [Current]
 
+## [0.7.2] - 2026-11-10
+
+### Added
+
+- `[Info]` now works on non-serialized and private fields. The help box is drawn below the default Inspector, above any `[Button]` methods, and prefixed with the field name. Classes with their own `[CustomEditor]` do not use `SOSXRBaseEditor` and do not show these boxes.
+- `Editor/General/SerializedPropertyUtility.cs`, a shared helper used by `HidingDrawer` and `ShowIf`.
+- `Tests/EditMode/AttributeDrawerTests.cs` (with `AttributeDrawerTestTargets.cs`) covers the attribute drawer fixes in this release.
+
+### Changed
+
+- Attributes now apply to a List or array as a whole, not to each element: `HorizontalLine`, `ReadOnlyGroupBegin`, `ReadOnlyGroupEnd`, `ReadOnly`, `DisableEditing`, `ShowIf`, `EnableIf`, `HideIf` (and its variants), `Required`, `LabelSearch`, and `Info`.
+- `ReadOnly` and `DisableEditing` make the whole List read-only, with no resize or reorder. `ShowIf` and `HideIf` hide the whole List, header included. `EnableIf` shows one toggle for the List. `HorizontalLine` and `ReadOnlyGroup` decorators now draw on List fields.
+- Behaviour change: `[Required]` on a List or array now means the List must not be empty. It used to check each element.
+
+### Fixed
+
+- `[Info]` on Lists and arrays now draws one help box above the whole collection instead of being ignored.
+- `[ShowIf]` finds its condition field on base classes (including private fields) and inside nested serializable classes and List elements.
+- `[Required]` flags an empty List or array and draws the whole List under the warning.
+- `[LabelSearch]` array mode works. Search and foldout state is kept per object and field, so the first frame is no longer blank.
+- `[Preview]` has the correct height on first draw. It no longer throws `NullReferenceException` when a Renderer has no material.
+- Multi-object editing: `Angle`, `BoxRange`, `Time`, `TagSelector`, `Password`, and `LabelSearch` only write on a real edit and show mixed values. Selecting several objects no longer copies one object's value to all.
+- `[Password]` draws non-string fields normally instead of hiding them.
+- `[Optional]` label colour is readable in the light Editor theme.
+- Removed an unused `using UnityEditor.PackageManager;` from the `InfoBoxExample` sample that broke player builds.
+
 ## [0.7.1]
 
 ### Fixed
@@ -69,7 +95,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - Removed LINQ allocations from `ColliderInteractionBase` target collider discovery.
 - Added XML documentation and inline optimization notes for audited runtime components.
 
-## [0.3.0] - 22-07-2025
+## [0.3.0] - 2025-07-22
 
 ### Added
 
@@ -104,7 +130,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - Namespaces simplified: SOSXR.SeaShark for most, unless editor, then SOSXR.SeaShark.Editor
 - SOSXRBaseEditor now allows for a Tooltip to be displayed.
 
-## [0.2.1] 02-04-2025
+## [0.2.1] 2025-04-02
 
 > ### Package Numbering Change
 >

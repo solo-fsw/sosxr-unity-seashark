@@ -5,6 +5,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using SOSXR.SeaShark.EditorScripts;
 
 
 namespace SOSXR.SeaShark.Editor
@@ -56,63 +57,15 @@ namespace SOSXR.SeaShark.Editor
         }
 
 
-        private object GetParentObject(SerializedProperty property)
+        private static object GetParentObject(SerializedProperty property)
         {
-            var path = property.propertyPath; // e.g. "list.Array.data[0].OriginName"
-            object obj = property.serializedObject.targetObject;
-            var elements = path.Split('.');
-
-            for (var i = 0; i < elements.Length - 1; i++)
-            {
-                var element = elements[i];
-
-                if (element.StartsWith("Array"))
-                {
-                    var index = int.Parse(elements[i + 1].Replace("data[", "").Replace("]", ""));
-
-                    if (obj is not IList list || index < 0 || index >= list.Count)
-                    {
-                        return null;
-                    }
-
-                    obj = list[index];
-                    i++;
-                }
-                else
-                {
-                    var field = FindField(obj?.GetType(), element);
-
-                    if (field == null)
-                    {
-                        return null;
-                    }
-
-                    obj = field.GetValue(obj);
-                }
-            }
-
-            return obj;
+            return SerializedPropertyUtility.GetParentObject(property);
         }
 
 
-        /// <summary>
-        ///     Type.GetField does not return private fields declared on base classes, so walk the hierarchy.
-        /// </summary>
         private static FieldInfo FindField(Type type, string name)
         {
-            const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
-
-            for (var current = type; current != null; current = current.BaseType)
-            {
-                var field = current.GetField(name, flags);
-
-                if (field != null)
-                {
-                    return field;
-                }
-            }
-
-            return null;
+            return SerializedPropertyUtility.FindField(type, name);
         }
 
 
