@@ -31,7 +31,8 @@ namespace SOSXR.SeaShark.EditorScripts
         private bool _init;
 
 
-        public SerializedProperty vector3OptionsProp;
+        // Not serialized: an Editor-side cache. [NonSerialized] silences the Unity 6.6 serialization analyzer (UAC1001).
+        [System.NonSerialized] public SerializedProperty vector3OptionsProp;
 
 
         // Cache properties in OnEnable

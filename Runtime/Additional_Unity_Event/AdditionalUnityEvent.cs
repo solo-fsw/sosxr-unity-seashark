@@ -262,41 +262,37 @@ namespace SOSXR.SeaShark
         /// <returns><c>true</c> when the configured build filter matches.</returns>
         public bool ShouldFire()
         {
-            if (m_buildTriggerType == BuildTriggerType.Always)
-            {
-                return true;
-            }
+            return MatchesBuildContext(m_buildTriggerType, Application.isEditor, Application.isPlaying, Debug.isDebugBuild);
+        }
 
-#if UNITY_EDITOR
-            if (m_buildTriggerType == BuildTriggerType.OnlyInEditor && Application.isPlaying)
-            {
-                return true;
-            }
-#endif
 
-#if !UNITY_EDITOR
-            if (m_buildTriggerType == BuildTriggerType.OnlyInBuilds)
+        /// <summary>
+        /// Pure build-context filter behind <see cref="ShouldFire"/>.
+        /// Development vs production is decided at runtime with <see cref="Debug.isDebugBuild"/>:
+        /// the DEVELOPMENT_BUILD symbol is deprecated in Unity 6.6 (UAC0009).
+        /// </summary>
+        /// <param name="type">Configured build filter.</param>
+        /// <param name="isEditor">True when running in the Unity Editor.</param>
+        /// <param name="isPlaying">True when in Play mode (Editor) or in a player.</param>
+        /// <param name="isDebugBuild">True in the Editor and in Development builds.</param>
+        /// <returns><c>true</c> when the filter matches; otherwise <c>false</c> (don't fire).</returns>
+        internal static bool MatchesBuildContext(BuildTriggerType type, bool isEditor, bool isPlaying, bool isDebugBuild)
+        {
+            switch (type)
             {
-                return true;
+                case BuildTriggerType.Always:
+                    return true;
+                case BuildTriggerType.OnlyInEditor:
+                    return isEditor && isPlaying;
+                case BuildTriggerType.OnlyInBuilds:
+                    return !isEditor;
+                case BuildTriggerType.OnlyInDevelopmentBuilds:
+                    return !isEditor && isDebugBuild;
+                case BuildTriggerType.OnlyInProductionBuilds:
+                    return !isEditor && !isDebugBuild;
+                default:
+                    return false;
             }
-#endif
-
-#if !UNITY_EDITOR && DEVELOPMENT_BUILD
-            if (m_buildTriggerType == BuildTriggerType.OnlyInDevelopmentBuilds)
-            {
-                return true;
-            }
-#endif
-
-#if !UNITY_EDITOR && !DEVELOPMENT_BUILD
-            if (m_buildTriggerType == BuildTriggerType.OnlyInProductionBuilds)
-            {
-                return true;
-            }
-#endif
-
-            // The configured filter does not match the current context: don't fire.
-            return false;
         }
     }
 

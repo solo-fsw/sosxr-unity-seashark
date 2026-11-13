@@ -20,11 +20,14 @@ namespace SOSXR.SeaShark
 
         private void Awake()
         {
-            #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            // Do nothing
-            #else
+            // Debug.isDebugBuild is true in the Editor and in Development builds: do nothing there.
+            // Runtime check replaces the DEVELOPMENT_BUILD symbol, which is deprecated in Unity 6.6 (UAC0009).
+            if (Debug.isDebugBuild)
+            {
+                return;
+            }
+
             HandleComponents();
-            #endif
         }
 
 

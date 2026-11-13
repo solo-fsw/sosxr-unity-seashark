@@ -8,6 +8,16 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 ### Fixed
 
 - Overzealous Gizmo initialization in DrawGizmo
+- Unity 6.6 deprecation warnings (UAC0009): `AdditionalUnityEvent` (`OnlyInDevelopmentBuilds`, `OnlyInProductionBuilds`) and `InProductionBuild` now check `Debug.isDebugBuild` at runtime instead of the `DEVELOPMENT_BUILD` symbol. Unity removes that symbol in 6.8. Behaviour is unchanged and works on every supported Unity version.
+- Unity 6.6 serialization analyzer warning (UAC1001) on `MoveEditor.vector3OptionsProp`: marked `[NonSerialized]`.
+
+### Changed
+
+- `AdditionalUnityEvent.ShouldFire` delegates to new internal `MatchesBuildContext(...)`, a pure function that EditMode tests can call. Runtime assembly gets `InternalsVisibleTo("SOSXR.SeaShark.Tests")` (`Runtime/AssemblyInfo.cs`).
+
+### Tests
+
+- `Tests/EditMode/BuildContextTests.cs` covers every `BuildTriggerType` in Editor, development-player and production-player contexts.
 
 ## [0.7.2] - 2026-11-10
 

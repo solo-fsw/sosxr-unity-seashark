@@ -222,6 +222,8 @@ In Build contains build-time utilities and scripts intended to influence the fin
 
 **Why:** Keep a clean separation between editor-time tooling and runtime behavior, while ensuring predictable production builds.
 
+"Development build" here means the **Development Build** checkbox, checked at runtime with `Debug.isDebugBuild` (`InProductionBuild`, `AdditionalUnityEvent` build filters). These no longer use the `DEVELOPMENT_BUILD` symbol, which Unity 6.6 deprecates. The Managed Code Variant setting does not change them.
+
 **Usage patterns:** Create prebuild/postbuild scripts or use BuildConfig directives to enable/disable features depending on target platforms. Configure these utilities to run automatically during the build pipeline.
 
 **Related resources:** `SOSXR.SeaShark.Build`, BuildTime utilities, BuildScripts.
