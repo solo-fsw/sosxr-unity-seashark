@@ -36,6 +36,11 @@
   },
   "samples": [
     {
+      "displayName": "Audio",
+      "description": "Audio samples",
+      "path": "Samples/Audio"
+    },
+    {
       "displayName": "Android Runtime Permissions",
       "description": "Runtime permission handling for Android builds (requires https://github.com/yasirkula/UnityAndroidRuntimePermissions.git)",
       "path": "Samples/AndroidRuntimePermissions"
