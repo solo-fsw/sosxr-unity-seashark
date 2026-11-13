@@ -5,6 +5,10 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 ## [Current]
 
+### Fixed
+
+- Overzealous Gizmo initialization in DrawGizmo
+
 ## [0.7.2] - 2026-11-10
 
 ### Added

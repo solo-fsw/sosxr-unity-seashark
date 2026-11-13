@@ -6,28 +6,40 @@ namespace SOSXR.SeaShark
 {
     public class DrawGizmo : MonoBehaviour
     {
-        [SerializeField] private GizmoType m_type = GizmoType.Cube;
-        [SerializeField] private Transform m_end;
-        [SerializeField] private Color m_color = Color.blue;
-        [SerializeField][Range(0.01f, 5f)] private float m_size = 0.05f;
-        [SerializeField] private TransformDirections m_direction = TransformDirections.Forward;
+        [SerializeField]
+        private GizmoType m_type = GizmoType.Cube;
 
-        private Transform _startTransform;
+        [SerializeField]
+        private Transform m_end;
+
+        [SerializeField]
+        private Color m_color = Color.blue;
+
+        [SerializeField]
+        [Range(0.01f, 5f)]
+        private float m_size = 0.05f;
+
+        [SerializeField]
+        private TransformDirections m_direction = TransformDirections.Forward;
+
+        [SerializeField]
+        [HideInInspector]
+        private Transform m_startTransform;
 
         private void OnValidate()
         {
-            if (_startTransform == null)
+            if (m_startTransform == null)
             {
-                _startTransform = transform;
+                m_startTransform = transform;
                 m_color = Random.ColorHSV();
             }
         }
 
         private void Reset()
         {
-            if (_startTransform == null)
+            if (m_startTransform == null)
             {
-                _startTransform = transform;
+                m_startTransform = transform;
             }
 
             m_color = Random.ColorHSV();
@@ -76,34 +88,34 @@ namespace SOSXR.SeaShark
 
         private void DrawCube()
         {
-            Gizmos.matrix = _startTransform.localToWorldMatrix;
+            Gizmos.matrix = m_startTransform.localToWorldMatrix;
             Gizmos.DrawCube(Vector3.zero, Vector3.one * m_size);
         }
 
         private void DrawWireCube()
         {
-            Gizmos.matrix = _startTransform.localToWorldMatrix;
+            Gizmos.matrix = m_startTransform.localToWorldMatrix;
             Gizmos.DrawWireCube(Vector3.zero, Vector3.one * m_size);
         }
 
         private void DrawSphere()
         {
-            if (!IsUniformScale(_startTransform.localScale))
+            if (!IsUniformScale(m_startTransform.localScale))
             {
                 Debug.LogWarning("Non-uniform scale detected; sphere size may not render correctly.");
             }
 
-            Gizmos.DrawSphere(_startTransform.position, m_size * _startTransform.localScale.x);
+            Gizmos.DrawSphere(m_startTransform.position, m_size * m_startTransform.localScale.x);
         }
 
         private void DrawWireSphere()
         {
-            if (!IsUniformScale(_startTransform.localScale))
+            if (!IsUniformScale(m_startTransform.localScale))
             {
                 Debug.LogWarning("Non-uniform scale detected; sphere size may not render correctly.");
             }
 
-            Gizmos.DrawWireSphere(_startTransform.position, m_size * _startTransform.localScale.x);
+            Gizmos.DrawWireSphere(m_startTransform.position, m_size * m_startTransform.localScale.x);
         }
 
         private bool IsUniformScale(Vector3 scale) => Mathf.Approximately(scale.x, scale.y) && Mathf.Approximately(scale.y, scale.z);
@@ -117,22 +129,22 @@ namespace SOSXR.SeaShark
                 return;
             }
 
-            Gizmos.DrawLine(_startTransform.position, m_end.position);
+            Gizmos.DrawLine(m_startTransform.position, m_end.position);
         }
 
         private void DrawLineOnTransform()
         {
-            var position = _startTransform.position;
+            Vector3 position = m_startTransform.position;
 
-            var directionVector = m_direction switch
+            Vector3 directionVector = m_direction switch
             {
-                TransformDirections.Forward => _startTransform.forward,
-                TransformDirections.Back => -_startTransform.forward,
-                TransformDirections.Up => _startTransform.up,
-                TransformDirections.Down => -_startTransform.up,
-                TransformDirections.Right => _startTransform.right,
-                TransformDirections.Left => -_startTransform.right,
-                _ => Vector3.zero
+                TransformDirections.Forward => m_startTransform.forward,
+                TransformDirections.Back => -m_startTransform.forward,
+                TransformDirections.Up => m_startTransform.up,
+                TransformDirections.Down => -m_startTransform.up,
+                TransformDirections.Right => m_startTransform.right,
+                TransformDirections.Left => -m_startTransform.right,
+                _ => Vector3.zero,
             };
 
             Gizmos.DrawLine(position, position + (directionVector * m_size));
@@ -146,7 +158,7 @@ namespace SOSXR.SeaShark
         Sphere,
         WireSphere,
         LinePointing,
-        LineBetween
+        LineBetween,
     }
 
     public enum TransformDirections
@@ -156,6 +168,6 @@ namespace SOSXR.SeaShark
         Up,
         Down,
         Right,
-        Left
+        Left,
     }
 }
