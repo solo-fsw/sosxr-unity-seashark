@@ -80,6 +80,10 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>True once the start value has been captured, i.e. the tween has begun playing.</summary>
+        internal bool HasStarted => _startCaptured;
+
+
         /// <summary>
         ///     Captures the property's current value as the start of the interpolation range.
         ///     Called once on the first <see cref="Apply" /> invocation (lazy capture).

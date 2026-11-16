@@ -6,10 +6,21 @@ using System.Security.Cryptography;
 
 namespace SOSXR.SeaShark.Excessives
 {
+    /// <summary>
+    /// Math helpers for clamping, wrapping, rounding, interpolation, degree/radian conversion and physical constants.
+    /// </summary>
     public static class MathE
     {
         #region Clamp
 
+        /// <summary>
+        /// Clamps a value to the inclusive range [min, max].
+        /// </summary>
+        /// <typeparam name="T">A comparable type.</typeparam>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The lower bound.</param>
+        /// <param name="max">The upper bound.</param>
+        /// <returns>The value limited to [min, max].</returns>
         public static T Clamp<T>(T value, T min, T max) where T : IComparable<T>
         {
             // Ensure value lies within [min, max].
@@ -20,6 +31,15 @@ namespace SOSXR.SeaShark.Excessives
 
         #region Derivatives Of Position
 
+        /// <summary>
+        /// Approximates the displacement after a time step from velocity, acceleration, jerk and jounce, using a Taylor expansion up to the 4th derivative.
+        /// </summary>
+        /// <param name="velocity">First derivative of position.</param>
+        /// <param name="acceleration">Second derivative of position.</param>
+        /// <param name="jerk">Third derivative of position.</param>
+        /// <param name="jounce">Fourth derivative of position.</param>
+        /// <param name="time">The time step.</param>
+        /// <returns>The approximate displacement over the time step.</returns>
         public static double PosFromDerivatives(
             double velocity, double acceleration,
             double jerk, double jounce,
@@ -41,12 +61,24 @@ namespace SOSXR.SeaShark.Excessives
 
         #region Constants
 
+        /// <summary>
+        /// The golden ratio.
+        /// </summary>
         public const double GOLDENRATIO = 1.6180339887498948482; // Classic constant used for pacing or pseudo-randomness heuristics
 
+        /// <summary>
+        /// The plastic number, the real root of x^3 = x + 1.
+        /// </summary>
         public const double PLASTICNUMBER = 1.32471795724474602596;
 
+        /// <summary>
+        /// Tau, equal to 2 * PI.
+        /// </summary>
         public const double TAU = 6.283185307179586; // 2 * PI
 
+        /// <summary>
+        /// Speed of light in metres per second.
+        /// </summary>
         public const double SPEEDOFLIGHT = 299792458;
 
         /// <summary>
@@ -91,6 +123,13 @@ namespace SOSXR.SeaShark.Excessives
         #region Overflow
 
         // Adds value2 towards target with overflow-style behavior: sign(target - value1) guides direction
+        /// <summary>
+        /// Adds value2 in the direction of target from value1, allowing a single step to overshoot the target.
+        /// </summary>
+        /// <param name="value1">The starting value.</param>
+        /// <param name="value2">The step size.</param>
+        /// <param name="target">The value to move towards.</param>
+        /// <returns>The stepped value, which may pass the target.</returns>
         public static float AddTowardsOverFlow(
             float value1, float value2, float target)
         {
@@ -103,6 +142,13 @@ namespace SOSXR.SeaShark.Excessives
         #region Obstructed
 
         // Obstructed variant clamps progress to the target if crossing it would overshoot in an intermediate step.
+        /// <summary>
+        /// Adds value2 towards target from value1, clamping the result so it never passes the target.
+        /// </summary>
+        /// <param name="value1">The starting value.</param>
+        /// <param name="value2">The step size.</param>
+        /// <param name="target">The value to move towards.</param>
+        /// <returns>The stepped value, limited to the target.</returns>
         public static float AddTowardsObstructed(
             float value1, float value2, float target)
         {
@@ -124,6 +170,13 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Adds value2 towards target from value1, clamping the result so it never passes the target.
+        /// </summary>
+        /// <param name="value1">The starting value.</param>
+        /// <param name="value2">The step size.</param>
+        /// <param name="target">The value to move towards.</param>
+        /// <returns>The stepped value, limited to the target.</returns>
         public static int AddTowardsObstructed(
             int value1, int value2, int target)
         {
@@ -145,6 +198,13 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Adds value2 towards target from value1, clamping the result so it never passes the target.
+        /// </summary>
+        /// <param name="value1">The starting value.</param>
+        /// <param name="value2">The step size.</param>
+        /// <param name="target">The value to move towards.</param>
+        /// <returns>The stepped value, limited to the target.</returns>
         public static double AddTowardsObstructed(
             double value1, double value2, double target)
         {
@@ -170,6 +230,13 @@ namespace SOSXR.SeaShark.Excessives
         #region Rebound
 
         // Rebound variant: when the next step would cross the target, reflect the excess off the target to simulate bouncing.
+        /// <summary>
+        /// Adds value2 towards target from value1. If the step would cross the target, the excess is reflected back off it.
+        /// </summary>
+        /// <param name="value1">The starting value.</param>
+        /// <param name="value2">The step size.</param>
+        /// <param name="target">The value to move towards.</param>
+        /// <returns>The stepped value, reflected off the target when crossed.</returns>
         public static float AddTowardsRebound(
             float value1, float value2, float target)
         {
@@ -193,6 +260,13 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Adds value2 towards target from value1. If the step would cross the target, the excess is reflected back off it.
+        /// </summary>
+        /// <param name="value1">The starting value.</param>
+        /// <param name="value2">The step size.</param>
+        /// <param name="target">The value to move towards.</param>
+        /// <returns>The stepped value, reflected off the target when crossed.</returns>
         public static int AddTowardsRebound(
             int value1, int value2, int target)
         {
@@ -217,6 +291,13 @@ namespace SOSXR.SeaShark.Excessives
 
 
         // Double precision version of the rebound variant
+        /// <summary>
+        /// Adds value2 towards target from value1. If the step would cross the target, the excess is reflected back off it.
+        /// </summary>
+        /// <param name="value1">The starting value.</param>
+        /// <param name="value2">The step size.</param>
+        /// <param name="target">The value to move towards.</param>
+        /// <returns>The stepped value, reflected off the target when crossed.</returns>
         public static double AddTowardsRebound(
             double value1, double value2, double target)
         {
@@ -247,34 +328,63 @@ namespace SOSXR.SeaShark.Excessives
 
         //Useful for clamping angles
         // Wrap a value into the inclusive range [min, max], useful for angle normalization
+        /// <summary>
+        /// Wraps a value into the range [min, max), for example to normalise angles. Returns min when the range is zero.
+        /// </summary>
+        /// <param name="value">The value to wrap.</param>
+        /// <param name="min">The lower bound.</param>
+        /// <param name="max">The upper bound.</param>
+        /// <returns>The wrapped value.</returns>
         public static float ClampWrap(float value, float min, float max)
         {
-            return (value - min) % (max - min) + min; // wrap around when exceeding bounds
+            var range = max - min;
+
+            if (range == 0f)
+            {
+                return min;
+            }
+
+            // Double modulo keeps the result in range for values below min too (C# % keeps the dividend's sign).
+            return ((value - min) % range + range) % range + min; // wrap around when exceeding bounds
         }
 
+        /// <summary>
+        /// Wraps a value into the range [min, max), for example to normalise angles. Returns min when the range is zero.
+        /// </summary>
+        /// <param name="value">The value to wrap.</param>
+        /// <param name="min">The lower bound.</param>
+        /// <param name="max">The upper bound.</param>
+        /// <returns>The wrapped value.</returns>
         public static double ClampWrap(double value, double min, double max)
         {
-            value = (value - min) % (max - min) + min; // wrap value into range
+            var range = max - min;
 
-            if (value < min)
+            if (range == 0d)
             {
-                value += max;
+                return min;
             }
 
-            return value;
+            return ((value - min) % range + range) % range + min; // wrap value into range
         }
 
 
+        /// <summary>
+        /// Wraps an integer into the range [min, max), for example to normalise angles. Returns min when the range is zero.
+        /// </summary>
+        /// <param name="value">The value to wrap.</param>
+        /// <param name="min">The lower bound.</param>
+        /// <param name="max">The upper bound.</param>
+        /// <returns>The wrapped value.</returns>
         public static int ClampWrap(int value, int min, int max)
         {
-            value = (value - min) % (max - min) + min; // wrap for integers
+            var range = max - min;
 
-            if (value < min)
+            if (range == 0)
             {
-                value += max;
+                return min;
             }
 
-            return value;
+            return ((value - min) % range + range) % range + min; // wrap for integers
         }
 
         #endregion
@@ -282,6 +392,15 @@ namespace SOSXR.SeaShark.Excessives
         #region ReMap
 
         // Maps a value from [inMin, inMax] into [outMin, outMax].
+        /// <summary>
+        /// Linearly maps a value from the range [inMin, inMax] into [outMin, outMax]. Does not clamp.
+        /// </summary>
+        /// <param name="value">The value to map.</param>
+        /// <param name="inMin">Lower bound of the input range.</param>
+        /// <param name="inMax">Upper bound of the input range.</param>
+        /// <param name="outMin">Lower bound of the output range.</param>
+        /// <param name="outMax">Upper bound of the output range.</param>
+        /// <returns>The mapped value.</returns>
         public static float ReMap(
             float value,
             float inMin, float inMax,
@@ -295,6 +414,15 @@ namespace SOSXR.SeaShark.Excessives
 
 
         // Double-precision remap variant
+        /// <summary>
+        /// Linearly maps a value from the range [inMin, inMax] into [outMin, outMax]. Does not clamp.
+        /// </summary>
+        /// <param name="value">The value to map.</param>
+        /// <param name="inMin">Lower bound of the input range.</param>
+        /// <param name="inMax">Upper bound of the input range.</param>
+        /// <param name="outMin">Lower bound of the output range.</param>
+        /// <param name="outMax">Upper bound of the output range.</param>
+        /// <returns>The mapped value.</returns>
         public static double ReMap(
             double value,
             double inMin, double inMax,
@@ -307,6 +435,17 @@ namespace SOSXR.SeaShark.Excessives
 
 
         // ReMaps with optional clamping of input and/or output ranges.
+        /// <summary>
+        /// Linearly maps a value from [inMin, inMax] into [outMin, outMax], with optional clamping of the input and output.
+        /// </summary>
+        /// <param name="value">The value to map.</param>
+        /// <param name="inMin">Lower bound of the input range.</param>
+        /// <param name="inMax">Upper bound of the input range.</param>
+        /// <param name="outMin">Lower bound of the output range.</param>
+        /// <param name="outMax">Upper bound of the output range.</param>
+        /// <param name="clampIn">Whether to clamp the input to [inMin, inMax] first.</param>
+        /// <param name="clampOut">Whether to clamp the result to [outMin, outMax].</param>
+        /// <returns>The mapped value.</returns>
         public static float ReMapClamped(
             float value,
             float inMin, float inMax,
@@ -331,6 +470,17 @@ namespace SOSXR.SeaShark.Excessives
 
 
         // Double-precision clamped remap
+        /// <summary>
+        /// Linearly maps a value from [inMin, inMax] into [outMin, outMax], with optional clamping of the input and output.
+        /// </summary>
+        /// <param name="value">The value to map.</param>
+        /// <param name="inMin">Lower bound of the input range.</param>
+        /// <param name="inMax">Upper bound of the input range.</param>
+        /// <param name="outMin">Lower bound of the output range.</param>
+        /// <param name="outMax">Upper bound of the output range.</param>
+        /// <param name="clampIn">Whether to clamp the input to [inMin, inMax] first.</param>
+        /// <param name="clampOut">Whether to clamp the result to [outMin, outMax].</param>
+        /// <returns>The mapped value.</returns>
         public static double ReMapClamped(
             double value,
             double inMin, double inMax,
@@ -357,12 +507,22 @@ namespace SOSXR.SeaShark.Excessives
 
         #region Boolean to Num
 
+        /// <summary>
+        /// Converts a bool to 1 for true and 0 for false.
+        /// </summary>
+        /// <param name="boolean">The bool to convert.</param>
+        /// <returns>1f or 0f.</returns>
         public static float ToFloat(this bool boolean)
         {
             return boolean ? 1f : 0f;
         }
 
 
+        /// <summary>
+        /// Converts a bool to 1 for true and 0 for false.
+        /// </summary>
+        /// <param name="boolean">The bool to convert.</param>
+        /// <returns>1 or 0.</returns>
         public static int ToInt(this bool boolean)
         {
             return boolean ? 1 : 0;
@@ -410,18 +570,33 @@ namespace SOSXR.SeaShark.Excessives
 
         #region Float
 
+        /// <summary>
+        /// Rounds to the nearest integer, with midpoints rounded away from zero.
+        /// </summary>
+        /// <param name="val">Value.</param>
+        /// <returns>The rounded value.</returns>
         public static float Round(float val)
         {
             return (float) Math.Round(val, MidpointRounding.AwayFromZero);
         }
 
 
+        /// <summary>
+        /// Rounds down to the nearest integer.
+        /// </summary>
+        /// <param name="val">Value.</param>
+        /// <returns>The floored value.</returns>
         public static float Floor(float val)
         {
             return (float) Math.Floor(val);
         }
 
 
+        /// <summary>
+        /// Rounds up to the nearest integer.
+        /// </summary>
+        /// <param name="val">Value.</param>
+        /// <returns>The ceiling value.</returns>
         public static float Ceil(float val)
         {
             return (float) Math.Ceiling(val);
@@ -496,6 +671,13 @@ namespace SOSXR.SeaShark.Excessives
 
 
         //Finds the 't' used to lerp between two numbers
+        /// <summary>
+        /// Finds the interpolation factor t that lerps from a to b to reach the given value.
+        /// </summary>
+        /// <param name="a">Start value.</param>
+        /// <param name="b">End value.</param>
+        /// <param name="lerped">The value reached.</param>
+        /// <returns>The factor t.</returns>
         public static double UnLerp(double a, double b, double lerped)
         {
             //Lerp function: lerped = ((b-a) * t) + a
@@ -505,6 +687,13 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Finds the interpolation factor t that quadratically lerps from a to b to reach the given value.
+        /// </summary>
+        /// <param name="a">Start value.</param>
+        /// <param name="b">End value.</param>
+        /// <param name="lerped">The value reached.</param>
+        /// <returns>The factor t.</returns>
         public static double UnQuadLerp(double a, double b, double lerped)
         {
             //Lerp function: lerped = ((b-a) * t * t) + a
@@ -545,6 +734,13 @@ namespace SOSXR.SeaShark.Excessives
 
 
         //Finds the 't' used to lerp between two numbers
+        /// <summary>
+        /// Finds the interpolation factor t that lerps from a to b to reach the given value.
+        /// </summary>
+        /// <param name="a">Start value.</param>
+        /// <param name="b">End value.</param>
+        /// <param name="lerped">The value reached.</param>
+        /// <returns>The factor t.</returns>
         public static float UnLerp(float a, float b, float lerped)
         {
             //Lerp function: lerped = ((b-a) * t) + a
@@ -555,6 +751,13 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Finds the interpolation factor t that quadratically lerps from a to b to reach the given value.
+        /// </summary>
+        /// <param name="a">Start value.</param>
+        /// <param name="b">End value.</param>
+        /// <param name="lerped">The value reached.</param>
+        /// <returns>The factor t.</returns>
         public static float UnQuadLerp(float a, float b, float lerped)
         {
             //Lerp function: lerped = ((b-a) * t * t) + a
@@ -625,6 +828,9 @@ namespace SOSXR.SeaShark.Excessives
     }
 
 
+    /// <summary>
+    /// Random helpers backed by a cryptographically secure random number generator.
+    /// </summary>
     public static class CryptoRand
     {
         private static readonly RNGCryptoServiceProvider rng = new();
@@ -645,6 +851,11 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        ///     Fills the given byte array with random bytes in place.
+        /// </summary>
+        /// <param name="byteArray">The array to fill.</param>
+        /// <returns>The same array, now filled with random bytes.</returns>
         public static byte[] GetBytes(byte[] byteArray)
         {
             rng.GetBytes(byteArray);
@@ -669,12 +880,24 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        ///     Returns a random double between min and max.
+        /// </summary>
+        /// <param name="min">Lower bound.</param>
+        /// <param name="max">Upper bound.</param>
+        /// <returns>A random value in [min, max).</returns>
         public static double Range(double min, double max)
         {
             return (max - min) * Range() + min;
         }
 
 
+        /// <summary>
+        ///     Returns a random float between min and max.
+        /// </summary>
+        /// <param name="min">Lower bound.</param>
+        /// <param name="max">Upper bound.</param>
+        /// <returns>A random value in [min, max).</returns>
         public static float Range(float min, float max)
         {
             return (max - min) * (float) Range() + min;
@@ -710,12 +933,24 @@ namespace SOSXR.SeaShark.Excessives
     /// </summary>
     public static class CryptoSymmetric
     {
+        /// <summary>
+        ///     XORs the data with the key, repeating or trimming the key to match the data length.
+        /// </summary>
+        /// <param name="data">Data to encrypt.</param>
+        /// <param name="key">Key bytes.</param>
+        /// <returns>The XOR-ed bytes.</returns>
         public static byte[] Encrypt(byte[] data, byte[] key)
         {
             return XORArrayWithKey(data, EqualizeKey(data, key));
         }
 
 
+        /// <summary>
+        ///     Reverses <see cref="Encrypt"/> by applying the same XOR operation with the same key.
+        /// </summary>
+        /// <param name="data">Data to decrypt.</param>
+        /// <param name="key">Key bytes.</param>
+        /// <returns>The decrypted bytes.</returns>
         public static byte[] Decrypt(byte[] data, byte[] key)
         {
             return Encrypt(data, key);
@@ -766,6 +1001,9 @@ namespace SOSXR.SeaShark.Excessives
     }
 
 
+    /// <summary>
+    /// Helpers that wrap common statements, such as loops, conditionals and timing.
+    /// </summary>
     public static class StatementsE
     {
         /// <summary>
@@ -833,6 +1071,15 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        ///     Runs exactly one of the given actions depending on two conditions. Each action runs only if its case matches and is not null.
+        /// </summary>
+        /// <param name="condition1">First condition.</param>
+        /// <param name="condition2">Second condition.</param>
+        /// <param name="only1">Runs when only condition1 is true.</param>
+        /// <param name="only2">Runs when only condition2 is true.</param>
+        /// <param name="both">Runs when both conditions are true.</param>
+        /// <param name="neither">Runs when neither condition is true.</param>
         public static void IfConditions(
             bool condition1, bool condition2,
             Action only1, Action only2,
@@ -862,8 +1109,17 @@ namespace SOSXR.SeaShark.Excessives
     }
 
 
+    /// <summary>
+    /// Proportional-integral-derivative controller. Each <see cref="Step"/> sums the weighted P, I and D terms.
+    /// </summary>
     public class PID
     {
+        /// <summary>
+        /// Creates a PID controller with the given gains.
+        /// </summary>
+        /// <param name="kP">Proportional gain.</param>
+        /// <param name="kI">Integral gain.</param>
+        /// <param name="kD">Derivative gain.</param>
         public PID(double kP, double kI, double kD)
         {
             this.kP = kP;
@@ -872,16 +1128,34 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Proportional gain.
+        /// </summary>
         public double kP { get; set; }
 
+        /// <summary>
+        /// Integral gain.
+        /// </summary>
         public double kI { get; set; }
 
+        /// <summary>
+        /// Derivative gain.
+        /// </summary>
         public double kD { get; set; }
 
+        /// <summary>
+        /// Proportional term, the last error passed to <see cref="Step"/>.
+        /// </summary>
         public double P { get; set; }
 
+        /// <summary>
+        /// Accumulated integral term.
+        /// </summary>
         public double I { get; set; }
 
+        /// <summary>
+        /// Derivative term, the change in error per unit time from the last <see cref="Step"/>.
+        /// </summary>
         public double D { get; set; }
 
 
@@ -904,8 +1178,14 @@ namespace SOSXR.SeaShark.Excessives
     }
 
 
+    /// <summary>
+    /// Named colours as RGBA hex strings in the form #rrggbbaa.
+    /// </summary>
     public static class ColorHex
     {
+        /// <summary>
+        /// Hex colour strings (#rrggbbaa) for each named colour below.
+        /// </summary>
         public static readonly string
             Aqua = "#00ffffff",
             Black = "#000000ff",
@@ -929,6 +1209,9 @@ namespace SOSXR.SeaShark.Excessives
     }
 
 
+    /// <summary>
+    /// General extension methods for null checks, Action/Func invocation, console output and debugging collections.
+    /// </summary>
     public static class ExtensionsE
     {
         #region Conditions
@@ -945,18 +1228,37 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Returns true when the instance is null or a destroyed UnityEngine.Object.
+        /// </summary>
+        /// <typeparam name="T">The instance type.</typeparam>
+        /// <param name="instance">The instance to check.</param>
+        /// <returns>True when null or destroyed.</returns>
         public static bool IsNull<T>(this T instance)
         {
             return IsNullOrDestroyed(instance);
         }
 
 
+        /// <summary>
+        /// Returns true when the instance is neither null nor a destroyed UnityEngine.Object.
+        /// </summary>
+        /// <typeparam name="T">The instance type.</typeparam>
+        /// <param name="instance">The instance to check.</param>
+        /// <returns>True when not null and not destroyed.</returns>
         public static bool NotNull<T>(this T instance)
         {
             return !IsNullOrDestroyed(instance);
         }
 
 
+        /// <summary>
+        /// Returns true when the instance is null or destroyed, and invokes actionIfNull with it in that case.
+        /// </summary>
+        /// <typeparam name="T">The instance type.</typeparam>
+        /// <param name="instance">The instance to check.</param>
+        /// <param name="actionIfNull">Invoked only when the instance is null or destroyed.</param>
+        /// <returns>True when null or destroyed.</returns>
         public static bool IsNull<T>(this T instance, Action<T> actionIfNull)
         {
             if (IsNullOrDestroyed(instance))
@@ -970,6 +1272,13 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Returns true when the instance is not null or destroyed, and invokes actionIfNotNull with it in that case.
+        /// </summary>
+        /// <typeparam name="T">The instance type.</typeparam>
+        /// <param name="instance">The instance to check.</param>
+        /// <param name="actionIfNotNull">Invoked only when the instance is not null or destroyed.</param>
+        /// <returns>True when not null and not destroyed.</returns>
         public static bool NotNull<T>(this T instance, Action<T> actionIfNotNull)
         {
             if (!IsNullOrDestroyed(instance))
@@ -1017,12 +1326,22 @@ namespace SOSXR.SeaShark.Excessives
 
         #region Console
 
+        /// <summary>
+        /// Writes the message to the console without a newline.
+        /// </summary>
+        /// <typeparam name="T">The message type.</typeparam>
+        /// <param name="message">The message to write.</param>
         public static void Write<T>(this T message)
         {
             Console.Write(message);
         }
 
 
+        /// <summary>
+        /// Writes the message to the console followed by a newline.
+        /// </summary>
+        /// <typeparam name="T">The message type.</typeparam>
+        /// <param name="message">The message to write.</param>
         public static void WriteLine<T>(this T message)
         {
             Console.WriteLine(message);
@@ -1034,6 +1353,13 @@ namespace SOSXR.SeaShark.Excessives
 
         #region Printing Enumerables
 
+        /// <summary>
+        /// Joins the elements of the enumerable into one string, separated by splitter.
+        /// </summary>
+        /// <typeparam name="TSource">The element type.</typeparam>
+        /// <param name="enumerable">The elements to join.</param>
+        /// <param name="splitter">Text placed between elements.</param>
+        /// <returns>The joined string.</returns>
         public static string ToElementsString<TSource>(
             this IEnumerable<TSource> enumerable,
             string splitter = ", ")
@@ -1058,6 +1384,12 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Writes the elements of the enumerable to the console, separated by splitter.
+        /// </summary>
+        /// <typeparam name="TSource">The element type.</typeparam>
+        /// <param name="enumerable">The elements to write.</param>
+        /// <param name="splitter">Text placed between elements.</param>
         public static void WriteArrayElements<TSource>(
             this IEnumerable<TSource> enumerable,
             string splitter = ", ")
@@ -1066,6 +1398,12 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// Writes the elements of the enumerable to the console, separated by splitter. Currently delegates to <see cref="WriteArrayElements{TSource}"/> without a trailing newline.
+        /// </summary>
+        /// <typeparam name="TSource">The element type.</typeparam>
+        /// <param name="enumerable">The elements to write.</param>
+        /// <param name="splitter">Text placed between elements.</param>
         public static void WriteLineArrayElements<TSource>(
             this IEnumerable<TSource> enumerable,
             string splitter = ", ")
@@ -1077,6 +1415,15 @@ namespace SOSXR.SeaShark.Excessives
 
         #region Printing Dictionaries
 
+        /// <summary>
+        /// Formats a dictionary as one string, with each key and value joined by keyValueSeparator and entries joined by elementSeparator.
+        /// </summary>
+        /// <typeparam name="TSource1">The key type.</typeparam>
+        /// <typeparam name="TSource2">The value type.</typeparam>
+        /// <param name="dict">The dictionary to format.</param>
+        /// <param name="keyValueSeparator">Text placed between each key and its value.</param>
+        /// <param name="elementSeparator">Text placed between entries.</param>
+        /// <returns>The formatted string.</returns>
         public static string ToElementsString<TSource1, TSource2>(
             this Dictionary<TSource1, TSource2> dict,
             string keyValueSeparator = " => ",
@@ -1126,12 +1473,19 @@ namespace SOSXR.SeaShark.Excessives
         private T val;
 
 
+        /// <summary>
+        /// Creates a reference holder with the given initial value.
+        /// </summary>
+        /// <param name="value">The initial value.</param>
         public Ref(T value)
         {
             val = value;
         }
 
 
+        /// <summary>
+        /// The stored value. Virtual, so subclasses can change how it is read or written.
+        /// </summary>
         public virtual T Value
         {
             get => val;
@@ -1150,6 +1504,11 @@ namespace SOSXR.SeaShark.Excessives
         private readonly Action<T> setter;
 
 
+        /// <summary>
+        /// Creates a property wrapper that reads and writes through the given delegates.
+        /// </summary>
+        /// <param name="getter">Returns the external value.</param>
+        /// <param name="setter">Assigns the external value.</param>
         public GetSet
         (
             Func<T> getter,
@@ -1161,6 +1520,9 @@ namespace SOSXR.SeaShark.Excessives
         }
 
 
+        /// <summary>
+        /// The external value, read through the getter and written through the setter.
+        /// </summary>
         public T value
         {
             get => getter();

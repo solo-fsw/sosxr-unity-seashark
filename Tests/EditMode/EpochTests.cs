@@ -55,5 +55,27 @@ namespace SOSXR.SeaShark.Tests
             Assert.IsFalse(string.IsNullOrEmpty(result));
             Assert.AreEqual(4, result.Length); // "yyyy" should produce a 4-digit year
         }
+
+        [Test]
+        public void FormatEpoch_NonInvariantCulture_KeepsSlashAndColonSeparators()
+        {
+            const long ts = 1710504000000L;
+            var original = System.Threading.Thread.CurrentThread.CurrentCulture;
+
+            try
+            {
+                // fi-FI uses '.' as the time separator, so culture-sensitive formatting would replace ':'.
+                System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("fi-FI");
+
+                var result = Epoch.FormatEpoch(ts, "dd/MM/yyyy HH:mm:ss");
+                var expected = DateTimeOffset.FromUnixTimeMilliseconds(ts).ToLocalTime().ToString("dd/MM/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+
+                Assert.AreEqual(expected, result);
+            }
+            finally
+            {
+                System.Threading.Thread.CurrentThread.CurrentCulture = original;
+            }
+        }
     }
 }

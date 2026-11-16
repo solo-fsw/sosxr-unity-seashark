@@ -11,24 +11,72 @@ namespace DitzelGames.FastIK
     /// </summary>
     public class FastIKFabric : MonoBehaviour
     {
+        /// <summary>
+        ///     Number of parent bones above this transform that are solved. This transform is the end effector.
+        /// </summary>
         public int ChainLength = 2;
+        /// <summary>
+        ///     Transform the end effector aims for. If null, a FastIK Target GameObject is created at this transform's position during initialization.
+        /// </summary>
         public Transform Target;
+        /// <summary>
+        ///     Optional transform that sets the bend direction of the middle bones. Ignored when null.
+        /// </summary>
         public Transform Pole;
 
+        /// <summary>
+        ///     Maximum number of solver iterations per solve when the target is within reach.
+        /// </summary>
         [Header("Solver Parameters")] public int Iterations = 10;
+        /// <summary>
+        ///     Distance from the target at which the iterative solve stops early.
+        /// </summary>
         public float Delta = 0.001f;
+        /// <summary>
+        ///     Blend factor (0 to 1) that pulls the chain toward its rest pose before iterating, when the target is within reach.
+        /// </summary>
         [Range(0, 1)] public float SnapBackStrength = 1f;
 
+        /// <summary>
+        ///     Blend (0 to 1) between the animated bone positions (0) and the solved positions (1).
+        /// </summary>
         [Header("IK Weights")] [Range(0, 1)] public float PositionWeight = 1f;
+        /// <summary>
+        ///     Blend (0 to 1) between the current bone rotations and the solved rotations, applied with Slerp.
+        /// </summary>
         [Range(0, 1)] public float RotationWeight = 1f;
 
+        /// <summary>
+        ///     Length of each bone segment. Index i is the distance from Bones[i] to Bones[i + 1].
+        /// </summary>
         protected float[] BonesLength;
+        /// <summary>
+        ///     Total length of the chain. The target is out of reach when its distance from the root exceeds this.
+        /// </summary>
         protected float CompleteLength;
+        /// <summary>
+        ///     Transforms in the chain, ordered from the topmost ancestor (index 0) to this transform (last index).
+        /// </summary>
         protected Transform[] Bones;
+        /// <summary>
+        ///     Working bone positions in root space, recalculated on every solve.
+        /// </summary>
         protected Vector3[] Positions;
+        /// <summary>
+        ///     Rest-pose vector from each bone to the next bone in root space. The last entry points from the end transform to the target.
+        /// </summary>
         protected Vector3[] StartDirectionSucc;
+        /// <summary>
+        ///     Rest-pose rotation of each bone in root space, captured during initialization.
+        /// </summary>
         protected Quaternion[] StartRotationBone;
+        /// <summary>
+        ///     Rest-pose rotation of the target in root space, captured during initialization.
+        /// </summary>
         protected Quaternion StartRotationTarget;
+        /// <summary>
+        ///     Ancestor transform the solve is performed relative to, ChainLength + 1 levels above this transform. Null when the chain reaches the scene root.
+        /// </summary>
         protected Transform Root;
         private Vector3[] _animatedPositionsBuffer;
 
@@ -191,13 +239,14 @@ namespace DitzelGames.FastIK
 
                 if (i == Positions.Length - 1)
                 {
-                    var finalRot = Quaternion.Inverse(StartRotationBone[i]) * StartRotationTarget * Quaternion.Inverse(targetRotation);
-                    Bones[i].rotation = Quaternion.Slerp(Bones[i].rotation, Root.rotation * finalRot, RotationWeight);
+                    // Order matches upstream DitzelGames FastIK: Inverse(target) * startTarget * Inverse(startBone), in root space.
+                    var finalRot = Quaternion.Inverse(targetRotation) * StartRotationTarget * Quaternion.Inverse(StartRotationBone[i]);
+                    Bones[i].rotation = Quaternion.Slerp(Bones[i].rotation, ToWorldRotation(finalRot), RotationWeight);
                 }
                 else
                 {
                     var rot = Quaternion.FromToRotation(StartDirectionSucc[i], Positions[i + 1] - Positions[i]) * Quaternion.Inverse(StartRotationBone[i]);
-                    Bones[i].rotation = Root.rotation * rot;
+                    Bones[i].rotation = ToWorldRotation(rot);
                 }
             }
         }
@@ -225,6 +274,13 @@ namespace DitzelGames.FastIK
         private Quaternion GetRotationRootSpace(Transform current)
         {
             return Root == null ? current.rotation : Quaternion.Inverse(current.rotation) * Root.rotation;
+        }
+
+
+        // Mirrors upstream SetRotationRootSpace: Root is null when the chain reaches the scene root.
+        private Quaternion ToWorldRotation(Quaternion rootSpaceRotation)
+        {
+            return Root == null ? rootSpaceRotation : Root.rotation * rootSpaceRotation;
         }
 
 

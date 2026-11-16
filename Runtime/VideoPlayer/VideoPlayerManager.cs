@@ -8,6 +8,10 @@ using UnityEngine.Video;
 
 namespace SOSXR.SeaShark
 {
+    /// <summary>
+    ///     Plays the video clips in a folder one at a time, in random order, with a pause before the first clip and between clips.
+    ///     Repeats the shuffled list while m_repeat is set. Requires a VideoPlayer on the same GameObject.
+    /// </summary>
     [RequireComponent(typeof(VideoPlayer))]
     public class VideoPlayerManager : MonoBehaviour
     {
@@ -22,6 +26,9 @@ namespace SOSXR.SeaShark
         [Range(0, 60)]
         private float m_beforeFirstClipPauseDuration = 5f;
 
+        /// <summary>
+        ///     The clips to play. Start adds one entry for each file found in the clip directory, in addition to any entries already set.
+        /// </summary>
         [SerializeField]
         public List<VideoSettingsCustom> Clips;
 
@@ -36,14 +43,26 @@ namespace SOSXR.SeaShark
         private UnityEvent<string> VideoClipStarted;
 
         [Header("Info")]
+        /// <summary>
+        ///     The name of the current clip. Set when a clip starts.
+        /// </summary>
         [SerializeField]
         public string CurrentClipName;
 
+        /// <summary>
+        ///     The length of the current clip in seconds, rounded to a whole second. Set when playback of the clip begins.
+        /// </summary>
         [SerializeField]
         public float CurrentClipDuration;
 
+        /// <summary>
+        ///     The playback position of the current clip in seconds, rounded to a whole second. Updated once per second while playing.
+        /// </summary>
         [SerializeField]
         public float CurrentClipTime;
+        /// <summary>
+        ///     The width and height of the current clip in pixels. Set when the render texture is created for the clip.
+        /// </summary>
         public Vector2Int Dimensions;
 
         [SerializeField]
@@ -58,8 +77,18 @@ namespace SOSXR.SeaShark
         private RenderTexture _renderTexture;
 
         private Coroutine _playerCR;
+        private Coroutine _clipTimeCR;
+        private bool _prepareFailed;
 
+        private const float PrepareTimeout = 30f;
+
+        /// <summary>
+        ///     The VideoPlayer that plays the clips. Found on this GameObject or its children in Awake and OnValidate if not already set.
+        /// </summary>
         public VideoPlayer VideoPlayer { get; private set; }
+        /// <summary>
+        ///     The AudioSource that plays the clip audio. Found on this GameObject or its children in Awake and OnValidate if not already set.
+        /// </summary>
         public AudioSource AudioSource { get; private set; }
 
         private void OnValidate()
@@ -129,26 +158,54 @@ namespace SOSXR.SeaShark
 
         private void ReceivedAnError(VideoPlayer source, string message)
         {
-            Debug.LogErrorFormat($"The VideoPlayer has received an error {source} {message}");
+            Debug.LogError($"The VideoPlayer has received an error {source} {message}");
+
+            _prepareFailed = true;
         }
 
+        /// <summary>
+        ///     Stops any running playback and starts playing the clips. Logs an error and does nothing if there are no clips.
+        /// </summary>
+        /// <param name="unused">Not used by the method.</param>
         public void StartPlayer(string unused)
         {
             if (Clips.Count == 0)
             {
-                Debug.LogErrorFormat($"Could not find any available clips in {m_clipDirectory}");
+                Debug.LogError($"Could not find any available clips in {m_clipDirectory}");
 
                 return;
             }
 
+            StopPlayerCoroutines();
+
             _playerCR = StartCoroutine(PlayerCR());
+        }
+
+        private void StopPlayerCoroutines()
+        {
+            if (_playerCR != null)
+            {
+                StopCoroutine(_playerCR);
+                _playerCR = null;
+            }
+
+            if (_clipTimeCR != null)
+            {
+                StopCoroutine(_clipTimeCR);
+                _clipTimeCR = null;
+            }
         }
 
         private IEnumerator PlayerCR()
         {
             yield return new WaitForSeconds(m_beforeFirstClipPauseDuration);
 
-            StartCoroutine(UpdateCurrentClipTimeCR());
+            if (_clipTimeCR != null)
+            {
+                StopCoroutine(_clipTimeCR);
+            }
+
+            _clipTimeCR = StartCoroutine(UpdateCurrentClipTimeCR());
 
             do
             {
@@ -164,7 +221,7 @@ namespace SOSXR.SeaShark
 
                 foreach (var clip in m_randomizedClipList)
                 {
-                    Debug.LogFormat(
+                    Debug.Log(
                         $"Playing clip {clip.ClipName} from {m_randomizedClipList.Count} clips."
                     );
 
@@ -172,13 +229,38 @@ namespace SOSXR.SeaShark
 
                     CurrentClipName = clip.ClipName;
 
+                    _prepareFailed = false;
+
                     GetURLAndPrepare(clip);
 
-                    while (!VideoPlayer.isPrepared)
+                    var prepareStartTime = Time.time;
+
+                    while (!VideoPlayer.isPrepared && !_prepareFailed)
                     {
+                        if (Time.time - prepareStartTime > PrepareTimeout)
+                        {
+                            Debug.LogError($"Timed out preparing clip {clip.ClipName}");
+
+                            _prepareFailed = true;
+
+                            break;
+                        }
+
                         Debug.LogFormat("Preparing clip");
 
                         yield return new WaitForSeconds(0.1f);
+                    }
+
+                    if (_prepareFailed)
+                    {
+                        Debug.LogWarning($"Skipping clip {clip.ClipName} because it could not be prepared.");
+
+                        StopPlaying();
+
+                        // Always yield here, so a list of only broken clips with m_repeat on cannot spin without yielding.
+                        yield return new WaitForSeconds(Mathf.Max(m_betweenEachClipPauseDuration, 0.1f));
+
+                        continue;
                     }
 
                     CreateNewRenderTexture();
@@ -235,7 +317,11 @@ namespace SOSXR.SeaShark
             );
             _renderTexture.name = "RenderTexture: " + Dimensions;
 
-            m_renderMaterial.mainTexture = _renderTexture;
+            if (m_renderMaterial != null)
+            {
+                m_renderMaterial.mainTexture = _renderTexture;
+            }
+
             VideoPlayer.targetTexture = _renderTexture;
         }
 
@@ -281,6 +367,9 @@ namespace SOSXR.SeaShark
             _renderTexture = null;
         }
 
+        /// <summary>
+        ///     Stops the current playback and starts the clips again in a new random order. Also available from the component's context menu.
+        /// </summary>
         [ContextMenu(nameof(ReshuffleVideos))]
         public void ReshuffleVideos()
         {
@@ -291,12 +380,7 @@ namespace SOSXR.SeaShark
         {
             StopPlaying();
 
-            if (_playerCR != null)
-            {
-                StopCoroutine(_playerCR);
-
-                _playerCR = null;
-            }
+            StopPlayerCoroutines();
 
             _playerCR = StartCoroutine(PlayerCR());
         }
@@ -310,6 +394,7 @@ namespace SOSXR.SeaShark
 
             StopAllCoroutines();
             _playerCR = null;
+            _clipTimeCR = null;
         }
 
         private void OnDestroy()

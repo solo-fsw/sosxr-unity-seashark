@@ -3,19 +3,12 @@ using UnityEngine;
 
 namespace SOSXR.SeaShark
 {
+    /// <summary>
+    ///     Disables or destroys this GameObject in non-debug builds, as selected in the Inspector. Does nothing in the Editor or in Development builds.
+    /// </summary>
     public class InProductionBuild : MonoBehaviour
     {
         [SerializeField] private DoInProductionBuild m_doInProductionBuild;
-        private GameObject _objectToDestroy;
-
-
-        private void OnValidate()
-        {
-            if (_objectToDestroy == null)
-            {
-                _objectToDestroy = gameObject;
-            }
-        }
 
 
         private void Awake()
@@ -35,11 +28,11 @@ namespace SOSXR.SeaShark
         {
             if (m_doInProductionBuild == DoInProductionBuild.Disable)
             {
-                enabled = false;
+                gameObject.SetActive(false);
             }
             else if (m_doInProductionBuild == DoInProductionBuild.Destroy)
             {
-                Destroy(_objectToDestroy);
+                Destroy(gameObject);
             }
         }
 

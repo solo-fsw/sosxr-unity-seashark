@@ -24,7 +24,7 @@ namespace SOSXR.SeaShark
                 return;
             }
 
-            if (m_forceDisableOn)
+            if (m_forceEnableOn)
             {
                 ToggleOnPlatforms(true);
             }

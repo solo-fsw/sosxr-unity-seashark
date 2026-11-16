@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace SOSXR.SeaShark.EditorScripts
 {
+    /// <summary>
+    ///     Custom Inspector for ConfigValueToUnityEvent&lt;T&gt; and its subclasses. Lets you pick a ConfigData asset,
+    ///     choose a matching field or property, and fire the event from the Inspector.
+    /// </summary>
     [CustomEditor(typeof(ConfigValueToUnityEvent<>), true)] // Supports subclasses
     [CanEditMultipleObjects]
     public class BaseValueToUnityEventEditor : UnityEditor.Editor
@@ -33,6 +37,9 @@ namespace SOSXR.SeaShark.EditorScripts
             UpdateFieldList();
         }
 
+        /// <summary>
+        ///     Draws the ConfigData field, value name popup and event settings, and the Find Values and Fire Event button.
+        /// </summary>
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
@@ -53,7 +60,17 @@ namespace SOSXR.SeaShark.EditorScripts
 
             if (validValueNames.Length > 0)
             {
+                // Only write on a user change, so multi-object editing doesn't stamp the first target's value onto the others.
+                EditorGUI.showMixedValue = valueNameProp.hasMultipleDifferentValues;
+                EditorGUI.BeginChangeCheck();
                 selectedIndex = EditorGUILayout.Popup("Value Name", selectedIndex, validValueNames);
+
+                if (EditorGUI.EndChangeCheck() && selectedIndex >= 0)
+                {
+                    valueNameProp.stringValue = validValueNames[selectedIndex];
+                }
+
+                EditorGUI.showMixedValue = false;
             }
             else
             {
@@ -68,11 +85,6 @@ namespace SOSXR.SeaShark.EditorScripts
                 _ = serializedObject.ApplyModifiedProperties();
 
                 return;
-            }
-
-            if (selectedIndex >= 0)
-            {
-                valueNameProp.stringValue = validValueNames[selectedIndex];
             }
 
             _ = EditorGUILayout.PropertyField(runOnStartProp);

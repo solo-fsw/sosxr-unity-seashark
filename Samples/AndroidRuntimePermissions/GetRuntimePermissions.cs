@@ -1,28 +1,30 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-
 namespace SOSXR.SeaShark
 {
+    /// <summary>
+    ///     Requests Android runtime permissions on Awake: opens the All Files Access settings page on API 30 and above when it is not granted, then requests each permission in m_additionalPermissions.
+    ///     Disables itself outside Android builds and in the Editor.
+    /// </summary>
     public class GetRuntimePermission : MonoBehaviour
     {
-        [SerializeField] private string[] m_additionalPermissions = { }; // e.g. "android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"
-
+        [SerializeField]
+        private string[] m_additionalPermissions = { "android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.MANAGE_EXTERNAL_STORAGE" };
 
         private void Awake()
         {
-            #if !UNITY_ANDROID || UNITY_EDITOR
+#if !UNITY_ANDROID || UNITY_EDITOR
             Debug.Log("This script is only for Android platform. Skipping permission checks.");
             enabled = false;
 
             return;
-            #endif
+#endif
 
             _ = RequestAllFilesPermission();
             _ = RequestAdditionalPermissionsAsync();
         }
-
 
         private async Task RequestAllFilesPermission()
         {
@@ -32,7 +34,6 @@ namespace SOSXR.SeaShark
             }
         }
 
-
         private async Task RequestAdditionalPermissionsAsync()
         {
             foreach (var additionalPermission in m_additionalPermissions) // Skips if empty
@@ -40,7 +41,6 @@ namespace SOSXR.SeaShark
                 await RequestPermission(additionalPermission);
             }
         }
-
 
         private int GetAndroidAPILevel()
         {
@@ -53,7 +53,6 @@ namespace SOSXR.SeaShark
             }
         }
 
-
         private bool AndroidHasManageAllFilesPermission()
         {
             using (var env = new AndroidJavaClass("android.os.Environment"))
@@ -64,7 +63,6 @@ namespace SOSXR.SeaShark
                 return isExternalStorageManager;
             }
         }
-
 
         private void OpenManageAllFilesAccessSettings()
         {
@@ -78,7 +76,6 @@ namespace SOSXR.SeaShark
 
             Debug.Log("Opened Manage All Files Access Settings. Please grant permission manually.");
         }
-
 
         private async Task RequestPermission(string permission)
         {

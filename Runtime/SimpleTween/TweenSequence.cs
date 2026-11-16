@@ -307,6 +307,14 @@ namespace SOSXR.SeaShark
             for (var i = 0; i < _tweens.Count; i++)
             {
                 var entry = _tweens[i];
+
+                // Don't touch the property (or capture its start value) before this tween's start time:
+                // an earlier tween, or another script, may still be driving it.
+                if (effectiveTime < entry.AtTime && !entry.Tween.HasStarted)
+                {
+                    continue;
+                }
+
                 var elapsed = Mathf.Clamp(effectiveTime - entry.AtTime, 0f, entry.Tween.duration);
                 entry.Tween.Apply(elapsed);
             }

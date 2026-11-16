@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace SOSXR.SeaShark
 {
+    /// <summary>
+    ///     Fades the alpha of a child UI Image. FadeIn makes it transparent and FadeOut makes it opaque. If m_fadeOnAwake is set, it fades in on Awake.
+    /// </summary>
     public class ImageFader : MonoBehaviour
     {
         [SerializeField] private bool m_fadeOnAwake = false;
@@ -51,6 +54,9 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        ///     Fades in using the default fade duration. Available from the component context menu.
+        /// </summary>
         [ContextMenu(nameof(FadeIn))]
         public void FadeIn()
         {
@@ -58,6 +64,10 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        ///     Fades in over the given duration. Does nothing if a fade-in is already running.
+        /// </summary>
+        /// <param name="duration">Fade duration in seconds.</param>
         public void FadeIn(float duration)
         {
             if (_fadeInCoroutine != null)
@@ -69,6 +79,9 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        ///     Fades out using the default fade duration. Available from the component context menu.
+        /// </summary>
         [ContextMenu(nameof(FadeOut))]
         public void FadeOut()
         {
@@ -76,6 +89,10 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        ///     Fades out over the given duration. Enables the image first. Does nothing if a fade-out is already running.
+        /// </summary>
+        /// <param name="duration">Fade duration in seconds.</param>
         public void FadeOut(float duration)
         {
             if (_fadeOutCoroutine != null)
@@ -88,6 +105,9 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        ///     Fades out, then fades back in, over twice the default fade duration. Available from the component context menu.
+        /// </summary>
         [ContextMenu(nameof(FadeRound))]
         public void FadeRound()
         {
@@ -168,6 +188,8 @@ namespace SOSXR.SeaShark
         private void OnDisable()
         {
             StopAllCoroutines();
+            _fadeInCoroutine = null;
+            _fadeOutCoroutine = null;
         }
     }
 }

@@ -117,5 +117,21 @@ namespace SOSXR.SeaShark.Tests
             string result = data.BuildQueryURL(BaseURL, "mood");
             StringAssert.Contains("mood=happy", result);
         }
+
+        [Test]
+        public void QueryTestSO_QueryStringVariables_IsInitialised()
+        {
+            var so = UnityEngine.ScriptableObject.CreateInstance<QueryTestSO>();
+
+            try
+            {
+                Assert.IsNotNull(so.QueryStringVariables);
+                Assert.DoesNotThrow(() => ((IHaveQueryData) so).ClearQuery());
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(so);
+            }
+        }
     }
 }

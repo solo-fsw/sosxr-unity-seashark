@@ -4,9 +4,19 @@ using UnityEngine;
 
 namespace SOSXR.SeaShark
 {
+    /// <summary>
+    /// Determines what happens to the other instances of the same component type.
+    /// </summary>
     public enum RemovalAction
     {
+        /// <summary>
+        ///     Sets the other instances' enabled property to false.
+        /// </summary>
         Disable,
+
+        /// <summary>
+        ///     Destroys the other instances. Uses Destroy in Play mode and DestroyImmediate in Edit mode.
+        /// </summary>
         Destroy
     }
 
@@ -85,6 +95,9 @@ namespace SOSXR.SeaShark
             switch (m_removalAction)
             {
                 case RemovalAction.Destroy:
+                    // Cache the name first: after DestroyImmediate the object is gone and obj.name throws.
+                    var objName = obj.name;
+
                     if (Application.isPlaying)
                     {
                         Destroy(obj);
@@ -94,7 +107,7 @@ namespace SOSXR.SeaShark
                         DestroyImmediate(obj);
                     }
 
-                    Debug.Log($"{obj.name} of type {type.Name} has been destroyed.");
+                    Debug.Log($"{objName} of type {type.Name} has been destroyed.");
 
                     break;
 

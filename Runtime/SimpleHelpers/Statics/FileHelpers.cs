@@ -117,13 +117,23 @@ namespace SOSXR.SeaShark.Statics
         }
 
 
+        /// <summary>
+        ///     Returns the names of the files directly inside a folder, without their paths, optionally filtered by extension.
+        ///     Logs an error and returns an empty array when the folder does not exist.
+        /// </summary>
+        /// <param name="extensions">Extensions to match, including the dot (for example ".mp4"), compared case-insensitively. Null or empty means no filter.</param>
+        /// <param name="excludeExtensions">If true, files with the listed extensions are left out instead of kept.</param>
+        /// <param name="excludeHidden">If true, files whose name starts with a dot are left out.</param>
+        /// <param name="basePath">The root folder to read from.</param>
+        /// <param name="subFolder">Optional subfolder inside basePath.</param>
+        /// <returns>The matching file names. Files in nested subfolders are not included.</returns>
         public static string[] GetFileNamesFromDirectory(string[] extensions = null, bool excludeExtensions = false, bool excludeHidden = false, string basePath = null, string subFolder = null)
         {
             var path = basePath + (string.IsNullOrEmpty(subFolder) ? "" : Path.DirectorySeparatorChar + subFolder);
 
             if (!Directory.Exists(path))
             {
-                Debug.LogErrorFormat("Directory does not exist: " + path);
+                Debug.LogError("Directory does not exist: " + path);
 
                 return Array.Empty<string>(); // Return an empty array if the directory does not exist
             }

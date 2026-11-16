@@ -5,6 +5,9 @@ using UnityEngine.XR;
 
 namespace SOSXR.SeaShark
 {
+    /// <summary>
+    ///     Detects whether the app runs in the Editor, on an XR head-mounted display, or on a tablet on Awake, and fires the matching UnityEvent.
+    /// </summary>
     public class DeviceChecker : MonoBehaviour
     {
         [SerializeField]
@@ -33,6 +36,7 @@ namespace SOSXR.SeaShark
         {
             if (Application.isEditor)
             {
+                m_platform.Current = Device.Editor;
 #if UNITY_EDITOR
                 Debug.Log("We're in the editor");
                 m_isEditor?.Invoke();
@@ -64,6 +68,9 @@ namespace SOSXR.SeaShark
             return displaySubsystems.Exists(subsystem => subsystem.running);
         }
 
+        /// <summary>
+        ///     Sets the platform to HMD and fires the HMD event, regardless of the detected device.
+        /// </summary>
         public void ActAsHMD()
         {
             m_platform.Current = Device.HMD;
@@ -72,6 +79,9 @@ namespace SOSXR.SeaShark
             Debug.Log("Acting as HMD, fired the HMD event");
         }
 
+        /// <summary>
+        ///     Sets the platform to Tablet and fires the Tablet event, regardless of the detected device.
+        /// </summary>
         public void ActAsTablet()
         {
             m_platform.Current = Device.Tablet;

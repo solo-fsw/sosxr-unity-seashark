@@ -20,12 +20,28 @@ namespace SOSXR.SeaShark
 
     // USAGE: Make a game object and put this script on it. Click the "Start Editing" button in the inspector
     // I recommend making a prefab that you can drag into scene
+    /// <summary>
+    ///     Builds an extruded, convex-hull mesh from grid points painted in TileMap. The mesh and MeshCollider are rebuilt
+    ///     whenever points are added or removed.
+    /// </summary>
     [ExecuteInEditMode]
     public class GeometryPainter : MonoBehaviour
     {
+        /// <summary>
+        ///     Extrusion height of the mesh, in local units.
+        /// </summary>
         public float Height = 0.25f;
+        /// <summary>
+        ///     Grid cells per unit. Points snap to a grid of 1 / Resolution local units.
+        /// </summary>
         public float Resolution = 10.0f;
+        /// <summary>
+        ///     Inset radius of the bevel along the top edge. Zero disables the bevel.
+        /// </summary>
         public float BevelRadius = 0.1f;
+        /// <summary>
+        ///     Painted grid positions that define the hull.
+        /// </summary>
         public List<TilePos> TileMap = new();
 
         private Mesh mesh;
@@ -33,6 +49,10 @@ namespace SOSXR.SeaShark
         private List<Vector3> hull;
 
 
+        /// <summary>
+        ///     Converts a world position to a grid tile, adds it to TileMap if not already present, and rebuilds the mesh.
+        /// </summary>
+        /// <param name="point">World-space position to add.</param>
         public void AddPoint(Vector3 point)
         {
             point = transform.InverseTransformPoint(point);
@@ -52,11 +72,17 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        ///     Removes tile points within 0.5 local units of the world position, then rebuilds the mesh. Destroys this GameObject
+        ///     if fewer than three hull points remain.
+        /// </summary>
+        /// <param name="point">World-space position to remove points near.</param>
         public void RemovePoint(Vector3 point)
         {
             point = transform.InverseTransformPoint(point);
 
-            for (var i = 0; i < TileMap.Count; ++i)
+            // Iterate backwards so RemoveAt doesn't skip the element that shifts into slot i.
+            for (var i = TileMap.Count - 1; i >= 0; --i)
             {
                 var tilePos = TileMap[i];
                 var p = new Vector3(tilePos.x / Resolution, 0, tilePos.y / Resolution);
@@ -113,11 +139,15 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        ///     Rebuilds the convex hull and extruded mesh from TileMap. Adds MeshFilter, MeshCollider and MeshRenderer if missing.
+        /// </summary>
         public void RebuildMesh()
         {
             if (mesh == null)
             {
-                mesh = new Mesh();
+                // DontSave: the mesh is rebuilt from TileMap in Start, and this component owns/destroys it in OnDestroy.
+                mesh = new Mesh { hideFlags = HideFlags.DontSave };
             }
 
             mesh.Clear();
@@ -205,7 +235,8 @@ namespace SOSXR.SeaShark
                 meshFilter = gameObject.AddComponent<MeshFilter>();
             }
 
-            meshFilter.mesh = mesh;
+            // sharedMesh: .mesh would instantiate (and leak) a copy in edit mode.
+            meshFilter.sharedMesh = mesh;
 
             var meshCollider = GetComponent<MeshCollider>();
 
@@ -232,10 +263,30 @@ namespace SOSXR.SeaShark
         }
 
 
+        private void OnDestroy()
+        {
+            if (mesh == null)
+            {
+                return;
+            }
+
+            if (Application.isPlaying)
+            {
+                Destroy(mesh);
+            }
+            else
+            {
+                DestroyImmediate(mesh);
+            }
+
+            mesh = null;
+        }
+
+
         private void OnDrawGizmos()
         {
             #if UNITY_EDITOR
-            if (Selection.activeGameObject == null)
+            if (Selection.activeGameObject != gameObject)
             {
                 return;
             }
@@ -348,10 +399,19 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        ///     Integer grid coordinates of one painted tile.
+        /// </summary>
         [Serializable]
         public struct TilePos
         {
+            /// <summary>
+            ///     Grid X coordinate.
+            /// </summary>
             public int x;
+            /// <summary>
+            ///     Grid Y coordinate. Maps to the local Z axis.
+            /// </summary>
             public int y;
         }
     }

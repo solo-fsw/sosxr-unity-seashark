@@ -104,14 +104,12 @@ namespace SOSXR.SeaShark.Excessives
             Action<TSource, TSource> action
         )
         {
-            var enumerator1 = enumerable.GetEnumerator();
-            var enumerator2 = enumerable.GetEnumerator();
-
-            while (enumerator1.MoveNext())
+            // Nested foreach restarts the inner enumeration for every outer element and disposes both enumerators.
+            foreach (var first in enumerable)
             {
-                while (enumerator2.MoveNext())
+                foreach (var second in enumerable)
                 {
-                    action(enumerator1.Current, enumerator2.Current);
+                    action(first, second);
                 }
             }
 

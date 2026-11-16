@@ -45,6 +45,9 @@ namespace SOSXR.SeaShark
         [SerializeField] private AnimationCurve m_amplitudeCurves = new(new Keyframe(0, 0.1f), new Keyframe(1, 0));
 
 
+        /// <summary>
+        ///     Invoked with the amplitude from the amplitude curve each time the marker draws a stroke segment on the whiteboard.
+        /// </summary>
         public static Action<float> DrawingPressure;
 
         private Color[] _colors; // Need to have an array equal to the length of #pixels we want to color in
@@ -67,6 +70,16 @@ namespace SOSXR.SeaShark
 
 
         private static int _colorIndex;
+
+
+        /// <summary>
+        /// Static state survives Play mode when Domain Reload is disabled. Drop stale subscribers.
+        /// </summary>
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetStatics()
+        {
+            DrawingPressure = null;
+        }
 
 
         private void Awake()
@@ -183,6 +196,9 @@ namespace SOSXR.SeaShark
                 if (OutOfBoundsOfWhiteboard(_x, _y))
                 {
                     StopPlayingAudio();
+
+                    // Break the stroke, otherwise re-entry interpolates a straight line from the stale last position.
+                    _touchedDuringLastFrame = false;
 
                     return;
                 }

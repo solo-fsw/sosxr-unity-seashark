@@ -11,25 +11,57 @@ namespace SOSXR.SeaShark
     [RequireComponent(typeof(Collider))]
     public abstract class ColliderInteractionBase : MonoBehaviour, ITargetsReceiver
     {
+        /// <summary>
+        /// Invoked with the other collider when a target enters, as forwarded by derived classes through <see cref="Enter"/>.
+        /// </summary>
         public UnityEvent<Collider> OnEnter;
+        /// <summary>
+        /// Invoked with the other collider every frame a target stays, as forwarded by derived classes through <see cref="Stay"/>.
+        /// </summary>
         public UnityEvent<Collider> OnStay;
+        /// <summary>
+        /// Invoked with the other collider when a target exits, as forwarded by derived classes through <see cref="Exit"/>.
+        /// </summary>
         public UnityEvent<Collider> OnExit;
 
+        /// <summary>
+        /// Collider on this GameObject used for interactions. Assigned from GetComponent when left empty.
+        /// </summary>
         [SerializeField] protected Collider m_thisCollider;
 
+        /// <summary>
+        /// Colliders that count as valid interaction targets. Filled from <see cref="Targets"/> when empty.
+        /// </summary>
         [SerializeField] protected Collider[] m_targetColliders;
 
         private HashSet<Collider> _targetColliderSet;
 
         private bool _initialized;
 
+        private GameObject[] _targets;
+
 
         /// <summary>
         /// Optional source objects from which target colliders are discovered.
+        /// Setting this (re)builds the target filter, so it works regardless of whether the setter
+        /// (e.g. <c>FindGameObjectsWithTag.Awake</c> on the same GameObject) runs before or after our Awake.
         /// </summary>
-        public GameObject[] Targets { get; set; }
+        public GameObject[] Targets
+        {
+            get => _targets;
+            set
+            {
+                _targets = value;
+                _targetColliderSet = null;
+                _initialized = false;
+                Initialize();
+            }
+        }
 
 
+        /// <summary>
+        /// Runs initialization in the Editor when values change.
+        /// </summary>
         protected virtual void OnValidate()
         {
             Initialize();
@@ -49,7 +81,11 @@ namespace SOSXR.SeaShark
                 return;
             }
 
-            m_thisCollider ??= GetComponent<Collider>();
+            // Explicit == null check: ??= bypasses Unity's fake-null for destroyed/missing references.
+            if (m_thisCollider == null)
+            {
+                m_thisCollider = GetComponent<Collider>();
+            }
 
             if (ValidateColliders())
             {
@@ -100,6 +136,10 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Invokes <see cref="OnEnter"/> for the other collider when it is a target, or for any collider if no target set has been built yet.
+        /// </summary>
+        /// <param name="other">The collider that entered.</param>
         protected void Enter(Collider other)
         {
             if (_targetColliderSet != null && !_targetColliderSet.Contains(other))
@@ -111,6 +151,10 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Invokes <see cref="OnStay"/> for the other collider when it is a target, or for any collider if no target set has been built yet.
+        /// </summary>
+        /// <param name="other">The collider that stays.</param>
         protected void Stay(Collider other)
         {
             if (_targetColliderSet != null && !_targetColliderSet.Contains(other))
@@ -122,6 +166,10 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        /// Invokes <see cref="OnExit"/> for the other collider when it is a target, or for any collider if no target set has been built yet.
+        /// </summary>
+        /// <param name="other">The collider that exited.</param>
         protected void Exit(Collider other)
         {
             if (_targetColliderSet != null && !_targetColliderSet.Contains(other))

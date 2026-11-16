@@ -12,8 +12,6 @@ namespace SOSXR.SeaShark
         [SerializeField] private bool m_limitSpeed = true;
         [SerializeField] private float m_maxSpeed = 1f;
 
-        private float _timer;
-
 
         private void OnValidate()
         {
@@ -33,15 +31,11 @@ namespace SOSXR.SeaShark
 
             var velocity = m_rigidbody.linearVelocity;
 
-            if (velocity.magnitude > m_maxSpeed)
+            // Clamp to max speed; never brake below it.
+            if (velocity.sqrMagnitude > m_maxSpeed * m_maxSpeed)
             {
-                _timer = Mathf.Min(_timer + Time.fixedDeltaTime, 1f); // Clamping timer to prevent infinite growth
-                m_rigidbody.linearVelocity = Vector3.Lerp(velocity, Vector3.zero, _timer);
-
-                return;
+                m_rigidbody.linearVelocity = Vector3.ClampMagnitude(velocity, m_maxSpeed);
             }
-
-            _timer = 0f;
         }
     }
 }

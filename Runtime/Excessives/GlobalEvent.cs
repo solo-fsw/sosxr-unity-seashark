@@ -26,6 +26,25 @@ namespace SOSXR.SeaShark.Excessives
         private static T instance = new();
 
 
+        static GlobalEvent()
+        {
+            // Generic types can't use [RuntimeInitializeOnLoadMethod] themselves, so each closed type registers
+            // with a non-generic hook that resets it when Play mode starts without a Domain Reload.
+            GlobalEventStaticsReset.ResetRequested += ResetStatics;
+        }
+
+
+        /// <summary>
+        /// Static state survives Play mode when Domain Reload is disabled. Drop stale listeners (which may point at
+        /// destroyed objects) and a stuck <see cref="InUse"/> flag from the previous session.
+        /// </summary>
+        private static void ResetStatics()
+        {
+            listeners = null;
+            instance = new T();
+        }
+
+
         /// <summary>Returns the singleton instance of the event. Only one instance can be in use at a time—the InUse flag prevents concurrent access.</summary>
         public static T Get()
         {
@@ -130,6 +149,25 @@ namespace SOSXR.SeaShark.Excessives
         }
 
         #endregion
+    }
+
+
+    /// <summary>
+    /// Non-generic hook that resets the static state of every closed <see cref="GlobalEvent{T}"/> type
+    /// at the start of a Play session (needed when Enter Play Mode Options disable Domain Reload).
+    /// </summary>
+    internal static class GlobalEventStaticsReset
+    {
+        // Intentionally never cleared: subscriptions come from static constructors, which won't run again
+        // while the domain stays loaded.
+        internal static event Action ResetRequested;
+
+
+        [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetStatics()
+        {
+            ResetRequested?.Invoke();
+        }
     }
 }
 /*Example event

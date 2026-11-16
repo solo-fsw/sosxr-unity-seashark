@@ -1,53 +1,70 @@
 using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
-using UnityEditor.Animations;
+using UnityEditor.Animations; // Needed for AnimatorController
 #endif
-
 
 namespace SOSXR.SeaShark
 {
     /// <summary>
-    ///     Can only be used in the Editor.
-    ///     Important about these is that they rely on all the states being in the first layer of the AnimatorController.
-    ///     See Tarodev's explanation: https://youtu.be/ZwLekxsSY3Y?si=ZoqFCV9VDpAL7RUA
+    ///     Extension methods on <see cref="Animator"/> for querying states, durations, and animation clips from the
+    ///     underlying <c>AnimatorController</c>. Methods that access <c>AnimatorController</c> are guarded by
+    ///     <c>#if UNITY_EDITOR</c> and return safe defaults at runtime.
     /// </summary>
     public static class CrossFadeAnimatorExtensionMethods
     {
-        private const float _defaultDuration = 5;
-
+        /// <summary>
+        ///     Default duration (in seconds) returned when an animation state duration cannot be determined.
+        ///     This provides a safe fallback for crossfade operations.
+        /// </summary>
+        private const float DefaultAnimationDuration = 5f;
 
         /// <summary>
-        ///     Check if the Animator has a state with the given name.
-        ///     Only checks the first layer!
+        ///     Check if the Animator has a state with the given name (short name, or full path such as "Base Layer.Sub.Walk").
+        ///     Works in builds and with AnimatorOverrideControllers, and finds states inside sub-state machines.
+        ///     Only checks one layer (default: the first).
         /// </summary>
-        /// <param name="animator"></param>
-        /// <param name="stateName"></param>
-        /// <returns></returns>
         public static bool HasState(this Animator animator, string stateName, int layerIndex = 0)
         {
-            #if UNITY_EDITOR
-            var controller = animator.runtimeAnimatorController as AnimatorController;
-
-            if (controller == null)
+            if (animator == null || string.IsNullOrEmpty(stateName) || animator.runtimeAnimatorController == null || layerIndex < 0)
             {
-                Debug.LogWarning("Animator controller is null");
-
                 return false;
             }
 
-            foreach (var state in controller.layers[layerIndex].stateMachine.states)
+            if (animator.isInitialized && layerIndex < animator.layerCount)
             {
-                if (state.state.name == stateName)
+                if (animator.HasState(layerIndex, Animator.StringToHash(stateName)))
+                {
+                    return true;
+                }
+
+                if (animator.HasState(layerIndex, Animator.StringToHash(animator.GetLayerName(layerIndex) + "." + stateName)))
                 {
                     return true;
                 }
             }
 
-            #endif
+#if UNITY_EDITOR
+            // Not initialized (e.g. inactive GameObject in edit mode), or a nested state the runtime lookup missed:
+            // fall back to reading the controller asset.
+            var controller = GetAnimatorController(animator);
+
+            if (controller == null || layerIndex >= controller.layers.Length)
+            {
+                return false;
+            }
+
+            foreach (var state in GetAllStates(controller.layers[layerIndex].stateMachine))
+            {
+                if (state.name == stateName)
+                {
+                    return true;
+                }
+            }
+#endif
+
             return false;
         }
-
 
         /// <summary>
         ///     Checks whether the Animator is currently in the given state.
@@ -58,35 +75,24 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static bool CurrentState(this Animator animator, string stateName, int layerIndex = 0)
         {
-            #if UNITY_EDITOR
-            if (!animator.HasState(stateName))
+            if (animator == null)
             {
-                Debug.LogWarning("State not found, returning false");
+                Debug.LogWarning("Animator is null");
 
                 return false;
             }
 
-            var controller = animator.runtimeAnimatorController as AnimatorController;
-
-            if (controller == null)
+            if (!animator.HasState(stateName, layerIndex))
             {
-                Debug.LogWarning("Animator controller is null, returning false");
+                Debug.LogWarning("State: " + stateName + " not found, returning false");
 
                 return false;
             }
 
-            foreach (var state in controller.layers[layerIndex].stateMachine.states)
-            {
-                if (state.state.name == stateName)
-                {
-                    return animator.GetCurrentAnimatorStateInfo(0).shortNameHash == state.state.nameHash;
-                }
-            }
+            var stateInfo = animator.GetCurrentAnimatorStateInfo(layerIndex);
 
-            #endif
-            return false;
+            return stateInfo.IsName(stateName);
         }
-
 
         /// <summary>
         ///     Checks whether the animator can transition to the given state, by checking if the state exists and if the animator
@@ -100,17 +106,20 @@ namespace SOSXR.SeaShark
         {
             if (!animator.HasState(stateName, layerIndex))
             {
+                Debug.LogWarning("State: " + stateName + " not found, returning false");
+
                 return false;
             }
 
             if (animator.CurrentState(stateName, layerIndex))
             {
+                Debug.LogWarning("Already in state: " + stateName + ", returning false");
+
                 return false;
             }
 
             return true;
         }
-
 
         /// <summary>
         ///     Get the duration of the state with the given name.
@@ -122,37 +131,36 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static float GetStateDuration(this Animator animator, string stateName, int layerIndex = 0)
         {
-            #if UNITY_EDITOR
-            if (!animator.HasState(stateName))
+#if UNITY_EDITOR
+            if (!animator.HasState(stateName, layerIndex))
             {
-                Debug.LogWarning("State : " + stateName + " not found, returning default duration of " + _defaultDuration);
+                Debug.LogWarning("State : " + stateName + " not found, returning default duration of " + DefaultAnimationDuration);
 
-                return _defaultDuration;
+                return DefaultAnimationDuration;
             }
 
-            var controller = animator.runtimeAnimatorController as AnimatorController;
+            var controller = GetAnimatorController(animator);
 
             if (controller == null || layerIndex >= controller.layers.Length)
             {
-                Debug.LogWarning("Animator controller is null or layer index is out of bounds, returning default duration of " + _defaultDuration);
+                Debug.LogWarning("Animator controller is null or layer index is out of bounds, returning default duration of " + DefaultAnimationDuration);
 
-                return _defaultDuration;
+                return DefaultAnimationDuration;
             }
 
-            foreach (var state in controller.layers[layerIndex].stateMachine.states)
+            foreach (var state in GetAllStates(controller.layers[layerIndex].stateMachine))
             {
-                if (state.state.name == stateName && state.state.motion != null)
+                if (state.name == stateName && state.motion != null)
                 {
-                    return state.state.motion.averageDuration;
+                    return state.motion.averageDuration;
                 }
             }
 
-            Debug.LogWarning("Returning default duration of " + _defaultDuration);
+            Debug.LogWarning("Returning default duration of " + DefaultAnimationDuration);
+#endif
 
-            #endif
-            return _defaultDuration;
+            return DefaultAnimationDuration;
         }
-
 
         /// <summary>
         ///     Get the names of all the states in the Animator.
@@ -163,11 +171,12 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static List<string> GetStateNames(this Animator animator, int layerIndex = 0)
         {
-            var stateNames = new List<string>();
-            stateNames.Add("");
+            List<string> stateNames = new()
+            {
+                ""
+            };
 
-            #if UNITY_EDITOR
-
+#if UNITY_EDITOR
             if (animator == null)
             {
                 Debug.LogWarning("Animator is null");
@@ -175,24 +184,114 @@ namespace SOSXR.SeaShark
                 return stateNames;
             }
 
-            if (animator.runtimeAnimatorController is not AnimatorController controller)
+            var controller = GetAnimatorController(animator);
+
+            if (controller == null)
             {
                 Debug.LogWarning("Animator controller is null");
 
                 return stateNames;
             }
 
-            foreach (var state in controller.layers[layerIndex].stateMachine.states)
+            if (layerIndex < 0 || layerIndex >= controller.layers.Length)
             {
-                stateNames.Add(state.state.name);
+                return stateNames;
             }
 
-            #endif
+            foreach (var state in GetAllStates(controller.layers[layerIndex].stateMachine))
+            {
+                if (!stateNames.Contains(state.name))
+                {
+                    stateNames.Add(state.name);
+                }
+            }
+#endif
+
             return stateNames;
         }
 
+        /// <summary>
+        ///     Get the AnimationClip for a state.
+        ///     Returns null if not found or not an AnimationClip.
+        /// </summary>
+        public static AnimationClip GetStateAnimationClip(this Animator animator, string stateName, int layerIndex = 0)
+        {
+#if UNITY_EDITOR
+            var controller = GetAnimatorController(animator);
 
-        #if UNITY_EDITOR
+            if (controller == null || layerIndex < 0 || layerIndex >= controller.layers.Length)
+            {
+                return null;
+            }
+
+            foreach (var state in GetAllStates(controller.layers[layerIndex].stateMachine))
+            {
+                if (state.name != stateName)
+                {
+                    continue;
+                }
+
+                AnimationClip clip = null;
+
+                if (state.motion is AnimationClip stateClip)
+                {
+                    clip = stateClip;
+                }
+                else if (state.motion is BlendTree blendTree)
+                {
+                    var children = blendTree.children;
+
+                    if (children.Length > 0 && children[0].motion is AnimationClip childClip)
+                    {
+                        clip = childClip;
+                    }
+                }
+
+                // Respect clip overrides from an AnimatorOverrideController.
+                if (clip != null && animator.runtimeAnimatorController is AnimatorOverrideController overrideController && overrideController[clip] != null)
+                {
+                    clip = overrideController[clip];
+                }
+
+                return clip;
+            }
+#endif
+            return null;
+        }
+
+        /// <summary>
+        ///     Check if a state loops its animation.
+        ///     Returns true if loopTime is enabled or if state not found.
+        /// </summary>
+        public static bool DoesStateLoop(this Animator animator, string stateName, int layerIndex = 0)
+        {
+#if UNITY_EDITOR
+            var clip = animator.GetStateAnimationClip(stateName, layerIndex);
+            if (clip != null)
+            {
+                return clip.isLooping;
+            }
+#endif
+            return true;
+        }
+
+        /// <summary>
+        ///     Get the animation clip length for a state.
+        ///     Returns 0 if not found.
+        /// </summary>
+        public static float GetStateAnimationLength(this Animator animator, string stateName, int layerIndex = 0)
+        {
+#if UNITY_EDITOR
+            var clip = animator.GetStateAnimationClip(stateName, layerIndex);
+            if (clip != null)
+            {
+                return clip.length;
+            }
+#endif
+            return 0f;
+        }
+
+#if UNITY_EDITOR
         /// <summary>
         ///     Which state is the one with the arrow from the Entry point in the Animator?
         ///     By default, it only checks the first layer!
@@ -209,9 +308,11 @@ namespace SOSXR.SeaShark
                 return null;
             }
 
-            if (animator.runtimeAnimatorController is not AnimatorController controller)
+            var controller = GetAnimatorController(animator);
+
+            if (controller == null || layerIndex < 0 || layerIndex >= controller.layers.Length)
             {
-                Debug.LogWarning("Animator controller is null");
+                Debug.LogWarning("Animator controller is null or layer index is out of bounds");
 
                 return null;
             }
@@ -220,8 +321,7 @@ namespace SOSXR.SeaShark
 
             return stateMachine.defaultState;
         }
-        #endif
-
+#endif
 
         /// <summary>
         ///     Returns the name of the state with the arrow from the Entry point in the Animator.
@@ -239,53 +339,81 @@ namespace SOSXR.SeaShark
                 return "";
             }
 
-            var stateName = "";
+            string stateName = "";
 
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             var state = animator.GetDefaultEntryState(layerIndex);
-            stateName = state.name;
-            #endif
+            stateName = state != null ? state.name : "";
+#endif
 
             return stateName;
         }
-
 
         /// <summary>
         ///     Checks whether the state with the given name is looping.
         ///     This is useful in combination with the StateDuration method.
         ///     By default, it only checks the first layer!
         /// </summary>
-        /// <param name="animator"></param>
-        /// <param name="stateName"></param>
-        /// <param name="layerIndex"></param>
-        /// <returns></returns>
         public static bool IsLooping(this Animator animator, string stateName, int layerIndex = 0)
         {
-            #if UNITY_EDITOR
-            if (!animator.HasState(stateName))
+#if UNITY_EDITOR
+            var clip = animator.GetStateAnimationClip(stateName, layerIndex);
+
+            if (clip != null)
             {
-                return false;
+                return clip.isLooping;
+            }
+#endif
+            return false;
+        }
+
+#if UNITY_EDITOR
+        /// <summary>
+        ///     The AnimatorController behind the Animator, unwrapping any AnimatorOverrideControllers. Editor only.
+        /// </summary>
+        public static AnimatorController GetAnimatorController(Animator animator)
+        {
+            if (animator == null)
+            {
+                return null;
             }
 
-            var controller = animator.runtimeAnimatorController as AnimatorController;
+            var runtimeController = animator.runtimeAnimatorController;
 
-            if (controller == null)
+            while (runtimeController is AnimatorOverrideController overrideController)
             {
-                return false;
+                runtimeController = overrideController.runtimeAnimatorController;
             }
 
-            foreach (var state in controller.layers[layerIndex].stateMachine.states)
+            return runtimeController as AnimatorController;
+        }
+
+        /// <summary>
+        ///     All states in a state machine, including those inside nested sub-state machines. Editor only.
+        /// </summary>
+        public static IEnumerable<AnimatorState> GetAllStates(AnimatorStateMachine stateMachine)
+        {
+            if (stateMachine == null)
             {
-                if (state.state.name == stateName)
+                yield break;
+            }
+
+            foreach (var childState in stateMachine.states)
+            {
+                if (childState.state != null)
                 {
-                    Debug.LogWarning("We found state " + stateName + " and it is looping: " + state.state.motion.isLooping);
-
-                    return state.state.motion.isLooping;
+                    yield return childState.state;
                 }
             }
 
-            #endif
-            return false;
+            foreach (var childMachine in stateMachine.stateMachines)
+            {
+                foreach (var state in GetAllStates(childMachine.stateMachine))
+                {
+                    yield return state;
+                }
+            }
         }
+#endif
     }
 }

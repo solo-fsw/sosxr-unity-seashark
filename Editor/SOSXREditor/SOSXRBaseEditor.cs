@@ -9,6 +9,11 @@ using Object = UnityEngine.Object;
 
 namespace SOSXR.SeaShark.EditorScripts
 {
+    /// <summary>
+    ///     Base Inspector that adds [Button] and [ContextMenu] methods and unserialized [Info] boxes to the default inspector.
+    ///     Parameter values for buttons are remembered in EditorPrefs between sessions.
+    /// </summary>
+    /// <typeparam name="T">The Unity Object type this Inspector targets.</typeparam>
     public class SOSXRBaseEditor<T> : UnityEditor.Editor where T : Object
     {
         private readonly string _textureName = "SOSXR_editor_icon";
@@ -24,6 +29,9 @@ namespace SOSXR.SeaShark.EditorScripts
         private GUIStyle _infoStyle; // Cache info style
         private int _maxParams;
         private static Texture2D _buttonIcon;
+
+        // Per-type cache of [Button]/[ContextMenu] methods, so selecting objects doesn't rescan every method each time.
+        private static readonly Dictionary<Type, MethodInfo[]> ButtonMethodsByType = new();
 
         // Cache layout calculations
         private float _buttonWidth;
@@ -53,7 +61,7 @@ namespace SOSXR.SeaShark.EditorScripts
             _cachedInfoAttrs = new Dictionary<MethodInfo, InfoAttribute[]>();
             _maxParams = 0;
 
-            var methods = target.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var methods = target != null ? GetButtonMethods(target.GetType()) : Array.Empty<MethodInfo>();
 
             foreach (var m in methods)
             {
@@ -85,6 +93,36 @@ namespace SOSXR.SeaShark.EditorScripts
             CacheUnserializedFieldInfos();
             LoadParameterValues();
         }
+
+
+        private static MethodInfo[] GetButtonMethods(Type type)
+        {
+            if (ButtonMethodsByType.TryGetValue(type, out var cached))
+            {
+                return cached;
+            }
+
+            var methods = new List<MethodInfo>();
+
+            foreach (var m in type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+            {
+                if (m.IsDefined(typeof(ButtonAttribute), true) || m.IsDefined(typeof(ContextMenu), true))
+                {
+                    methods.Add(m);
+                }
+            }
+
+            cached = methods.ToArray();
+            ButtonMethodsByType[type] = cached;
+
+            return cached;
+        }
+
+
+        /// <summary>
+        ///     True when this target has [Button]/[ContextMenu] methods or unserialized [Info] fields to draw.
+        /// </summary>
+        protected bool HasCustomGUI => _cachedMethods is { Count: > 0 } || _unserializedFieldInfos is { Count: > 0 };
 
 
         private void CacheUnserializedFieldInfos()
@@ -130,9 +168,26 @@ namespace SOSXR.SeaShark.EditorScripts
         }
 
 
+        /// <summary>
+        ///     Draws the default inspector, followed by the custom GUI.
+        /// </summary>
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
+
+            DrawCustomGUI();
+        }
+
+
+        /// <summary>
+        ///     Draws the unserialized [Info] boxes and the [Button] methods, without the default inspector.
+        /// </summary>
+        protected void DrawCustomGUI()
+        {
+            if (_cachedMethods == null)
+            {
+                return;
+            }
 
             DrawUnserializedFieldInfos();
 

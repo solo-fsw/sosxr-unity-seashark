@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 
 namespace SOSXR.SeaShark.Statics
@@ -42,7 +43,7 @@ namespace SOSXR.SeaShark.Statics
         /// <returns>The formatted local time string.</returns>
         public static string FormatEpoch(long epoch, string format = "dd/MM/yyyy HH:mm:ss.fff")
         {
-            return DateTimeOffset.FromUnixTimeMilliseconds(epoch).ToLocalTime().ToString(format);
+            return DateTimeOffset.FromUnixTimeMilliseconds(epoch).ToLocalTime().ToString(format, CultureInfo.InvariantCulture); // Invariant: otherwise '/' and ':' follow the machine's culture.
         }
 
 

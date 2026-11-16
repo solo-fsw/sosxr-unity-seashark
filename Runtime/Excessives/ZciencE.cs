@@ -18,7 +18,7 @@ namespace SOSXR.SeaShark.Excessives
         /// <param name="velocity">The velocity in the same units as speedOfLight.</param>
         /// <param name="speedOfLight">The speed of light (default: 3 * 10^8 m/s).</param>
         /// <returns>The Lorentz factor (gamma).</returns>
-        public static double GammaMod(double velocity, double speedOfLight = 3 * (10 ^ 8))
+        public static double GammaMod(double velocity, double speedOfLight = 3e8)
         {
             return Math.Sqrt(1 - velocity * velocity / (speedOfLight * speedOfLight));
         }
@@ -35,7 +35,7 @@ namespace SOSXR.SeaShark.Excessives
         public static double LengthContraction(
             double originalLength,
             double velocity,
-            double speedOfLight = 3 * (10 ^ 8))
+            double speedOfLight = 3e8)
         {
             return originalLength * GammaMod(velocity, speedOfLight);
         }
@@ -52,7 +52,7 @@ namespace SOSXR.SeaShark.Excessives
         public static double MassDilation(
             double originalMass,
             double velocity,
-            double speedOfLight = 3 * (10 ^ 8))
+            double speedOfLight = 3e8)
         {
             return originalMass / GammaMod(velocity, speedOfLight);
         }
@@ -69,7 +69,7 @@ namespace SOSXR.SeaShark.Excessives
         public static double TimeDilation(
             double originalTime,
             double velocity,
-            double speedOfLight = 3 * (10 ^ 8))
+            double speedOfLight = 3e8)
         {
             return originalTime / GammaMod(velocity, speedOfLight);
         }
