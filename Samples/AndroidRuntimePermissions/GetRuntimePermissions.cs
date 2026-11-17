@@ -8,7 +8,7 @@ namespace SOSXR.SeaShark
     ///     Requests Android runtime permissions on Awake: opens the All Files Access settings page on API 30 and above when it is not granted, then requests each permission in m_additionalPermissions.
     ///     Disables itself outside Android builds and in the Editor.
     /// </summary>
-    public class GetRuntimePermission : MonoBehaviour
+    public class GetRuntimePermissions : MonoBehaviour
     {
         [SerializeField]
         private string[] m_additionalPermissions = { "android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.MANAGE_EXTERNAL_STORAGE" };

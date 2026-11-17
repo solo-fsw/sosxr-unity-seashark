@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -39,9 +40,11 @@ namespace SOSXR.SeaShark
 
             var lastLine = ReadLastLineOfFile(_buildInfoTextAsset.text);
 
-            if (lastLine != null)
+            if (lastLine != null && !IsHeaderLine(lastLine))
             {
-                m_buildInfoText.text = FormatBuildInfo(lastLine);
+                var now = DateTime.Now;
+                _currentTime = now.ToString("HH:mm", CultureInfo.InvariantCulture);
+                m_buildInfoText.text = FormatBuildInfo(lastLine, now);
             }
             else
             {
@@ -50,14 +53,27 @@ namespace SOSXR.SeaShark
         }
 
 
+        /// <summary>
+        ///     Returns the last line that is not empty or whitespace, or null if there is none.
+        /// </summary>
         public static string ReadLastLineOfFile(string fileContent)
         {
             string lastLine = null;
+
+            if (fileContent == null)
+            {
+                return null;
+            }
 
             using var sr = new StringReader(fileContent);
 
             while (sr.ReadLine() is { } line)
             {
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+
                 lastLine = line;
             }
 
@@ -65,40 +81,59 @@ namespace SOSXR.SeaShark
         }
 
 
-        private string FormatBuildInfo(string line)
+        private static bool IsHeaderLine(string line)
         {
-            var parts = line.Split(',');
-
-            if (parts.Length >= 7)
-            {
-                var packageName = parts[0].Trim();
-                var unityVersion = parts[1].Trim();
-                var devBuild = parts[2].Trim();
-                var semVer = parts[3].Trim();
-                var bundleCode = parts[4].Trim();
-                var buildDate = parts[5].Trim();
-                var buildTime = parts[6].Trim();
-
-                var buildDateTime = DateTime.ParseExact($"{buildDate} {buildTime}", "yyyy-MM-dd HH:mm", null);
-                var now = DateTime.Now;
-                _currentTime = now.ToString("HH:mm");
-
-                var daysAgo = GetRelativeDateDescription(buildDateTime.Date, now.Date);
-
-                return $"Name: {packageName}\n" +
-                       $"Unity: {unityVersion}\n" +
-                       $"DevBuild: {devBuild}\n" +
-                       $"SemVer: {semVer}\n" +
-                       $"BundleCode: {bundleCode}\n" +
-                       $"Build Date: {daysAgo} at {buildTime}\n" +
-                       $"Current Time: {_currentTime}";
-            }
-
-            return "Invalid build information format.";
+            return line.TrimStart().StartsWith("PackageName", StringComparison.Ordinal);
         }
 
 
-        private string GetRelativeDateDescription(DateTime buildDate, DateTime currentDate)
+        /// <summary>
+        ///     Formats one CSV line written by the EditorSpice BuildInfoManager.
+        ///     Columns: PackageName, UnityVersion, TotalAttemptedBuilds, BuildTarget, ScriptingBackend, APICompatibility,
+        ///     ProductionBuild, SemVer, AndroidBundleCode, BuildDate, BuildTime, then the optional post-build columns.
+        /// </summary>
+        public static string FormatBuildInfo(string line, DateTime now)
+        {
+            const string invalid = "Invalid build information format.";
+
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                return invalid;
+            }
+
+            var parts = line.Split(',');
+
+            if (parts.Length < 11)
+            {
+                return invalid;
+            }
+
+            var packageName = parts[0].Trim();
+            var unityVersion = parts[1].Trim();
+            var productionBuild = parts[6].Trim();
+            var semVer = parts[7].Trim();
+            var bundleCode = parts[8].Trim();
+            var buildDate = parts[9].Trim();
+            var buildTime = parts[10].Trim();
+
+            if (!DateTime.TryParseExact($"{buildDate} {buildTime}", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out var buildDateTime))
+            {
+                return invalid;
+            }
+
+            var daysAgo = GetRelativeDateDescription(buildDateTime.Date, now.Date);
+
+            return $"Name: {packageName}\n" +
+                   $"Unity: {unityVersion}\n" +
+                   $"ProductionBuild: {productionBuild}\n" +
+                   $"SemVer: {semVer}\n" +
+                   $"BundleCode: {bundleCode}\n" +
+                   $"Build Date: {daysAgo} at {buildTime}\n" +
+                   $"Current Time: {now.ToString("HH:mm", CultureInfo.InvariantCulture)}";
+        }
+
+
+        private static string GetRelativeDateDescription(DateTime buildDate, DateTime currentDate)
         {
             var daysDifference = (currentDate - buildDate).Days;
 

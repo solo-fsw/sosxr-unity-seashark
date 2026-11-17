@@ -75,12 +75,12 @@ namespace SOSXR.SeaShark
 
 
         /// <summary>
-        /// Clears the command history.
-        /// Note: This does not clear the redo history.
+        /// Clears the command history and the redo history, so neither Undo nor Redo has any effect afterwards.
         /// </summary>
         public override void Clear()
         {
             _stack.Clear();
+            _redoStack.Clear();
         }
     }
 }

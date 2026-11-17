@@ -22,6 +22,12 @@ namespace SOSXR.SeaShark
 
         private int _layer = -1;
 
+        /// <summary>Name prefix of the sprite objects this component creates.</summary>
+        private const string SpritePrefix = "miniMap: ";
+
+        /// <summary>Sprite objects created by this component. Not serialized, so it is empty after a domain reload.</summary>
+        private readonly List<GameObject> _createdSprites = new();
+
 
         private void Awake()
         {
@@ -94,7 +100,8 @@ namespace SOSXR.SeaShark
                     continue;
                 }
 
-                var spriteGo = new GameObject(string.Concat("miniMap: ", mapMaker.Tag));
+                var spriteGo = new GameObject(string.Concat(SpritePrefix, mapMaker.Tag));
+                _createdSprites.Add(spriteGo);
                 spriteGo.transform.SetParent(go.transform);
                 spriteGo.ZeroOutLocalTransform();
                 spriteGo.transform.localEulerAngles = mapMaker.Rotation;
@@ -126,12 +133,35 @@ namespace SOSXR.SeaShark
 
 
         /// <summary>
-        /// Destroys all minimap sprites that were previously generated.
+        /// Destroys the minimap sprites this component generated. Other objects with the minimap tag are left alone.
+        /// After a domain reload the list of created sprites is lost; then objects with the minimap tag whose name
+        /// starts with the "miniMap: " prefix are destroyed instead.
         /// </summary>
         [Button]
         public void DestroyMap()
         {
-            var gameObjects = GameObject.FindGameObjectsWithTag(m_minimapObjectsTag);
+            var gameObjects = new List<GameObject>();
+
+            foreach (var created in _createdSprites)
+            {
+                if (created != null)
+                {
+                    gameObjects.Add(created);
+                }
+            }
+
+            _createdSprites.Clear();
+
+            if (gameObjects.Count == 0)
+            {
+                foreach (var tagged in GameObject.FindGameObjectsWithTag(m_minimapObjectsTag))
+                {
+                    if (tagged.name.StartsWith(SpritePrefix, StringComparison.Ordinal))
+                    {
+                        gameObjects.Add(tagged);
+                    }
+                }
+            }
 
             foreach (var go in gameObjects)
             {

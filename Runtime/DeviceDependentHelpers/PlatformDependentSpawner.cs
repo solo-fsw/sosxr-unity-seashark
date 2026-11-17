@@ -79,6 +79,13 @@ namespace SOSXR.SeaShark
         {
             DestroyAllObjects();
 
+            if (m_currentDevice == null)
+            {
+                Debug.LogWarning($"{nameof(PlatformDependentSpawner)} on {name} has no {nameof(CurrentDevice)} assigned. Nothing is spawned.", this);
+
+                return;
+            }
+
             if (m_currentDevice.Current == Device.HMD)
             {
                 SpawnOnOpenXR();
@@ -93,6 +100,7 @@ namespace SOSXR.SeaShark
         [ContextMenu(nameof(SpawnOnOpenXR))]
         private void SpawnOnOpenXR()
         {
+            CancelPendingSpawns();
             Invoke(nameof(SpawnOpenXRObjects), m_spawnDelay);
         }
 
@@ -100,7 +108,16 @@ namespace SOSXR.SeaShark
         [ContextMenu(nameof(SpawnScreenBased))]
         private void SpawnScreenBased()
         {
+            CancelPendingSpawns();
             Invoke(nameof(SpawnScreenBasedObjects), m_spawnDelay);
+        }
+
+
+        /// <summary>Cancels a spawn that is still waiting for its delay, so calling twice does not spawn everything twice.</summary>
+        private void CancelPendingSpawns()
+        {
+            CancelInvoke(nameof(SpawnOpenXRObjects));
+            CancelInvoke(nameof(SpawnScreenBasedObjects));
         }
 
 
@@ -116,7 +133,11 @@ namespace SOSXR.SeaShark
             }
 
             _spawnedObject = InstantiateRequiredObject(m_openXRPrefab);
-            _spawnedObject.transform.position += m_openXRPrefabOffset;
+
+            if (_spawnedObject != null)
+            {
+                _spawnedObject.transform.position += m_openXRPrefabOffset;
+            }
         }
 
 
@@ -137,6 +158,13 @@ namespace SOSXR.SeaShark
         {
             if (!toSpawn)
             {
+                return null;
+            }
+
+            if (go == null)
+            {
+                Debug.LogWarning($"{nameof(PlatformDependentSpawner)} on {name} has a prefab that is not assigned. Assign it in the Inspector, or turn off spawning it.", this);
+
                 return null;
             }
 

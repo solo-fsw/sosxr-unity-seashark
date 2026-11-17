@@ -31,6 +31,35 @@ public class AudioSourcePlayer : MonoBehaviour
 
 
     /// <summary>
+    /// Resolves the <see cref="AudioSource"/> at runtime. OnValidate only runs in the editor, so builds and
+    /// components added with AddComponent need this.
+    /// </summary>
+    private void Awake()
+    {
+        if (_audioSource == null)
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
+    }
+
+
+    /// <summary>
+    /// Returns false, with a warning, when there are no clips to play.
+    /// </summary>
+    private bool HasClips()
+    {
+        if (_clips != null && _clips.Length > 0)
+        {
+            return true;
+        }
+
+        Debug.LogWarning($"{nameof(AudioSourcePlayer)} on {name} has no clips assigned.", this);
+
+        return false;
+    }
+
+
+    /// <summary>
     /// Synchronizes serialized inspector fields with the current <see cref="AudioSource"/>.
     /// </summary>
     private void OnValidate()
@@ -81,6 +110,11 @@ public class AudioSourcePlayer : MonoBehaviour
     [Button]
     private void SetNextClip()
     {
+        if (!HasClips())
+        {
+            return;
+        }
+
         if (_audioSource.isPlaying)
         {
             Stop();
@@ -118,6 +152,16 @@ public class AudioSourcePlayer : MonoBehaviour
     /// </summary>
     private IEnumerator PlayCR()
     {
+        if (!HasClips())
+        {
+            yield break;
+        }
+
+        if (m_index < 0 || m_index >= _clips.Length)
+        {
+            m_index = 0;
+        }
+
         if (_audioSource.isPlaying)
         {
             Stop();

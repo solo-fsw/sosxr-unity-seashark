@@ -3,17 +3,31 @@
 All notable changes to this project will be documented in this file.
 The changelog format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Current]
+## [0.8.0] - 2026-11-17
+
+### Added
+
+- `BuildInfoToUI.FormatBuildInfo(string line, DateTime now)` (public static).
+- EditMode tests for `BuildInfoToUI` and `CommandStack.Clear`.
 
 ### Fixed
 
 - Overzealous Gizmo initialization in DrawGizmo
 - Unity 6.6 deprecation warnings (UAC0009): `AdditionalUnityEvent` (`OnlyInDevelopmentBuilds`, `OnlyInProductionBuilds`) and `InProductionBuild` now check `Debug.isDebugBuild` at runtime instead of the `DEVELOPMENT_BUILD` symbol. Unity removes that symbol in 6.8. Behaviour is unchanged and works on every supported Unity version.
 - Unity 6.6 serialization analyzer warning (UAC1001) on `MoveEditor.vector3OptionsProp`: marked `[NonSerialized]`.
+- `BuildInfoToUI` read the wrong CSV columns and threw a `FormatException` every 10 seconds. It now reads the EditorSpice build-info layout (ProductionBuild, SemVer, bundle code, date, time) and shows "Invalid build information format." for a bad line instead of throwing.
+- The Poke Deformation sample path in `package.json` pointed to a folder that does not exist (`Samples/Poke Deformation`). It is now `Samples/PokeDeformation`.
+- `CommandStack.Clear()` now also clears the redo history.
+- `Cartographer.DestroyMap()` now destroys only the minimap sprites it created, not every object with the minimap tag.
+- `PlatformDependentSpawner` warns instead of throwing when a prefab or the device reference is not assigned. It no longer spawns twice when called again before the spawn delay ends.
+- `AudioSourcePlayer` finds its `AudioSource` in `Awake` (it was only set in the Editor) and warns when no clips are assigned.
 
 ### Changed
 
 - `AdditionalUnityEvent.ShouldFire` delegates to new internal `MatchesBuildContext(...)`, a pure function that EditMode tests can call. Runtime assembly gets `InternalsVisibleTo("SOSXR.SeaShark.Tests")` (`Runtime/AssemblyInfo.cs`).
+- `UIManager` moved from `UI/` to `Runtime/UI/`, so it is compiled into the `SOSXR.SeaShark` assembly when the package is installed through the Package Manager. The file GUID is unchanged.
+- Android Runtime Permissions sample: the class `GetRuntimePermission` is renamed to `GetRuntimePermissions` to match its file name. Scenes that used the old component must add it again.
+- `BuildInfoToUI` labels the build type as "ProductionBuild".
 
 ### Tests
 

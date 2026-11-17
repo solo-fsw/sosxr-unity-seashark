@@ -75,6 +75,16 @@ namespace SOSXR.SeaShark.Tests
         }
 
         [Test]
+        public void Clear_AlsoClearsRedoHistory()
+        {
+            _stack.Execute(_cmd);
+            _stack.Undo();
+            _stack.Clear();
+            _stack.Redo();
+            Assert.AreEqual(1, _cmd.ExecuteCount, "Redo after Clear must not re-run a stale command");
+        }
+
+                [Test]
         public void Stack_IsLIFO_UndoesMostRecentFirst()
         {
             var cmd1 = new CountingCommand();
