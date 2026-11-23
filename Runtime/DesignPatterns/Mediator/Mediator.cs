@@ -15,28 +15,27 @@ namespace SOSXR.SeaShark
     /// </summary>
     public static class Mediator
     {
-        static Mediator()
-        {
-            LoadRegistry();
-        }
-
-
         /// <summary>
         /// Gets a dictionary mapping medium channel names to their registered listener delegates.
         /// </summary>
         public static Dictionary<string, Action<Medium>> Mediations { get; } = new();
 
         private static MediatorRegistry _registry;
+        private static bool _registryMissingReported;
 
 
         private static void LoadRegistry()
         {
             _registry = Resources.Load<MediatorRegistry>(nameof(MediatorRegistry));
 
-            if (_registry == null)
+            if (_registry != null || _registryMissingReported)
             {
-                Debug.LogErrorFormat("{0} not found in Resources! Mediator works, but listeners/callers are not tracked.", nameof(MediatorRegistry));
+                return;
             }
+
+            // Reported once per play session, and only when the Mediator is used.
+            _registryMissingReported = true;
+            Debug.LogWarningFormat("{0} not found in Resources. The Mediator works, but listeners and callers are not tracked.", nameof(MediatorRegistry));
         }
 
 
@@ -48,7 +47,8 @@ namespace SOSXR.SeaShark
         private static void ResetStatics()
         {
             Mediations.Clear();
-            LoadRegistry();
+            _registry = null;
+            _registryMissingReported = false;
         }
 
 
@@ -58,7 +58,7 @@ namespace SOSXR.SeaShark
             {
                 if (_registry == null)
                 {
-                    _registry = Resources.Load<MediatorRegistry>(nameof(MediatorRegistry));
+                    LoadRegistry();
                 }
 
                 return _registry;

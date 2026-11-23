@@ -47,6 +47,13 @@ namespace joaen
 
         private void Awake()
         {
+            if (!HasValidSetup())
+            {
+                enabled = false; // LateUpdate would throw every frame
+
+                return;
+            }
+
             // Let's set some properties
             _jointChainLength = 0;
             _jointTransforms = new Transform[NumberOfJoints];
@@ -81,6 +88,44 @@ namespace joaen
                 current = current.GetChild(0);
             }
         }
+
+        /// <summary>
+        ///     Checks the settings before the joint chain is built: a target, at least one joint, and a first child
+        ///     on every joint except the last.
+        /// </summary>
+        private bool HasValidSetup()
+        {
+            if (Target == null)
+            {
+                Debug.LogError($"{nameof(EasyIK)} on {name}: no Target assigned. IK is disabled.", this);
+
+                return false;
+            }
+
+            if (NumberOfJoints < 1)
+            {
+                Debug.LogError($"{nameof(EasyIK)} on {name}: NumberOfJoints must be at least 1. IK is disabled.", this);
+
+                return false;
+            }
+
+            var current = transform;
+
+            for (var i = 0; i < NumberOfJoints - 1; i++)
+            {
+                if (current.childCount == 0)
+                {
+                    Debug.LogError($"{nameof(EasyIK)} on {name}: joint {i} ({current.name}) has no child, but {NumberOfJoints} joints are set. IK is disabled.", this);
+
+                    return false;
+                }
+
+                current = current.GetChild(0);
+            }
+
+            return true;
+        }
+
 
         private void PoleConstraint()
         {

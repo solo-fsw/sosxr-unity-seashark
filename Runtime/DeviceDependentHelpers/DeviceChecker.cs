@@ -34,9 +34,12 @@ namespace SOSXR.SeaShark
 
         private void CheckDevice()
         {
+            // Set the name first, so listeners of CurrentDevice.Changed can read it.
+            m_platform.DeviceName = SystemInfo.deviceName;
+
             if (Application.isEditor)
             {
-                m_platform.Current = Device.Editor;
+                m_platform.Set(Device.Editor);
 #if UNITY_EDITOR
                 Debug.Log("We're in the editor");
                 m_isEditor?.Invoke();
@@ -45,19 +48,15 @@ namespace SOSXR.SeaShark
             else if (IsXRActive())
             {
                 Debug.Log("XR Device is active");
-                m_platform.Current = Device.HMD;
+                m_platform.Set(Device.HMD);
                 m_isHMD?.Invoke();
             }
             else
             {
                 Debug.Log("XR Device is not active, we're assuming this is a tablet");
-                m_platform.Current = Device.Tablet;
+                m_platform.Set(Device.Tablet);
                 m_isTablet?.Invoke();
             }
-
-            m_platform.DeviceName = SystemInfo.deviceName;
-
-            NotifyOfCurrentDevice();
         }
 
         private bool IsXRActive()
@@ -73,7 +72,7 @@ namespace SOSXR.SeaShark
         /// </summary>
         public void ActAsHMD()
         {
-            m_platform.Current = Device.HMD;
+            m_platform.Set(Device.HMD);
             m_isHMD?.Invoke();
 
             Debug.Log("Acting as HMD, fired the HMD event");
@@ -84,15 +83,10 @@ namespace SOSXR.SeaShark
         /// </summary>
         public void ActAsTablet()
         {
-            m_platform.Current = Device.Tablet;
+            m_platform.Set(Device.Tablet);
             m_isTablet?.Invoke();
 
             Debug.Log("Acting as Tablet, fired the Tablet event");
-        }
-
-        private void NotifyOfCurrentDevice()
-        {
-            Debug.Log("This is where you'd notify the rest of the app of the current device");
         }
     }
 }

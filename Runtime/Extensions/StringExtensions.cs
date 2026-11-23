@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 
@@ -189,13 +190,14 @@ namespace SOSXR.SeaShark
 
         public static string RichRotation(this string text, float angle)
         {
-            return $"<rotate={angle}>{text}</rotate>";
+            // Invariant culture: TextMeshPro needs a decimal point, also on machines with a decimal comma.
+            return $"<rotate={angle.ToString(CultureInfo.InvariantCulture)}>{text}</rotate>";
         }
 
 
         public static string RichSpace(this string text, float space)
         {
-            return $"<space={space}>{text}</space>";
+            return $"<space={space.ToString(CultureInfo.InvariantCulture)}>{text}</space>";
         }
     }
 }

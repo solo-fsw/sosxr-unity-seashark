@@ -71,7 +71,16 @@ namespace SOSXR.SeaShark
             }
 
             var entry = new TweenEntry(atTime, tween);
-            _tweens.Add(entry);
+
+            // Keep the list sorted by start time (stable for equal times), so a later tween is applied after an earlier one.
+            var index = _tweens.Count;
+
+            while (index > 0 && _tweens[index - 1].AtTime > entry.AtTime)
+            {
+                index--;
+            }
+
+            _tweens.Insert(index, entry);
             _duration = Mathf.Max(_duration, entry.AtTime + tween.duration);
 
             return this;
@@ -309,8 +318,10 @@ namespace SOSXR.SeaShark
                 var entry = _tweens[i];
 
                 // Don't touch the property (or capture its start value) before this tween's start time:
-                // an earlier tween, or another script, may still be driving it.
-                if (effectiveTime < entry.AtTime && !entry.Tween.HasStarted)
+                // an earlier tween, or another script, may still be driving it. This also holds in later loops and
+                // on the way back of a Yoyo loop, so a later tween never overwrites an earlier one before its turn.
+                // Tweens are sorted by start time, so the latest tween that has started is applied last and wins.
+                if (effectiveTime < entry.AtTime)
                 {
                     continue;
                 }

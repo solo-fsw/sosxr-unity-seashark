@@ -69,7 +69,7 @@ namespace SOSXR.SeaShark
 
         private void ProcessOtherObjectsOfType(Type type)
         {
-            var objects = FindObjectsByType(type, FindObjectsInactive.Exclude);
+            var objects = SceneObjects.FindAll(type, FindObjectsInactive.Exclude);
 
             foreach (var obj in objects)
             {

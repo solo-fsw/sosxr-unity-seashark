@@ -71,7 +71,7 @@ namespace SOSXR.SeaShark
 
             public void Update()
             {
-                if (Input.GetKeyDown(KeyCode.C))
+                if (SampleKeyboard.GetKeyDown(KeyCode.C))
                 {
                     _context._stateMachine.ChangeState(_context._instructionState);
                 }
@@ -111,7 +111,7 @@ namespace SOSXR.SeaShark
 
             public void Update()
             {
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (SampleKeyboard.GetKeyDown(KeyCode.Space))
                 {
                     _context._stateMachine.ChangeState(_context._practiceState);
                 }
@@ -153,7 +153,7 @@ namespace SOSXR.SeaShark
 
             public void Update()
             {
-                if (!Input.GetKeyDown(KeyCode.Space))
+                if (!SampleKeyboard.GetKeyDown(KeyCode.Space))
                 {
                     return;
                 }
@@ -203,7 +203,7 @@ namespace SOSXR.SeaShark
 
             public void Update()
             {
-                if (!Input.GetKeyDown(KeyCode.Space))
+                if (!SampleKeyboard.GetKeyDown(KeyCode.Space))
                 {
                     return;
                 }

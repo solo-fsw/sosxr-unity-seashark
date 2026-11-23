@@ -1,4 +1,3 @@
-#define SOSXR_EDITORTOOLS_INSTALLED
 using UnityEngine;
 
 

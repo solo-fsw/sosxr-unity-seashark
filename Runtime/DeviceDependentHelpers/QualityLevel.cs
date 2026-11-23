@@ -30,13 +30,29 @@ namespace SOSXR.SeaShark
 
         private void OnEnable()
         {
-            // EventsSystem.DeviceHasBeenSet += ChangeQualityLevel;
+            if (m_platform != null)
+            {
+                m_platform.Changed -= OnDeviceChanged;
+                m_platform.Changed += OnDeviceChanged;
+            }
         }
 
 
         private void Start()
         {
             SetDefaultQualityLevel();
+
+            // The device may already be known (DeviceChecker sets it in Awake).
+            if (m_platform != null && m_platform.Current != Device.None)
+            {
+                ChangeQualityLevel();
+            }
+        }
+
+
+        private void OnDeviceChanged(CurrentDevice currentDevice)
+        {
+            ChangeQualityLevel();
         }
 
 
@@ -58,6 +74,11 @@ namespace SOSXR.SeaShark
 
         private void ChangeQualityLevel()
         {
+            if (m_platform == null || string.IsNullOrEmpty(m_platform.DeviceName) || m_availableQualityLevels == null)
+            {
+                return;
+            }
+
             if (m_debugSimulateTabletInEditor && m_platform.DeviceName == "MBP")
             {
                 SetQualityLevel("Galaxy Tab A7", "We're debugging in the editor, and assuming we're simulating the tablet: ");
@@ -91,12 +112,16 @@ namespace SOSXR.SeaShark
             QualitySettings.SetQualityLevel(index);
 
             m_currentQualityLevel = m_availableQualityLevels[index];
+            Debug.Log(successMessage);
         }
 
 
         private void OnDisable()
         {
-            // EventsSystem.DeviceHasBeenSet -= ChangeQualityLevel;
+            if (m_platform != null)
+            {
+                m_platform.Changed -= OnDeviceChanged;
+            }
         }
     }
 }

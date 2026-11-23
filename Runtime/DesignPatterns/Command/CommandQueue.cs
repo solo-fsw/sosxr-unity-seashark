@@ -59,10 +59,11 @@ namespace SOSXR.SeaShark
         }
 
 
-        /// <summary>Clears the command queue (does not affect the redo stack).</summary>
+        /// <summary>Clears the command queue and the redo stack.</summary>
         public override void Clear()
         {
             _queue.Clear();
+            _redoStack.Clear();
         }
     }
 }

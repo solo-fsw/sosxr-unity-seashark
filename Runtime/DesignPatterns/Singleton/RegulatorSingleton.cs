@@ -19,7 +19,8 @@ namespace SOSXR.SeaShark
         {
             get
             {
-                if (instance == null)
+                // During shutdown, don't create a new GameObject that Unity would leave behind.
+                if (instance == null && !SingletonShutdown.IsQuitting)
                 {
                     instance = FindAnyObjectByType<T>();
 
@@ -55,7 +56,7 @@ namespace SOSXR.SeaShark
             InitializationTime = Time.time;
             DontDestroyOnLoad(gameObject);
 
-            var oldInstances = FindObjectsByType<T>(FindObjectsInactive.Exclude);
+            var oldInstances = SceneObjects.FindAll<T>(FindObjectsInactive.Exclude);
 
             // Newest wins: every other instance was initialised before (or in the same frame as) this one.
             // Destroying all others also resolves same-frame ties, so exactly one survives.

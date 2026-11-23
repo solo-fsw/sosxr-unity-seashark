@@ -32,32 +32,32 @@ namespace SOSXR.SeaShark
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (SampleKeyboard.GetKeyDown(KeyCode.Alpha1))
             {
                 SetStrategyIndex(0);
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (SampleKeyboard.GetKeyDown(KeyCode.Alpha2))
             {
                 SetStrategyIndex(1);
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha3))
+            if (SampleKeyboard.GetKeyDown(KeyCode.Alpha3))
             {
                 SetStrategyIndex(2);
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha4))
+            if (SampleKeyboard.GetKeyDown(KeyCode.Alpha4))
             {
                 SetStrategyIndex(3);
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (SampleKeyboard.GetKeyDown(KeyCode.Space))
             {
                 SimulateResponse(true);
             }
 
-            if (Input.GetKeyDown(KeyCode.X))
+            if (SampleKeyboard.GetKeyDown(KeyCode.X))
             {
                 SimulateResponse(false);
             }

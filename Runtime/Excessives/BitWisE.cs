@@ -50,19 +50,22 @@ namespace SOSXR.SeaShark.Excessives
 
         /// <summary>Unpacks a single byte into an array of eight booleans.</summary>
         /// <param name="binary">The byte to unpack.</param>
-        /// <returns>An array of eight booleans corresponding to the bits of the input byte, from least-significant to most-significant.</returns>
+        /// <returns>
+        ///     An array of eight booleans corresponding to the bits of the input byte, from most-significant to least-significant,
+        ///     the same order <see cref="BoolArrayToSingleBinaryByte" /> reads, so the two round-trip.
+        /// </returns>
         public static bool[] SingleBinaryByteToBool(byte binary)
         {
             return new[]
             {
-                (binary & 1) > 0,
-                (binary & 2) > 0,
-                (binary & 4) > 0,
-                (binary & 8) > 0,
-                (binary & 16) > 0,
-                (binary & 32) > 0,
+                (binary & 128) > 0,
                 (binary & 64) > 0,
-                (binary & 128) > 0
+                (binary & 32) > 0,
+                (binary & 16) > 0,
+                (binary & 8) > 0,
+                (binary & 4) > 0,
+                (binary & 2) > 0,
+                (binary & 1) > 0
             };
         }
 

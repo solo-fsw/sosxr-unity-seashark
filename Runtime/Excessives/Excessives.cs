@@ -927,9 +927,9 @@ namespace SOSXR.SeaShark.Excessives
 
 
     /// <summary>
-    ///     XOR encyption.
-    ///     NOTE: This is not a cryptographically secure method of encryption,
-    ///     use at own risk!
+    ///     XOR obfuscation with a repeating key.
+    ///     WARNING: This is not encryption. Anyone with a few bytes of known plain text can recover the key.
+    ///     Do not use it for passwords, personal data or anything else that must stay secret; use System.Security.Cryptography (for example AES) instead.
     /// </summary>
     public static class CryptoSymmetric
     {
@@ -959,6 +959,16 @@ namespace SOSXR.SeaShark.Excessives
 
         private static byte[] EqualizeKey(byte[] data, byte[] key)
         {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (key == null || key.LongLength == 0)
+            {
+                throw new ArgumentException("The key must contain at least one byte.", nameof(key));
+            }
+
             //We need to repeat the key
             if (key.LongLength < data.LongLength)
             {
@@ -1333,7 +1343,8 @@ namespace SOSXR.SeaShark.Excessives
         /// <param name="message">The message to write.</param>
         public static void Write<T>(this T message)
         {
-            Console.Write(message);
+            // System.Console output is not shown in Unity; log to the Unity Console instead.
+            UnityEngine.Debug.Log(message);
         }
 
 
@@ -1344,7 +1355,7 @@ namespace SOSXR.SeaShark.Excessives
         /// <param name="message">The message to write.</param>
         public static void WriteLine<T>(this T message)
         {
-            Console.WriteLine(message);
+            UnityEngine.Debug.Log(message);
         }
 
         #endregion
@@ -1394,7 +1405,7 @@ namespace SOSXR.SeaShark.Excessives
             this IEnumerable<TSource> enumerable,
             string splitter = ", ")
         {
-            Console.Write(ToElementsString(enumerable, splitter));
+            UnityEngine.Debug.Log(ToElementsString(enumerable, splitter));
         }
 
 

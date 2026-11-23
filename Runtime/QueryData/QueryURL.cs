@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
@@ -32,9 +33,16 @@ namespace SOSXR.SeaShark
             }
 
             // Return early if no parameters requested
-            if (paramNames.Length == 0)
+            if (paramNames == null || paramNames.Length == 0)
             {
                 Debug.LogWarning("ParamNames are null or empty.");
+
+                return baseURL;
+            }
+
+            if (source == null)
+            {
+                Debug.LogError("Source object is null. Cannot read query parameters.");
 
                 return baseURL;
             }
@@ -60,7 +68,8 @@ namespace SOSXR.SeaShark
                 // Add to query string if value exists, URI-encoding the string representation
                 if (value != null)
                 {
-                    queryParams.Add($"{paramName}={Uri.EscapeDataString(value.ToString())}");
+                    // Invariant culture: a float must be written as 1.5, also on machines with a decimal comma.
+                    queryParams.Add($"{paramName}={Uri.EscapeDataString(Convert.ToString(value, CultureInfo.InvariantCulture))}");
                 }
                 else
                 {
@@ -69,9 +78,24 @@ namespace SOSXR.SeaShark
             }
 
             // Construct the final query string, appending parameters only if any were found
-            var queryString = queryParams.Count > 0 ? $"{baseURL}?{string.Join("&", queryParams)}" : baseURL;
+            var queryString = queryParams.Count > 0 ? baseURL + QuerySeparator(baseURL) + string.Join("&", queryParams) : baseURL;
 
             return queryString;
+        }
+
+
+        /// <summary>
+        ///     Returns the text to put between the base URL and the new parameters: "?" when the URL has no query yet,
+        ///     "&amp;" when it already has one, and nothing when it already ends with "?" or "&amp;".
+        /// </summary>
+        internal static string QuerySeparator(string baseURL)
+        {
+            if (baseURL.EndsWith("?", StringComparison.Ordinal) || baseURL.EndsWith("&", StringComparison.Ordinal))
+            {
+                return string.Empty;
+            }
+
+            return baseURL.IndexOf('?') >= 0 ? "&" : "?";
         }
 
 

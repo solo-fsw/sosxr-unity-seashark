@@ -16,7 +16,7 @@ namespace SOSXR.SeaShark
 
         private void Awake()
         {
-            _sources = FindObjectsByType<AudioSource>(FindObjectsInactive.Exclude);
+            _sources = SceneObjects.FindAll<AudioSource>(FindObjectsInactive.Exclude);
         }
 
 
@@ -44,7 +44,11 @@ namespace SOSXR.SeaShark
 
             foreach (var audioSource in _sources)
             {
-                audioSource.pitch = timeScale;
+                // Sources found in Awake may have been destroyed since.
+                if (audioSource != null)
+                {
+                    audioSource.pitch = timeScale;
+                }
             }
         }
     }

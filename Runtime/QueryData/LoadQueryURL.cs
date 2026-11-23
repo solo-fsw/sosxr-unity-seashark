@@ -15,6 +15,8 @@ namespace SOSXR.SeaShark
         [SerializeField] private Object m_webView;
         [Tooltip("Object (e.g. ScriptableObject) implementing IHaveQueryData.")]
         [SerializeField] private Object m_configData;
+        [Tooltip("How long to wait for the WebView to report IsReady before giving up. 0 waits forever.")]
+        [SerializeField] [Min(0f)] private float m_readyTimeout = 30f;
 
         private Coroutine _coroutine;
 
@@ -87,11 +89,26 @@ namespace SOSXR.SeaShark
                 yield break;
             }
 
+            var waited = 0f;
+            var wait = new WaitForSecondsRealtime(delay);
+
+            if (!WebView.IsReady)
+            {
+                Debug.Log("WebView is not ready yet. Waiting for it before loading the URL.", this);
+            }
+
             while (!WebView.IsReady)
             {
-                Debug.LogWarning("WebView is not ready yet. Waiting for " + delay + " seconds before checking again");
+                if (m_readyTimeout > 0f && waited >= m_readyTimeout)
+                {
+                    Debug.LogError($"WebView was not ready after {m_readyTimeout} seconds. The URL is not loaded.", this);
+                    _coroutine = null;
 
-                yield return new WaitForSeconds(delay);
+                    yield break;
+                }
+
+                yield return wait;
+                waited += delay;
             }
 
             if (ConfigData == null || string.IsNullOrEmpty(ConfigData.QueryStringURL))

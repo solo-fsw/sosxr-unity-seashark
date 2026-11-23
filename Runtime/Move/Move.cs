@@ -230,7 +230,7 @@ namespace SOSXR.SeaShark
                 return;
             }
 
-            transform.position = Vector3.Lerp(transform.position, m_target.transform.position, m_velocity * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, m_target.transform.position, SmoothingFactor(m_velocity, Time.deltaTime));
         }
 
 
@@ -360,8 +360,14 @@ namespace SOSXR.SeaShark
         /// </summary>
         public void SmoothBounceBackAndForth()
         {
+            // With both points the same (both zero by default) there is nothing to bounce between: leave the object where it is.
+            if (m_bounceStartPoint == m_bounceEndPoint)
+            {
+                return;
+            }
+
             var destination = m_bouncingTowardsEnd ? m_bounceEndPoint : m_bounceStartPoint;
-            transform.position = Vector3.Lerp(transform.position, destination, m_bounceSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, destination, SmoothingFactor(m_bounceSpeed, Time.deltaTime));
 
             // Only flip once the point we are heading to is reached, otherwise we toggle every frame near either end.
             if (Vector3.Distance(transform.position, destination) < 0.1f)
@@ -428,6 +434,17 @@ namespace SOSXR.SeaShark
             }
 
             return position;
+        }
+
+
+        /// <summary>
+        ///     Frame-rate independent interpolation factor for Lerp-based smoothing: 1 - e^(-speed * deltaTime).
+        ///     It covers the same fraction of the remaining distance per second at any frame rate,
+        ///     unlike speed * deltaTime, which also overshoots when it exceeds 1.
+        /// </summary>
+        public static float SmoothingFactor(float speed, float deltaTime)
+        {
+            return 1f - Mathf.Exp(-Mathf.Max(0f, speed) * Mathf.Max(0f, deltaTime));
         }
 
 

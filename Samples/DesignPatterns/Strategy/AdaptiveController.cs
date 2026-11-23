@@ -35,22 +35,22 @@ namespace SOSXR.SeaShark
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (SampleKeyboard.GetKeyDown(KeyCode.Q))
             {
                 CycleStrategy(-1);
             }
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (SampleKeyboard.GetKeyDown(KeyCode.E))
             {
                 CycleStrategy(1);
             }
 
-            if (Input.GetKeyDown(KeyCode.Y))
+            if (SampleKeyboard.GetKeyDown(KeyCode.Y))
             {
                 RecordResponse(true);
             }
 
-            if (Input.GetKeyDown(KeyCode.N))
+            if (SampleKeyboard.GetKeyDown(KeyCode.N))
             {
                 RecordResponse(false);
             }

@@ -44,6 +44,18 @@ namespace SOSXR.SeaShark
 
         private void OnValidate()
         {
+            ResolveReferences(false);
+        }
+
+
+        private void Awake()
+        {
+            ResolveReferences(false); // OnValidate does not run in builds or after AddComponent at runtime
+        }
+
+
+        private bool ResolveReferences(bool warnIfMissing)
+        {
             if (_xrOrigin == null)
             {
                 _xrOrigin = GetComponent<XROrigin>();
@@ -53,6 +65,18 @@ namespace SOSXR.SeaShark
             {
                 _xrCamera = GetComponentInChildren<Camera>();
             }
+
+            if (_xrOrigin != null && _xrCamera != null)
+            {
+                return true;
+            }
+
+            if (warnIfMissing)
+            {
+                Debug.LogWarning($"{nameof(ResetXROrigin)} on {name} needs an XROrigin and a Camera in its children.", this);
+            }
+
+            return false;
         }
 
 
@@ -68,6 +92,11 @@ namespace SOSXR.SeaShark
         [Button]
         public void ResetRotation()
         {
+            if (!ResolveReferences(true))
+            {
+                return;
+            }
+
             var rotationAngleY = _resetTransform.eulerAngles.y - _xrCamera.transform.eulerAngles.y;
 
             _xrOrigin.transform.Rotate(0, rotationAngleY, 0);
@@ -77,6 +106,11 @@ namespace SOSXR.SeaShark
         [Button]
         public void ResetPosition()
         {
+            if (!ResolveReferences(true))
+            {
+                return;
+            }
+
             var distanceDiff = _resetTransform.position - _xrCamera.transform.position;
 
             if (!m_setHeight)

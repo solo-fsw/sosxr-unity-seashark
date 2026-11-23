@@ -17,6 +17,18 @@ namespace SOSXR.SeaShark
 
         private void OnValidate()
         {
+            ResolveLineRenderer();
+        }
+
+
+        private void Awake()
+        {
+            ResolveLineRenderer(); // OnValidate does not run in builds or after AddComponent at runtime
+        }
+
+
+        private void ResolveLineRenderer()
+        {
             if (_lineRenderer == null)
             {
                 _lineRenderer = GetComponent<LineRenderer>();
@@ -38,7 +50,10 @@ namespace SOSXR.SeaShark
 
             for (var i = 0; i < m_points.Count; i++)
             {
-                _lineRenderer.SetPosition(i, m_points[i].position);
+                if (m_points[i] != null)
+                {
+                    _lineRenderer.SetPosition(i, m_points[i].position);
+                }
             }
         }
     }

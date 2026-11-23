@@ -304,6 +304,16 @@ These unreleased changes break existing code or scenes:
 - `LoadQueryURL` stores its `m_webView` and `m_configData` fields as `Object` references. Reassign both in the Inspector after upgrading.
 - The sample `QueryURL` class is now `SampleQueryURL`.
 
+### 0.8.1
+
+These changes in 0.8.1 can affect existing code or scenes:
+
+- `ExtensionMethods.DestroyChildren(Transform)` is removed. It had the same signature as `TransformExtensions.DestroyChildren`, so `transform.DestroyChildren()` did not compile. Calls now use `TransformExtensions.DestroyChildren`.
+- `FileHelpers.GetHomePath`, `GetMoviesPath`, `GetArborXRPath` and `GetDocumentsPath` return an empty string (and log a warning) on unsupported platforms. They used to return an error sentence as the path. `GetArborXRPath` now also works on Windows.
+- `CurrentDevice` has a `Changed` event and a `Set(Device)` method. `DeviceChecker` uses `Set`, so `QualityLevel` and `DeviceDependentUnityEvents` react when the device is known. Code that sets `CurrentDevice.Current` directly does not raise the event.
+- `ExtensionsE.Write` and `WriteLine` log to the Unity Console instead of `System.Console`.
+- `CryptoSymmetric` throws `ArgumentException` for an empty key. It is XOR obfuscation, not encryption.
+
 See [CHANGELOG.md](CHANGELOG.md) for the full list.
 
 ## Contributing

@@ -50,25 +50,25 @@ namespace SOSXR.SeaShark
         /// </summary>
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.A))
+            if (SampleKeyboard.GetKeyDown(KeyCode.A))
             {
                 AddTrial();
             }
 
-            if (Input.GetKeyDown(KeyCode.D))
+            if (SampleKeyboard.GetKeyDown(KeyCode.D))
             {
                 DeleteSelectedTrial();
             }
 
-            bool controlPressed = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+            bool controlPressed = SampleKeyboard.GetKey(KeyCode.LeftControl) || SampleKeyboard.GetKey(KeyCode.RightControl);
 
-            if (controlPressed && Input.GetKeyDown(KeyCode.Z))
+            if (controlPressed && SampleKeyboard.GetKeyDown(KeyCode.Z))
             {
                 _commandStack.Undo();
                 Debug.Log("Protocol edit undo requested.");
             }
 
-            if (controlPressed && Input.GetKeyDown(KeyCode.Y))
+            if (controlPressed && SampleKeyboard.GetKeyDown(KeyCode.Y))
             {
                 _commandStack.Redo();
                 Debug.Log("Protocol edit redo requested.");

@@ -178,6 +178,13 @@ namespace SOSXR.SeaShark
             var currentDataString = medium.GetDataString();
             medium.DataString = currentDataString;
 
+            // Also update the stored entry: it may be a different Medium instance than the one being published.
+            if (mediumInfo.Medium != null && mediumInfo.Medium != medium)
+            {
+                mediumInfo.Medium.TypeName = currentTypeName;
+                mediumInfo.Medium.DataString = currentDataString;
+            }
+
             //mediumInfo.DataList.Insert(0, currentDataString); // This makes a tonnnnn of data
         }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Events;
@@ -371,9 +372,7 @@ namespace SOSXR.SeaShark
         /// <param name="gameObjects"></param>
         public static void SortByName(this List<GameObject> gameObjects)
         {
-            gameObjects.Sort(
-                (x, y) => string.Compare(x?.name, y?.name, StringComparison.OrdinalIgnoreCase)
-            );
+            gameObjects.Sort(CompareByName);
         }
 
         /// <summary>
@@ -382,10 +381,7 @@ namespace SOSXR.SeaShark
         /// <param name="gameObjects"></param>
         public static void SortByName(this GameObject[] gameObjects)
         {
-            Array.Sort(
-                gameObjects,
-                (x, y) => string.Compare(x?.name, y?.name, StringComparison.OrdinalIgnoreCase)
-            );
+            Array.Sort(gameObjects, CompareByName);
         }
 
         /// <summary>
@@ -394,9 +390,7 @@ namespace SOSXR.SeaShark
         /// <param name="transforms"></param>
         public static void SortByName(this List<Transform> transforms)
         {
-            transforms.Sort(
-                (x, y) => string.Compare(x?.name, y?.name, StringComparison.OrdinalIgnoreCase)
-            );
+            transforms.Sort(CompareByName);
         }
 
         /// <summary>
@@ -405,10 +399,20 @@ namespace SOSXR.SeaShark
         /// <param name="transforms"></param>
         public static void SortByName(this Transform[] transforms)
         {
-            Array.Sort(
-                transforms,
-                (x, y) => string.Compare(x?.name, y?.name, StringComparison.OrdinalIgnoreCase)
-            );
+            Array.Sort(transforms, CompareByName);
+        }
+
+
+        /// <summary>
+        ///     Compares two objects by name, ignoring case. Null and destroyed objects sort first.
+        ///     Uses Unity's null check, so a destroyed object does not throw.
+        /// </summary>
+        private static int CompareByName(Object x, Object y)
+        {
+            var nameX = x != null ? x.name : null;
+            var nameY = y != null ? y.name : null;
+
+            return string.Compare(nameX, nameY, StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -490,19 +494,12 @@ namespace SOSXR.SeaShark
         /// <param name="parent">Parent.</param>
         public static Transform[] GetChildrenWithoutParent(this Transform parent)
         {
-            var children = parent.GetComponentsInChildren<Transform>();
+            // Iterate the direct children, so inactive children are included and the array has no empty slots.
             var firstChildren = new Transform[parent.childCount];
-            var index = 0;
 
-            foreach (var child in children)
+            for (var i = 0; i < parent.childCount; i++)
             {
-                if (child.parent != parent)
-                {
-                    continue;
-                }
-
-                firstChildren[index] = child;
-                index++;
+                firstChildren[i] = parent.GetChild(i);
             }
 
             return firstChildren;
@@ -1077,18 +1074,6 @@ namespace SOSXR.SeaShark
         }
 
         /// <summary>
-        ///     Runs through children of given Transform, and destroys all;
-        /// </summary>
-        /// <param name="t"></param>
-        public static void DestroyChildren(this Transform t)
-        {
-            foreach (Transform child in t)
-            {
-                Object.Destroy(child.gameObject);
-            }
-        }
-
-        /// <summary>
         ///     Runs through children of given Transform, and destroys all immediately
         /// </summary>
         /// <param name="t"></param>
@@ -1212,6 +1197,12 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static float RoundCorrectly(this float originalValue, int decimals)
         {
+            // NaN, infinity and values outside the decimal range cannot be converted: return them unchanged.
+            if (!CanRoundAsDecimal(originalValue))
+            {
+                return originalValue;
+            }
+
             // Standard Rounding gave problems when rounding values like 0.5 / 1.12125 / 2.45 etc. to 1 / 1.1213 / 2.5 respectively
             // Value needs to be cast to decimal, and MidpointRounding needs to be set to AwayFromZero to fix that issue:
             var originalAsDecimal = (decimal)originalValue; // Float needs to be cast to decimal. Does not work properly when using double.
@@ -1230,7 +1221,19 @@ namespace SOSXR.SeaShark
         /// <returns></returns>
         public static double RoundCorrectly(this double originalValue, int decimals)
         {
-            return RoundCorrectly((float)originalValue, decimals);
+            if (!CanRoundAsDecimal(originalValue))
+            {
+                return originalValue;
+            }
+
+            return (double) Math.Round((decimal) originalValue, decimals, MidpointRounding.AwayFromZero);
+        }
+
+
+        private static bool CanRoundAsDecimal(double value)
+        {
+            // decimal holds about 7.9e28; stay well inside that range.
+            return !double.IsNaN(value) && !double.IsInfinity(value) && Math.Abs(value) < 7.9e27;
         }
 
         /// <summary>
@@ -1305,61 +1308,32 @@ namespace SOSXR.SeaShark
             for (var i = 0; i < unityEvent.GetPersistentEventCount(); i++)
             {
                 var target = unityEvent.GetPersistentTarget(i);
-                var targetType = target.GetType();
                 var methodName = unityEvent.GetPersistentMethodName(i);
-                var methodInfo = targetType.GetMethod(methodName);
 
-                if (methodInfo != null)
+                if (target == null || string.IsNullOrEmpty(methodName))
                 {
-                    var methodParameters = methodInfo.GetParameters();
-                    UnityAction method = null;
+                    Debug.LogWarning($"GetPersistentCallersFromUnityEvent: listener {i} has no target or method. Skipped.");
 
-                    if (methodParameters.Length == 0)
-                    {
-                        method = (UnityAction)
-                            methodInfo.CreateDelegate(typeof(UnityAction), target);
-                    }
-                    else if (methodParameters.Length > 0)
-                    {
-                        Debug.LogWarning(
-                            "GetPersistentCallersFromUnityEvent"
-                                + "Cannot handle multiple parameters. Make sure to add"
-                                + methodName
-                                + "from"
-                                + target.name
-                                + "manually to the new UnityEvent"
-                        );
-
-                        continue;
-                    }
-
-                    if (method == null)
-                    {
-                        Debug.LogWarning(
-                            "GetPersistentCallersFromUnityEvent"
-                                + "Could not create delegate for"
-                                + methodName
-                                + "on"
-                                + target
-                                + "with Type"
-                                + targetType
-                        );
-
-                        continue;
-                    }
-
-                    Debug.Log(
-                        "GetPersistentCallersFromUnityEvent"
-                            + "Found"
-                            + methodName
-                            + "for"
-                            + target
-                            + "with Type"
-                            + targetType
-                    );
-
-                    persistentCallers.Add(method);
+                    continue;
                 }
+
+                var targetType = target.GetType();
+
+                // Look up the parameterless overload only: GetMethod(name) throws when the method is overloaded.
+                var methodInfo = targetType.GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, Type.EmptyTypes, null);
+
+                if (methodInfo == null || methodInfo.ReturnType != typeof(void))
+                {
+                    Debug.LogWarning($"GetPersistentCallersFromUnityEvent: only parameterless void methods are supported. Add {methodName} from {target.name} to the new UnityEvent by hand.");
+
+                    continue;
+                }
+
+                var method = (UnityAction) methodInfo.CreateDelegate(typeof(UnityAction), target);
+
+                Debug.Log($"GetPersistentCallersFromUnityEvent: found {methodName} on {target.name} ({targetType.Name}).");
+
+                persistentCallers.Add(method);
             }
 
             return persistentCallers;
@@ -1385,7 +1359,9 @@ namespace SOSXR.SeaShark
         public static bool IsLastChild(this Transform trans)
         {
             var siblingIndex = trans.GetSiblingIndex();
-            var maxIndex = trans.parent.childCount - 1;
+
+            // A root object's siblings are the scene's root objects.
+            var maxIndex = trans.parent != null ? trans.parent.childCount - 1 : trans.gameObject.scene.IsValid() ? trans.gameObject.scene.rootCount - 1 : siblingIndex;
 
             return siblingIndex == maxIndex;
         }
@@ -1480,7 +1456,8 @@ namespace SOSXR.SeaShark
             tempSource.clip = clip;
             tempSource.Play();
 
-            var destroyDelay = clip.length + 1f; // +1 sec for safety.
+            // Playback time depends on pitch. +1 sec for safety.
+            var destroyDelay = clip.length / Mathf.Max(Mathf.Abs(tempSource.pitch), 0.01f) + 1f;
             Object.Destroy(tempSource, destroyDelay);
         }
 
@@ -1535,6 +1512,7 @@ namespace SOSXR.SeaShark
         ///     E.g. 10.GetRemainder(3) returns 1
         ///     E.g. 10.GetRemainder(0) returns 0
         ///     E.g. 5.GetRemainder(6) returns 5
+        ///     E.g. -7.GetRemainder(3) returns -1 (the sign follows the dividend, as with %)
         /// </summary>
         /// <param name="dividend"></param>
         /// <param name="divisor"></param>
@@ -1548,18 +1526,11 @@ namespace SOSXR.SeaShark
                 return 0;
             }
 
-            if (divisor > dividend)
-            {
-                Debug.Log("GetRemainder " + " A larger divisor will always return the dividend");
-
-                return dividend;
-            }
-
             return dividend % divisor;
         }
 
         /// <summary>
-        ///     Add item to list if unique: if it is not already in list, please add.
+        ///     Add item to list if unique: if it is not already in list, please add. A null item is added at most once.
         /// </summary>
         /// <param name="list"></param>
         /// <param name="item"></param>
@@ -1568,13 +1539,6 @@ namespace SOSXR.SeaShark
         {
             if (list == null)
             {
-                return;
-            }
-
-            if (item == null)
-            {
-                list.Add(default);
-
                 return;
             }
 
@@ -1599,8 +1563,6 @@ namespace SOSXR.SeaShark
 
             if (items == null)
             {
-                list.AddIfUnique(default);
-
                 return;
             }
 

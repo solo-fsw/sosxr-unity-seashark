@@ -27,36 +27,36 @@ namespace SOSXR.SeaShark
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (SampleKeyboard.GetKeyDown(KeyCode.Alpha1))
             {
                 _currentStimulus = new BackwardMaskDecorator(_currentStimulus, 0.05f);
                 LogStimulusState();
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (SampleKeyboard.GetKeyDown(KeyCode.Alpha2))
             {
                 _currentStimulus = new NoiseOverlayDecorator(_currentStimulus, 0.85f);
                 LogStimulusState();
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha3))
+            if (SampleKeyboard.GetKeyDown(KeyCode.Alpha3))
             {
                 _currentStimulus = new TimingJitterDecorator(_currentStimulus, 0.01f, 0.05f);
                 LogStimulusState();
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha4))
+            if (SampleKeyboard.GetKeyDown(KeyCode.Alpha4))
             {
                 _currentStimulus = new ContrastFilterDecorator(_currentStimulus, 1.1f);
                 LogStimulusState();
             }
 
-            if (Input.GetKeyDown(KeyCode.R))
+            if (SampleKeyboard.GetKeyDown(KeyCode.R))
             {
                 ResetStimulus();
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (SampleKeyboard.GetKeyDown(KeyCode.Space))
             {
                 _currentStimulus.Present(transform);
             }

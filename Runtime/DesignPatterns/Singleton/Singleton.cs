@@ -18,7 +18,8 @@ namespace SOSXR.SeaShark
         {
             get
             {
-                if (instance == null)
+                // During shutdown, don't create a new GameObject that Unity would leave behind.
+                if (instance == null && !SingletonShutdown.IsQuitting)
                 {
                     instance = FindAnyObjectByType<T>();
 

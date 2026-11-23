@@ -37,8 +37,7 @@ namespace SOSXR.SeaShark.EditorScripts
 
         private void OnUndo()
         {
-            var painters = FindObjectsByType<GeometryPainter>(
-                FindObjectsInactive.Exclude);
+            var painters = SceneObjects.FindAll<GeometryPainter>(FindObjectsInactive.Exclude);
 
             for (var i = 0; i < painters.Length; ++i)
             {

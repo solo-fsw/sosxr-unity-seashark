@@ -16,7 +16,7 @@ namespace SOSXR.SeaShark.Statics
         ///     - Android (Runtime, not Editor): External storage root
         ///     - macOS (Editor & Standalone): "/Users/{username}"
         ///     - Windows (Editor & Standalone): "C:\\Users\\{username}"
-        ///     - Other platforms: Unsupported message
+        ///     - Other platforms: an empty string, and a warning is logged
         /// </summary>
         public static string GetHomePath()
         {
@@ -31,7 +31,7 @@ namespace SOSXR.SeaShark.Statics
             #elif UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
             path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile));
             #else
-            path = "Home directory path is not supported on this platform.";
+            path = Unsupported("Home");
             #endif
 
             return path;
@@ -43,7 +43,7 @@ namespace SOSXR.SeaShark.Statics
         ///     - Android: "/storage/emulated/0/Movies"
         ///     - macOS: "/Users/{username}/Movies"
         ///     - Windows: "C:\\Users\\{username}\\Videos"
-        ///     - Other platforms: Unsupported message
+        ///     - Other platforms: an empty string, and a warning is logged
         /// </summary>
         public static string GetMoviesPath()
         {
@@ -58,7 +58,7 @@ namespace SOSXR.SeaShark.Statics
             #elif UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
         path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyVideos));
             #else
-        path = "Movies directory path is not supported on this platform.";
+        path = Unsupported("Movies");
             #endif
 
             return path;
@@ -69,7 +69,8 @@ namespace SOSXR.SeaShark.Statics
         ///     Returns the ArborXR videos directory path based on the platform.
         ///     - Android: Attempting to access "/storage/emulated/0/ArborXR/videos"
         ///     - macOS: "/Users/{username}/ArborXR/videos"
-        ///     - Other platforms: Unsupported message
+        ///     - Windows: "C:\\Users\\{username}\\ArborXR\\videos"
+        ///     - Other platforms: an empty string, and a warning is logged
         /// </summary>
         public static string GetArborXRPath()
         {
@@ -82,8 +83,10 @@ namespace SOSXR.SeaShark.Statics
         path = dir.Call<string>("getAbsolutePath");
             #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
             path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), arborVideoFolder);
+            #elif UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+            path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "ArborXR", "videos");
             #else
-        path = "ArborXR directory path is not supported on this platform.";
+        path = Unsupported("ArborXR");
             #endif
 
             return path;
@@ -95,7 +98,7 @@ namespace SOSXR.SeaShark.Statics
         ///     - Android: "/storage/emulated/0/Documents"
         ///     - macOS: "/Users/{username}/Documents"
         ///     - Windows: "C:\\Users\\{username}\\Documents"
-        ///     - Other platforms: Unsupported message
+        ///     - Other platforms: an empty string, and a warning is logged
         /// </summary>
         public static string GetDocumentsPath()
         {
@@ -110,10 +113,19 @@ namespace SOSXR.SeaShark.Statics
             #elif UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
         path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments));
             #else
-        path = "Documents directory path is not supported on this platform.";
+        path = Unsupported("Documents");
             #endif
 
             return path;
+        }
+
+
+        /// <summary>Logs that the folder is not available on this platform, and returns an empty path.</summary>
+        private static string Unsupported(string folderName)
+        {
+            Debug.LogWarning($"{folderName} directory path is not supported on this platform. Returning an empty path.");
+
+            return string.Empty;
         }
 
 

@@ -14,6 +14,7 @@ namespace SOSXR.SeaShark
 
         public static WaitForEndOfFrame EndOfFrame { get; } = new();
 
+        private const int MaxCachedDurations = 100;
         private static readonly Dictionary<float, WaitForSeconds> WaitForSecondsDict = new(100, new FloatComparer());
 
 
@@ -25,13 +26,20 @@ namespace SOSXR.SeaShark
         /// <returns>A cached WaitForSeconds instance or null when too short for a frame-based wait.</returns>
         public static WaitForSeconds Seconds(float seconds)
         {
-            if (seconds < 1f / Application.targetFrameRate)
+            // targetFrameRate is -1 (platform default) or 0 when not set: only skip waits that are shorter than one frame at a known rate.
+            if (seconds <= 0f || (Application.targetFrameRate > 0 && seconds < 1f / Application.targetFrameRate))
             {
                 return null;
             }
 
             if (!WaitForSecondsDict.TryGetValue(seconds, out var forSeconds))
             {
+                // Many different durations would grow the cache forever: start over when it gets large.
+                if (WaitForSecondsDict.Count >= MaxCachedDurations)
+                {
+                    WaitForSecondsDict.Clear();
+                }
+
                 forSeconds = new WaitForSeconds(seconds);
                 WaitForSecondsDict[seconds] = forSeconds;
             }

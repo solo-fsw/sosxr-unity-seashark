@@ -19,7 +19,7 @@ namespace SOSXR.SeaShark
         [ContextMenu(nameof(FindAllColliders))]
         protected virtual void FindAllColliders()
         {
-            var allColliders = FindObjectsByType<Collider>(FindObjectsInactive.Exclude);
+            var allColliders = SceneObjects.FindAll<Collider>(FindObjectsInactive.Exclude);
 
             m_filteredColliders = FilterCollidersByType(allColliders, m_colliderType);
         }

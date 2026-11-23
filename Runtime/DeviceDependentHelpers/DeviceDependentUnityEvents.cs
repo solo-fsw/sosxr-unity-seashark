@@ -22,14 +22,11 @@ namespace SOSXR.SeaShark
         [Header("Events")] [SerializeField] private UnityEvent m_eventIfOnTargetDevice;
         [SerializeField] private UnityEvent m_eventIfNotOnTargetDevice;
 
+        private Device _handledDevice = Device.None;
+
 
         private void OnValidate()
         {
-            if (m_runOnStart && m_subscribeToEvents)
-            {
-                Debug.LogWarning("Are you sure we want to run this on Start AND subscribe to events?");
-            }
-
             if (!m_runOnStart && !m_subscribeToEvents)
             {
                 Debug.LogWarning("Since neither bool is set, the UnityEvents will not be fired. Is this intentional?");
@@ -48,21 +45,46 @@ namespace SOSXR.SeaShark
 
         private void OnEnable()
         {
-            if (m_subscribeToEvents)
+            if (m_subscribeToEvents && m_currentDevice != null)
             {
-                Debug.LogWarning("Subscribe to Events from here.");
+                m_currentDevice.Changed -= OnDeviceChanged;
+                m_currentDevice.Changed += OnDeviceChanged;
+            }
+        }
+
+
+        private void OnDeviceChanged(CurrentDevice currentDevice)
+        {
+            if (currentDevice.Current != Device.None)
+            {
+                SendUnityEvents();
             }
         }
 
 
         private void SendUnityEvents()
         {
+            if (m_currentDevice == null)
+            {
+                Debug.LogError($"{nameof(DeviceDependentUnityEvents)} on {name} has no {nameof(CurrentDevice)} assigned.", this);
+
+                return;
+            }
+
             if (m_currentDevice.Current == Device.None)
             {
                 Debug.LogError("CurrentDevice has not yet been set.");
 
                 return;
             }
+
+            // Running on Start and on the Changed event may both report the same device: fire once per device.
+            if (m_currentDevice.Current == _handledDevice)
+            {
+                return;
+            }
+
+            _handledDevice = m_currentDevice.Current;
 
             if (m_currentDevice.Current == m_targetDevice)
             {
@@ -79,9 +101,9 @@ namespace SOSXR.SeaShark
 
         private void OnDisable()
         {
-            if (m_subscribeToEvents)
+            if (m_currentDevice != null)
             {
-                Debug.LogWarning("UNSubscribe to Events from here.");
+                m_currentDevice.Changed -= OnDeviceChanged;
             }
         }
     }

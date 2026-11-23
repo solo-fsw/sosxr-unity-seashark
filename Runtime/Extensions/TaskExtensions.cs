@@ -58,7 +58,7 @@ namespace SOSXR.SeaShark
             {
                 if (onException == null)
                 {
-                    throw exception;
+                    throw; // Keeps the original stack trace
                 }
 
                 onException(exception);

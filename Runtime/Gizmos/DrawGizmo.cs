@@ -100,23 +100,40 @@ namespace SOSXR.SeaShark
 
         private void DrawSphere()
         {
-            if (!IsUniformScale(m_startTransform.localScale))
-            {
-                Debug.LogWarning("Non-uniform scale detected; sphere size may not render correctly.");
-            }
+            WarnIfNonUniformScale();
 
             Gizmos.DrawSphere(m_startTransform.position, m_size * m_startTransform.localScale.x);
         }
 
         private void DrawWireSphere()
         {
-            if (!IsUniformScale(m_startTransform.localScale))
-            {
-                Debug.LogWarning("Non-uniform scale detected; sphere size may not render correctly.");
-            }
+            WarnIfNonUniformScale();
 
             Gizmos.DrawWireSphere(m_startTransform.position, m_size * m_startTransform.localScale.x);
         }
+
+        private bool _warnedNonUniformScale;
+
+
+        /// <summary>OnDrawGizmos runs on every repaint: warn once, and again only after the scale was uniform in between.</summary>
+        private void WarnIfNonUniformScale()
+        {
+            if (IsUniformScale(m_startTransform.localScale))
+            {
+                _warnedNonUniformScale = false;
+
+                return;
+            }
+
+            if (_warnedNonUniformScale)
+            {
+                return;
+            }
+
+            _warnedNonUniformScale = true;
+            Debug.LogWarning($"Non-uniform scale on {name}; the sphere gizmo size may not render correctly.", this);
+        }
+
 
         private bool IsUniformScale(Vector3 scale) => Mathf.Approximately(scale.x, scale.y) && Mathf.Approximately(scale.y, scale.z);
 

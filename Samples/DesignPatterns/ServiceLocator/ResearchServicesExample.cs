@@ -60,7 +60,7 @@ namespace SOSXR.SeaShark
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (SampleKeyboard.GetKeyDown(KeyCode.Space))
             {
                 if (ServiceLocator.TryGet(out IAudioService audioService))
                 {
@@ -76,12 +76,12 @@ namespace SOSXR.SeaShark
                 saveService.SaveInt(SaveKey, responseCount + 1);
             }
 
-            if (Input.GetKeyDown(KeyCode.M))
+            if (SampleKeyboard.GetKeyDown(KeyCode.M))
             {
                 ToggleInstructionAudio();
             }
 
-            if (Input.GetKeyDown(KeyCode.L))
+            if (SampleKeyboard.GetKeyDown(KeyCode.L))
             {
                 int responseCount = ServiceLocator.Get<ISaveService>().LoadInt(SaveKey);
                 Debug.Log("Loaded response count: " + responseCount + ".", this);

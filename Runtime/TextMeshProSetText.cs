@@ -35,6 +35,9 @@ namespace SOSXR.SeaShark
 
             m_textMeshProUGUI.text = input.ToString();
 
+            // A clear scheduled by an earlier call must not hide this newer text.
+            CancelInvoke(nameof(ClearText));
+
             if (m_clearTextDelay > 0)
             {
                 var delaySec = m_clearTextDelay / (float) 1000;

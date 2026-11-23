@@ -32,7 +32,7 @@ namespace SOSXR.SeaShark
                 return;
             }
 
-            if (!Input.GetKey(KeyCode.Space))
+            if (!SampleKeyboard.GetKey(KeyCode.Space))
             {
                 return;
             }

@@ -21,7 +21,7 @@ namespace SOSXR.SeaShark
         [ContextMenu(nameof(FindAllAudioSourcesInScene))]
         public void FindAllAudioSourcesInScene()
         {
-            m_sources = FindObjectsByType<AudioSource>(FindObjectsInactive.Exclude).ToList();
+            m_sources = SceneObjects.FindAll<AudioSource>(FindObjectsInactive.Exclude).ToList();
         }
 
 

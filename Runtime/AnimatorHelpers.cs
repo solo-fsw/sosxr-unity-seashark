@@ -19,7 +19,18 @@ namespace SOSXR.SeaShark
 
         private void Start()
         {
-            m_animator.avatar = GetAvatar();
+            if (m_animator == null)
+            {
+                return;
+            }
+
+            var avatar = GetAvatar();
+
+            // Keep the Animator's current avatar until building one is implemented.
+            if (avatar != null)
+            {
+                m_animator.avatar = avatar;
+            }
         }
 
 
@@ -27,7 +38,7 @@ namespace SOSXR.SeaShark
         {
             // return HumanoidAvatarBuilder.Build(gameObject);
 
-            Debug.LogError("Currently not implemented. Needs Avaturn package.");
+            Debug.LogWarning("Building an avatar is not implemented yet (needs the Avaturn package). The Animator keeps its current avatar.", this);
 
             return null;
         }
